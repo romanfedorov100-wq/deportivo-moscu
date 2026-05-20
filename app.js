@@ -17,9 +17,23 @@
     return String(value);
   }
 
+  function escapeHtml(value) {
+    return String(value)
+      .replaceAll("&", "&amp;")
+      .replaceAll("<", "&lt;")
+      .replaceAll(">", "&gt;")
+      .replaceAll('"', "&quot;")
+      .replaceAll("'", "&#039;");
+  }
+
   function getPlayerNumber(player, index) {
     return safeText(
-      player.number || player.num || player.id || player.shirtNumber,
+      player.number ||
+        player.num ||
+        player.id ||
+        player.shirtNumber ||
+        player.shirt ||
+        index + 1,
       index + 1
     );
   }
@@ -27,9 +41,12 @@
   function getPlayerFirstName(player) {
     if (player.firstName) return player.firstName;
     if (player.firstname) return player.firstname;
-    if (player.name && !player.lastName && !player.lastname) return player.name;
+    if (player.first_name) return player.first_name;
+    if (player.name && !player.lastName && !player.lastname && !player.surname) {
+      return player.name;
+    }
 
-    const fullName = player.fullName || player.fullname || player.title || "";
+    const fullName = player.fullName || player.fullname || player.full_name || player.title || "";
     const parts = String(fullName).trim().split(/\s+/);
 
     if (parts.length > 1) {
@@ -42,9 +59,10 @@
   function getPlayerLastName(player) {
     if (player.lastName) return player.lastName;
     if (player.lastname) return player.lastname;
+    if (player.last_name) return player.last_name;
     if (player.surname) return player.surname;
 
-    const fullName = player.fullName || player.fullname || player.title || "";
+    const fullName = player.fullName || player.fullname || player.full_name || player.title || "";
     const parts = String(fullName).trim().split(/\s+/);
 
     if (parts.length > 1) {
@@ -75,14 +93,22 @@
 
   function getPlayerPosition(player) {
     return safeText(
-      player.position || player.role || player амплуа || player.pos,
+      player.position ||
+        player.role ||
+        player.pos ||
+        player.amplua ||
+        player.amp ||
+        player.type,
       "Игрок"
     );
   }
 
   function getPlayerCountry(player) {
     return safeText(
-      player.country || player.nationality || player.nation,
+      player.country ||
+        player.nationality ||
+        player.nation ||
+        player.countryName,
       ""
     );
   }
@@ -94,6 +120,7 @@
       player.img ||
       player.avatar ||
       player.picture ||
+      player.playerPhoto ||
       ""
     );
   }
@@ -104,8 +131,54 @@
       player.flagUrl ||
       player.flagImage ||
       player.countryFlag ||
+      player.flagSrc ||
       ""
     );
+  }
+
+  function isFlagLikeImage(src, player) {
+    if (!src) return false;
+
+    const photo = String(src).toLowerCase();
+    const flag = String(getPlayerFlag(player) || "").toLowerCase();
+    const country = String(getPlayerCountry(player) || "").toLowerCase();
+
+    if (flag && photo === flag) return true;
+
+    const flagWords = [
+      "flag",
+      "flags",
+      "флаг",
+      "argentina",
+      "russia",
+      "rossiya",
+      "belarus",
+      "kazakhstan",
+      "ukraine",
+      "spain",
+      "brazil",
+      "france",
+      "portugal",
+      "italy",
+      "germany",
+      "аргентина",
+      "россия",
+      "беларусь",
+      "казахстан",
+      "украина"
+    ];
+
+    if (flagWords.some(function (word) {
+      return photo.includes(word);
+    })) {
+      return true;
+    }
+
+    if (country && photo.includes(country)) {
+      return true;
+    }
+
+    return false;
   }
 
   function countryToEmoji(country) {
@@ -139,21 +212,14 @@
     return map[value] || "";
   }
 
-  function escapeHtml(value) {
-    return String(value)
-      .replaceAll("&", "&amp;")
-      .replaceAll("<", "&lt;")
-      .replaceAll(">", "&gt;")
-      .replaceAll('"', "&quot;")
-      .replaceAll("'", "&#039;");
-  }
-
   function createPhotoHtml(player) {
     const photo = getPlayerPhoto(player);
-    const name = `${getPlayerFirstName(player)} ${getPlayerLastName(player)}`.trim();
+    const firstName = getPlayerFirstName(player);
+    const lastName = getPlayerLastName(player);
+    const name = `${firstName} ${lastName}`.trim();
 
-    if (photo) {
-      return `<img src="${escapeHtml(photo)}" alt="${escapeHtml(name || "Player")}" onerror="this.remove();">`;
+    if (photo && !isFlagLikeImage(photo, player)) {
+      return `<img src="${escapeHtml(photo)}" alt="${escapeHtml(name || "Player")}" onerror="this.remove(); this.parentElement.innerHTML='<div class=&quot;player-placeholder&quot;></div>';">`;
     }
 
     return `<div class="player-placeholder"></div>`;
