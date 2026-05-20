@@ -350,8 +350,8 @@
     }
 
     .player-photo {
-      height: 260px;
-      min-height: 260px;
+      height: 280px;
+      min-height: 280px;
       position: relative;
       background:
         radial-gradient(circle at 50% 22%, rgba(255,255,255,0.24), transparent 24%),
@@ -360,7 +360,16 @@
       flex-shrink: 0;
     }
 
-    .player-photo::before {
+    .real-player-photo {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      position: relative;
+      z-index: 1;
+    }
+
+    .player-photo.placeholder::before {
       content: "";
       position: absolute;
       left: 50%;
@@ -373,7 +382,7 @@
       box-shadow: 0 20px 54px rgba(0,0,0,0.32);
     }
 
-    .player-photo::after {
+    .player-photo.placeholder::after {
       content: "";
       position: absolute;
       left: 50%;
@@ -390,7 +399,7 @@
       position: absolute;
       top: 0;
       left: 18px;
-      z-index: 2;
+      z-index: 4;
       min-width: 58px;
       height: 58px;
       padding: 0 14px;
@@ -408,7 +417,7 @@
       position: absolute;
       top: 14px;
       right: 14px;
-      z-index: 3;
+      z-index: 4;
       width: 58px;
       height: 40px;
       border-radius: 12px;
@@ -502,24 +511,6 @@
       background: linear-gradient(to bottom, #f4d900 0 33.33%, #0033a0 33.33% 66.66%, #ef3340 66.66% 100%);
     }
 
-    .flag-uruguay {
-      background:
-        linear-gradient(to bottom,
-          #ffffff 0 11.11%,
-          #0038a8 11.11% 22.22%,
-          #ffffff 22.22% 33.33%,
-          #0038a8 33.33% 44.44%,
-          #ffffff 44.44% 55.55%,
-          #0038a8 55.55% 66.66%,
-          #ffffff 66.66% 77.77%,
-          #0038a8 77.77% 88.88%,
-          #ffffff 88.88% 100%);
-    }
-
-    .flag-colombia {
-      background: linear-gradient(to bottom, #fcd116 0 50%, #003893 50% 75%, #ce1126 75% 100%);
-    }
-
     .flag-unknown {
       background: linear-gradient(135deg, #eeeeee, #cccccc);
     }
@@ -608,7 +599,7 @@
       position: absolute;
       top: 18px;
       right: 18px;
-      z-index: 3;
+      z-index: 5;
       width: 44px;
       height: 44px;
       border: 0;
@@ -630,9 +621,10 @@
       background:
         radial-gradient(circle at 50% 18%, rgba(255,255,255,0.18), transparent 28%),
         linear-gradient(145deg, #0b0b0b, #008c3a);
+      overflow: hidden;
     }
 
-    .modal-player-photo::before {
+    .modal-player-photo.placeholder::before {
       content: "";
       position: absolute;
       left: 50%;
@@ -644,7 +636,7 @@
       background: linear-gradient(180deg, #eeeeee 0%, #dddddd 24%, #111111 24%, #080808 100%);
     }
 
-    .modal-player-photo::after {
+    .modal-player-photo.placeholder::after {
       content: "";
       position: absolute;
       left: 50%;
@@ -654,6 +646,14 @@
       height: 130px;
       border-radius: 50%;
       background: linear-gradient(145deg, #d9b18d, #8b6046);
+    }
+
+    .modal-real-photo {
+      width: 100%;
+      height: 100%;
+      min-height: 680px;
+      object-fit: cover;
+      object-position: center top;
     }
 
     .modal-player-info {
@@ -802,11 +802,11 @@
         grid-template-columns: repeat(2, 1fr);
       }
 
-      .player-card {
-        min-height: 500px;
+      .modal-player-photo {
+        min-height: 420px;
       }
 
-      .modal-player-photo {
+      .modal-real-photo {
         min-height: 420px;
       }
     }
@@ -954,7 +954,7 @@
       <button class="modal-close-btn" id="modalCloseBtn">×</button>
 
       <div class="modal-player-layout">
-        <div class="modal-player-photo">
+        <div class="modal-player-photo" id="modalPhotoBox">
           <div class="flag-big flag-modal" id="modalFlag"></div>
         </div>
 
@@ -1194,8 +1194,6 @@
       if (text.includes("эквад") || text.includes("ecuador")) return "ecuador";
       if (text.includes("браз") || text.includes("brazil") || text.includes("brasil")) return "brazil";
       if (text.includes("венесу") || text.includes("venezuela")) return "venezuela";
-      if (text.includes("уруг") || text.includes("uruguay")) return "uruguay";
-      if (text.includes("колум") || text.includes("colombia")) return "colombia";
 
       return "unknown";
     }
@@ -1203,6 +1201,10 @@
     function getFlagClass(player) {
       const nationality = getText(player.nationality);
       return "flag-" + getNationalityKey(nationality);
+    }
+
+    function getPlayerPhotoPath(player) {
+      return `images/players/${player.id}.jpg`;
     }
 
     function normalizePlayer(player, index) {
@@ -1270,10 +1272,18 @@
       playersGrid.innerHTML = filteredPlayers.map((player, index) => {
         const flagClass = getFlagClass(player);
         const nationality = getText(player.nationality);
+        const photoPath = getPlayerPhotoPath(player);
 
         return `
           <article class="player-card" data-index="${index}">
-            <div class="player-photo">
+            <div class="player-photo placeholder">
+              <img
+                class="real-player-photo"
+                src="${photoPath}"
+                alt="${getText(player.name)}"
+                onload="this.parentElement.classList.remove('placeholder')"
+                onerror="this.remove()"
+              >
               <div class="player-number">${player.number}</div>
               <div class="flag-badge ${flagClass}"></div>
             </div>
@@ -1305,9 +1315,23 @@
       const stats = player.stats || {};
       const flagClass = getFlagClass(player);
       const nationality = getText(player.nationality);
+      const photoPath = getPlayerPhotoPath(player);
 
       const modalFlag = document.getElementById("modalFlag");
       modalFlag.className = `flag-big flag-modal ${flagClass}`;
+
+      const modalPhotoBox = document.getElementById("modalPhotoBox");
+      modalPhotoBox.className = "modal-player-photo placeholder";
+      modalPhotoBox.innerHTML = `
+        <img
+          class="modal-real-photo"
+          src="${photoPath}"
+          alt="${getText(player.name)}"
+          onload="this.parentElement.classList.remove('placeholder')"
+          onerror="this.remove()"
+        >
+        <div class="flag-big flag-modal ${flagClass}" id="modalFlag"></div>
+      `;
 
       document.getElementById("modalNumber").textContent = "#" + player.number;
       document.getElementById("modalName").textContent = getText(player.name);
