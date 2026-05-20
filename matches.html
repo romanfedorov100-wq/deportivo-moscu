@@ -23,6 +23,10 @@
       padding: 0;
     }
 
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
       font-family: Arial, Helvetica, sans-serif;
       background: var(--light);
@@ -88,11 +92,12 @@
     .main-nav {
       display: flex;
       align-items: center;
-      gap: 54px;
-      font-size: 16px;
+      gap: 30px;
+      font-size: 15px;
       font-weight: 950;
-      letter-spacing: 0.16em;
+      letter-spacing: 0.08em;
       text-transform: uppercase;
+      white-space: nowrap;
     }
 
     .main-nav a:hover,
@@ -280,7 +285,7 @@
       display: grid;
       gap: 16px;
       padding: 24px;
-      max-height: 900px;
+      max-height: 980px;
       overflow-y: auto;
     }
 
@@ -450,7 +455,8 @@
   <header class="site-header">
     <a href="index.html" class="brand">
       <div class="brand-logo">
-        <img src="logo.png.png" alt="Deportivo Moscu" onerror="this.style.display='none';">
+        <img src="logo.png.png" alt="Deportivo Moscu" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-flex';">
+        <span class="team-fallback" style="display:none;">DM</span>
       </div>
 
       <div>
@@ -460,10 +466,14 @@
     </a>
 
     <nav class="main-nav">
-      <a href="club.html">Клуб</a>
-      <a href="index.html#players">Игроки</a>
-      <a class="active" href="matches.html">Матчи</a>
+      <a href="index.html">Главная</a>
       <a href="news.html">Новости</a>
+      <a href="index.html#players">Команда</a>
+      <a class="active" href="matches.html">Матчи</a>
+      <a href="club.html">Клуб</a>
+      <a href="academy.html">Академия</a>
+      <a href="media.html">Медиа</a>
+      <a href="#">Магазин</a>
     </nav>
   </header>
 
@@ -512,8 +522,8 @@
 
       <div class="panel">
         <div class="panel-head">
-          <h2 class="panel-title">Игры Deportivo</h2>
-          <div class="panel-note">26 туров</div>
+          <h2 class="panel-title">Все игры Deportivo</h2>
+          <div class="panel-note">21 сыграна · 5 будущих</div>
         </div>
 
         <div class="matches-list" id="matchesList"></div>
