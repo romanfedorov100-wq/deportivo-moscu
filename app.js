@@ -55,10 +55,6 @@
     );
   }
 
-  function getPlayerId(player) {
-    return slugify(player.id || getPlayerName(player));
-  }
-
   function getPlayerName(player) {
     return getText(
       player.name ||
@@ -67,6 +63,10 @@
         player.title,
       "Игрок"
     );
+  }
+
+  function getPlayerId(player) {
+    return slugify(player.id || getPlayerName(player));
   }
 
   function getPlayerPosition(player) {
@@ -272,15 +272,37 @@
 
     style.textContent = `
       html {
-        scroll-padding-top: 130px !important;
+        scroll-padding-top: 125px !important;
+      }
+
+      body {
+        overflow-x: hidden !important;
       }
 
       #players {
-        scroll-margin-top: 130px !important;
+        scroll-margin-top: 125px !important;
+      }
+
+      .site-header {
+        min-height: 104px !important;
       }
 
       .players-section {
-        padding-top: 110px !important;
+        padding-top: 72px !important;
+        padding-bottom: 70px !important;
+      }
+
+      .club-section {
+        padding-top: 70px !important;
+        padding-bottom: 90px !important;
+      }
+
+      .section-head {
+        margin-bottom: 34px !important;
+      }
+
+      .players-toolbar {
+        margin-bottom: 34px !important;
       }
 
       .players-grid {
@@ -288,6 +310,7 @@
         grid-template-columns: repeat(4, minmax(230px, 1fr)) !important;
         gap: 34px !important;
         align-items: stretch !important;
+        margin-bottom: 0 !important;
       }
 
       .player-card {
@@ -706,10 +729,27 @@
     });
   }
 
+  function fixInitialHashScroll() {
+    if (window.location.hash !== "#players") return;
+
+    setTimeout(function () {
+      const playersSection = document.querySelector("#players");
+      if (!playersSection) return;
+
+      const top = playersSection.getBoundingClientRect().top + window.pageYOffset - 120;
+
+      window.scrollTo({
+        top: Math.max(top, 0),
+        behavior: "auto"
+      });
+    }, 250);
+  }
+
   document.addEventListener("DOMContentLoaded", function () {
     injectFixStyles();
     renderPlayers("all");
     setupFilters();
     setActiveNavLink();
+    fixInitialHashScroll();
   });
 })();
