@@ -1,520 +1,395 @@
-(function () {
-  const LANG = "ru";
+const translations = {
+  ru: {
+    nav_home: "Главная",
+    nav_news: "Новости",
+    nav_team: "Команда",
+    nav_matches: "Матчи",
+    nav_club: "Клуб",
+    nav_academy: "Академия",
+    nav_media: "Медиа",
+    nav_store: "Магазин",
+    buy_tickets: "Купить билеты",
+    official_site: "Официальный сайт клуба",
+    hero_title: "Добро пожаловать<br>в Депортиво Москву",
+    hero_subtitle: "Единый город. Одна страсть. Одна зелёно-чёрная семья.",
+    learn_more: "Узнать больше",
+    watch_team: "Смотреть состав",
+    club_slogan: "Футбол. Страсть. Москва.",
+    latest_news: "Последние новости",
+    all_news: "Все новости →",
+    next_match: "Следующий матч",
+    season_calendar: "Календарь сезона",
+    all_matches: "Все матчи →",
+    league_table: "Турнирная таблица",
+    full_table: "Вся таблица →",
+    team: "Команда",
+    games: "И",
+    wins: "В",
+    draws: "Н",
+    losses: "П",
+    points: "О",
+    club_short_text: "Клуб, созданный в Москве в 2024 году. Мы объединяем страсть южноамериканского футбола, энергию Москвы и современную клубную культуру.",
+    team_squad: "Состав команды",
+    team_squad_text: "Познакомьтесь с игроками, которые бьются за наш герб.",
+    view_squad: "Смотреть состав →",
+    academy_community: "Академия и сообщество",
+    academy_text: "Будущее начинается здесь. Стань частью нашей семьи.",
+    learn_more_arrow: "Узнать больше →",
+    store: "Магазин",
+    store_text: "Официальная экипировка Deportivo Moscu.",
+    go_store: "Перейти в магазин →",
+    footer_slogan: "Единый город. Одна страсть. Одна зелёно-чёрная семья.",
+    about_club: "О клубе",
+    management: "Руководство",
+    stadium: "Стадион",
+    partners: "Партнёры",
+    help: "Помощь",
+    rules: "Правила посещения",
+    tickets_return: "Возврат билетов",
+    contacts: "Контакты"
+  },
 
-  function getPlayersData() {
-    if (Array.isArray(window.deportivoPlayers)) return window.deportivoPlayers;
-    if (Array.isArray(window.players)) return window.players;
-    if (Array.isArray(window.PLAYERS)) return window.PLAYERS;
-    if (Array.isArray(window.playersData)) return window.playersData;
-    if (Array.isArray(window.PLAYERS_DATA)) return window.PLAYERS_DATA;
-    if (Array.isArray(window.squad)) return window.squad;
-    if (Array.isArray(window.SQUAD)) return window.SQUAD;
-    return [];
+  en: {
+    nav_home: "Home",
+    nav_news: "News",
+    nav_team: "Team",
+    nav_matches: "Matches",
+    nav_club: "Club",
+    nav_academy: "Academy",
+    nav_media: "Media",
+    nav_store: "Store",
+    buy_tickets: "Buy tickets",
+    official_site: "Official club website",
+    hero_title: "Welcome to<br>Deportivo Moscu",
+    hero_subtitle: "One city. One passion. One green-and-black family.",
+    learn_more: "Learn more",
+    watch_team: "View squad",
+    club_slogan: "Football. Passion. Moscow.",
+    latest_news: "Latest news",
+    all_news: "All news →",
+    next_match: "Next match",
+    season_calendar: "Season calendar",
+    all_matches: "All matches →",
+    league_table: "League table",
+    full_table: "Full table →",
+    team: "Team",
+    games: "G",
+    wins: "W",
+    draws: "D",
+    losses: "L",
+    points: "Pts",
+    club_short_text: "A club founded in Moscow in 2024. We unite South American football passion, Moscow energy and modern club culture.",
+    team_squad: "Team squad",
+    team_squad_text: "Meet the players who fight for our badge.",
+    view_squad: "View squad →",
+    academy_community: "Academy and community",
+    academy_text: "The future starts here. Become part of our family.",
+    learn_more_arrow: "Learn more →",
+    store: "Store",
+    store_text: "Official Deportivo Moscu equipment.",
+    go_store: "Go to store →",
+    footer_slogan: "One city. One passion. One green-and-black family.",
+    about_club: "About club",
+    management: "Management",
+    stadium: "Stadium",
+    partners: "Partners",
+    help: "Help",
+    rules: "Visitor rules",
+    tickets_return: "Ticket refund",
+    contacts: "Contacts"
+  },
+
+  es: {
+    nav_home: "Inicio",
+    nav_news: "Noticias",
+    nav_team: "Equipo",
+    nav_matches: "Partidos",
+    nav_club: "Club",
+    nav_academy: "Academia",
+    nav_media: "Media",
+    nav_store: "Tienda",
+    buy_tickets: "Comprar entradas",
+    official_site: "Sitio oficial del club",
+    hero_title: "Bienvenido a<br>Deportivo Moscu",
+    hero_subtitle: "Una ciudad. Una pasión. Una familia verde y negra.",
+    learn_more: "Saber más",
+    watch_team: "Ver plantilla",
+    club_slogan: "Fútbol. Pasión. Moscú.",
+    latest_news: "Últimas noticias",
+    all_news: "Todas las noticias →",
+    next_match: "Próximo partido",
+    season_calendar: "Calendario de temporada",
+    all_matches: "Todos los partidos →",
+    league_table: "Tabla de posiciones",
+    full_table: "Tabla completa →",
+    team: "Equipo",
+    games: "J",
+    wins: "G",
+    draws: "E",
+    losses: "P",
+    points: "Pts",
+    club_short_text: "Un club fundado en Moscú en 2024. Unimos la pasión del fútbol sudamericano, la energía de Moscú y una cultura moderna de club.",
+    team_squad: "Plantilla",
+    team_squad_text: "Conoce a los jugadores que luchan por nuestro escudo.",
+    view_squad: "Ver plantilla →",
+    academy_community: "Academia y comunidad",
+    academy_text: "El futuro empieza aquí. Forma parte de nuestra familia.",
+    learn_more_arrow: "Saber más →",
+    store: "Tienda",
+    store_text: "Equipación oficial de Deportivo Moscu.",
+    go_store: "Ir a la tienda →",
+    footer_slogan: "Una ciudad. Una pasión. Una familia verde y negra.",
+    about_club: "Sobre el club",
+    management: "Dirección",
+    stadium: "Estadio",
+    partners: "Socios",
+    help: "Ayuda",
+    rules: "Normas de visita",
+    tickets_return: "Devolución de entradas",
+    contacts: "Contactos"
   }
+};
 
-  function getText(value, fallback) {
-    if (value === undefined || value === null || value === "") {
-      return fallback || "";
+const newsData = {
+  ru: [
+    {
+      category: "Клуб",
+      time: "2 часа назад",
+      title: "Депортиво Москву открывает новый тренировочный центр"
+    },
+    {
+      category: "Команда",
+      time: "1 день назад",
+      title: "Интервью с капитаном: «Мы строим что-то особенное»"
+    },
+    {
+      category: "Академия",
+      time: "2 дня назад",
+      title: "Академия Депортиво: набор юных талантов продолжается"
     }
+  ],
 
-    if (typeof value === "object") {
-      return value[LANG] || value.ru || value.en || value.es || fallback || "";
+  en: [
+    {
+      category: "Club",
+      time: "2 hours ago",
+      title: "Deportivo Moscu opens a new training center"
+    },
+    {
+      category: "Team",
+      time: "1 day ago",
+      title: "Captain interview: “We are building something special”"
+    },
+    {
+      category: "Academy",
+      time: "2 days ago",
+      title: "Deportivo Academy: youth talent recruitment continues"
     }
+  ],
 
-    return String(value);
-  }
-
-  function escapeHtml(value) {
-    return String(value || "")
-      .replace(/&/g, "&amp;")
-      .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;")
-      .replace(/"/g, "&quot;")
-      .replace(/'/g, "&#039;");
-  }
-
-  function getPlayerNumber(player, index) {
-    return getText(
-      player.number ||
-        player.num ||
-        player.shirtNumber ||
-        player.shirt ||
-        index + 1,
-      index + 1
-    );
-  }
-
-  function getPlayerName(player) {
-    return getText(
-      player.name ||
-        player.fullName ||
-        player.fullname ||
-        player.title,
-      "Игрок"
-    );
-  }
-
-  function getPlayerPosition(player) {
-    return getText(
-      player.position ||
-        player.role ||
-        player.pos ||
-        player.type,
-      "Игрок"
-    );
-  }
-
-  function getPlayerCountry(player) {
-    return getText(
-      player.nationality ||
-        player.country ||
-        player.nation ||
-        player.countryName,
-      ""
-    );
-  }
-
-  function getPlayerPhoto(player) {
-    return (
-      player.photo ||
-      player.image ||
-      player.img ||
-      player.avatar ||
-      player.picture ||
-      player.playerPhoto ||
-      ""
-    );
-  }
-
-  function normalizeRole(role) {
-    const value = String(getText(role, "")).toLowerCase();
-
-    if (value === "goalkeeper") return "goalkeeper";
-    if (value === "defender") return "defender";
-    if (value === "midfielder") return "midfielder";
-    if (value === "forward") return "forward";
-    if (value === "striker") return "forward";
-
-    if (value.includes("врат")) return "goalkeeper";
-    if (value.includes("защит")) return "defender";
-    if (value.includes("полу")) return "midfielder";
-    if (value.includes("напад")) return "forward";
-
-    return "all";
-  }
-
-  function splitName(name) {
-    const clean = String(name || "Игрок").trim();
-    const parts = clean.split(/\s+/);
-
-    if (parts.length <= 2) {
-      return escapeHtml(clean);
+  es: [
+    {
+      category: "Club",
+      time: "Hace 2 horas",
+      title: "Deportivo Moscu inaugura un nuevo centro de entrenamiento"
+    },
+    {
+      category: "Equipo",
+      time: "Hace 1 día",
+      title: "Entrevista con el capitán: “Estamos construyendo algo especial”"
+    },
+    {
+      category: "Academia",
+      time: "Hace 2 días",
+      title: "Academia Deportivo: continúa la captación de jóvenes talentos"
     }
+  ]
+};
 
-    const firstLine = parts.slice(0, 2).join(" ");
-    const secondLine = parts.slice(2).join(" ");
-
-    return escapeHtml(firstLine) + "<br>" + escapeHtml(secondLine);
+const matchesData = [
+  {
+    date: "25 мая",
+    home: "Deportivo Moscu",
+    away: "Alania",
+    place: "Дома • 19:00"
+  },
+  {
+    date: "1 июня",
+    home: "Spartak-Nalchik",
+    away: "Deportivo Moscu",
+    place: "В гостях • 17:00"
+  },
+  {
+    date: "8 июня",
+    home: "Deportivo Moscu",
+    away: "Legion",
+    place: "Дома • 19:00"
+  },
+  {
+    date: "15 июня",
+    home: "Dinamo Stavropol",
+    away: "Deportivo Moscu",
+    place: "В гостях • 18:00"
+  },
+  {
+    date: "22 июня",
+    home: "Deportivo Moscu",
+    away: "Rotor Vladikavkaz",
+    place: "Дома • 19:00"
   }
+];
 
-  function countryToFlag(country) {
-    const value = String(country || "").trim().toLowerCase();
-
-    const flags = {
-      "аргентина": "🇦🇷",
-      "argentina": "🇦🇷",
-      "россия": "🇷🇺",
-      "russia": "🇷🇺",
-      "бразилия": "🇧🇷",
-      "brazil": "🇧🇷",
-      "brasil": "🇧🇷",
-      "эквадор": "🇪🇨",
-      "ecuador": "🇪🇨",
-      "венесуэла": "🇻🇪",
-      "venezuela": "🇻🇪",
-      "украина": "🇺🇦",
-      "ukraine": "🇺🇦",
-      "беларусь": "🇧🇾",
-      "belarus": "🇧🇾",
-      "казахстан": "🇰🇿",
-      "kazakhstan": "🇰🇿"
-    };
-
-    return flags[value] || "";
+const tableData = [
+  {
+    position: 1,
+    team: "Deportivo Moscu",
+    games: 29,
+    wins: 18,
+    draws: 7,
+    losses: 4,
+    points: 61
+  },
+  {
+    position: 2,
+    team: "Alania",
+    games: 29,
+    wins: 17,
+    draws: 6,
+    losses: 6,
+    points: 57
+  },
+  {
+    position: 3,
+    team: "Spartak-Nalchik",
+    games: 29,
+    wins: 15,
+    draws: 7,
+    losses: 7,
+    points: 52
+  },
+  {
+    position: 4,
+    team: "Dinamo Stavropol",
+    games: 29,
+    wins: 13,
+    draws: 8,
+    losses: 8,
+    points: 47
+  },
+  {
+    position: 5,
+    team: "Legion",
+    games: 29,
+    wins: 12,
+    draws: 6,
+    losses: 11,
+    points: 42
   }
+];
 
-  function isRealPlayerPhoto(src) {
-    if (!src) return false;
+let currentLang = "ru";
 
-    const value = String(src).toLowerCase();
+function setLanguage(lang) {
+  currentLang = lang;
+  document.documentElement.lang = lang;
 
-    const blockedWords = [
-      "flag",
-      "flags",
-      "country",
-      "nationality",
-      "argentina",
-      "russia",
-      "ecuador",
-      "brazil",
-      "brasil",
-      "venezuela",
-      "флаг",
-      "аргентина",
-      "россия",
-      "эквадор",
-      "бразилия",
-      "венесуэла"
-    ];
+  document.querySelectorAll("[data-i18n]").forEach((element) => {
+    const key = element.getAttribute("data-i18n");
 
-    if (blockedWords.some(function (word) {
-      return value.includes(word);
-    })) {
-      return false;
+    if (translations[lang] && translations[lang][key]) {
+      element.innerHTML = translations[lang][key];
     }
-
-    return (
-      value.includes("images/players/") ||
-      value.includes("./images/players/") ||
-      value.includes("/images/players/")
-    );
-  }
-
-  function createPhotoHtml(player) {
-    const photo = getPlayerPhoto(player);
-    const name = getPlayerName(player);
-
-    if (isRealPlayerPhoto(photo)) {
-      return (
-        '<img class="player-real-photo" src="' +
-        escapeHtml(photo) +
-        '" alt="' +
-        escapeHtml(name) +
-        '" onerror="this.parentElement.innerHTML=\'<div class=&quot;player-placeholder&quot;></div>\';">'
-      );
-    }
-
-    return '<div class="player-placeholder"></div>';
-  }
-
-  function createFlagHtml(country) {
-    const flag = countryToFlag(country);
-
-    if (!flag) return "";
-
-    return '<span class="player-flag-emoji" aria-hidden="true">' + flag + "</span>";
-  }
-
-  function injectPlayersStyles() {
-    const oldStyle = document.querySelector("#deportivo-players-style");
-    if (oldStyle) oldStyle.remove();
-
-    const style = document.createElement("style");
-    style.id = "deportivo-players-style";
-
-    style.textContent = `
-      .players-grid {
-        display: grid !important;
-        grid-template-columns: repeat(4, minmax(230px, 1fr)) !important;
-        gap: 34px !important;
-        align-items: stretch !important;
-      }
-
-      .player-card {
-        position: relative !important;
-        overflow: hidden !important;
-        min-height: 520px !important;
-        border-radius: 0 38px 18px 18px !important;
-        background: #ffffff !important;
-        box-shadow: 0 18px 40px rgba(0, 0, 0, 0.08) !important;
-      }
-
-      .player-number {
-        position: absolute !important;
-        top: 0 !important;
-        left: 0 !important;
-        z-index: 10 !important;
-        width: 88px !important;
-        height: 74px !important;
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-        border-bottom-right-radius: 28px !important;
-        background: #ffffff !important;
-        color: #008c35 !important;
-        font-size: 30px !important;
-        font-weight: 950 !important;
-      }
-
-      .player-photo {
-        position: relative !important;
-        height: 300px !important;
-        overflow: hidden !important;
-        background: radial-gradient(circle at center, #00551f 0%, #003b16 60%, #00250d 100%) !important;
-        display: flex !important;
-        align-items: flex-end !important;
-        justify-content: center !important;
-      }
-
-      .player-photo img:not(.player-real-photo),
-      .player-photo .player-flag,
-      .player-photo .flag,
-      .player-photo .flag-icon,
-      .player-photo .country-flag,
-      .player-photo .nationality-flag,
-      .player-photo [class*="flag"],
-      .player-photo [class*="Flag"] {
-        display: none !important;
-        visibility: hidden !important;
-        opacity: 0 !important;
-      }
-
-      .player-real-photo {
-        width: 100% !important;
-        height: 100% !important;
-        object-fit: cover !important;
-        display: block !important;
-      }
-
-      .player-placeholder {
-        position: relative !important;
-        width: 230px !important;
-        height: 250px !important;
-      }
-
-      .player-placeholder::before {
-        content: "" !important;
-        position: absolute !important;
-        top: 0 !important;
-        left: 50% !important;
-        width: 98px !important;
-        height: 98px !important;
-        transform: translateX(-50%) !important;
-        border-radius: 50% !important;
-        background: #c4a07b !important;
-      }
-
-      .player-placeholder::after {
-        content: "" !important;
-        position: absolute !important;
-        left: 50% !important;
-        bottom: 0 !important;
-        width: 210px !important;
-        height: 165px !important;
-        transform: translateX(-50%) !important;
-        border-radius: 110px 110px 0 0 !important;
-        background: linear-gradient(180deg, #d7d7d7 0%, #111111 45%, #050505 100%) !important;
-      }
-
-      .player-info {
-        padding: 32px 32px 28px !important;
-        background: #ffffff !important;
-      }
-
-      .player-position {
-        margin-bottom: 18px !important;
-        color: #008c35 !important;
-        font-size: 15px !important;
-        font-weight: 950 !important;
-        letter-spacing: 0.12em !important;
-        text-transform: uppercase !important;
-      }
-
-      .player-name {
-        min-height: 72px !important;
-        margin-bottom: 24px !important;
-        color: #050505 !important;
-        font-size: 27px !important;
-        line-height: 1.08 !important;
-        font-weight: 950 !important;
-        letter-spacing: 0.08em !important;
-        text-transform: uppercase !important;
-        word-break: break-word !important;
-      }
-
-      .player-country {
-        display: flex !important;
-        align-items: center !important;
-        gap: 14px !important;
-        min-height: 34px !important;
-        margin-bottom: 28px !important;
-        color: #67726a !important;
-        font-size: 17px !important;
-        font-weight: 800 !important;
-      }
-
-      .player-flag-emoji {
-        display: inline-flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-        width: 44px !important;
-        height: 28px !important;
-        font-size: 28px !important;
-        line-height: 1 !important;
-        flex: 0 0 auto !important;
-      }
-
-      .player-btn {
-        width: 100% !important;
-        height: 54px !important;
-        border: none !important;
-        border-radius: 999px !important;
-        background: #008c35 !important;
-        color: #ffffff !important;
-        font-size: 17px !important;
-        font-weight: 950 !important;
-        cursor: pointer !important;
-        transition: 0.2s ease !important;
-      }
-
-      .player-btn:hover {
-        background: #006e29 !important;
-        transform: translateY(-2px) !important;
-      }
-
-      .players-empty-card {
-        padding: 34px !important;
-        border-radius: 24px !important;
-        background: #ffffff !important;
-        box-shadow: 0 18px 40px rgba(0, 0, 0, 0.08) !important;
-      }
-
-      .players-empty-card h3 {
-        margin-bottom: 14px !important;
-        color: #003b16 !important;
-        font-size: 26px !important;
-        font-weight: 950 !important;
-        text-transform: uppercase !important;
-      }
-
-      .players-empty-card p {
-        color: #67726a !important;
-        font-size: 17px !important;
-        line-height: 1.5 !important;
-        font-weight: 700 !important;
-      }
-
-      @media (max-width: 1280px) {
-        .players-grid {
-          grid-template-columns: repeat(3, minmax(230px, 1fr)) !important;
-        }
-      }
-
-      @media (max-width: 980px) {
-        .players-grid {
-          grid-template-columns: repeat(2, minmax(220px, 1fr)) !important;
-        }
-      }
-
-      @media (max-width: 620px) {
-        .players-grid {
-          grid-template-columns: 1fr !important;
-        }
-      }
-    `;
-
-    document.head.appendChild(style);
-  }
-
-  function renderPlayers(filter) {
-    const playersGrid =
-      document.querySelector("#playersGrid") ||
-      document.querySelector(".players-grid");
-
-    if (!playersGrid) return;
-
-    const allPlayers = getPlayersData();
-
-    if (!allPlayers.length) {
-      playersGrid.innerHTML = `
-        <article class="players-empty-card">
-          <h3>Игроки скоро появятся</h3>
-          <p>Файл players-data.js подключен, но массив window.deportivoPlayers не найден. Проверь порядок подключения: players-data.js должен быть перед app.js.</p>
-        </article>
-      `;
-      return;
-    }
-
-    const activeFilter = filter || "all";
-
-    const players =
-      activeFilter === "all"
-        ? allPlayers
-        : allPlayers.filter(function (player) {
-            return normalizeRole(player.role || player.position) === activeFilter;
-          });
-
-    playersGrid.innerHTML = players
-      .map(function (player, index) {
-        const number = getPlayerNumber(player, index);
-        const name = getPlayerName(player);
-        const position = getPlayerPosition(player);
-        const country = getPlayerCountry(player);
-        const photoHtml = createPhotoHtml(player);
-        const flagHtml = createFlagHtml(country);
-
-        return `
-          <article class="player-card">
-            <div class="player-number">${escapeHtml(number)}</div>
-
-            <div class="player-photo">
-              ${photoHtml}
-            </div>
-
-            <div class="player-info">
-              <div class="player-position">${escapeHtml(position)}</div>
-
-              <div class="player-name">${splitName(name)}</div>
-
-              <div class="player-country">
-                ${flagHtml}
-                <span>${escapeHtml(country)}</span>
-              </div>
-
-              <button class="player-btn" type="button">Подробнее →</button>
-            </div>
-          </article>
-        `;
-      })
-      .join("");
-  }
-
-  function setupFilters() {
-    const filterButtons = document.querySelectorAll("[data-role-filter]");
-
-    if (!filterButtons.length) return;
-
-    filterButtons.forEach(function (button) {
-      button.addEventListener("click", function () {
-        const filter = button.getAttribute("data-role-filter") || "all";
-
-        filterButtons.forEach(function (item) {
-          item.classList.remove("is-active", "active");
-        });
-
-        button.classList.add("is-active", "active");
-        renderPlayers(filter);
-      });
-    });
-  }
-
-  function setActiveNavLink() {
-    const currentPath = window.location.pathname.split("/").pop() || "index.html";
-    const links = document.querySelectorAll(".main-nav a, .nav a, header a");
-
-    links.forEach(function (link) {
-      const href = link.getAttribute("href") || "";
-
-      if (href === currentPath || href.startsWith(currentPath + "#")) {
-        link.classList.add("active");
-      }
-    });
-  }
-
-  document.addEventListener("DOMContentLoaded", function () {
-    injectPlayersStyles();
-    renderPlayers("all");
-    setupFilters();
-    setActiveNavLink();
   });
-})();
+
+  document.querySelectorAll(".lang-btn").forEach((button) => {
+    button.classList.toggle("active", button.dataset.lang === lang);
+  });
+
+  renderNews();
+}
+
+function renderNews() {
+  const newsGrid = document.getElementById("newsGrid");
+
+  if (!newsGrid) {
+    return;
+  }
+
+  newsGrid.innerHTML = newsData[currentLang].map((news) => {
+    return `
+      <article class="news-card">
+        <div class="news-image"></div>
+        <div class="news-body">
+          <div class="news-meta">${news.category} • ${news.time}</div>
+          <h3 class="news-title">${news.title}</h3>
+        </div>
+      </article>
+    `;
+  }).join("");
+}
+
+function renderMatches() {
+  const matchesRow = document.getElementById("matchesRow");
+
+  if (!matchesRow) {
+    return;
+  }
+
+  matchesRow.innerHTML = matchesData.map((match) => {
+    return `
+      <article class="match-mini-card">
+        <div class="match-mini-date">${match.date}</div>
+        <div class="match-mini-teams">
+          ${match.home}<br>
+          vs<br>
+          ${match.away}
+        </div>
+        <div class="match-mini-place">${match.place}</div>
+      </article>
+    `;
+  }).join("");
+}
+
+function renderTable() {
+  const leagueTableBody = document.getElementById("leagueTableBody");
+
+  if (!leagueTableBody) {
+    return;
+  }
+
+  leagueTableBody.innerHTML = tableData.map((row) => {
+    const isDeportivo = row.team === "Deportivo Moscu";
+
+    return `
+      <tr class="${isDeportivo ? "deportivo-row" : ""}">
+        <td>${row.position}</td>
+        <td>${row.team}</td>
+        <td>${row.games}</td>
+        <td>${row.wins}</td>
+        <td>${row.draws}</td>
+        <td>${row.losses}</td>
+        <td>${row.points}</td>
+      </tr>
+    `;
+  }).join("");
+}
+
+document.querySelectorAll(".lang-btn").forEach((button) => {
+  button.addEventListener("click", () => {
+    setLanguage(button.dataset.lang);
+  });
+});
+
+const burgerBtn = document.getElementById("burgerBtn");
+const mobileMenu = document.getElementById("mobileMenu");
+
+if (burgerBtn && mobileMenu) {
+  burgerBtn.addEventListener("click", () => {
+    mobileMenu.classList.toggle("open");
+  });
+}
+
+renderNews();
+renderMatches();
+renderTable();
+setLanguage("ru");
