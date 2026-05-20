@@ -4,9 +4,19 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>Deportivo Moscu</title>
+  <title>Deportivo Moscu — Football Club</title>
 
   <style>
+    :root {
+      --green: #008c35;
+      --green-dark: #003b16;
+      --green-deep: #00270e;
+      --black: #050505;
+      --gray: #6f7772;
+      --light: #f5f7f5;
+      --white: #ffffff;
+    }
+
     * {
       box-sizing: border-box;
       margin: 0;
@@ -18,710 +28,600 @@
     }
 
     body {
-      min-height: 100vh;
       font-family: Arial, Helvetica, sans-serif;
-      background: #f4f6f5;
-      color: #050505;
-      overflow-x: hidden;
+      background: var(--light);
+      color: var(--black);
     }
 
-    .page {
-      width: 100%;
-      min-height: 100vh;
+    a {
+      color: inherit;
+      text-decoration: none;
     }
 
-    header {
-      width: 100%;
-      padding: 20px 6%;
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: 96px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      background: #ffffff;
-      border-bottom: 1px solid rgba(0, 0, 0, 0.08);
-      position: sticky;
-      top: 0;
-      z-index: 20;
+      padding: 0 6vw;
+      background: rgba(255, 255, 255, 0.96);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+      backdrop-filter: blur(14px);
     }
 
     .brand {
       display: flex;
       align-items: center;
-      gap: 14px;
+      gap: 18px;
     }
 
-    .logo {
-      width: 56px;
-      height: 56px;
+    .brand-logo {
+      width: 64px;
+      height: 64px;
       border-radius: 18px;
-      background: #008b36;
+      background: linear-gradient(135deg, #00a33d, #006e29);
+      color: #ffffff;
       display: flex;
       align-items: center;
       justify-content: center;
-      color: #ffffff;
+      font-size: 26px;
       font-weight: 900;
-      font-size: 22px;
+      letter-spacing: 0.02em;
       overflow: hidden;
     }
 
-    .logo img {
+    .brand-logo img {
       width: 100%;
       height: 100%;
-      object-fit: contain;
-      padding: 4px;
+      object-fit: cover;
     }
 
-    .logo-fallback {
-      display: none;
-    }
-
-    .brand-text h1 {
-      font-size: 24px;
+    .brand-title {
+      color: var(--green);
+      font-size: 28px;
       line-height: 1;
+      font-weight: 950;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .brand-subtitle {
+      margin-top: 9px;
+      color: var(--green);
+      font-size: 13px;
       font-weight: 900;
+      letter-spacing: 0.46em;
       text-transform: uppercase;
     }
 
-    .brand-text p {
-      margin-top: 5px;
-      color: #008b36;
-      font-size: 12px;
-      font-weight: 800;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-    }
-
-    nav {
+    .main-nav {
       display: flex;
       align-items: center;
-      gap: 22px;
-    }
-
-    nav a {
-      color: #111111;
-      text-decoration: none;
-      font-size: 14px;
-      font-weight: 800;
+      gap: 44px;
+      font-size: 15px;
+      font-weight: 900;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
     }
 
-    nav a:hover {
-      color: #008b36;
+    .main-nav a {
+      transition: 0.2s ease;
+    }
+
+    .main-nav a:hover {
+      color: var(--green);
     }
 
     .hero {
-      padding: 70px 6% 55px;
-      background:
-        radial-gradient(circle at 18% 20%, rgba(0, 139, 54, 0.22), transparent 32%),
-        linear-gradient(135deg, #001c0a 0%, #004416 50%, #001c0a 100%);
-      color: #ffffff;
-    }
-
-    .hero-inner {
-      max-width: 1220px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: 1.1fr 0.9fr;
-      gap: 34px;
+      min-height: 520px;
+      display: flex;
       align-items: center;
+      padding: 90px 6vw;
+      background:
+        radial-gradient(circle at 75% 35%, rgba(0, 140, 53, 0.22), transparent 34%),
+        linear-gradient(135deg, #ffffff 0%, #f5f7f5 48%, #e9eee9 100%);
+      overflow: hidden;
     }
 
-    .hero-badge {
-      display: inline-flex;
-      padding: 9px 14px;
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.12);
-      color: #d8ffe4;
-      font-size: 13px;
-      font-weight: 800;
+    .hero-content {
+      max-width: 780px;
+    }
+
+    .eyebrow {
+      margin-bottom: 18px;
+      color: var(--green);
+      font-size: 14px;
+      font-weight: 900;
+      letter-spacing: 0.24em;
       text-transform: uppercase;
-      letter-spacing: 1.5px;
-      margin-bottom: 22px;
     }
 
-    .hero h2 {
+    .hero h1 {
+      color: var(--black);
       font-size: clamp(42px, 7vw, 92px);
-      line-height: 0.95;
-      letter-spacing: -3px;
+      line-height: 0.96;
+      font-weight: 950;
+      letter-spacing: 0.04em;
       text-transform: uppercase;
-      margin-bottom: 22px;
-    }
-
-    .hero h2 span {
-      color: #00c853;
     }
 
     .hero p {
-      max-width: 660px;
-      font-size: 18px;
-      line-height: 1.7;
-      color: #e8fff0;
-      margin-bottom: 30px;
+      max-width: 620px;
+      margin-top: 26px;
+      color: #48504b;
+      font-size: 19px;
+      line-height: 1.6;
+      font-weight: 700;
     }
 
-    .hero-buttons {
+    .hero-actions {
       display: flex;
-      gap: 14px;
       flex-wrap: wrap;
+      gap: 16px;
+      margin-top: 34px;
     }
 
-    .btn {
-      min-height: 50px;
-      padding: 0 24px;
+    .btn-primary,
+    .btn-secondary {
+      min-height: 54px;
+      padding: 0 28px;
       border-radius: 999px;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      text-decoration: none;
+      font-size: 15px;
       font-weight: 900;
-      transition: 0.2s;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: 0.2s ease;
     }
 
     .btn-primary {
-      background: #00c853;
-      color: #001c0a;
+      background: var(--green);
+      color: #ffffff;
+      box-shadow: 0 16px 34px rgba(0, 140, 53, 0.24);
+    }
+
+    .btn-primary:hover {
+      background: #006e29;
+      transform: translateY(-2px);
     }
 
     .btn-secondary {
-      background: rgba(255, 255, 255, 0.1);
-      color: #ffffff;
-      border: 1px solid rgba(255, 255, 255, 0.22);
-    }
-
-    .hero-card {
-      min-height: 360px;
-      border-radius: 34px;
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      padding: 28px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.28);
-    }
-
-    .club-circle {
-      width: 150px;
-      height: 150px;
-      border-radius: 50%;
-      margin: 12px auto 20px;
       background: #ffffff;
-      color: #008b36;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 56px;
-      font-weight: 900;
+      color: var(--green-dark);
+      border: 1px solid rgba(0, 140, 53, 0.18);
     }
 
-    .hero-card h3 {
-      text-align: center;
-      font-size: 28px;
-      text-transform: uppercase;
+    .btn-secondary:hover {
+      color: var(--green);
+      transform: translateY(-2px);
     }
 
-    .hero-card p {
-      text-align: center;
-      color: #d8ffe4;
-      font-size: 15px;
-      margin: 12px 0 0;
-    }
-
-    section {
-      padding: 58px 6%;
+    .section {
+      padding: 78px 6vw;
     }
 
     .section-head {
-      max-width: 1220px;
-      margin: 0 auto 28px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 24px;
+      margin-bottom: 34px;
     }
 
-    .section-head p {
-      color: #008b36;
+    .section-kicker {
+      margin-bottom: 10px;
+      color: var(--green);
       font-size: 13px;
       font-weight: 900;
-      letter-spacing: 2px;
+      letter-spacing: 0.24em;
       text-transform: uppercase;
-      margin-bottom: 8px;
     }
 
-    .section-head h2 {
-      font-size: clamp(30px, 4vw, 56px);
+    .section-title {
+      color: var(--green-dark);
+      font-size: clamp(32px, 4vw, 56px);
       line-height: 1;
-      letter-spacing: -1.5px;
+      font-weight: 950;
+      letter-spacing: 0.07em;
       text-transform: uppercase;
+    }
+
+    .section-text {
+      max-width: 560px;
+      color: #5f6862;
+      font-size: 17px;
+      line-height: 1.6;
+      font-weight: 700;
+    }
+
+    .players-section {
+      padding: 78px 6vw 100px;
+      background: #f5f7f5;
     }
 
     .players-grid {
-      max-width: 1220px;
-      margin: 0 auto;
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 28px;
+      grid-template-columns: repeat(4, minmax(230px, 1fr));
+      gap: 34px;
+      align-items: stretch;
     }
 
     .player-card {
+      position: relative;
+      overflow: hidden;
+      min-height: 520px;
+      border-radius: 0 38px 18px 18px;
       background: #ffffff;
-      border-radius: 0 34px 0 34px;
-      overflow: hidden;
-      border: 1px solid rgba(0, 0, 0, 0.08);
       box-shadow: 0 18px 40px rgba(0, 0, 0, 0.08);
-      position: relative;
-    }
-
-    .player-photo {
-      height: 350px;
-      background:
-        radial-gradient(circle at 50% 30%, rgba(0, 200, 83, 0.22), transparent 28%),
-        linear-gradient(135deg, #002b0f 0%, #004c18 100%);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .player-photo::before {
-      content: "";
-      position: absolute;
-      left: 50%;
-      top: 70px;
-      transform: translateX(-50%);
-      width: 108px;
-      height: 108px;
-      border-radius: 50%;
-      background: #bd9674;
-      z-index: 2;
-    }
-
-    .player-photo::after {
-      content: "";
-      position: absolute;
-      left: 50%;
-      bottom: -40px;
-      transform: translateX(-50%);
-      width: 220px;
-      height: 260px;
-      border-radius: 120px 120px 0 0;
-      background:
-        linear-gradient(180deg, #f0f0f0 0%, #111111 35%, #050505 100%);
-      z-index: 1;
-      box-shadow: 0 -18px 32px rgba(0, 0, 0, 0.25);
     }
 
     .player-number {
       position: absolute;
       top: 0;
       left: 0;
-      min-width: 72px;
+      z-index: 3;
+      width: 88px;
       height: 74px;
-      padding: 0 18px;
-      border-radius: 0 0 22px 0;
-      background: #ffffff;
-      color: #008b36;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 28px;
-      font-weight: 900;
-      z-index: 5;
+      border-bottom-right-radius: 28px;
+      background: #ffffff;
+      color: var(--green);
+      font-size: 30px;
+      font-weight: 950;
+    }
+
+    .player-photo {
+      height: 300px;
+      background: radial-gradient(circle at center, #00551f 0%, #003b16 60%, #00250d 100%);
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .player-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .player-placeholder {
+      position: relative;
+      width: 230px;
+      height: 250px;
+    }
+
+    .player-placeholder::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 50%;
+      width: 98px;
+      height: 98px;
+      transform: translateX(-50%);
+      border-radius: 50%;
+      background: #c4a07b;
+    }
+
+    .player-placeholder::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      bottom: 0;
+      width: 210px;
+      height: 165px;
+      transform: translateX(-50%);
+      border-radius: 110px 110px 0 0;
+      background: linear-gradient(180deg, #d7d7d7 0%, #111111 45%, #050505 100%);
     }
 
     .player-info {
-      padding: 28px 28px 26px;
-      min-height: 280px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
+      padding: 32px 32px 28px;
     }
 
     .player-position {
-      color: #008b36;
-      font-size: 14px;
-      font-weight: 900;
-      letter-spacing: 1px;
+      margin-bottom: 18px;
+      color: var(--green);
+      font-size: 15px;
+      font-weight: 950;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
-      margin-bottom: 14px;
     }
 
     .player-name {
-      font-size: 28px;
-      line-height: 1.05;
-      font-weight: 900;
+      min-height: 66px;
+      margin-bottom: 24px;
+      color: #050505;
+      font-size: 27px;
+      line-height: 1.08;
+      font-weight: 950;
+      letter-spacing: 0.08em;
       text-transform: uppercase;
-      letter-spacing: -0.8px;
-      margin-bottom: 30px;
+      word-break: break-word;
     }
 
     .player-country {
       display: flex;
       align-items: center;
-      gap: 12px;
-      color: #66706a;
-      font-size: 16px;
-      font-weight: 900;
-      margin-bottom: 24px;
+      gap: 14px;
+      min-height: 34px;
+      margin-bottom: 28px;
+      color: #67726a;
+      font-size: 17px;
+      font-weight: 800;
     }
 
-    .flag {
-      width: 42px;
+    .player-flag {
+      width: 44px;
       height: 28px;
-      border-radius: 5px;
-      overflow: hidden;
-      flex-shrink: 0;
+      object-fit: cover;
+      border-radius: 4px;
       box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.08);
+      flex: 0 0 auto;
     }
 
-    .flag-argentina {
-      background: linear-gradient(
-        180deg,
-        #75aadb 0%,
-        #75aadb 33%,
-        #ffffff 33%,
-        #ffffff 66%,
-        #75aadb 66%,
-        #75aadb 100%
-      );
-      position: relative;
+    .flag-emoji {
+      font-size: 28px;
+      line-height: 1;
+      flex: 0 0 auto;
     }
 
-    .flag-argentina::after {
-      content: "";
-      position: absolute;
-      width: 9px;
-      height: 9px;
-      border-radius: 50%;
-      background: #f6b40e;
-      left: 50%;
-      top: 50%;
-      transform: translate(-50%, -50%);
-    }
-
-    .flag-russia {
-      background: linear-gradient(
-        180deg,
-        #ffffff 0%,
-        #ffffff 33%,
-        #0039a6 33%,
-        #0039a6 66%,
-        #d52b1e 66%,
-        #d52b1e 100%
-      );
-    }
-
-    .details-btn {
+    .player-btn {
       width: 100%;
-      min-height: 54px;
-      border-radius: 999px;
+      height: 54px;
       border: none;
-      background: #008b36;
+      border-radius: 999px;
+      background: var(--green);
       color: #ffffff;
       font-size: 17px;
-      font-weight: 900;
+      font-weight: 950;
       cursor: pointer;
+      transition: 0.2s ease;
     }
 
-    .details-btn:hover {
-      background: #00a344;
+    .player-btn:hover {
+      background: #006e29;
+      transform: translateY(-2px);
     }
 
     .cards-grid {
-      max-width: 1220px;
-      margin: 0 auto;
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(3, minmax(240px, 1fr));
       gap: 24px;
     }
 
     .info-card {
-      min-height: 220px;
+      min-height: 190px;
       padding: 28px;
-      border-radius: 30px;
+      border-radius: 24px;
       background: #ffffff;
-      border: 1px solid rgba(0, 0, 0, 0.08);
-      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.06);
+      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.06);
     }
 
     .info-card h3 {
-      font-size: 24px;
-      margin-bottom: 14px;
+      margin-bottom: 12px;
+      color: var(--green-dark);
+      font-size: 22px;
+      font-weight: 950;
       text-transform: uppercase;
     }
 
     .info-card p {
-      color: #4d5a52;
-      line-height: 1.7;
-      font-weight: 600;
-    }
-
-    footer {
-      padding: 34px 6%;
-      text-align: center;
-      background: #001c0a;
-      color: #d8ffe4;
+      color: #5f6862;
+      font-size: 16px;
+      line-height: 1.55;
       font-weight: 700;
     }
 
-    @media (max-width: 1100px) {
+    .site-footer {
+      padding: 38px 6vw;
+      background: var(--green-dark);
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      font-weight: 800;
+    }
+
+    .site-footer span {
+      color: rgba(255, 255, 255, 0.72);
+    }
+
+    @media (max-width: 1280px) {
       .players-grid {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(3, minmax(230px, 1fr));
+      }
+    }
+
+    @media (max-width: 980px) {
+      .site-header {
+        height: auto;
+        min-height: 92px;
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 18px;
+        padding-top: 18px;
+        padding-bottom: 18px;
       }
 
-      .hero-inner {
+      .main-nav {
+        width: 100%;
+        gap: 18px;
+        justify-content: space-between;
+        font-size: 13px;
+      }
+
+      .players-grid {
+        grid-template-columns: repeat(2, minmax(220px, 1fr));
+      }
+
+      .cards-grid {
         grid-template-columns: 1fr;
       }
     }
 
-    @media (max-width: 760px) {
-      header {
-        flex-direction: column;
+    @media (max-width: 620px) {
+      .brand-logo {
+        width: 54px;
+        height: 54px;
+        border-radius: 15px;
+        font-size: 22px;
+      }
+
+      .brand-title {
+        font-size: 20px;
+      }
+
+      .brand-subtitle {
+        font-size: 10px;
+        letter-spacing: 0.36em;
+      }
+
+      .main-nav {
+        overflow-x: auto;
+        justify-content: flex-start;
+        padding-bottom: 4px;
+      }
+
+      .hero {
+        min-height: auto;
+        padding: 56px 20px;
+      }
+
+      .section,
+      .players-section {
+        padding-left: 20px;
+        padding-right: 20px;
+      }
+
+      .section-head {
         align-items: flex-start;
-        gap: 16px;
+        flex-direction: column;
       }
 
-      nav {
-        flex-wrap: wrap;
-        gap: 14px;
-      }
-
-      .players-grid,
-      .cards-grid {
+      .players-grid {
         grid-template-columns: 1fr;
       }
 
-      .player-photo {
-        height: 320px;
+      .player-card {
+        min-height: 500px;
       }
 
-      .hero-buttons {
+      .player-name {
+        font-size: 25px;
+      }
+
+      .site-footer {
         flex-direction: column;
-      }
-
-      .btn {
-        width: 100%;
+        align-items: flex-start;
       }
     }
   </style>
 </head>
 
 <body>
-  <div class="page">
+  <header class="site-header">
+    <a href="index.html" class="brand">
+      <div class="brand-logo">
+        <img src="logo.png.png" alt="Deportivo Moscu" onerror="this.remove(); this.parentElement.textContent='DM';">
+      </div>
 
-    <header>
-      <div class="brand">
-        <div class="logo">
-          <img src="images/logo.png" alt="Deportivo Moscu Logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-          <span class="logo-fallback">DM</span>
+      <div>
+        <div class="brand-title">Deportivo Moscu</div>
+        <div class="brand-subtitle">Football Club</div>
+      </div>
+    </a>
+
+    <nav class="main-nav">
+      <a href="club.html">Клуб</a>
+      <a href="index.html#players">Игроки</a>
+      <a href="matches.html">Матчи</a>
+      <a href="news.html">Новости</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" id="club">
+      <div class="hero-content">
+        <div class="eyebrow">Football Club</div>
+        <h1>Deportivo Moscu</h1>
+        <p>
+          Футбольный клуб с сильным характером, современной подачей и командной культурой.
+          Здесь собраны игроки, матчи, новости и история Deportivo Moscu.
+        </p>
+
+        <div class="hero-actions">
+          <a class="btn-primary" href="#players">Смотреть игроков</a>
+          <a class="btn-secondary" href="matches.html">Матчи</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="players-section" id="players">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">Команда</div>
+          <h2 class="section-title">Игроки</h2>
         </div>
 
-        <div class="brand-text">
-          <h1>Deportivo Moscu</h1>
-          <p>Football Club</p>
+        <p class="section-text">
+          Полный состав Deportivo Moscu. Карточки автоматически берут данные из файла players-data.js.
+        </p>
+      </div>
+
+      <div class="players-grid" id="playersGrid"></div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">Клуб</div>
+          <h2 class="section-title">Deportivo DNA</h2>
         </div>
       </div>
 
-      <nav>
-        <a href="#club">Клуб</a>
-        <a href="#players">Игроки</a>
-        <a href="#matches">Матчи</a>
-        <a href="#news">Новости</a>
-      </nav>
-    </header>
+      <div class="cards-grid">
+        <article class="info-card">
+          <h3>Характер</h3>
+          <p>Команда играет с дисциплиной, энергией и уважением к футболу.</p>
+        </article>
 
-    <main>
+        <article class="info-card">
+          <h3>Стиль</h3>
+          <p>Современный футбол, быстрые решения, движение и борьба за каждый эпизод.</p>
+        </article>
 
-      <section class="hero" id="club">
-        <div class="hero-inner">
-          <div>
-            <div class="hero-badge">Futuristic Football Club</div>
+        <article class="info-card">
+          <h3>Будущее</h3>
+          <p>Развитие клуба, игроков, академии и узнаваемого визуального образа.</p>
+        </article>
+      </div>
+    </section>
+  </main>
 
-            <h2>
-              Deportivo<br>
-              <span>Moscu</span>
-            </h2>
+  <footer class="site-footer">
+    <strong>Deportivo Moscu Football Club</strong>
+    <span>© 2026</span>
+  </footer>
 
-            <p>
-              Современный сайт футбольного клуба Deportivo Moscu: состав команды,
-              матчи, новости, медиа и клубная история в сильном чёрно-зелёном стиле.
-            </p>
-
-            <div class="hero-buttons">
-              <a class="btn btn-primary" href="#players">Смотреть состав</a>
-              <a class="btn btn-secondary" href="#matches">Ближайший матч</a>
-            </div>
-          </div>
-
-          <div class="hero-card">
-            <div>
-              <div class="club-circle">DM</div>
-              <h3>Deportivo Moscu</h3>
-              <p>Футбольный клуб нового поколения</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section id="players">
-        <div class="section-head">
-          <p>Squad</p>
-          <h2>Состав команды</h2>
-        </div>
-
-        <div class="players-grid">
-
-          <article class="player-card">
-            <div class="player-photo">
-              <div class="player-number">9</div>
-            </div>
-
-            <div class="player-info">
-              <div>
-                <div class="player-position">Защитник</div>
-                <h3 class="player-name">Llanos Ezequiel David</h3>
-              </div>
-
-              <div>
-                <div class="player-country">
-                  <span class="flag flag-argentina"></span>
-                  <span>Аргентина</span>
-                </div>
-
-                <button class="details-btn">Подробнее →</button>
-              </div>
-            </div>
-          </article>
-
-          <article class="player-card">
-            <div class="player-photo">
-              <div class="player-number">10</div>
-            </div>
-
-            <div class="player-info">
-              <div>
-                <div class="player-position">Защитник</div>
-                <h3 class="player-name">Zhandarov Vladimir</h3>
-              </div>
-
-              <div>
-                <div class="player-country">
-                  <span class="flag flag-russia"></span>
-                  <span>Россия</span>
-                </div>
-
-                <button class="details-btn">Подробнее →</button>
-              </div>
-            </div>
-          </article>
-
-          <article class="player-card">
-            <div class="player-photo">
-              <div class="player-number">11</div>
-            </div>
-
-            <div class="player-info">
-              <div>
-                <div class="player-position">Защитник</div>
-                <h3 class="player-name">Aquino Jairo Leonel</h3>
-              </div>
-
-              <div>
-                <div class="player-country">
-                  <span class="flag flag-argentina"></span>
-                  <span>Аргентина</span>
-                </div>
-
-                <button class="details-btn">Подробнее →</button>
-              </div>
-            </div>
-          </article>
-
-          <article class="player-card">
-            <div class="player-photo">
-              <div class="player-number">12</div>
-            </div>
-
-            <div class="player-info">
-              <div>
-                <div class="player-position">Защитник</div>
-                <h3 class="player-name">Denis Aaron Agustin</h3>
-              </div>
-
-              <div>
-                <div class="player-country">
-                  <span class="flag flag-argentina"></span>
-                  <span>Аргентина</span>
-                </div>
-
-                <button class="details-btn">Подробнее →</button>
-              </div>
-            </div>
-          </article>
-
-        </div>
-      </section>
-
-      <section id="matches">
-        <div class="section-head">
-          <p>Matches</p>
-          <h2>Матчи</h2>
-        </div>
-
-        <div class="cards-grid">
-          <div class="info-card">
-            <h3>Ближайший матч</h3>
-            <p>
-              Здесь будет дата, время, соперник и место проведения следующей игры Deportivo Moscu.
-            </p>
-          </div>
-
-          <div class="info-card">
-            <h3>Результаты</h3>
-            <p>
-              После матчей сюда можно добавлять счёт, авторов голов и краткий обзор игры.
-            </p>
-          </div>
-
-          <div class="info-card">
-            <h3>Турнир</h3>
-            <p>
-              Здесь будет информация о лиге, таблице, календаре и положении команды.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      <section id="news">
-        <div class="section-head">
-          <p>News</p>
-          <h2>Новости клуба</h2>
-        </div>
-
-        <div class="cards-grid">
-          <div class="info-card">
-            <h3>Новый сайт</h3>
-            <p>
-              Deportivo Moscu запускает современную версию сайта с составом, матчами и новостями.
-            </p>
-          </div>
-
-          <div class="info-card">
-            <h3>Состав</h3>
-            <p>
-              Сейчас карточки игроков работают без фото. Когда появятся фотографии, мы добавим их в карточки.
-            </p>
-          </div>
-
-          <div class="info-card">
-            <h3>Медиа</h3>
-            <p>
-              Следующим этапом можно добавить галерею, видео, Instagram-блок и страницу каждого игрока.
-            </p>
-          </div>
-        </div>
-      </section>
-
-    </main>
-
-    <footer>
-      © 2026 Deportivo Moscu. Football Club.
-    </footer>
-
-  </div>
+  <script src="league-data.js"></script>
+  <script src="matches-data.js"></script>
+  <script src="news-data.js"></script>
+  <script src="players-data.js"></script>
+  <script src="nav-links.js"></script>
+  <script src="app.js"></script>
 </body>
 </html>
