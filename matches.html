@@ -253,15 +253,18 @@
     }
 
     .team-logo {
-      width: 34px;
-      height: 34px;
+      width: 38px;
+      height: 38px;
       object-fit: contain;
-      flex: 0 0 34px;
+      flex: 0 0 38px;
+      border-radius: 50%;
+      background: #f4f7f5;
+      padding: 3px;
     }
 
     .team-fallback {
-      width: 34px;
-      height: 34px;
+      width: 38px;
+      height: 38px;
       border-radius: 50%;
       display: inline-flex;
       align-items: center;
@@ -270,7 +273,7 @@
       color: var(--green);
       font-size: 12px;
       font-weight: 950;
-      flex: 0 0 34px;
+      flex: 0 0 38px;
     }
 
     .matches-list {
@@ -524,6 +527,22 @@
   </footer>
 
   <script>
+    const teamLogos = {
+      "Falucho": "https://ligaescobarense.ar/wp-content/uploads/2024/01/Falucho.png",
+      "America": "https://ligaescobarense.ar/wp-content/uploads/2024/01/America.png",
+      "Los Altos": "https://ligaescobarense.ar/wp-content/uploads/2024/01/Los-Altos.png",
+      "Domingo Matheu": "https://ligaescobarense.ar/wp-content/uploads/2024/01/Domingo-Matheu.png",
+      "Lomas Futbol": "https://ligaescobarense.ar/wp-content/uploads/2024/12/Lomas-Futbol.png",
+      "Fair Play": "https://ligaescobarense.ar/wp-content/uploads/2025/10/Fair-Play.png",
+      "Villa Juana": "https://ligaescobarense.ar/wp-content/uploads/2024/01/Villa-Juana.png",
+      "Colectividad Boliviana": "https://ligaescobarense.ar/wp-content/uploads/2024/01/C.-B.-E.png",
+      "Capitanes": "https://ligaescobarense.ar/wp-content/uploads/2024/01/Capitanes.png",
+      "Parque III": "https://ligaescobarense.ar/wp-content/uploads/2024/01/Parque-Villarino-1.png",
+      "La Sonia B": "https://ligaescobarense.ar/wp-content/uploads/2024/08/La-Sonia-nuevo.png",
+      "Tribuna Sport Club": "https://ligaescobarense.ar/wp-content/uploads/2025/10/Tribuna-Sport-Club.png",
+      "Sportivo Union": "https://ligaescobarense.ar/wp-content/uploads/2024/09/Sportivo-Union.png"
+    };
+
     const leagueData = {
       updated: "21.05.2026",
       standings: [
@@ -593,6 +612,15 @@
         return `
           <img class="team-logo" src="logo.png.png" alt="Deportivo Moscu" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-flex';">
           <span class="team-fallback" style="display:none;">DM</span>
+        `;
+      }
+
+      const logoUrl = teamLogos[team];
+
+      if (logoUrl) {
+        return `
+          <img class="team-logo" src="${logoUrl}" alt="${team}" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-flex';">
+          <span class="team-fallback" style="display:none;">${getInitials(team) || "FC"}</span>
         `;
       }
 
