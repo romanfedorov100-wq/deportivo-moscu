@@ -1,177 +1,50 @@
-window.deportivoMatches = [
-  {
-    id: "deportivo-alania",
-    status: "upcoming",
-    date: "25.05.2026",
-    time: "19:00",
-    tournament: {
-      ru: "Primera División",
-      en: "Primera División",
-      es: "Primera División"
-    },
-    home: "Deportivo Moscu",
-    away: "FC Alania",
-    stadium: {
-      ru: "Estadio de Moscu",
-      en: "Estadio de Moscu",
-      es: "Estadio de Moscu"
-    },
-    city: {
-      ru: "Буэнос-Айрес",
-      en: "Buenos Aires",
-      es: "Buenos Aires"
-    },
-    scoreHome: null,
-    scoreAway: null
-  },
-  {
-    id: "spartak-nalchik-deportivo",
-    status: "upcoming",
-    date: "01.06.2026",
-    time: "17:00",
-    tournament: {
-      ru: "Primera División",
-      en: "Primera División",
-      es: "Primera División"
-    },
-    home: "Spartak-Nalchik",
-    away: "Deportivo Moscu",
-    stadium: {
-      ru: "Estadio Norte",
-      en: "Estadio Norte",
-      es: "Estadio Norte"
-    },
-    city: {
-      ru: "Буэнос-Айрес",
-      en: "Buenos Aires",
-      es: "Buenos Aires"
-    },
-    scoreHome: null,
-    scoreAway: null
-  },
-  {
-    id: "deportivo-legion",
-    status: "upcoming",
-    date: "08.06.2026",
-    time: "19:00",
-    tournament: {
-      ru: "Primera División",
-      en: "Primera División",
-      es: "Primera División"
-    },
-    home: "Deportivo Moscu",
-    away: "Legion",
-    stadium: {
-      ru: "Estadio de Moscu",
-      en: "Estadio de Moscu",
-      es: "Estadio de Moscu"
-    },
-    city: {
-      ru: "Буэнос-Айрес",
-      en: "Buenos Aires",
-      es: "Buenos Aires"
-    },
-    scoreHome: null,
-    scoreAway: null
-  },
-  {
-    id: "dinamo-stavropol-deportivo",
-    status: "upcoming",
-    date: "15.06.2026",
-    time: "18:00",
-    tournament: {
-      ru: "Primera División",
-      en: "Primera División",
-      es: "Primera División"
-    },
-    home: "Dinamo Stavropol",
-    away: "Deportivo Moscu",
-    stadium: {
-      ru: "Estadio Sur",
-      en: "Estadio Sur",
-      es: "Estadio Sur"
-    },
-    city: {
-      ru: "Буэнос-Айрес",
-      en: "Buenos Aires",
-      es: "Buenos Aires"
-    },
-    scoreHome: null,
-    scoreAway: null
-  },
-  {
-    id: "deportivo-rotor",
-    status: "upcoming",
-    date: "22.06.2026",
-    time: "19:00",
-    tournament: {
-      ru: "Primera División",
-      en: "Primera División",
-      es: "Primera División"
-    },
-    home: "Deportivo Moscu",
-    away: "Rotor Vladikavkaz",
-    stadium: {
-      ru: "Estadio de Moscu",
-      en: "Estadio de Moscu",
-      es: "Estadio de Moscu"
-    },
-    city: {
-      ru: "Буэнос-Айрес",
-      en: "Buenos Aires",
-      es: "Buenos Aires"
-    },
-    scoreHome: null,
-    scoreAway: null
-  },
-  {
-    id: "deportivo-amigos",
-    status: "finished",
-    date: "12.05.2026",
-    time: "20:00",
-    tournament: {
-      ru: "Товарищеский матч",
-      en: "Friendly match",
-      es: "Partido amistoso"
-    },
-    home: "Deportivo Moscu",
-    away: "Amigos FC",
-    stadium: {
-      ru: "Estadio de Moscu",
-      en: "Estadio de Moscu",
-      es: "Estadio de Moscu"
-    },
-    city: {
-      ru: "Буэнос-Айрес",
-      en: "Buenos Aires",
-      es: "Buenos Aires"
-    },
-    scoreHome: 3,
-    scoreAway: 1
-  },
-  {
-    id: "barrio-norte-deportivo",
-    status: "finished",
-    date: "05.05.2026",
-    time: "18:30",
-    tournament: {
-      ru: "Товарищеский матч",
-      en: "Friendly match",
-      es: "Partido amistoso"
-    },
-    home: "Barrio Norte",
-    away: "Deportivo Moscu",
-    stadium: {
-      ru: "Campo Norte",
-      en: "Campo Norte",
-      es: "Campo Norte"
-    },
-    city: {
-      ru: "Буэнос-Айрес",
-      en: "Buenos Aires",
-      es: "Buenos Aires"
-    },
-    scoreHome: 2,
-    scoreAway: 2
-  }
-];
+window.deportivoLeague = {
+  title: "Primera División B 2025-26 / Zona Escobar",
+  source: "Liga Escobarense de Fútbol",
+  updated: "21.05.2026",
+  standings: [
+    { position: 1, team: "Falucho", pj: 21, g: 18, e: 0, p: 3, gf: 64, gc: 20, dif: 44, pts: 54 },
+    { position: 2, team: "America", pj: 21, g: 14, e: 1, p: 6, gf: 68, gc: 41, dif: 27, pts: 43 },
+    { position: 3, team: "Los Altos", pj: 21, g: 13, e: 2, p: 6, gf: 48, gc: 32, dif: 16, pts: 41 },
+    { position: 4, team: "Domingo Matheu", pj: 20, g: 12, e: 3, p: 5, gf: 41, gc: 30, dif: 11, pts: 39 },
+    { position: 5, team: "Deportivo Moscu", pj: 21, g: 12, e: 2, p: 7, gf: 44, gc: 38, dif: 6, pts: 38 },
+    { position: 6, team: "Lomas Futbol", pj: 20, g: 10, e: 4, p: 6, gf: 41, gc: 25, dif: 16, pts: 34 },
+    { position: 7, team: "Fair Play", pj: 21, g: 9, e: 5, p: 7, gf: 41, gc: 34, dif: 7, pts: 32 },
+    { position: 8, team: "Villa Juana", pj: 21, g: 8, e: 3, p: 10, gf: 37, gc: 40, dif: -3, pts: 27 },
+    { position: 9, team: "Colectividad Boliviana", pj: 21, g: 7, e: 3, p: 11, gf: 51, gc: 56, dif: -5, pts: 24 },
+    { position: 10, team: "Capitanes", pj: 20, g: 5, e: 6, p: 9, gf: 33, gc: 45, dif: -12, pts: 21 },
+    { position: 11, team: "Parque III", pj: 21, g: 5, e: 1, p: 15, gf: 25, gc: 54, dif: -29, pts: 16 },
+    { position: 12, team: "La Sonia B", pj: 21, g: 4, e: 4, p: 13, gf: 22, gc: 55, dif: -33, pts: 16 },
+    { position: 13, team: "Tribuna Sport Club", pj: 20, g: 3, e: 6, p: 11, gf: 18, gc: 41, dif: -23, pts: 15 },
+    { position: 14, team: "Sportivo Union", pj: 21, g: 4, e: 2, p: 15, gf: 37, gc: 59, dif: -22, pts: 14 }
+  ],
+  matches: [
+    { round: 1, date: "2 Nov 2025", home: "Deportivo Moscu", away: "Capitanes", homeScore: 0, awayScore: 1, status: "played" },
+    { round: 2, date: "8 Nov 2025", home: "America", away: "Deportivo Moscu", homeScore: 1, awayScore: 0, status: "played" },
+    { round: 3, date: "16 Nov 2025", home: "Deportivo Moscu", away: "Villa Juana", homeScore: 5, awayScore: 1, status: "played" },
+    { round: 4, date: "24 Nov 2025", home: "La Sonia B", away: "Deportivo Moscu", homeScore: 0, awayScore: 1, status: "played" },
+    { round: 5, date: "30 Nov 2025", home: "Deportivo Moscu", away: "Lomas Futbol", homeScore: 1, awayScore: 0, status: "played" },
+    { round: 6, date: "8 Dic 2025", home: "Tribuna Sport Club", away: "Deportivo Moscu", homeScore: 1, awayScore: 3, status: "played" },
+    { round: 7, date: "20 Dic 2025", home: "Deportivo Moscu", away: "Sportivo Union", homeScore: 4, awayScore: 1, status: "played" },
+    { round: 8, date: "18 Ene 2026", home: "Parque III", away: "Deportivo Moscu", homeScore: 1, awayScore: 2, status: "played" },
+    { round: 9, date: "25 Ene 2026", home: "Deportivo Moscu", away: "Domingo Matheu", homeScore: 0, awayScore: 2, status: "played", note: "Tribunal de Disciplina. Anterior: Moscú 5-0 Matheu." },
+    { round: 10, date: "31 Ene 2026", home: "Falucho", away: "Deportivo Moscu", homeScore: 8, awayScore: 1, status: "played" },
+    { round: 11, date: "8 Feb 2026", home: "Deportivo Moscu", away: "Colectividad Boliviana", homeScore: 4, awayScore: 2, status: "played" },
+    { round: 12, date: "14 Feb 2026", home: "Deportivo Moscu", away: "Los Altos", homeScore: 2, awayScore: 4, status: "played" },
+    { round: 13, date: "1 Mar 2026", home: "Fair Play", away: "Deportivo Moscu", homeScore: 3, awayScore: 2, status: "played" },
+    { round: 14, date: "14 Mar 2026", home: "Capitanes", away: "Deportivo Moscu", homeScore: 2, awayScore: 3, status: "played" },
+    { round: 15, date: "22 Mar 2026", home: "Deportivo Moscu", away: "America", homeScore: 3, awayScore: 1, status: "played" },
+    { round: 16, date: "3 Abr 2026", home: "Villa Juana", away: "Deportivo Moscu", homeScore: 1, awayScore: 1, status: "played" },
+    { round: 17, date: "11 Abr 2026", home: "Deportivo Moscu", away: "La Sonia B", homeScore: 4, awayScore: 0, status: "played" },
+    { round: 18, date: "18 Abr 2026", home: "Lomas Futbol", away: "Deportivo Moscu", homeScore: 3, awayScore: 4, status: "played" },
+    { round: 19, date: "26 Abr 2026", home: "Deportivo Moscu", away: "Tribuna Sport Club", homeScore: 3, awayScore: 3, status: "played" },
+    { round: 20, date: "3 May 2026", home: "Sportivo Union", away: "Deportivo Moscu", homeScore: 0, awayScore: 1, status: "played" },
+    { round: 21, date: "10 May 2026", home: "Deportivo Moscu", away: "Parque III", homeScore: 0, awayScore: 3, status: "played" },
+
+    { round: 22, date: "A confirmar", home: "Domingo Matheu", away: "Deportivo Moscu", homeScore: null, awayScore: null, status: "upcoming" },
+    { round: 23, date: "A confirmar", home: "Deportivo Moscu", away: "Falucho", homeScore: null, awayScore: null, status: "upcoming" },
+    { round: 24, date: "A confirmar", home: "Colectividad Boliviana", away: "Deportivo Moscu", homeScore: null, awayScore: null, status: "upcoming" },
+    { round: 25, date: "A confirmar", home: "Los Altos", away: "Deportivo Moscu", homeScore: null, awayScore: null, status: "upcoming" },
+    { round: 26, date: "A confirmar", home: "Deportivo Moscu", away: "Fair Play", homeScore: null, awayScore: null, status: "upcoming" }
+  ]
+};
