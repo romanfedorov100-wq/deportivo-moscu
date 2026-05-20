@@ -12,8 +12,10 @@
     return [];
   }
 
-  function text(value, fallback) {
-    if (value === undefined || value === null || value === "") return fallback || "";
+  function getText(value, fallback) {
+    if (value === undefined || value === null || value === "") {
+      return fallback || "";
+    }
 
     if (typeof value === "object") {
       return value[LANG] || value.ru || value.en || value.es || fallback || "";
@@ -32,7 +34,7 @@
   }
 
   function getPlayerNumber(player, index) {
-    return text(
+    return getText(
       player.number ||
         player.num ||
         player.shirtNumber ||
@@ -43,15 +45,33 @@
   }
 
   function getPlayerName(player) {
-    return text(player.name || player.fullName || player.fullname || player.title, "Игрок");
+    return getText(
+      player.name ||
+        player.fullName ||
+        player.fullname ||
+        player.title,
+      "Игрок"
+    );
   }
 
   function getPlayerPosition(player) {
-    return text(player.position || player.role || player.pos || player.type, "Игрок");
+    return getText(
+      player.position ||
+        player.role ||
+        player.pos ||
+        player.type,
+      "Игрок"
+    );
   }
 
   function getPlayerCountry(player) {
-    return text(player.nationality || player.country || player.nation || player.countryName, "");
+    return getText(
+      player.nationality ||
+        player.country ||
+        player.nation ||
+        player.countryName,
+      ""
+    );
   }
 
   function getPlayerPhoto(player) {
@@ -64,6 +84,63 @@
       player.playerPhoto ||
       ""
     );
+  }
+
+  function normalizeRole(role) {
+    const value = String(getText(role, "")).toLowerCase();
+
+    if (value === "goalkeeper") return "goalkeeper";
+    if (value === "defender") return "defender";
+    if (value === "midfielder") return "midfielder";
+    if (value === "forward") return "forward";
+    if (value === "striker") return "forward";
+
+    if (value.includes("врат")) return "goalkeeper";
+    if (value.includes("защит")) return "defender";
+    if (value.includes("полу")) return "midfielder";
+    if (value.includes("напад")) return "forward";
+
+    return "all";
+  }
+
+  function splitName(name) {
+    const clean = String(name || "Игрок").trim();
+    const parts = clean.split(/\s+/);
+
+    if (parts.length <= 2) {
+      return escapeHtml(clean);
+    }
+
+    const firstLine = parts.slice(0, 2).join(" ");
+    const secondLine = parts.slice(2).join(" ");
+
+    return escapeHtml(firstLine) + "<br>" + escapeHtml(secondLine);
+  }
+
+  function countryToFlag(country) {
+    const value = String(country || "").trim().toLowerCase();
+
+    const flags = {
+      "аргентина": "🇦🇷",
+      "argentina": "🇦🇷",
+      "россия": "🇷🇺",
+      "russia": "🇷🇺",
+      "бразилия": "🇧🇷",
+      "brazil": "🇧🇷",
+      "brasil": "🇧🇷",
+      "эквадор": "🇪🇨",
+      "ecuador": "🇪🇨",
+      "венесуэла": "🇻🇪",
+      "venezuela": "🇻🇪",
+      "украина": "🇺🇦",
+      "ukraine": "🇺🇦",
+      "беларусь": "🇧🇾",
+      "belarus": "🇧🇾",
+      "казахстан": "🇰🇿",
+      "kazakhstan": "🇰🇿"
+    };
+
+    return flags[value] || "";
   }
 
   function isRealPlayerPhoto(src) {
@@ -80,6 +157,7 @@
       "russia",
       "ecuador",
       "brazil",
+      "brasil",
       "venezuela",
       "флаг",
       "аргентина",
@@ -89,7 +167,11 @@
       "венесуэла"
     ];
 
-    if (blockedWords.some((word) => value.includes(word))) return false;
+    if (blockedWords.some(function (word) {
+      return value.includes(word);
+    })) {
+      return false;
+    }
 
     return (
       value.includes("images/players/") ||
@@ -98,104 +180,32 @@
     );
   }
 
-  function countryToFlag(country) {
-    const value = String(country || "").trim().toLowerCase();
-
-    const flags = {
-      "аргентина": "🇦🇷",
-      "argentina": "🇦🇷",
-      "россия": "🇷🇺",
-      "russia": "🇷🇺",
-      "бразилия": "🇧🇷",
-      "brazil": "🇧🇷",
-      "эквадор": "🇪🇨",
-      "ecuador": "🇪🇨",
-      "венесуэла": "🇻🇪",
-      "venezuela": "🇻🇪",
-      "украина": "🇺🇦",
-      "ukraine": "🇺🇦",
-      "беларусь": "🇧🇾",
-      "belarus": "🇧🇾",
-      "казахстан": "🇰🇿",
-      "kazakhstan": "🇰🇿"
-    };
-
-    return flags[value] || "";
-  }
-
-  function normalizeRole(role) {
-    const value = String(role || "").toLowerCase();
-
-    if (value === "goalkeeper") return "goalkeeper";
-    if (value === "defender") return "defender";
-    if (value === "midfielder") return "midfielder";
-    if (value === "forward") return "forward";
-    if (value === "striker") return "forward";
-
-    if (value.includes("врат")) return "goalkeeper";
-    if (value.includes("защит")) return "defender";
-    if (value.includes("полу")) return "midfielder";
-    if (value.includes("напад")) return "forward";
-
-    return "all";
-  }
-
-  function getRoleLabel(role) {
-    const value = normalizeRole(role);
-
-    const labels = {
-      goalkeeper: "Вратарь",
-      defender: "Защитник",
-      midfielder: "Полузащитник",
-      forward: "Нападающий",
-      all: "Игрок"
-    };
-
-    return labels[value] || "Игрок";
-  }
-
-  function splitName(name) {
-    const clean = String(name || "Игрок").trim();
-    const parts = clean.split(/\s+/);
-
-    if (parts.length <= 2) {
-      return escapeHtml(clean);
-    }
-
-    const firstLine = parts.slice(0, 2).join(" ");
-    const secondLine = parts.slice(2).join(" ");
-
-    return `${escapeHtml(firstLine)}<br>${escapeHtml(secondLine)}`;
-  }
-
   function createPhotoHtml(player) {
     const photo = getPlayerPhoto(player);
     const name = getPlayerName(player);
 
     if (isRealPlayerPhoto(photo)) {
-      return `
-        <img
-          class="player-real-photo"
-          src="${escapeHtml(photo)}"
-          alt="${escapeHtml(name)}"
-          onerror="this.parentElement.innerHTML='<div class=&quot;player-placeholder&quot;></div>';"
-        >
-      `;
+      return (
+        '<img class="player-real-photo" src="' +
+        escapeHtml(photo) +
+        '" alt="' +
+        escapeHtml(name) +
+        '" onerror="this.parentElement.innerHTML=\'<div class=&quot;player-placeholder&quot;></div>\';">'
+      );
     }
 
-    return `<div class="player-placeholder"></div>`;
+    return '<div class="player-placeholder"></div>';
   }
 
-  function createFlagHtml(player) {
-    const country = getPlayerCountry(player);
+  function createFlagHtml(country) {
     const flag = countryToFlag(country);
 
     if (!flag) return "";
 
-    return `<span class="player-flag-emoji" aria-hidden="true">${flag}</span>`;
+    return '<span class="player-flag-emoji" aria-hidden="true">' + flag + "</span>";
   }
 
-  function injectStyles() {
+  function injectPlayersStyles() {
     const oldStyle = document.querySelector("#deportivo-players-style");
     if (oldStyle) oldStyle.remove();
 
@@ -223,7 +233,7 @@
         position: absolute !important;
         top: 0 !important;
         left: 0 !important;
-        z-index: 5 !important;
+        z-index: 10 !important;
         width: 88px !important;
         height: 74px !important;
         display: flex !important;
@@ -419,7 +429,7 @@
       playersGrid.innerHTML = `
         <article class="players-empty-card">
           <h3>Игроки скоро появятся</h3>
-          <p>Файл players-data.js найден, но переменная window.deportivoPlayers не загрузилась.</p>
+          <p>Файл players-data.js подключен, но массив window.deportivoPlayers не найден. Проверь порядок подключения: players-data.js должен быть перед app.js.</p>
         </article>
       `;
       return;
@@ -438,10 +448,10 @@
       .map(function (player, index) {
         const number = getPlayerNumber(player, index);
         const name = getPlayerName(player);
-        const position = getRoleLabel(player.role || player.position);
+        const position = getPlayerPosition(player);
         const country = getPlayerCountry(player);
         const photoHtml = createPhotoHtml(player);
-        const flagHtml = createFlagHtml(player);
+        const flagHtml = createFlagHtml(country);
 
         return `
           <article class="player-card">
@@ -502,7 +512,7 @@
   }
 
   document.addEventListener("DOMContentLoaded", function () {
-    injectStyles();
+    injectPlayersStyles();
     renderPlayers("all");
     setupFilters();
     setActiveNavLink();
