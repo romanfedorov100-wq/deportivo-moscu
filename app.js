@@ -7,8 +7,6 @@
     if (Array.isArray(window.PLAYERS)) return window.PLAYERS;
     if (Array.isArray(window.playersData)) return window.playersData;
     if (Array.isArray(window.PLAYERS_DATA)) return window.PLAYERS_DATA;
-    if (Array.isArray(window.squad)) return window.squad;
-    if (Array.isArray(window.SQUAD)) return window.SQUAD;
     return [];
   }
 
@@ -46,21 +44,14 @@
 
   function getPlayerNumber(player, index) {
     return getText(
-      player.number ||
-        player.num ||
-        player.shirtNumber ||
-        player.shirt ||
-        index + 1,
+      player.number || player.num || player.shirtNumber || player.shirt || index + 1,
       index + 1
     );
   }
 
   function getPlayerName(player) {
     return getText(
-      player.name ||
-        player.fullName ||
-        player.fullname ||
-        player.title,
+      player.name || player.fullName || player.fullname || player.title,
       "Игрок"
     );
   }
@@ -71,30 +62,21 @@
 
   function getPlayerPosition(player) {
     return getText(
-      player.position ||
-        player.role ||
-        player.pos ||
-        player.type,
+      player.position || player.role || player.pos || player.type,
       "Игрок"
     );
   }
 
   function getPlayerCountry(player) {
     return getText(
-      player.nationality ||
-        player.country ||
-        player.nation ||
-        player.countryName,
+      player.nationality || player.country || player.nation || player.countryName,
       ""
     );
   }
 
   function getPlayerBirthDate(player) {
     return getText(
-      player.birthDate ||
-        player.birth ||
-        player.dateOfBirth ||
-        player.dob,
+      player.birthDate || player.birth || player.dateOfBirth || player.dob,
       "—"
     );
   }
@@ -128,78 +110,6 @@
     return "all";
   }
 
-  function countryToFlagClass(country) {
-    const value = String(country || "").trim().toLowerCase();
-
-    const flags = {
-      "аргентина": "flag-argentina",
-      "argentina": "flag-argentina",
-
-      "россия": "flag-russia",
-      "russia": "flag-russia",
-
-      "бразилия": "flag-brazil",
-      "brazil": "flag-brazil",
-      "brasil": "flag-brazil",
-
-      "эквадор": "flag-ecuador",
-      "ecuador": "flag-ecuador",
-
-      "венесуэла": "flag-venezuela",
-      "venezuela": "flag-venezuela",
-
-      "украина": "flag-ukraine",
-      "ukraine": "flag-ukraine",
-
-      "беларусь": "flag-belarus",
-      "belarus": "flag-belarus",
-
-      "казахстан": "flag-kazakhstan",
-      "kazakhstan": "flag-kazakhstan"
-    };
-
-    return flags[value] || "";
-  }
-
-  function isRealPlayerPhoto(src) {
-    if (!src) return false;
-
-    const value = String(src).toLowerCase();
-
-    const blockedWords = [
-      "flag",
-      "flags",
-      "country",
-      "nationality",
-      "argentina",
-      "russia",
-      "ecuador",
-      "brazil",
-      "brasil",
-      "venezuela",
-      "флаг",
-      "аргентина",
-      "россия",
-      "эквадор",
-      "бразилия",
-      "венесуэла"
-    ];
-
-    if (
-      blockedWords.some(function (word) {
-        return value.includes(word);
-      })
-    ) {
-      return false;
-    }
-
-    return (
-      value.includes("images/players/") ||
-      value.includes("./images/players/") ||
-      value.includes("/images/players/")
-    );
-  }
-
   function splitName(name) {
     const clean = String(name || "Игрок").trim();
     const parts = clean.split(/\s+/).filter(Boolean);
@@ -215,18 +125,52 @@
     return escapeHtml(parts.slice(0, 2).join(" ")) + "<br>" + escapeHtml(parts.slice(2).join(" "));
   }
 
+  function countryToFlagClass(country) {
+    const value = String(country || "").trim().toLowerCase();
+
+    const flags = {
+      "аргентина": "flag-argentina",
+      "argentina": "flag-argentina",
+      "россия": "flag-russia",
+      "russia": "flag-russia",
+      "бразилия": "flag-brazil",
+      "brazil": "flag-brazil",
+      "brasil": "flag-brazil",
+      "эквадор": "flag-ecuador",
+      "ecuador": "flag-ecuador",
+      "венесуэла": "flag-venezuela",
+      "venezuela": "flag-venezuela",
+      "украина": "flag-ukraine",
+      "ukraine": "flag-ukraine",
+      "беларусь": "flag-belarus",
+      "belarus": "flag-belarus",
+      "казахстан": "flag-kazakhstan",
+      "kazakhstan": "flag-kazakhstan"
+    };
+
+    return flags[value] || "";
+  }
+
+  function createFlagHtml(country) {
+    const flagClass = countryToFlagClass(country);
+
+    if (!flagClass) return "";
+
+    return '<span class="player-flag ' + flagClass + '" aria-hidden="true"></span>';
+  }
+
   function createPhotoHtml(player) {
     const manualPhoto = getPlayerPhoto(player);
     const name = getPlayerName(player);
     const id = getPlayerId(player);
 
-    if (isRealPlayerPhoto(manualPhoto)) {
+    if (manualPhoto && String(manualPhoto).includes("images/players/")) {
       return (
         '<img class="player-real-photo" src="' +
         escapeHtml(manualPhoto) +
         '" alt="' +
         escapeHtml(name) +
-        '" onerror="tryNextPlayerPhoto(this);">'
+        '" onerror="this.parentElement.innerHTML=\'<div class=&quot;player-placeholder&quot;></div>\';">'
       );
     }
 
@@ -241,14 +185,6 @@
     );
   }
 
-  function createFlagHtml(country) {
-    const flagClass = countryToFlagClass(country);
-
-    if (!flagClass) return "";
-
-    return '<span class="player-flag ' + flagClass + '" aria-hidden="true"></span>';
-  }
-
   window.tryNextPlayerPhoto = function (img) {
     const id = img.getAttribute("data-player-id");
     const step = img.getAttribute("data-photo-step");
@@ -259,6 +195,12 @@
     }
 
     if (step === "jpg") {
+      img.setAttribute("data-photo-step", "jpeg");
+      img.src = "images/players/" + id + ".jpeg";
+      return;
+    }
+
+    if (step === "jpeg") {
       img.setAttribute("data-photo-step", "png");
       img.src = "images/players/" + id + ".png";
       return;
@@ -273,12 +215,12 @@
     img.parentElement.innerHTML = '<div class="player-placeholder"></div>';
   };
 
-  function injectFixStyles() {
-    const oldStyle = document.querySelector("#deportivo-fix-style");
+  function injectStyles() {
+    const oldStyle = document.querySelector("#deportivo-app-styles");
     if (oldStyle) oldStyle.remove();
 
     const style = document.createElement("style");
-    style.id = "deportivo-fix-style";
+    style.id = "deportivo-app-styles";
 
     style.textContent = `
       html {
@@ -297,21 +239,9 @@
         scroll-margin-top: 125px !important;
       }
 
-      .site-header {
-        min-height: 104px !important;
-      }
-
       .players-section {
         padding-top: 72px !important;
         padding-bottom: 70px !important;
-      }
-
-      .section-head {
-        margin-bottom: 34px !important;
-      }
-
-      .players-toolbar {
-        margin-bottom: 34px !important;
       }
 
       .players-grid {
@@ -319,7 +249,6 @@
         grid-template-columns: repeat(4, minmax(230px, 1fr)) !important;
         gap: 34px !important;
         align-items: stretch !important;
-        margin-bottom: 0 !important;
       }
 
       .player-card {
@@ -356,18 +285,6 @@
         display: flex !important;
         align-items: flex-end !important;
         justify-content: center !important;
-      }
-
-      .player-photo .player-flag,
-      .player-photo .flag,
-      .player-photo .flag-icon,
-      .player-photo .country-flag,
-      .player-photo .nationality-flag,
-      .player-photo [class*="flag"],
-      .player-photo [class*="Flag"] {
-        display: none !important;
-        visibility: hidden !important;
-        opacity: 0 !important;
       }
 
       .player-real-photo {
@@ -457,15 +374,7 @@
       }
 
       .flag-argentina {
-        background: linear-gradient(
-          to bottom,
-          #74acdf 0%,
-          #74acdf 33.33%,
-          #ffffff 33.33%,
-          #ffffff 66.66%,
-          #74acdf 66.66%,
-          #74acdf 100%
-        ) !important;
+        background: linear-gradient(to bottom, #74acdf 0%, #74acdf 33.33%, #ffffff 33.33%, #ffffff 66.66%, #74acdf 66.66%, #74acdf 100%) !important;
       }
 
       .flag-argentina::after {
@@ -481,15 +390,7 @@
       }
 
       .flag-russia {
-        background: linear-gradient(
-          to bottom,
-          #ffffff 0%,
-          #ffffff 33.33%,
-          #0039a6 33.33%,
-          #0039a6 66.66%,
-          #d52b1e 66.66%,
-          #d52b1e 100%
-        ) !important;
+        background: linear-gradient(to bottom, #ffffff 0%, #ffffff 33.33%, #0039a6 33.33%, #0039a6 66.66%, #d52b1e 66.66%, #d52b1e 100%) !important;
       }
 
       .flag-brazil {
@@ -520,63 +421,11 @@
       }
 
       .flag-ecuador {
-        background: linear-gradient(
-          to bottom,
-          #ffdd00 0%,
-          #ffdd00 50%,
-          #034ea2 50%,
-          #034ea2 75%,
-          #ed1c24 75%,
-          #ed1c24 100%
-        ) !important;
+        background: linear-gradient(to bottom, #ffdd00 0%, #ffdd00 50%, #034ea2 50%, #034ea2 75%, #ed1c24 75%, #ed1c24 100%) !important;
       }
 
       .flag-venezuela {
-        background: linear-gradient(
-          to bottom,
-          #f4d900 0%,
-          #f4d900 33.33%,
-          #0033a0 33.33%,
-          #0033a0 66.66%,
-          #ef3340 66.66%,
-          #ef3340 100%
-        ) !important;
-      }
-
-      .flag-ukraine {
-        background: linear-gradient(
-          to bottom,
-          #0057b7 0%,
-          #0057b7 50%,
-          #ffd700 50%,
-          #ffd700 100%
-        ) !important;
-      }
-
-      .flag-belarus {
-        background: linear-gradient(
-          to bottom,
-          #d22730 0%,
-          #d22730 66%,
-          #00af66 66%,
-          #00af66 100%
-        ) !important;
-      }
-
-      .flag-kazakhstan {
-        background: #00afca !important;
-      }
-
-      .flag-kazakhstan::after {
-        content: "" !important;
-        position: absolute !important;
-        top: 50% !important;
-        left: 50% !important;
-        width: 8px !important;
-        height: 8px !important;
-        transform: translate(-50%, -50%) !important;
-        border-radius: 50% !important;
-        background: #f6c400 !important;
+        background: linear-gradient(to bottom, #f4d900 0%, #f4d900 33.33%, #0033a0 33.33%, #0033a0 66.66%, #ef3340 66.66%, #ef3340 100%) !important;
       }
 
       .player-btn {
@@ -652,17 +501,6 @@
         align-items: flex-end !important;
         justify-content: center !important;
         overflow: hidden !important;
-      }
-
-      .player-modal-photo .player-real-photo {
-        width: 100% !important;
-        height: 100% !important;
-        object-fit: cover !important;
-      }
-
-      .player-modal-photo .player-placeholder {
-        transform: scale(1.25) !important;
-        transform-origin: bottom center !important;
       }
 
       .player-modal-main {
@@ -750,34 +588,14 @@
           grid-template-columns: 1fr !important;
         }
 
-        .player-modal-photo {
-          min-height: 320px !important;
-        }
-
         .player-modal-bottom {
           grid-template-columns: 1fr 1fr !important;
         }
       }
 
       @media (max-width: 620px) {
-        html {
-          scroll-padding-top: 160px !important;
-        }
-
-        #players {
-          scroll-margin-top: 160px !important;
-        }
-
         .players-grid {
           grid-template-columns: 1fr !important;
-        }
-
-        .player-modal {
-          padding: 12px !important;
-        }
-
-        .player-modal-main {
-          padding: 36px 26px 30px !important;
         }
 
         .player-modal-bottom {
@@ -807,16 +625,13 @@
             <div class="player-position">Ошибка</div>
             <div class="player-name">Игроки<br>не найдены</div>
             <div class="player-country">
-              <span>Проверь подключение players-data.js перед app.js</span>
+              <span>Проверь players-data.js и подключение перед app.js</span>
             </div>
           </div>
         </article>
       `;
 
-      if (playersCount) {
-        playersCount.textContent = "0 игроков";
-      }
-
+      if (playersCount) playersCount.textContent = "0 игроков";
       return;
     }
 
@@ -834,7 +649,7 @@
     }
 
     playersGrid.innerHTML = players
-      .map(function (player, index) {
+      .map(function (player) {
         const originalIndex = allPlayers.indexOf(player);
         const number = getPlayerNumber(player, originalIndex);
         const name = getPlayerName(player);
@@ -1038,28 +853,11 @@
     });
   }
 
-  function fixInitialHashScroll() {
-    if (window.location.hash !== "#players") return;
-
-    setTimeout(function () {
-      const playersSection = document.querySelector("#players");
-      if (!playersSection) return;
-
-      const top = playersSection.getBoundingClientRect().top + window.pageYOffset - 120;
-
-      window.scrollTo({
-        top: Math.max(top, 0),
-        behavior: "auto"
-      });
-    }, 250);
-  }
-
   document.addEventListener("DOMContentLoaded", function () {
-    injectFixStyles();
+    injectStyles();
     createModal();
     renderPlayers("all");
     setupFilters();
     setActiveNavLink();
-    fixInitialHashScroll();
   });
 })();
