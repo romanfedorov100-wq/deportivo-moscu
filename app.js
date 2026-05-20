@@ -42,11 +42,18 @@
     if (player.firstName) return player.firstName;
     if (player.firstname) return player.firstname;
     if (player.first_name) return player.first_name;
+
     if (player.name && !player.lastName && !player.lastname && !player.surname) {
       return player.name;
     }
 
-    const fullName = player.fullName || player.fullname || player.full_name || player.title || "";
+    const fullName =
+      player.fullName ||
+      player.fullname ||
+      player.full_name ||
+      player.title ||
+      "";
+
     const parts = String(fullName).trim().split(/\s+/);
 
     if (parts.length > 1) {
@@ -62,7 +69,13 @@
     if (player.last_name) return player.last_name;
     if (player.surname) return player.surname;
 
-    const fullName = player.fullName || player.fullname || player.full_name || player.title || "";
+    const fullName =
+      player.fullName ||
+      player.fullname ||
+      player.full_name ||
+      player.title ||
+      "";
+
     const parts = String(fullName).trim().split(/\s+/);
 
     if (parts.length > 1) {
@@ -136,51 +149,6 @@
     );
   }
 
-  function isFlagLikeImage(src, player) {
-    if (!src) return false;
-
-    const photo = String(src).toLowerCase();
-    const flag = String(getPlayerFlag(player) || "").toLowerCase();
-    const country = String(getPlayerCountry(player) || "").toLowerCase();
-
-    if (flag && photo === flag) return true;
-
-    const flagWords = [
-      "flag",
-      "flags",
-      "флаг",
-      "argentina",
-      "russia",
-      "rossiya",
-      "belarus",
-      "kazakhstan",
-      "ukraine",
-      "spain",
-      "brazil",
-      "france",
-      "portugal",
-      "italy",
-      "germany",
-      "аргентина",
-      "россия",
-      "беларусь",
-      "казахстан",
-      "украина"
-    ];
-
-    if (flagWords.some(function (word) {
-      return photo.includes(word);
-    })) {
-      return true;
-    }
-
-    if (country && photo.includes(country)) {
-      return true;
-    }
-
-    return false;
-  }
-
   function countryToEmoji(country) {
     const value = String(country || "").trim().toLowerCase();
 
@@ -212,14 +180,68 @@
     return map[value] || "";
   }
 
+  function isRealPlayerPhoto(src) {
+    if (!src) return false;
+
+    const value = String(src).toLowerCase();
+
+    const forbiddenWords = [
+      "flag",
+      "flags",
+      "флаг",
+      "country",
+      "nationality",
+      "argentina",
+      "russia",
+      "rossiya",
+      "belarus",
+      "kazakhstan",
+      "ukraine",
+      "spain",
+      "brazil",
+      "france",
+      "portugal",
+      "italy",
+      "germany",
+      "аргентина",
+      "россия",
+      "беларусь",
+      "казахстан",
+      "украина"
+    ];
+
+    const isFlag = forbiddenWords.some(function (word) {
+      return value.includes(word);
+    });
+
+    if (isFlag) return false;
+
+    const allowedPlayerFolders = [
+      "images/players/",
+      "./images/players/",
+      "/images/players/",
+      "players/"
+    ];
+
+    return allowedPlayerFolders.some(function (folder) {
+      return value.includes(folder);
+    });
+  }
+
   function createPhotoHtml(player) {
     const photo = getPlayerPhoto(player);
     const firstName = getPlayerFirstName(player);
     const lastName = getPlayerLastName(player);
     const name = `${firstName} ${lastName}`.trim();
 
-    if (photo && !isFlagLikeImage(photo, player)) {
-      return `<img src="${escapeHtml(photo)}" alt="${escapeHtml(name || "Player")}" onerror="this.remove(); this.parentElement.innerHTML='<div class=&quot;player-placeholder&quot;></div>';">`;
+    if (isRealPlayerPhoto(photo)) {
+      return `
+        <img 
+          src="${escapeHtml(photo)}" 
+          alt="${escapeHtml(name || "Player")}" 
+          onerror="this.parentElement.innerHTML='<div class=&quot;player-placeholder&quot;></div>';"
+        >
+      `;
     }
 
     return `<div class="player-placeholder"></div>`;
@@ -230,7 +252,14 @@
     const flag = getPlayerFlag(player);
 
     if (flag) {
-      return `<img class="player-flag" src="${escapeHtml(flag)}" alt="${escapeHtml(country)}" onerror="this.remove();">`;
+      return `
+        <img 
+          class="player-flag" 
+          src="${escapeHtml(flag)}" 
+          alt="${escapeHtml(country)}" 
+          onerror="this.remove();"
+        >
+      `;
     }
 
     const emoji = countryToEmoji(country);
