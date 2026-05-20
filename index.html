@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>Deportivo Moscu — Football Club</title>
+  <title>Deportivo Moscu — Игроки</title>
 
   <style>
     :root {
@@ -25,12 +25,14 @@
 
     html {
       scroll-behavior: smooth;
+      scroll-padding-top: 125px;
     }
 
     body {
       font-family: Arial, Helvetica, sans-serif;
       background: var(--light);
       color: var(--black);
+      overflow-x: hidden;
     }
 
     a {
@@ -52,7 +54,7 @@
       align-items: center;
       justify-content: space-between;
       padding: 0 6vw;
-      background: rgba(255, 255, 255, 0.96);
+      background: rgba(255, 255, 255, 0.97);
       border-bottom: 1px solid rgba(0, 0, 0, 0.06);
       backdrop-filter: blur(14px);
     }
@@ -115,95 +117,11 @@
       color: var(--green);
     }
 
-    .hero {
-      min-height: 470px;
-      display: flex;
-      align-items: center;
-      padding: 72px 6vw 88px;
-      background:
-        radial-gradient(circle at 78% 18%, rgba(0, 140, 53, 0.16), transparent 30%),
-        linear-gradient(135deg, #ffffff 0%, #f6f8f6 58%, #edf2ee 100%);
-      overflow: hidden;
-    }
-
-    .hero-content {
-      max-width: 820px;
-    }
-
-    .eyebrow {
-      margin-bottom: 18px;
-      color: var(--green);
-      font-size: 14px;
-      font-weight: 950;
-      letter-spacing: 0.28em;
-      text-transform: uppercase;
-    }
-
-    .hero h1 {
-      color: var(--green-dark);
-      font-size: clamp(58px, 8vw, 118px);
-      line-height: 0.92;
-      font-weight: 950;
-      letter-spacing: 0.13em;
-      text-transform: uppercase;
-    }
-
-    .hero p {
-      max-width: 660px;
-      margin-top: 26px;
-      color: #66716b;
-      font-size: 22px;
-      line-height: 1.55;
-      font-weight: 700;
-    }
-
-    .hero-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 18px;
-      margin-top: 42px;
-    }
-
-    .btn-primary,
-    .btn-secondary {
-      min-height: 62px;
-      padding: 0 36px;
-      border-radius: 999px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 16px;
-      font-weight: 950;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      transition: 0.2s ease;
-    }
-
-    .btn-primary {
-      background: var(--green);
-      color: #ffffff;
-      box-shadow: 0 18px 38px rgba(0, 140, 53, 0.22);
-    }
-
-    .btn-primary:hover {
-      background: #006e29;
-      transform: translateY(-2px);
-    }
-
-    .btn-secondary {
-      background: #ffffff;
-      color: var(--green-dark);
-      border: 1px solid rgba(0, 140, 53, 0.18);
-    }
-
-    .btn-secondary:hover {
-      color: var(--green);
-      transform: translateY(-2px);
-    }
-
     .players-section {
-      padding: 82px 6vw 110px;
+      min-height: calc(100vh - 104px);
+      padding: 72px 6vw 110px;
       background: #f5f7f5;
+      scroll-margin-top: 125px;
     }
 
     .section-head {
@@ -408,15 +326,16 @@
       font-weight: 800;
     }
 
-    .player-flag-emoji {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
+    .player-flag {
+      position: relative;
+      display: inline-block;
       width: 44px;
       height: 28px;
-      font-size: 28px;
-      line-height: 1;
-      flex: 0 0 auto;
+      flex: 0 0 44px;
+      overflow: hidden;
+      border-radius: 4px;
+      box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.08);
+      background: #eeeeee;
     }
 
     .player-btn {
@@ -435,41 +354,6 @@
     .player-btn:hover {
       background: #006e29;
       transform: translateY(-2px);
-    }
-
-    .club-section {
-      padding: 84px 6vw 100px;
-      background: #ffffff;
-    }
-
-    .club-grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(240px, 1fr));
-      gap: 26px;
-      margin-top: 38px;
-    }
-
-    .club-card {
-      min-height: 210px;
-      padding: 32px;
-      border-radius: 24px;
-      background: #f5f7f5;
-      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.05);
-    }
-
-    .club-card h3 {
-      margin-bottom: 14px;
-      color: var(--green-dark);
-      font-size: 24px;
-      font-weight: 950;
-      text-transform: uppercase;
-    }
-
-    .club-card p {
-      color: #5f6862;
-      font-size: 17px;
-      line-height: 1.55;
-      font-weight: 750;
     }
 
     .site-footer {
@@ -525,13 +409,13 @@
       .players-grid {
         grid-template-columns: repeat(2, minmax(220px, 1fr));
       }
-
-      .club-grid {
-        grid-template-columns: 1fr;
-      }
     }
 
     @media (max-width: 620px) {
+      html {
+        scroll-padding-top: 160px;
+      }
+
       .site-header {
         padding-left: 20px;
         padding-right: 20px;
@@ -553,21 +437,9 @@
         letter-spacing: 0.32em;
       }
 
-      .hero,
-      .players-section,
-      .club-section {
+      .players-section {
         padding-left: 20px;
         padding-right: 20px;
-      }
-
-      .hero {
-        min-height: auto;
-        padding-top: 56px;
-        padding-bottom: 64px;
-      }
-
-      .hero h1 {
-        font-size: 50px;
       }
 
       .players-grid {
@@ -612,27 +484,11 @@
   </header>
 
   <main>
-    <section class="hero">
-      <div class="hero-content">
-        <div class="eyebrow">Football Club</div>
-        <h1>Deportivo Moscu</h1>
-        <p>
-          Футбольный клуб с сильным характером, современной подачей и командной культурой.
-          Здесь собраны игроки, матчи, новости и история Deportivo Moscu.
-        </p>
-
-        <div class="hero-actions">
-          <a class="btn-primary" href="#players">Смотреть игроков</a>
-          <a class="btn-secondary" href="matches.html">Матчи</a>
-        </div>
-      </div>
-    </section>
-
     <section class="players-section" id="players">
       <div class="section-head">
         <div>
           <div class="section-kicker">Команда</div>
-          <h2 class="section-title">Игроки</h2>
+          <h1 class="section-title">Игроки</h1>
         </div>
 
         <p class="section-text">
@@ -653,30 +509,6 @@
       </div>
 
       <div class="players-grid" id="playersGrid"></div>
-    </section>
-
-    <section class="club-section" id="club">
-      <div>
-        <div class="section-kicker">Клуб</div>
-        <h2 class="section-title">Deportivo DNA</h2>
-      </div>
-
-      <div class="club-grid">
-        <article class="club-card">
-          <h3>Характер</h3>
-          <p>Команда играет с дисциплиной, энергией и уважением к футболу.</p>
-        </article>
-
-        <article class="club-card">
-          <h3>Стиль</h3>
-          <p>Современный футбол, быстрые решения, движение и борьба за каждый эпизод.</p>
-        </article>
-
-        <article class="club-card">
-          <h3>Будущее</h3>
-          <p>Развитие клуба, игроков, академии и узнаваемого визуального образа.</p>
-        </article>
-      </div>
     </section>
   </main>
 
