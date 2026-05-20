@@ -1,0 +1,1371 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Команда — Deportivo Moscu</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --white: #ffffff;
+      --light: #f5f6f5;
+      --black: #070807;
+      --muted: #6d756f;
+      --green: #008c3a;
+      --green2: #12b85a;
+      --border: #dfe5e1;
+      --shadow: 0 22px 70px rgba(0,0,0,0.12);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Inter", sans-serif;
+      background: #ffffff;
+      color: var(--black);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button {
+      font-family: inherit;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    .container {
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .header-inner {
+      min-height: 86px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 22px;
+    }
+
+    .logo-box {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 210px;
+    }
+
+    .logo-img {
+      width: 58px;
+      height: 58px;
+      object-fit: contain;
+    }
+
+    .logo-text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    .logo-text span {
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .logo-text strong {
+      font-family: "Oswald", sans-serif;
+      font-size: 24px;
+      color: var(--green);
+    }
+
+    .main-nav {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      font-size: 14px;
+      font-weight: 800;
+    }
+
+    .main-nav a:hover,
+    .main-nav a.active {
+      color: var(--green);
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .language-switcher {
+      display: flex;
+      background: var(--light);
+      padding: 4px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+    }
+
+    .lang-btn {
+      border: 0;
+      background: transparent;
+      padding: 8px 10px;
+      border-radius: 999px;
+      font-weight: 900;
+      cursor: pointer;
+      font-size: 12px;
+    }
+
+    .lang-btn.active {
+      background: var(--black);
+      color: var(--white);
+    }
+
+    .ticket-btn {
+      background: var(--green);
+      color: white;
+      border-radius: 999px;
+      padding: 13px 20px;
+      font-size: 14px;
+      font-weight: 900;
+      box-shadow: 0 12px 26px rgba(0,140,58,0.22);
+    }
+
+    .burger-btn {
+      display: none;
+      width: 42px;
+      height: 42px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: white;
+      cursor: pointer;
+      padding: 9px;
+    }
+
+    .burger-btn span {
+      display: block;
+      height: 2px;
+      background: var(--black);
+      margin: 5px 0;
+    }
+
+    .mobile-menu {
+      display: none;
+      padding: 16px;
+      border-top: 1px solid var(--border);
+      background: white;
+    }
+
+    .mobile-menu.open {
+      display: grid;
+      gap: 12px;
+    }
+
+    .mobile-menu a {
+      padding: 12px;
+      border-radius: 14px;
+      background: var(--light);
+      font-weight: 900;
+    }
+
+    .team-hero {
+      padding: 72px 0 52px;
+      background:
+        radial-gradient(circle at 84% 10%, rgba(18,184,90,0.18), transparent 34%),
+        linear-gradient(180deg, #ffffff 0%, #f5f6f5 100%);
+    }
+
+    .team-hero-grid {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      align-items: center;
+      gap: 44px;
+    }
+
+    .section-label {
+      display: inline-flex;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(0,140,58,0.1);
+      color: var(--green);
+      font-weight: 900;
+      font-size: 13px;
+      margin-bottom: 18px;
+    }
+
+    .team-hero h1 {
+      font-family: "Oswald", sans-serif;
+      font-size: clamp(48px, 7vw, 86px);
+      line-height: 0.95;
+      margin: 0;
+      letter-spacing: -0.03em;
+      text-transform: uppercase;
+    }
+
+    .team-hero p {
+      max-width: 600px;
+      color: var(--muted);
+      font-size: 20px;
+      line-height: 1.55;
+      margin: 24px 0 0;
+    }
+
+    .team-hero-logo-card {
+      min-height: 420px;
+      border-radius: 36px;
+      background:
+        radial-gradient(circle at 30% 20%, rgba(18,184,90,0.46), transparent 36%),
+        linear-gradient(145deg, #008c3a, #071008 62%, #050505);
+      color: white;
+      box-shadow: var(--shadow);
+      display: grid;
+      place-items: center;
+      text-align: center;
+      padding: 34px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .team-hero-logo-card::before {
+      content: "";
+      position: absolute;
+      inset: 22px;
+      border: 1px solid rgba(255,255,255,0.16);
+      border-radius: 28px;
+    }
+
+    .team-hero-logo-inner {
+      position: relative;
+      display: grid;
+      place-items: center;
+    }
+
+    .team-hero-logo-card img {
+      width: 180px;
+      margin-bottom: 18px;
+      filter: drop-shadow(0 20px 34px rgba(0,0,0,0.42));
+    }
+
+    .team-hero-logo-card h2 {
+      font-family: "Oswald", sans-serif;
+      font-size: 38px;
+      letter-spacing: 0.04em;
+      margin: 0;
+    }
+
+    .team-hero-logo-card span {
+      color: rgba(255,255,255,0.76);
+      font-weight: 900;
+    }
+
+    .team-section {
+      padding: 48px 0 60px;
+    }
+
+    .team-top-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      align-items: center;
+      margin-bottom: 22px;
+      flex-wrap: wrap;
+    }
+
+    .team-count {
+      font-weight: 900;
+      color: var(--green);
+      background: rgba(0,140,58,0.1);
+      padding: 10px 14px;
+      border-radius: 999px;
+      font-size: 14px;
+    }
+
+    .team-filter-row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .filter-btn {
+      border: 1px solid var(--border);
+      background: white;
+      color: var(--black);
+      padding: 12px 18px;
+      border-radius: 999px;
+      font-weight: 900;
+      cursor: pointer;
+    }
+
+    .filter-btn.active {
+      background: var(--black);
+      color: white;
+      border-color: var(--black);
+    }
+
+    .players-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 22px;
+      align-items: stretch;
+    }
+
+    .player-card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 30px;
+      overflow: hidden;
+      box-shadow: 0 14px 42px rgba(0,0,0,0.07);
+      cursor: pointer;
+      transition: 0.2s;
+      display: flex;
+      flex-direction: column;
+      min-height: 500px;
+    }
+
+    .player-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow);
+    }
+
+    .player-photo {
+      height: 260px;
+      min-height: 260px;
+      position: relative;
+      background:
+        radial-gradient(circle at 50% 22%, rgba(255,255,255,0.24), transparent 24%),
+        linear-gradient(145deg, #111111, #008c3a);
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    .player-photo::before {
+      content: "";
+      position: absolute;
+      left: 50%;
+      bottom: -28px;
+      transform: translateX(-50%);
+      width: 170px;
+      height: 220px;
+      border-radius: 90px 90px 24px 24px;
+      background: linear-gradient(180deg, #eeeeee 0%, #dddddd 24%, #111111 24%, #080808 100%);
+      box-shadow: 0 20px 54px rgba(0,0,0,0.32);
+    }
+
+    .player-photo::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 54px;
+      transform: translateX(-50%);
+      width: 82px;
+      height: 82px;
+      border-radius: 50%;
+      background: linear-gradient(145deg, #d9b18d, #8b6046);
+      box-shadow: 0 12px 22px rgba(0,0,0,0.25);
+    }
+
+    .player-number {
+      position: absolute;
+      top: 0;
+      left: 18px;
+      z-index: 2;
+      min-width: 58px;
+      height: 58px;
+      padding: 0 14px;
+      border-radius: 0 0 18px 18px;
+      background: rgba(255,255,255,0.94);
+      color: var(--green);
+      display: grid;
+      place-items: center;
+      font-family: "Oswald", sans-serif;
+      font-size: 30px;
+      font-weight: 800;
+    }
+
+    .flag-badge {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      z-index: 3;
+      width: 58px;
+      height: 40px;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 3px solid rgba(255,255,255,0.95);
+      box-shadow: 0 12px 28px rgba(0,0,0,0.2);
+      background: white;
+    }
+
+    .flag-small {
+      width: 34px;
+      height: 22px;
+      border-radius: 5px;
+      overflow: hidden;
+      border: 1px solid rgba(0,0,0,0.12);
+      flex: 0 0 auto;
+      background: white;
+    }
+
+    .flag-big {
+      width: 86px;
+      height: 58px;
+      border-radius: 14px;
+      overflow: hidden;
+      border: 4px solid rgba(255,255,255,0.95);
+      box-shadow: 0 14px 34px rgba(0,0,0,0.22);
+      background: white;
+    }
+
+    .flag-modal {
+      position: absolute;
+      top: 32px;
+      left: 32px;
+      z-index: 4;
+    }
+
+    .flag-argentina {
+      background: linear-gradient(to bottom, #74acdf 0 33.33%, #ffffff 33.33% 66.66%, #74acdf 66.66% 100%);
+      position: relative;
+    }
+
+    .flag-argentina::after {
+      content: "";
+      position: absolute;
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: #f6b40e;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .flag-russia {
+      background: linear-gradient(to bottom, #ffffff 0 33.33%, #0039a6 33.33% 66.66%, #d52b1e 66.66% 100%);
+    }
+
+    .flag-ecuador {
+      background: linear-gradient(to bottom, #ffdd00 0 50%, #034ea2 50% 75%, #ed1c24 75% 100%);
+    }
+
+    .flag-brazil {
+      background: #009b3a;
+      position: relative;
+    }
+
+    .flag-brazil::before {
+      content: "";
+      position: absolute;
+      width: 56%;
+      height: 56%;
+      background: #ffdf00;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%) rotate(45deg);
+    }
+
+    .flag-brazil::after {
+      content: "";
+      position: absolute;
+      width: 25%;
+      height: 25%;
+      border-radius: 50%;
+      background: #002776;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .flag-venezuela {
+      background: linear-gradient(to bottom, #f4d900 0 33.33%, #0033a0 33.33% 66.66%, #ef3340 66.66% 100%);
+    }
+
+    .flag-uruguay {
+      background:
+        linear-gradient(to bottom,
+          #ffffff 0 11.11%,
+          #0038a8 11.11% 22.22%,
+          #ffffff 22.22% 33.33%,
+          #0038a8 33.33% 44.44%,
+          #ffffff 44.44% 55.55%,
+          #0038a8 55.55% 66.66%,
+          #ffffff 66.66% 77.77%,
+          #0038a8 77.77% 88.88%,
+          #ffffff 88.88% 100%);
+    }
+
+    .flag-colombia {
+      background: linear-gradient(to bottom, #fcd116 0 50%, #003893 50% 75%, #ce1126 75% 100%);
+    }
+
+    .flag-unknown {
+      background: linear-gradient(135deg, #eeeeee, #cccccc);
+    }
+
+    .player-card-body {
+      padding: 22px 22px 26px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    .player-role {
+      color: var(--green);
+      font-size: 13px;
+      font-weight: 900;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+      min-height: 18px;
+    }
+
+    .player-card h3 {
+      font-family: "Oswald", sans-serif;
+      font-size: 25px;
+      line-height: 1.05;
+      margin: 0 0 14px;
+      text-transform: uppercase;
+      min-height: 82px;
+      display: flex;
+      align-items: flex-start;
+    }
+
+    .player-nationality-row {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 20px;
+      min-height: 24px;
+    }
+
+    .player-more-btn {
+      width: 100%;
+      border: 0;
+      background: var(--green);
+      color: white;
+      padding: 13px 18px;
+      border-radius: 999px;
+      font-weight: 900;
+      cursor: pointer;
+      margin-top: auto;
+    }
+
+    .player-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      display: none;
+    }
+
+    .player-modal.open {
+      display: block;
+    }
+
+    .player-modal-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.68);
+      backdrop-filter: blur(6px);
+    }
+
+    .player-modal-card {
+      position: relative;
+      z-index: 2;
+      width: min(1040px, calc(100% - 26px));
+      max-height: calc(100vh - 38px);
+      overflow-y: auto;
+      margin: 19px auto;
+      background: white;
+      border-radius: 34px;
+      box-shadow: 0 30px 90px rgba(0,0,0,0.35);
+    }
+
+    .modal-close-btn {
+      position: absolute;
+      top: 18px;
+      right: 18px;
+      z-index: 3;
+      width: 44px;
+      height: 44px;
+      border: 0;
+      border-radius: 50%;
+      background: var(--black);
+      color: white;
+      font-size: 30px;
+      cursor: pointer;
+    }
+
+    .modal-player-layout {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+    }
+
+    .modal-player-photo {
+      min-height: 680px;
+      position: relative;
+      background:
+        radial-gradient(circle at 50% 18%, rgba(255,255,255,0.18), transparent 28%),
+        linear-gradient(145deg, #0b0b0b, #008c3a);
+    }
+
+    .modal-player-photo::before {
+      content: "";
+      position: absolute;
+      left: 50%;
+      bottom: 40px;
+      transform: translateX(-50%);
+      width: 260px;
+      height: 360px;
+      border-radius: 140px 140px 36px 36px;
+      background: linear-gradient(180deg, #eeeeee 0%, #dddddd 24%, #111111 24%, #080808 100%);
+    }
+
+    .modal-player-photo::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 110px;
+      transform: translateX(-50%);
+      width: 130px;
+      height: 130px;
+      border-radius: 50%;
+      background: linear-gradient(145deg, #d9b18d, #8b6046);
+    }
+
+    .modal-player-info {
+      padding: 54px;
+    }
+
+    .modal-number {
+      display: inline-flex;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(0,140,58,0.1);
+      color: var(--green);
+      font-weight: 900;
+      margin-bottom: 14px;
+    }
+
+    .modal-player-info h2 {
+      font-family: "Oswald", sans-serif;
+      font-size: clamp(38px, 5vw, 64px);
+      line-height: 0.95;
+      text-transform: uppercase;
+      margin: 0;
+    }
+
+    .modal-position {
+      color: var(--green);
+      font-weight: 900;
+      text-transform: uppercase;
+      margin: 14px 0 24px;
+    }
+
+    .player-facts,
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin: 22px 0 28px;
+    }
+
+    .player-facts div,
+    .stats-grid div {
+      background: var(--light);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 16px;
+      display: grid;
+      gap: 6px;
+    }
+
+    .player-facts span,
+    .stats-grid span {
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .player-facts strong,
+    .stats-grid strong {
+      font-size: 20px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .modal-player-info h3 {
+      font-family: "Oswald", sans-serif;
+      font-size: 28px;
+      text-transform: uppercase;
+      margin: 26px 0 10px;
+    }
+
+    #modalHistory {
+      color: var(--muted);
+      line-height: 1.7;
+      font-size: 16px;
+    }
+
+    .site-footer {
+      background: var(--black);
+      color: white;
+      padding: 54px 0;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.3fr repeat(3, 1fr);
+      gap: 34px;
+    }
+
+    .footer-brand img {
+      width: 90px;
+      margin-bottom: 14px;
+    }
+
+    .footer-brand h3 {
+      font-family: "Oswald", sans-serif;
+      font-size: 30px;
+      margin: 0;
+      text-transform: uppercase;
+    }
+
+    .footer-brand p,
+    .footer-col p,
+    .footer-col a {
+      color: rgba(255,255,255,0.68);
+    }
+
+    .footer-col {
+      display: grid;
+      align-content: start;
+      gap: 10px;
+    }
+
+    .footer-col h4 {
+      margin: 0 0 8px;
+      color: var(--green2);
+      text-transform: uppercase;
+    }
+
+    @media (max-width: 1100px) {
+      .players-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    @media (max-width: 980px) {
+      .main-nav {
+        display: none;
+      }
+
+      .burger-btn {
+        display: block;
+      }
+
+      .ticket-btn {
+        display: none;
+      }
+
+      .team-hero-grid,
+      .modal-player-layout,
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .players-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .player-card {
+        min-height: 500px;
+      }
+
+      .modal-player-photo {
+        min-height: 420px;
+      }
+    }
+
+    @media (max-width: 620px) {
+      .players-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .language-switcher {
+        display: none;
+      }
+
+      .logo-text {
+        display: none;
+      }
+
+      .team-hero {
+        padding: 44px 0 32px;
+      }
+
+      .team-hero h1 {
+        font-size: 44px;
+      }
+
+      .team-hero-logo-card {
+        min-height: 340px;
+      }
+
+      .player-card {
+        min-height: auto;
+      }
+
+      .player-card h3 {
+        min-height: auto;
+      }
+
+      .player-facts,
+      .stats-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .modal-player-info {
+        padding: 34px 22px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="logo-box">
+        <img src="images/logo.png" alt="Deportivo Moscu Logo" class="logo-img">
+        <div class="logo-text">
+          <span>Deportivo</span>
+          <strong>Moscu</strong>
+        </div>
+      </a>
+
+      <nav class="main-nav">
+        <a href="index.html" data-i18n="nav_home">Главная</a>
+        <a href="news.html" data-i18n="nav_news">Новости</a>
+        <a href="team.html" class="active" data-i18n="nav_team">Команда</a>
+        <a href="league.html" data-i18n="nav_matches">Матчи</a>
+        <a href="club.html" data-i18n="nav_club">Клуб</a>
+        <a href="academy.html" data-i18n="nav_academy">Академия</a>
+        <a href="media.html" data-i18n="nav_media">Медиа</a>
+        <a href="store.html" data-i18n="nav_store">Магазин</a>
+      </nav>
+
+      <div class="header-actions">
+        <div class="language-switcher">
+          <button class="lang-btn active" data-lang="ru">RU</button>
+          <button class="lang-btn" data-lang="en">EN</button>
+          <button class="lang-btn" data-lang="es">ES</button>
+        </div>
+
+        <a href="store.html" class="ticket-btn" data-i18n="buy_tickets">Купить билеты</a>
+
+        <button class="burger-btn" id="burgerBtn" aria-label="Menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="index.html" data-i18n="nav_home">Главная</a>
+      <a href="news.html" data-i18n="nav_news">Новости</a>
+      <a href="team.html" data-i18n="nav_team">Команда</a>
+      <a href="league.html" data-i18n="nav_matches">Матчи</a>
+      <a href="club.html" data-i18n="nav_club">Клуб</a>
+      <a href="academy.html" data-i18n="nav_academy">Академия</a>
+      <a href="media.html" data-i18n="nav_media">Медиа</a>
+      <a href="store.html" data-i18n="nav_store">Магазин</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="team-hero">
+      <div class="container team-hero-grid">
+        <div>
+          <div class="section-label" data-i18n="team_label">Основной состав</div>
+          <h1 data-i18n="team_title">Команда<br>Deportivo Moscu</h1>
+          <p data-i18n="team_subtitle">
+            Игроки Deportivo Moscu: вратари, защитники, полузащитники и нападающие.
+          </p>
+        </div>
+
+        <div class="team-hero-logo-card">
+          <div class="team-hero-logo-inner">
+            <img src="images/logo.png" alt="Deportivo Moscu">
+            <h2>DEPORTIVO MOSCU</h2>
+            <span data-i18n="team_card_text">Футбол. Страсть. Москва.</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="team-section">
+      <div class="container">
+        <div class="team-top-row">
+          <div class="team-filter-row">
+            <button class="filter-btn active" data-filter="all" data-i18n="filter_all">Все</button>
+            <button class="filter-btn" data-filter="goalkeeper" data-i18n="filter_goalkeeper">Вратари</button>
+            <button class="filter-btn" data-filter="defender" data-i18n="filter_defender">Защитники</button>
+            <button class="filter-btn" data-filter="midfielder" data-i18n="filter_midfielder">Полузащитники</button>
+            <button class="filter-btn" data-filter="forward" data-i18n="filter_forward">Нападающие</button>
+          </div>
+
+          <div class="team-count" id="teamCount">0 игроков</div>
+        </div>
+
+        <div class="players-grid" id="playersGrid"></div>
+      </div>
+    </section>
+  </main>
+
+  <div class="player-modal" id="playerModal">
+    <div class="player-modal-overlay" id="modalOverlay"></div>
+
+    <div class="player-modal-card">
+      <button class="modal-close-btn" id="modalCloseBtn">×</button>
+
+      <div class="modal-player-layout">
+        <div class="modal-player-photo">
+          <div class="flag-big flag-modal" id="modalFlag"></div>
+        </div>
+
+        <div class="modal-player-info">
+          <div class="modal-number" id="modalNumber"></div>
+          <h2 id="modalName"></h2>
+          <p class="modal-position" id="modalPosition"></p>
+
+          <div class="player-facts">
+            <div>
+              <span data-i18n="birth_date">Дата рождения</span>
+              <strong id="modalBirthDate"></strong>
+            </div>
+
+            <div>
+              <span data-i18n="nationality">Гражданство</span>
+              <strong id="modalNationality"></strong>
+            </div>
+
+            <div>
+              <span data-i18n="role">Амплуа</span>
+              <strong id="modalRole"></strong>
+            </div>
+
+            <div>
+              <span data-i18n="club">Клуб</span>
+              <strong>Deportivo Moscu</strong>
+            </div>
+          </div>
+
+          <h3 data-i18n="history">История</h3>
+          <p id="modalHistory"></p>
+
+          <h3 data-i18n="season_stats">Статистика сезона</h3>
+
+          <div class="stats-grid">
+            <div>
+              <span data-i18n="matches">Матчи</span>
+              <strong id="statMatches"></strong>
+            </div>
+
+            <div>
+              <span data-i18n="goals">Голы</span>
+              <strong id="statGoals"></strong>
+            </div>
+
+            <div>
+              <span data-i18n="assists">Передачи</span>
+              <strong id="statAssists"></strong>
+            </div>
+
+            <div>
+              <span data-i18n="minutes">Минуты</span>
+              <strong id="statMinutes"></strong>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <img src="images/logo.png" alt="Deportivo Moscu">
+        <h3>Deportivo Moscu</h3>
+        <p data-i18n="footer_slogan">Единый город. Одна страсть. Одна зелёно-чёрная семья.</p>
+      </div>
+
+      <div class="footer-col">
+        <h4 data-i18n="nav_club">Клуб</h4>
+        <a href="club.html" data-i18n="about_club">О клубе</a>
+        <a href="team.html" data-i18n="nav_team">Команда</a>
+        <a href="league.html" data-i18n="nav_matches">Матчи</a>
+      </div>
+
+      <div class="footer-col">
+        <h4 data-i18n="help">Помощь</h4>
+        <a href="store.html" data-i18n="tickets">Билеты</a>
+        <a href="academy.html" data-i18n="academy_request">Запись в академию</a>
+        <a href="media.html" data-i18n="media_center">Медиацентр</a>
+      </div>
+
+      <div class="footer-col">
+        <h4 data-i18n="contacts">Контакты</h4>
+        <p>Buenos Aires, Argentina</p>
+        <p>info@deportivomoscu.com</p>
+        <p>+54 11 0000-0000</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="players-data.js"></script>
+
+  <script>
+    const translations = {
+      ru: {
+        nav_home: "Главная",
+        nav_news: "Новости",
+        nav_team: "Команда",
+        nav_matches: "Матчи",
+        nav_club: "Клуб",
+        nav_academy: "Академия",
+        nav_media: "Медиа",
+        nav_store: "Магазин",
+        buy_tickets: "Купить билеты",
+        team_label: "Основной состав",
+        team_title: "Команда<br>Deportivo Moscu",
+        team_subtitle: "Игроки Deportivo Moscu: вратари, защитники, полузащитники и нападающие.",
+        team_card_text: "Футбол. Страсть. Москва.",
+        filter_all: "Все",
+        filter_goalkeeper: "Вратари",
+        filter_defender: "Защитники",
+        filter_midfielder: "Полузащитники",
+        filter_forward: "Нападающие",
+        birth_date: "Дата рождения",
+        nationality: "Гражданство",
+        role: "Амплуа",
+        club: "Клуб",
+        history: "История",
+        season_stats: "Статистика сезона",
+        matches: "Матчи",
+        goals: "Голы",
+        assists: "Передачи",
+        minutes: "Минуты",
+        footer_slogan: "Единый город. Одна страсть. Одна зелёно-чёрная семья.",
+        about_club: "О клубе",
+        help: "Помощь",
+        tickets: "Билеты",
+        academy_request: "Запись в академию",
+        media_center: "Медиацентр",
+        contacts: "Контакты",
+        more: "Подробнее →",
+        players_word: "игроков",
+        default_history: "История игрока скоро будет добавлена. В карточке уже указаны имя, дата рождения, гражданство и амплуа."
+      },
+
+      en: {
+        nav_home: "Home",
+        nav_news: "News",
+        nav_team: "Team",
+        nav_matches: "Matches",
+        nav_club: "Club",
+        nav_academy: "Academy",
+        nav_media: "Media",
+        nav_store: "Store",
+        buy_tickets: "Buy tickets",
+        team_label: "First team",
+        team_title: "Deportivo Moscu<br>Team",
+        team_subtitle: "Deportivo Moscu players: goalkeepers, defenders, midfielders and forwards.",
+        team_card_text: "Football. Passion. Moscow.",
+        filter_all: "All",
+        filter_goalkeeper: "Goalkeepers",
+        filter_defender: "Defenders",
+        filter_midfielder: "Midfielders",
+        filter_forward: "Forwards",
+        birth_date: "Date of birth",
+        nationality: "Nationality",
+        role: "Role",
+        club: "Club",
+        history: "Story",
+        season_stats: "Season stats",
+        matches: "Matches",
+        goals: "Goals",
+        assists: "Assists",
+        minutes: "Minutes",
+        footer_slogan: "One city. One passion. One green-and-black family.",
+        about_club: "About club",
+        help: "Help",
+        tickets: "Tickets",
+        academy_request: "Academy application",
+        media_center: "Media center",
+        contacts: "Contacts",
+        more: "More →",
+        players_word: "players",
+        default_history: "The player story will be added soon. The card already includes name, date of birth, nationality and role."
+      },
+
+      es: {
+        nav_home: "Inicio",
+        nav_news: "Noticias",
+        nav_team: "Equipo",
+        nav_matches: "Partidos",
+        nav_club: "Club",
+        nav_academy: "Academia",
+        nav_media: "Media",
+        nav_store: "Tienda",
+        buy_tickets: "Comprar entradas",
+        team_label: "Primer equipo",
+        team_title: "Equipo<br>Deportivo Moscu",
+        team_subtitle: "Jugadores de Deportivo Moscu: arqueros, defensores, mediocampistas y delanteros.",
+        team_card_text: "Fútbol. Pasión. Moscú.",
+        filter_all: "Todos",
+        filter_goalkeeper: "Arqueros",
+        filter_defender: "Defensores",
+        filter_midfielder: "Mediocampistas",
+        filter_forward: "Delanteros",
+        birth_date: "Fecha de nacimiento",
+        nationality: "Nacionalidad",
+        role: "Posición",
+        club: "Club",
+        history: "Historia",
+        season_stats: "Estadísticas de temporada",
+        matches: "Partidos",
+        goals: "Goles",
+        assists: "Asistencias",
+        minutes: "Minutos",
+        footer_slogan: "Una ciudad. Una pasión. Una familia verde y negra.",
+        about_club: "Sobre el club",
+        help: "Ayuda",
+        tickets: "Entradas",
+        academy_request: "Inscripción academia",
+        media_center: "Media center",
+        contacts: "Contactos",
+        more: "Más →",
+        players_word: "jugadores",
+        default_history: "La historia del jugador se agregará pronto. La ficha ya incluye nombre, fecha de nacimiento, nacionalidad y posición."
+      }
+    };
+
+    const players = Array.isArray(window.deportivoPlayers) ? window.deportivoPlayers : [];
+
+    let currentLang = "ru";
+    let currentFilter = "all";
+
+    function getText(value) {
+      if (!value) return "—";
+      if (typeof value === "string") return value;
+      return value[currentLang] || value.ru || value.en || value.es || "—";
+    }
+
+    function getNationalityKey(value) {
+      const text = String(value || "").toLowerCase();
+
+      if (text.includes("арген") || text.includes("argentina")) return "argentina";
+      if (text.includes("рос") || text.includes("russia") || text.includes("rusia")) return "russia";
+      if (text.includes("эквад") || text.includes("ecuador")) return "ecuador";
+      if (text.includes("браз") || text.includes("brazil") || text.includes("brasil")) return "brazil";
+      if (text.includes("венесу") || text.includes("venezuela")) return "venezuela";
+      if (text.includes("уруг") || text.includes("uruguay")) return "uruguay";
+      if (text.includes("колум") || text.includes("colombia")) return "colombia";
+
+      return "unknown";
+    }
+
+    function getFlagClass(player) {
+      const nationality = getText(player.nationality);
+      return "flag-" + getNationalityKey(nationality);
+    }
+
+    function normalizePlayer(player, index) {
+      return {
+        id: player.id || `player-${index + 1}`,
+        number: player.number || index + 1,
+        role: player.role || "forward",
+        name: player.name || {
+          ru: "Игрок",
+          en: "Player",
+          es: "Jugador"
+        },
+        position: player.position || {
+          ru: "Игрок",
+          en: "Player",
+          es: "Jugador"
+        },
+        birthDate: player.birthDate || "—",
+        nationality: player.nationality || {
+          ru: "—",
+          en: "—",
+          es: "—"
+        },
+        history: player.history || null,
+        stats: player.stats || {
+          matches: 0,
+          goals: 0,
+          assists: 0,
+          minutes: 0
+        }
+      };
+    }
+
+    const normalizedPlayers = players.map(normalizePlayer);
+
+    function setLanguage(lang) {
+      currentLang = lang;
+      document.documentElement.lang = lang;
+
+      document.querySelectorAll("[data-i18n]").forEach((element) => {
+        const key = element.getAttribute("data-i18n");
+
+        if (translations[lang] && translations[lang][key]) {
+          element.innerHTML = translations[lang][key];
+        }
+      });
+
+      document.querySelectorAll(".lang-btn").forEach((button) => {
+        button.classList.toggle("active", button.dataset.lang === lang);
+      });
+
+      renderPlayers();
+    }
+
+    function renderPlayers() {
+      const playersGrid = document.getElementById("playersGrid");
+      const teamCount = document.getElementById("teamCount");
+
+      const filteredPlayers = currentFilter === "all"
+        ? normalizedPlayers
+        : normalizedPlayers.filter((player) => player.role === currentFilter);
+
+      teamCount.textContent = `${filteredPlayers.length} ${translations[currentLang].players_word}`;
+
+      playersGrid.innerHTML = filteredPlayers.map((player, index) => {
+        const flagClass = getFlagClass(player);
+        const nationality = getText(player.nationality);
+
+        return `
+          <article class="player-card" data-index="${index}">
+            <div class="player-photo">
+              <div class="player-number">${player.number}</div>
+              <div class="flag-badge ${flagClass}"></div>
+            </div>
+
+            <div class="player-card-body">
+              <div class="player-role">${getText(player.position)}</div>
+              <h3>${getText(player.name)}</h3>
+
+              <div class="player-nationality-row">
+                <span class="flag-small ${flagClass}"></span>
+                <span>${nationality}</span>
+              </div>
+
+              <button class="player-more-btn">${translations[currentLang].more}</button>
+            </div>
+          </article>
+        `;
+      }).join("");
+
+      document.querySelectorAll(".player-card").forEach((card) => {
+        card.addEventListener("click", () => {
+          const player = filteredPlayers[Number(card.dataset.index)];
+          openPlayerModal(player);
+        });
+      });
+    }
+
+    function openPlayerModal(player) {
+      const stats = player.stats || {};
+      const flagClass = getFlagClass(player);
+      const nationality = getText(player.nationality);
+
+      const modalFlag = document.getElementById("modalFlag");
+      modalFlag.className = `flag-big flag-modal ${flagClass}`;
+
+      document.getElementById("modalNumber").textContent = "#" + player.number;
+      document.getElementById("modalName").textContent = getText(player.name);
+      document.getElementById("modalPosition").textContent = getText(player.position);
+      document.getElementById("modalBirthDate").textContent = player.birthDate;
+
+      document.getElementById("modalNationality").innerHTML = `
+        <span class="flag-small ${flagClass}"></span>
+        ${nationality}
+      `;
+
+      document.getElementById("modalRole").textContent = getText(player.position);
+
+      if (player.history) {
+        document.getElementById("modalHistory").textContent = getText(player.history);
+      } else {
+        document.getElementById("modalHistory").textContent = translations[currentLang].default_history;
+      }
+
+      document.getElementById("statMatches").textContent = stats.matches || 0;
+      document.getElementById("statGoals").textContent = stats.goals || 0;
+      document.getElementById("statAssists").textContent = stats.assists || 0;
+      document.getElementById("statMinutes").textContent = stats.minutes || 0;
+
+      document.getElementById("playerModal").classList.add("open");
+    }
+
+    function closePlayerModal() {
+      document.getElementById("playerModal").classList.remove("open");
+    }
+
+    document.querySelectorAll(".lang-btn").forEach((button) => {
+      button.addEventListener("click", () => {
+        setLanguage(button.dataset.lang);
+      });
+    });
+
+    document.querySelectorAll(".filter-btn").forEach((button) => {
+      button.addEventListener("click", () => {
+        currentFilter = button.dataset.filter;
+
+        document.querySelectorAll(".filter-btn").forEach((item) => {
+          item.classList.toggle("active", item.dataset.filter === currentFilter);
+        });
+
+        renderPlayers();
+      });
+    });
+
+    document.getElementById("burgerBtn").addEventListener("click", () => {
+      document.getElementById("mobileMenu").classList.toggle("open");
+    });
+
+    document.getElementById("modalCloseBtn").addEventListener("click", closePlayerModal);
+    document.getElementById("modalOverlay").addEventListener("click", closePlayerModal);
+
+    setLanguage("ru");
+    renderPlayers();
+  </script>
+</body>
+</html>

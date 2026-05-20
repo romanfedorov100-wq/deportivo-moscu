@@ -1,0 +1,1211 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Магазин — Deportivo Moscu</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --white: #ffffff;
+      --light: #f5f6f5;
+      --black: #070807;
+      --muted: #6d756f;
+      --green: #008c3a;
+      --green2: #12b85a;
+      --border: #dfe5e1;
+      --shadow: 0 22px 70px rgba(0,0,0,0.12);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Inter", sans-serif;
+      background: #ffffff;
+      color: var(--black);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button {
+      font-family: inherit;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    .container {
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .header-inner {
+      min-height: 86px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 22px;
+    }
+
+    .logo-box {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 210px;
+    }
+
+    .logo-img {
+      width: 58px;
+      height: 58px;
+      object-fit: contain;
+    }
+
+    .logo-text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    .logo-text span {
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .logo-text strong {
+      font-family: "Oswald", sans-serif;
+      font-size: 24px;
+      color: var(--green);
+    }
+
+    .main-nav {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      font-size: 14px;
+      font-weight: 800;
+    }
+
+    .main-nav a:hover,
+    .main-nav a.active {
+      color: var(--green);
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .language-switcher {
+      display: flex;
+      background: var(--light);
+      padding: 4px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+    }
+
+    .lang-btn {
+      border: 0;
+      background: transparent;
+      padding: 8px 10px;
+      border-radius: 999px;
+      font-weight: 900;
+      cursor: pointer;
+      font-size: 12px;
+    }
+
+    .lang-btn.active {
+      background: var(--black);
+      color: var(--white);
+    }
+
+    .ticket-btn {
+      background: var(--green);
+      color: white;
+      border-radius: 999px;
+      padding: 13px 20px;
+      font-size: 14px;
+      font-weight: 900;
+      box-shadow: 0 12px 26px rgba(0,140,58,0.22);
+    }
+
+    .burger-btn {
+      display: none;
+      width: 42px;
+      height: 42px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: white;
+      cursor: pointer;
+      padding: 9px;
+    }
+
+    .burger-btn span {
+      display: block;
+      height: 2px;
+      background: var(--black);
+      margin: 5px 0;
+    }
+
+    .mobile-menu {
+      display: none;
+      padding: 16px;
+      border-top: 1px solid var(--border);
+      background: white;
+    }
+
+    .mobile-menu.open {
+      display: grid;
+      gap: 12px;
+    }
+
+    .mobile-menu a {
+      padding: 12px;
+      border-radius: 14px;
+      background: var(--light);
+      font-weight: 900;
+    }
+
+    .store-hero {
+      padding: 78px 0 58px;
+      background:
+        radial-gradient(circle at 85% 10%, rgba(18,184,90,0.2), transparent 35%),
+        linear-gradient(180deg, #ffffff 0%, #f5f6f5 100%);
+    }
+
+    .store-hero-grid {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      align-items: center;
+      gap: 46px;
+    }
+
+    .section-label {
+      display: inline-flex;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(0,140,58,0.1);
+      color: var(--green);
+      font-weight: 900;
+      font-size: 13px;
+      margin-bottom: 18px;
+    }
+
+    .store-hero h1 {
+      font-family: "Oswald", sans-serif;
+      font-size: clamp(48px, 7vw, 88px);
+      line-height: 0.95;
+      margin: 0;
+      letter-spacing: -0.03em;
+      text-transform: uppercase;
+    }
+
+    .store-hero p {
+      max-width: 700px;
+      color: var(--muted);
+      font-size: 20px;
+      line-height: 1.55;
+      margin: 24px 0 0;
+    }
+
+    .hero-card {
+      min-height: 430px;
+      border-radius: 38px;
+      background:
+        radial-gradient(circle at 30% 20%, rgba(18,184,90,0.48), transparent 36%),
+        linear-gradient(145deg, #008c3a, #071008 62%, #050505);
+      color: white;
+      box-shadow: var(--shadow);
+      display: grid;
+      place-items: center;
+      text-align: center;
+      padding: 38px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-card::before {
+      content: "";
+      position: absolute;
+      inset: 22px;
+      border: 1px solid rgba(255,255,255,0.16);
+      border-radius: 30px;
+    }
+
+    .hero-card-inner {
+      position: relative;
+      display: grid;
+      place-items: center;
+    }
+
+    .hero-card img {
+      width: 185px;
+      margin-bottom: 20px;
+      filter: drop-shadow(0 20px 34px rgba(0,0,0,0.42));
+    }
+
+    .hero-card h2 {
+      font-family: "Oswald", sans-serif;
+      font-size: 40px;
+      letter-spacing: 0.04em;
+      margin: 0;
+      text-transform: uppercase;
+    }
+
+    .hero-card span {
+      color: rgba(255,255,255,0.76);
+      font-weight: 900;
+      margin-top: 8px;
+    }
+
+    .store-section {
+      padding: 58px 0;
+    }
+
+    .section-title {
+      font-family: "Oswald", sans-serif;
+      font-size: clamp(38px, 5vw, 62px);
+      line-height: 0.98;
+      text-transform: uppercase;
+      margin: 0 0 22px;
+    }
+
+    .section-text {
+      color: var(--muted);
+      line-height: 1.75;
+      font-size: 18px;
+      max-width: 850px;
+      margin: 0;
+    }
+
+    .filter-row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin: 34px 0 24px;
+    }
+
+    .filter-btn {
+      border: 1px solid var(--border);
+      background: white;
+      color: var(--black);
+      padding: 12px 18px;
+      border-radius: 999px;
+      font-weight: 900;
+      cursor: pointer;
+    }
+
+    .filter-btn.active {
+      background: var(--black);
+      color: white;
+      border-color: var(--black);
+    }
+
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+    }
+
+    .product-card {
+      border: 1px solid var(--border);
+      border-radius: 30px;
+      background: white;
+      box-shadow: 0 14px 42px rgba(0,0,0,0.07);
+      overflow: hidden;
+      transition: 0.2s;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .product-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow);
+    }
+
+    .product-image {
+      height: 280px;
+      background:
+        radial-gradient(circle at 35% 25%, rgba(255,255,255,0.25), transparent 22%),
+        linear-gradient(145deg, #0b0b0b, #008c3a);
+      position: relative;
+      overflow: hidden;
+      display: grid;
+      place-items: center;
+    }
+
+    .product-image::before {
+      content: "";
+      width: 150px;
+      height: 190px;
+      border-radius: 42px 42px 22px 22px;
+      background:
+        linear-gradient(90deg, transparent 0 18%, rgba(255,255,255,0.12) 18% 22%, transparent 22% 78%, rgba(255,255,255,0.12) 78% 82%, transparent 82% 100%),
+        linear-gradient(180deg, #111111 0 68%, #008c3a 68% 100%);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.35);
+    }
+
+    .product-image.cap::before {
+      width: 170px;
+      height: 90px;
+      border-radius: 80px 80px 26px 26px;
+      background: linear-gradient(145deg, #111111, #008c3a);
+    }
+
+    .product-image.scarf::before {
+      width: 220px;
+      height: 70px;
+      border-radius: 22px;
+      background:
+        repeating-linear-gradient(90deg, #111111 0 36px, #008c3a 36px 72px);
+    }
+
+    .product-image.ball::before {
+      width: 145px;
+      height: 145px;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at 50% 50%, rgba(255,255,255,0.16), transparent 28%),
+        linear-gradient(145deg, #ffffff, #008c3a 55%, #111111);
+    }
+
+    .product-badge {
+      position: absolute;
+      top: 18px;
+      left: 18px;
+      z-index: 2;
+      background: rgba(255,255,255,0.94);
+      color: var(--green);
+      border-radius: 999px;
+      padding: 8px 12px;
+      font-weight: 900;
+      font-size: 12px;
+      text-transform: uppercase;
+    }
+
+    .product-logo {
+      position: absolute;
+      right: 18px;
+      bottom: 18px;
+      width: 58px;
+      height: 58px;
+      object-fit: contain;
+      filter: drop-shadow(0 10px 20px rgba(0,0,0,0.35));
+    }
+
+    .product-body {
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    .product-body h3 {
+      font-family: "Oswald", sans-serif;
+      font-size: 31px;
+      line-height: 1.05;
+      text-transform: uppercase;
+      margin: 0 0 12px;
+    }
+
+    .product-body p {
+      color: var(--muted);
+      line-height: 1.55;
+      margin: 0 0 18px;
+    }
+
+    .product-price {
+      font-family: "Oswald", sans-serif;
+      color: var(--green);
+      font-size: 32px;
+      font-weight: 800;
+      margin: auto 0 18px;
+    }
+
+    .size-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 18px;
+    }
+
+    .size-pill {
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 8px 11px;
+      font-size: 12px;
+      font-weight: 900;
+      color: var(--muted);
+      background: var(--light);
+    }
+
+    .buy-btn {
+      width: 100%;
+      border: 0;
+      background: var(--green);
+      color: white;
+      padding: 14px 18px;
+      border-radius: 999px;
+      font-weight: 900;
+      cursor: pointer;
+      box-shadow: 0 12px 26px rgba(0,140,58,0.22);
+    }
+
+    .cart-section {
+      padding: 58px 0 80px;
+      background: var(--light);
+    }
+
+    .cart-grid {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 24px;
+      align-items: start;
+      margin-top: 34px;
+    }
+
+    .cart-card {
+      border: 1px solid var(--border);
+      border-radius: 30px;
+      background: white;
+      box-shadow: 0 14px 42px rgba(0,0,0,0.07);
+      padding: 28px;
+    }
+
+    .cart-card.green {
+      background:
+        radial-gradient(circle at 30% 20%, rgba(18,184,90,0.35), transparent 36%),
+        linear-gradient(145deg, #008c3a, #071008);
+      color: white;
+      border-color: transparent;
+    }
+
+    .cart-card.green p {
+      color: rgba(255,255,255,0.78);
+    }
+
+    .cart-card h3 {
+      font-family: "Oswald", sans-serif;
+      text-transform: uppercase;
+      font-size: 34px;
+      line-height: 1;
+      margin: 0 0 14px;
+    }
+
+    .cart-card p {
+      color: var(--muted);
+      line-height: 1.65;
+      margin: 0;
+    }
+
+    .cart-list {
+      display: grid;
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .cart-item {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 14px;
+      font-weight: 800;
+      background: var(--light);
+    }
+
+    .cart-total {
+      margin-top: 18px;
+      padding-top: 18px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      font-family: "Oswald", sans-serif;
+      font-size: 30px;
+      font-weight: 800;
+    }
+
+    .checkout-form {
+      display: grid;
+      gap: 14px;
+      margin-top: 20px;
+    }
+
+    .checkout-form input,
+    .checkout-form textarea {
+      width: 100%;
+      border: 1px solid var(--border);
+      background: white;
+      border-radius: 18px;
+      padding: 15px 16px;
+      font-family: inherit;
+      font-size: 15px;
+      outline: none;
+    }
+
+    .checkout-form textarea {
+      min-height: 110px;
+      resize: vertical;
+    }
+
+    .checkout-form button {
+      border: 0;
+      background: var(--green);
+      color: white;
+      padding: 15px 20px;
+      border-radius: 999px;
+      font-weight: 900;
+      cursor: pointer;
+      box-shadow: 0 12px 26px rgba(0,140,58,0.22);
+    }
+
+    .site-footer {
+      background: var(--black);
+      color: white;
+      padding: 54px 0;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.3fr repeat(3, 1fr);
+      gap: 34px;
+    }
+
+    .footer-brand img {
+      width: 90px;
+      margin-bottom: 14px;
+    }
+
+    .footer-brand h3 {
+      font-family: "Oswald", sans-serif;
+      font-size: 30px;
+      margin: 0;
+      text-transform: uppercase;
+    }
+
+    .footer-brand p,
+    .footer-col p,
+    .footer-col a {
+      color: rgba(255,255,255,0.68);
+    }
+
+    .footer-col {
+      display: grid;
+      align-content: start;
+      gap: 10px;
+    }
+
+    .footer-col h4 {
+      margin: 0 0 8px;
+      color: var(--green2);
+      text-transform: uppercase;
+    }
+
+    @media (max-width: 980px) {
+      .main-nav {
+        display: none;
+      }
+
+      .burger-btn {
+        display: block;
+      }
+
+      .ticket-btn {
+        display: none;
+      }
+
+      .store-hero-grid,
+      .cart-grid,
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .products-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 620px) {
+      .language-switcher {
+        display: none;
+      }
+
+      .logo-text {
+        display: none;
+      }
+
+      .store-hero {
+        padding: 44px 0 32px;
+      }
+
+      .store-hero h1 {
+        font-size: 44px;
+      }
+
+      .products-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="logo-box">
+        <img src="images/logo.png" alt="Deportivo Moscu Logo" class="logo-img">
+        <div class="logo-text">
+          <span>Deportivo</span>
+          <strong>Moscu</strong>
+        </div>
+      </a>
+
+      <nav class="main-nav">
+        <a href="index.html" data-i18n="nav_home">Главная</a>
+        <a href="news.html" data-i18n="nav_news">Новости</a>
+        <a href="team.html" data-i18n="nav_team">Команда</a>
+        <a href="league.html" data-i18n="nav_matches">Матчи</a>
+        <a href="club.html" data-i18n="nav_club">Клуб</a>
+        <a href="academy.html" data-i18n="nav_academy">Академия</a>
+        <a href="media.html" data-i18n="nav_media">Медиа</a>
+        <a href="store.html" class="active" data-i18n="nav_store">Магазин</a>
+      </nav>
+
+      <div class="header-actions">
+        <div class="language-switcher">
+          <button class="lang-btn active" data-lang="ru">RU</button>
+          <button class="lang-btn" data-lang="en">EN</button>
+          <button class="lang-btn" data-lang="es">ES</button>
+        </div>
+
+        <a href="#cart" class="ticket-btn" data-i18n="cart_btn">Корзина</a>
+
+        <button class="burger-btn" id="burgerBtn" aria-label="Menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="index.html" data-i18n="nav_home">Главная</a>
+      <a href="news.html" data-i18n="nav_news">Новости</a>
+      <a href="team.html" data-i18n="nav_team">Команда</a>
+      <a href="league.html" data-i18n="nav_matches">Матчи</a>
+      <a href="club.html" data-i18n="nav_club">Клуб</a>
+      <a href="academy.html" data-i18n="nav_academy">Академия</a>
+      <a href="media.html" data-i18n="nav_media">Медиа</a>
+      <a href="store.html" data-i18n="nav_store">Магазин</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="store-hero">
+      <div class="container store-hero-grid">
+        <div>
+          <div class="section-label" data-i18n="store_label">Официальный магазин</div>
+          <h1 data-i18n="store_title">Магазин<br>Deportivo Moscu</h1>
+          <p data-i18n="store_subtitle">
+            Форма, шарфы, кепки, мячи и атрибутика клуба Deportivo Moscu. Сейчас это витрина, позже подключим оплату и доставку.
+          </p>
+        </div>
+
+        <div class="hero-card">
+          <div class="hero-card-inner">
+            <img src="images/logo.png" alt="Deportivo Moscu">
+            <h2>DM STORE</h2>
+            <span data-i18n="hero_slogan">Носи цвета клуба</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="store-section">
+      <div class="container">
+        <h2 class="section-title" data-i18n="products_title">Товары клуба</h2>
+        <p class="section-text" data-i18n="products_text">
+          Все карточки товаров можно легко заменить на реальные фотографии, цены, размеры и варианты доставки.
+        </p>
+
+        <div class="filter-row">
+          <button class="filter-btn active" data-filter="all" data-i18n="filter_all">Все</button>
+          <button class="filter-btn" data-filter="kit" data-i18n="filter_kit">Форма</button>
+          <button class="filter-btn" data-filter="accessory" data-i18n="filter_accessory">Аксессуары</button>
+          <button class="filter-btn" data-filter="fan" data-i18n="filter_fan">Для болельщиков</button>
+        </div>
+
+        <div class="products-grid" id="productsGrid"></div>
+      </div>
+    </section>
+
+    <section class="cart-section" id="cart">
+      <div class="container">
+        <h2 class="section-title" data-i18n="cart_title">Корзина</h2>
+        <p class="section-text" data-i18n="cart_text">
+          Это демо-корзина. Сейчас она показывает выбранные товары, а позже подключим реальную оплату.
+        </p>
+
+        <div class="cart-grid">
+          <div class="cart-card green">
+            <h3 data-i18n="delivery_title">Доставка и оплата</h3>
+            <p data-i18n="delivery_text">
+              На следующем этапе можно подключить оплату картой, Mercado Pago, PayPal или ручную заявку через WhatsApp/Telegram.
+            </p>
+          </div>
+
+          <div class="cart-card">
+            <h3 data-i18n="your_order">Ваш заказ</h3>
+
+            <div class="cart-list" id="cartList"></div>
+
+            <div class="cart-total">
+              <span data-i18n="total">Итого</span>
+              <span id="cartTotal">$0</span>
+            </div>
+
+            <form class="checkout-form" id="checkoutForm">
+              <input type="text" data-placeholder-ru="Имя" data-placeholder-en="Name" data-placeholder-es="Nombre" placeholder="Имя">
+              <input type="tel" data-placeholder-ru="Телефон" data-placeholder-en="Phone" data-placeholder-es="Teléfono" placeholder="Телефон">
+              <textarea data-placeholder-ru="Комментарий к заказу" data-placeholder-en="Order comment" data-placeholder-es="Comentario del pedido" placeholder="Комментарий к заказу"></textarea>
+              <button type="submit" data-i18n="send_order">Отправить заказ</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <img src="images/logo.png" alt="Deportivo Moscu">
+        <h3>Deportivo Moscu</h3>
+        <p data-i18n="footer_slogan">Единый город. Одна страсть. Одна зелёно-чёрная семья.</p>
+      </div>
+
+      <div class="footer-col">
+        <h4 data-i18n="nav_club">Клуб</h4>
+        <a href="club.html" data-i18n="about_club">О клубе</a>
+        <a href="team.html" data-i18n="nav_team">Команда</a>
+        <a href="league.html" data-i18n="nav_matches">Матчи</a>
+      </div>
+
+      <div class="footer-col">
+        <h4 data-i18n="help">Помощь</h4>
+        <a href="#" data-i18n="delivery">Доставка</a>
+        <a href="#" data-i18n="payment">Оплата</a>
+        <a href="#" data-i18n="contacts">Контакты</a>
+      </div>
+
+      <div class="footer-col">
+        <h4 data-i18n="contacts">Контакты</h4>
+        <p>Buenos Aires, Argentina</p>
+        <p>store@deportivomoscu.com</p>
+        <p>+54 11 0000-0000</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const translations = {
+      ru: {
+        nav_home: "Главная",
+        nav_news: "Новости",
+        nav_team: "Команда",
+        nav_matches: "Матчи",
+        nav_club: "Клуб",
+        nav_academy: "Академия",
+        nav_media: "Медиа",
+        nav_store: "Магазин",
+        cart_btn: "Корзина",
+        store_label: "Официальный магазин",
+        store_title: "Магазин<br>Deportivo Moscu",
+        store_subtitle: "Форма, шарфы, кепки, мячи и атрибутика клуба Deportivo Moscu. Сейчас это витрина, позже подключим оплату и доставку.",
+        hero_slogan: "Носи цвета клуба",
+        products_title: "Товары клуба",
+        products_text: "Все карточки товаров можно легко заменить на реальные фотографии, цены, размеры и варианты доставки.",
+        filter_all: "Все",
+        filter_kit: "Форма",
+        filter_accessory: "Аксессуары",
+        filter_fan: "Для болельщиков",
+        add_to_cart: "Добавить в корзину",
+        cart_title: "Корзина",
+        cart_text: "Это демо-корзина. Сейчас она показывает выбранные товары, а позже подключим реальную оплату.",
+        delivery_title: "Доставка и оплата",
+        delivery_text: "На следующем этапе можно подключить оплату картой, Mercado Pago, PayPal или ручную заявку через WhatsApp/Telegram.",
+        your_order: "Ваш заказ",
+        empty_cart: "Корзина пока пустая",
+        total: "Итого",
+        send_order: "Отправить заказ",
+        footer_slogan: "Единый город. Одна страсть. Одна зелёно-чёрная семья.",
+        about_club: "О клубе",
+        help: "Помощь",
+        delivery: "Доставка",
+        payment: "Оплата",
+        contacts: "Контакты",
+        order_alert: "Заказ пока не отправляется. Позже подключим WhatsApp, Telegram или оплату."
+      },
+      en: {
+        nav_home: "Home",
+        nav_news: "News",
+        nav_team: "Team",
+        nav_matches: "Matches",
+        nav_club: "Club",
+        nav_academy: "Academy",
+        nav_media: "Media",
+        nav_store: "Store",
+        cart_btn: "Cart",
+        store_label: "Official store",
+        store_title: "Deportivo Moscu<br>Store",
+        store_subtitle: "Club kits, scarves, caps, balls and Deportivo Moscu merchandise. This is a storefront; payment and delivery can be added later.",
+        hero_slogan: "Wear the club colors",
+        products_title: "Club products",
+        products_text: "Every product card can be easily replaced with real photos, prices, sizes and delivery options.",
+        filter_all: "All",
+        filter_kit: "Kits",
+        filter_accessory: "Accessories",
+        filter_fan: "For fans",
+        add_to_cart: "Add to cart",
+        cart_title: "Cart",
+        cart_text: "This is a demo cart. It shows selected products now; real payment can be connected later.",
+        delivery_title: "Delivery and payment",
+        delivery_text: "At the next stage, you can connect card payment, Mercado Pago, PayPal or manual requests through WhatsApp/Telegram.",
+        your_order: "Your order",
+        empty_cart: "Cart is empty",
+        total: "Total",
+        send_order: "Send order",
+        footer_slogan: "One city. One passion. One green-and-black family.",
+        about_club: "About club",
+        help: "Help",
+        delivery: "Delivery",
+        payment: "Payment",
+        contacts: "Contacts",
+        order_alert: "The order is not sent yet. Later we will connect WhatsApp, Telegram or payment."
+      },
+      es: {
+        nav_home: "Inicio",
+        nav_news: "Noticias",
+        nav_team: "Equipo",
+        nav_matches: "Partidos",
+        nav_club: "Club",
+        nav_academy: "Academia",
+        nav_media: "Media",
+        nav_store: "Tienda",
+        cart_btn: "Carrito",
+        store_label: "Tienda oficial",
+        store_title: "Tienda<br>Deportivo Moscu",
+        store_subtitle: "Camisetas, bufandas, gorras, pelotas y productos de Deportivo Moscu. Ahora es una vidriera; luego conectaremos pago y entrega.",
+        hero_slogan: "Lleva los colores del club",
+        products_title: "Productos del club",
+        products_text: "Todas las tarjetas de productos se pueden reemplazar por fotos reales, precios, talles y opciones de entrega.",
+        filter_all: "Todos",
+        filter_kit: "Camisetas",
+        filter_accessory: "Accesorios",
+        filter_fan: "Para hinchas",
+        add_to_cart: "Agregar al carrito",
+        cart_title: "Carrito",
+        cart_text: "Este es un carrito demo. Ahora muestra productos seleccionados; luego conectaremos pago real.",
+        delivery_title: "Entrega y pago",
+        delivery_text: "En la siguiente etapa se puede conectar pago con tarjeta, Mercado Pago, PayPal o pedido manual por WhatsApp/Telegram.",
+        your_order: "Tu pedido",
+        empty_cart: "El carrito está vacío",
+        total: "Total",
+        send_order: "Enviar pedido",
+        footer_slogan: "Una ciudad. Una pasión. Una familia verde y negra.",
+        about_club: "Sobre el club",
+        help: "Ayuda",
+        delivery: "Entrega",
+        payment: "Pago",
+        contacts: "Contactos",
+        order_alert: "El pedido aún no se envía. Luego conectaremos WhatsApp, Telegram o pago."
+      }
+    };
+
+    const products = [
+      {
+        id: "home-shirt",
+        type: "kit",
+        visual: "shirt",
+        price: 45,
+        sizes: ["S", "M", "L", "XL"],
+        title: {
+          ru: "Домашняя форма",
+          en: "Home shirt",
+          es: "Camiseta titular"
+        },
+        text: {
+          ru: "Чёрно-зелёная форма Deportivo Moscu для матчей и болельщиков.",
+          en: "Black and green Deportivo Moscu shirt for matches and supporters.",
+          es: "Camiseta negro-verde de Deportivo Moscu para partidos e hinchas."
+        }
+      },
+      {
+        id: "away-shirt",
+        type: "kit",
+        visual: "shirt",
+        price: 45,
+        sizes: ["S", "M", "L", "XL"],
+        title: {
+          ru: "Гостевая форма",
+          en: "Away shirt",
+          es: "Camiseta visitante"
+        },
+        text: {
+          ru: "Светлая гостевая форма с эмблемой клуба и зелёными деталями.",
+          en: "Light away shirt with club badge and green details.",
+          es: "Camiseta visitante clara con escudo del club y detalles verdes."
+        }
+      },
+      {
+        id: "scarf",
+        type: "fan",
+        visual: "scarf",
+        price: 25,
+        sizes: ["One size"],
+        title: {
+          ru: "Шарф клуба",
+          en: "Club scarf",
+          es: "Bufanda del club"
+        },
+        text: {
+          ru: "Классический шарф Deportivo Moscu для матчей и фан-сектора.",
+          en: "Classic Deportivo Moscu scarf for matches and supporters.",
+          es: "Bufanda clásica de Deportivo Moscu para partidos e hinchada."
+        }
+      },
+      {
+        id: "cap",
+        type: "accessory",
+        visual: "cap",
+        price: 22,
+        sizes: ["One size"],
+        title: {
+          ru: "Кепка",
+          en: "Cap",
+          es: "Gorra"
+        },
+        text: {
+          ru: "Чёрно-зелёная кепка с эмблемой Deportivo Moscu.",
+          en: "Black and green cap with Deportivo Moscu badge.",
+          es: "Gorra negro-verde con escudo de Deportivo Moscu."
+        }
+      },
+      {
+        id: "ball",
+        type: "accessory",
+        visual: "ball",
+        price: 35,
+        sizes: ["5"],
+        title: {
+          ru: "Футбольный мяч",
+          en: "Football ball",
+          es: "Pelota de fútbol"
+        },
+        text: {
+          ru: "Тренировочный мяч в стиле клуба.",
+          en: "Training ball in club style.",
+          es: "Pelota de entrenamiento con estilo del club."
+        }
+      },
+      {
+        id: "hoodie",
+        type: "fan",
+        visual: "shirt",
+        price: 55,
+        sizes: ["S", "M", "L", "XL"],
+        title: {
+          ru: "Худи Deportivo Moscu",
+          en: "Deportivo Moscu hoodie",
+          es: "Buzo Deportivo Moscu"
+        },
+        text: {
+          ru: "Тёплое худи для болельщиков и повседневного стиля.",
+          en: "Warm hoodie for supporters and everyday style.",
+          es: "Buzo cómodo para hinchas y uso diario."
+        }
+      }
+    ];
+
+    let currentLang = "ru";
+    let currentFilter = "all";
+    let cart = [];
+
+    function getText(value) {
+      if (!value) return "—";
+      if (typeof value === "string") return value;
+      return value[currentLang] || value.ru || value.en || value.es || "—";
+    }
+
+    function setLanguage(lang) {
+      currentLang = lang;
+      document.documentElement.lang = lang;
+
+      document.querySelectorAll("[data-i18n]").forEach((element) => {
+        const key = element.getAttribute("data-i18n");
+        if (translations[lang] && translations[lang][key]) {
+          element.innerHTML = translations[lang][key];
+        }
+      });
+
+      document.querySelectorAll("[data-placeholder-ru]").forEach((element) => {
+        const placeholder = element.getAttribute(`data-placeholder-${lang}`);
+        if (placeholder) {
+          element.placeholder = placeholder;
+        }
+      });
+
+      document.querySelectorAll(".lang-btn").forEach((button) => {
+        button.classList.toggle("active", button.dataset.lang === lang);
+      });
+
+      renderProducts();
+      renderCart();
+    }
+
+    function getProductTypeLabel(type) {
+      const labels = {
+        ru: {
+          kit: "Форма",
+          accessory: "Аксессуар",
+          fan: "Фан"
+        },
+        en: {
+          kit: "Kit",
+          accessory: "Accessory",
+          fan: "Fan"
+        },
+        es: {
+          kit: "Camiseta",
+          accessory: "Accesorio",
+          fan: "Hincha"
+        }
+      };
+
+      return labels[currentLang][type] || type;
+    }
+
+    function renderProducts() {
+      const productsGrid = document.getElementById("productsGrid");
+
+      const filteredProducts = currentFilter === "all"
+        ? products
+        : products.filter((product) => product.type === currentFilter);
+
+      productsGrid.innerHTML = filteredProducts.map((product) => {
+        return `
+          <article class="product-card">
+            <div class="product-image ${product.visual}">
+              <div class="product-badge">${getProductTypeLabel(product.type)}</div>
+              <img src="images/logo.png" class="product-logo" alt="Deportivo Moscu">
+            </div>
+
+            <div class="product-body">
+              <h3>${getText(product.title)}</h3>
+              <p>${getText(product.text)}</p>
+
+              <div class="size-row">
+                ${product.sizes.map((size) => `<span class="size-pill">${size}</span>`).join("")}
+              </div>
+
+              <div class="product-price">$${product.price}</div>
+              <button class="buy-btn" data-id="${product.id}">${translations[currentLang].add_to_cart}</button>
+            </div>
+          </article>
+        `;
+      }).join("");
+
+      document.querySelectorAll(".buy-btn").forEach((button) => {
+        button.addEventListener("click", () => {
+          const product = products.find((item) => item.id === button.dataset.id);
+          if (product) {
+            cart.push(product);
+            renderCart();
+            document.getElementById("cart").scrollIntoView({ behavior: "smooth" });
+          }
+        });
+      });
+    }
+
+    function renderCart() {
+      const cartList = document.getElementById("cartList");
+      const cartTotal = document.getElementById("cartTotal");
+
+      if (!cart.length) {
+        cartList.innerHTML = `<div class="cart-item">${translations[currentLang].empty_cart}</div>`;
+        cartTotal.textContent = "$0";
+        return;
+      }
+
+      cartList.innerHTML = cart.map((item) => {
+        return `
+          <div class="cart-item">
+            <span>${getText(item.title)}</span>
+            <strong>$${item.price}</strong>
+          </div>
+        `;
+      }).join("");
+
+      const total = cart.reduce((sum, item) => sum + item.price, 0);
+      cartTotal.textContent = "$" + total;
+    }
+
+    document.querySelectorAll(".lang-btn").forEach((button) => {
+      button.addEventListener("click", () => {
+        setLanguage(button.dataset.lang);
+      });
+    });
+
+    document.querySelectorAll(".filter-btn").forEach((button) => {
+      button.addEventListener("click", () => {
+        currentFilter = button.dataset.filter;
+
+        document.querySelectorAll(".filter-btn").forEach((item) => {
+          item.classList.toggle("active", item.dataset.filter === currentFilter);
+        });
+
+        renderProducts();
+      });
+    });
+
+    document.getElementById("burgerBtn").addEventListener("click", () => {
+      document.getElementById("mobileMenu").classList.toggle("open");
+    });
+
+    document.getElementById("checkoutForm").addEventListener("submit", (event) => {
+      event.preventDefault();
+      alert(translations[currentLang].order_alert);
+    });
+
+    setLanguage("ru");
+    renderProducts();
+    renderCart();
+  </script>
+</body>
+</html>

@@ -1,0 +1,1225 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Медиа — Deportivo Moscu</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --white: #ffffff;
+      --light: #f5f6f5;
+      --black: #070807;
+      --muted: #6d756f;
+      --green: #008c3a;
+      --green2: #12b85a;
+      --border: #dfe5e1;
+      --shadow: 0 22px 70px rgba(0,0,0,0.12);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Inter", sans-serif;
+      background: #ffffff;
+      color: var(--black);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button {
+      font-family: inherit;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    .container {
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .header-inner {
+      min-height: 86px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 22px;
+    }
+
+    .logo-box {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 210px;
+    }
+
+    .logo-img {
+      width: 58px;
+      height: 58px;
+      object-fit: contain;
+    }
+
+    .logo-text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    .logo-text span {
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .logo-text strong {
+      font-family: "Oswald", sans-serif;
+      font-size: 24px;
+      color: var(--green);
+    }
+
+    .main-nav {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      font-size: 14px;
+      font-weight: 800;
+    }
+
+    .main-nav a:hover,
+    .main-nav a.active {
+      color: var(--green);
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .language-switcher {
+      display: flex;
+      background: var(--light);
+      padding: 4px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+    }
+
+    .lang-btn {
+      border: 0;
+      background: transparent;
+      padding: 8px 10px;
+      border-radius: 999px;
+      font-weight: 900;
+      cursor: pointer;
+      font-size: 12px;
+    }
+
+    .lang-btn.active {
+      background: var(--black);
+      color: var(--white);
+    }
+
+    .ticket-btn {
+      background: var(--green);
+      color: white;
+      border-radius: 999px;
+      padding: 13px 20px;
+      font-size: 14px;
+      font-weight: 900;
+      box-shadow: 0 12px 26px rgba(0,140,58,0.22);
+    }
+
+    .burger-btn {
+      display: none;
+      width: 42px;
+      height: 42px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: white;
+      cursor: pointer;
+      padding: 9px;
+    }
+
+    .burger-btn span {
+      display: block;
+      height: 2px;
+      background: var(--black);
+      margin: 5px 0;
+    }
+
+    .mobile-menu {
+      display: none;
+      padding: 16px;
+      border-top: 1px solid var(--border);
+      background: white;
+    }
+
+    .mobile-menu.open {
+      display: grid;
+      gap: 12px;
+    }
+
+    .mobile-menu a {
+      padding: 12px;
+      border-radius: 14px;
+      background: var(--light);
+      font-weight: 900;
+    }
+
+    .media-hero {
+      padding: 78px 0 58px;
+      background:
+        radial-gradient(circle at 85% 10%, rgba(18,184,90,0.2), transparent 35%),
+        linear-gradient(180deg, #ffffff 0%, #f5f6f5 100%);
+    }
+
+    .media-hero-grid {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      align-items: center;
+      gap: 46px;
+    }
+
+    .section-label {
+      display: inline-flex;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(0,140,58,0.1);
+      color: var(--green);
+      font-weight: 900;
+      font-size: 13px;
+      margin-bottom: 18px;
+    }
+
+    .media-hero h1 {
+      font-family: "Oswald", sans-serif;
+      font-size: clamp(48px, 7vw, 88px);
+      line-height: 0.95;
+      margin: 0;
+      letter-spacing: -0.03em;
+      text-transform: uppercase;
+    }
+
+    .media-hero p {
+      max-width: 700px;
+      color: var(--muted);
+      font-size: 20px;
+      line-height: 1.55;
+      margin: 24px 0 0;
+    }
+
+    .hero-card {
+      min-height: 430px;
+      border-radius: 38px;
+      background:
+        radial-gradient(circle at 30% 20%, rgba(18,184,90,0.48), transparent 36%),
+        linear-gradient(145deg, #008c3a, #071008 62%, #050505);
+      color: white;
+      box-shadow: var(--shadow);
+      display: grid;
+      place-items: center;
+      text-align: center;
+      padding: 38px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-card::before {
+      content: "";
+      position: absolute;
+      inset: 22px;
+      border: 1px solid rgba(255,255,255,0.16);
+      border-radius: 30px;
+    }
+
+    .hero-card-inner {
+      position: relative;
+      display: grid;
+      place-items: center;
+    }
+
+    .hero-card img {
+      width: 185px;
+      margin-bottom: 20px;
+      filter: drop-shadow(0 20px 34px rgba(0,0,0,0.42));
+    }
+
+    .hero-card h2 {
+      font-family: "Oswald", sans-serif;
+      font-size: 40px;
+      letter-spacing: 0.04em;
+      margin: 0;
+      text-transform: uppercase;
+    }
+
+    .hero-card span {
+      color: rgba(255,255,255,0.76);
+      font-weight: 900;
+      margin-top: 8px;
+    }
+
+    .media-section {
+      padding: 58px 0;
+    }
+
+    .section-title {
+      font-family: "Oswald", sans-serif;
+      font-size: clamp(38px, 5vw, 62px);
+      line-height: 0.98;
+      text-transform: uppercase;
+      margin: 0 0 22px;
+    }
+
+    .section-text {
+      color: var(--muted);
+      line-height: 1.75;
+      font-size: 18px;
+      max-width: 850px;
+      margin: 0;
+    }
+
+    .featured-video {
+      margin-top: 34px;
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 24px;
+      align-items: stretch;
+    }
+
+    .video-box {
+      min-height: 430px;
+      border-radius: 34px;
+      background:
+        radial-gradient(circle at 35% 28%, rgba(255,255,255,0.24), transparent 24%),
+        linear-gradient(145deg, #0b0b0b, #008c3a);
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+      display: grid;
+      place-items: center;
+    }
+
+    .video-box::after {
+      content: "VIDEO";
+      position: absolute;
+      left: 34px;
+      bottom: 28px;
+      font-family: "Oswald", sans-serif;
+      font-size: 76px;
+      line-height: 0.9;
+      color: rgba(255,255,255,0.2);
+    }
+
+    .play-button {
+      width: 96px;
+      height: 96px;
+      border-radius: 50%;
+      border: 0;
+      background: rgba(255,255,255,0.94);
+      color: var(--green);
+      font-size: 42px;
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      position: relative;
+      z-index: 2;
+      box-shadow: 0 16px 44px rgba(0,0,0,0.25);
+    }
+
+    .video-info {
+      border: 1px solid var(--border);
+      border-radius: 34px;
+      background: white;
+      box-shadow: 0 14px 42px rgba(0,0,0,0.07);
+      padding: 34px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .video-info h3 {
+      font-family: "Oswald", sans-serif;
+      font-size: 42px;
+      line-height: 1;
+      text-transform: uppercase;
+      margin: 0 0 18px;
+    }
+
+    .video-info p {
+      color: var(--muted);
+      line-height: 1.7;
+      margin: 0 0 24px;
+    }
+
+    .video-link {
+      width: fit-content;
+      background: var(--green);
+      color: white;
+      border-radius: 999px;
+      padding: 14px 22px;
+      font-weight: 900;
+      box-shadow: 0 12px 26px rgba(0,140,58,0.22);
+    }
+
+    .filter-row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin: 34px 0 24px;
+    }
+
+    .filter-btn {
+      border: 1px solid var(--border);
+      background: white;
+      color: var(--black);
+      padding: 12px 18px;
+      border-radius: 999px;
+      font-weight: 900;
+      cursor: pointer;
+    }
+
+    .filter-btn.active {
+      background: var(--black);
+      color: white;
+      border-color: var(--black);
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+    }
+
+    .media-card {
+      border: 1px solid var(--border);
+      border-radius: 30px;
+      background: white;
+      box-shadow: 0 14px 42px rgba(0,0,0,0.07);
+      overflow: hidden;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .media-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow);
+    }
+
+    .media-thumb {
+      height: 230px;
+      background:
+        radial-gradient(circle at 32% 28%, rgba(255,255,255,0.24), transparent 24%),
+        linear-gradient(145deg, #0b0b0b, #008c3a);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .media-thumb::after {
+      content: "DM";
+      position: absolute;
+      left: 22px;
+      bottom: 16px;
+      font-family: "Oswald", sans-serif;
+      font-size: 64px;
+      color: rgba(255,255,255,0.2);
+    }
+
+    .media-type {
+      position: absolute;
+      top: 18px;
+      left: 18px;
+      z-index: 2;
+      background: rgba(255,255,255,0.94);
+      color: var(--green);
+      border-radius: 999px;
+      padding: 8px 12px;
+      font-weight: 900;
+      font-size: 12px;
+      text-transform: uppercase;
+    }
+
+    .media-body {
+      padding: 22px;
+    }
+
+    .media-body h3 {
+      font-family: "Oswald", sans-serif;
+      font-size: 28px;
+      line-height: 1.05;
+      text-transform: uppercase;
+      margin: 0 0 12px;
+    }
+
+    .media-body p {
+      color: var(--muted);
+      line-height: 1.55;
+      margin: 0;
+    }
+
+    .press-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+      margin-top: 34px;
+    }
+
+    .press-card {
+      border: 1px solid var(--border);
+      border-radius: 26px;
+      padding: 24px;
+      background: white;
+      box-shadow: 0 14px 42px rgba(0,0,0,0.07);
+      display: grid;
+      gap: 14px;
+    }
+
+    .press-source {
+      color: var(--green);
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+
+    .press-card h3 {
+      font-family: "Oswald", sans-serif;
+      font-size: 24px;
+      line-height: 1.05;
+      margin: 0;
+      text-transform: uppercase;
+    }
+
+    .press-card a {
+      color: var(--green);
+      font-weight: 900;
+    }
+
+    .modal {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      display: none;
+    }
+
+    .modal.open {
+      display: block;
+    }
+
+    .modal-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.72);
+      backdrop-filter: blur(6px);
+    }
+
+    .modal-card {
+      position: relative;
+      z-index: 2;
+      width: min(940px, calc(100% - 26px));
+      max-height: calc(100vh - 38px);
+      overflow-y: auto;
+      margin: 19px auto;
+      background: white;
+      border-radius: 34px;
+      box-shadow: 0 30px 90px rgba(0,0,0,0.35);
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 18px;
+      right: 18px;
+      z-index: 3;
+      width: 44px;
+      height: 44px;
+      border: 0;
+      border-radius: 50%;
+      background: var(--black);
+      color: white;
+      font-size: 30px;
+      cursor: pointer;
+    }
+
+    .modal-image {
+      height: 360px;
+      border-radius: 34px 34px 0 0;
+      background:
+        radial-gradient(circle at 35% 28%, rgba(255,255,255,0.24), transparent 24%),
+        linear-gradient(145deg, #0b0b0b, #008c3a);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .modal-image::after {
+      content: "DEPORTIVO MOSCU";
+      position: absolute;
+      left: 34px;
+      bottom: 26px;
+      font-family: "Oswald", sans-serif;
+      font-size: 52px;
+      color: rgba(255,255,255,0.22);
+    }
+
+    .modal-content {
+      padding: 42px;
+    }
+
+    .modal-content h2 {
+      font-family: "Oswald", sans-serif;
+      font-size: clamp(38px, 5vw, 62px);
+      line-height: 0.98;
+      text-transform: uppercase;
+      margin: 0 0 18px;
+    }
+
+    .modal-content p {
+      color: var(--muted);
+      line-height: 1.8;
+      font-size: 18px;
+      margin: 0;
+    }
+
+    .site-footer {
+      background: var(--black);
+      color: white;
+      padding: 54px 0;
+      margin-top: 40px;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.3fr repeat(3, 1fr);
+      gap: 34px;
+    }
+
+    .footer-brand img {
+      width: 90px;
+      margin-bottom: 14px;
+    }
+
+    .footer-brand h3 {
+      font-family: "Oswald", sans-serif;
+      font-size: 30px;
+      margin: 0;
+      text-transform: uppercase;
+    }
+
+    .footer-brand p,
+    .footer-col p,
+    .footer-col a {
+      color: rgba(255,255,255,0.68);
+    }
+
+    .footer-col {
+      display: grid;
+      align-content: start;
+      gap: 10px;
+    }
+
+    .footer-col h4 {
+      margin: 0 0 8px;
+      color: var(--green2);
+      text-transform: uppercase;
+    }
+
+    @media (max-width: 980px) {
+      .main-nav {
+        display: none;
+      }
+
+      .burger-btn {
+        display: block;
+      }
+
+      .ticket-btn {
+        display: none;
+      }
+
+      .media-hero-grid,
+      .featured-video,
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .press-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 620px) {
+      .language-switcher {
+        display: none;
+      }
+
+      .logo-text {
+        display: none;
+      }
+
+      .media-hero {
+        padding: 44px 0 32px;
+      }
+
+      .media-hero h1 {
+        font-size: 44px;
+      }
+
+      .gallery-grid,
+      .press-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .modal-content {
+        padding: 30px 22px;
+      }
+
+      .video-box {
+        min-height: 320px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="logo-box">
+        <img src="images/logo.png" alt="Deportivo Moscu Logo" class="logo-img">
+        <div class="logo-text">
+          <span>Deportivo</span>
+          <strong>Moscu</strong>
+        </div>
+      </a>
+
+      <nav class="main-nav">
+        <a href="index.html" data-i18n="nav_home">Главная</a>
+        <a href="news.html" data-i18n="nav_news">Новости</a>
+        <a href="team.html" data-i18n="nav_team">Команда</a>
+        <a href="league.html" data-i18n="nav_matches">Матчи</a>
+        <a href="club.html" data-i18n="nav_club">Клуб</a>
+        <a href="academy.html" data-i18n="nav_academy">Академия</a>
+        <a href="media.html" class="active" data-i18n="nav_media">Медиа</a>
+        <a href="store.html" data-i18n="nav_store">Магазин</a>
+      </nav>
+
+      <div class="header-actions">
+        <div class="language-switcher">
+          <button class="lang-btn active" data-lang="ru">RU</button>
+          <button class="lang-btn" data-lang="en">EN</button>
+          <button class="lang-btn" data-lang="es">ES</button>
+        </div>
+
+        <a href="store.html" class="ticket-btn" data-i18n="buy_tickets">Купить билеты</a>
+
+        <button class="burger-btn" id="burgerBtn" aria-label="Menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="index.html" data-i18n="nav_home">Главная</a>
+      <a href="news.html" data-i18n="nav_news">Новости</a>
+      <a href="team.html" data-i18n="nav_team">Команда</a>
+      <a href="league.html" data-i18n="nav_matches">Матчи</a>
+      <a href="club.html" data-i18n="nav_club">Клуб</a>
+      <a href="academy.html" data-i18n="nav_academy">Академия</a>
+      <a href="media.html" data-i18n="nav_media">Медиа</a>
+      <a href="store.html" data-i18n="nav_store">Магазин</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="media-hero">
+      <div class="container media-hero-grid">
+        <div>
+          <div class="section-label" data-i18n="media_label">Медиа-центр</div>
+          <h1 data-i18n="media_title">Медиа<br>Deportivo Moscu</h1>
+          <p data-i18n="media_subtitle">
+            Фото, видео, публикации, интервью и материалы о клубе Deportivo Moscu.
+          </p>
+        </div>
+
+        <div class="hero-card">
+          <div class="hero-card-inner">
+            <img src="images/logo.png" alt="Deportivo Moscu">
+            <h2>DM MEDIA</h2>
+            <span data-i18n="hero_slogan">История клуба в кадре</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="media-section">
+      <div class="container">
+        <h2 class="section-title" data-i18n="video_title">Главное видео</h2>
+        <p class="section-text" data-i18n="video_text">
+          Здесь можно разместить главный ролик о клубе, интервью, репортаж или презентацию Deportivo Moscu.
+        </p>
+
+        <div class="featured-video">
+          <div class="video-box">
+            <button class="play-button" id="mainVideoBtn">▶</button>
+          </div>
+
+          <div class="video-info">
+            <h3 data-i18n="video_card_title">Deportivo Moscu на YouTube</h3>
+            <p data-i18n="video_card_text">
+              Видео-материал о клубе, его идее, атмосфере и развитии проекта в Аргентине.
+            </p>
+            <a class="video-link" href="https://youtu.be/Fl0Q9ikyY9o?si=Fs0-25dueluzUk0G" target="_blank" rel="noopener" data-i18n="open_video">
+              Смотреть видео
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="media-section">
+      <div class="container">
+        <h2 class="section-title" data-i18n="gallery_title">Галерея</h2>
+        <p class="section-text" data-i18n="gallery_text">
+          Раздел готов для реальных фотографий: матчи, тренировки, болельщики, медиа-дни и закулисье клуба.
+        </p>
+
+        <div class="filter-row">
+          <button class="filter-btn active" data-filter="all" data-i18n="filter_all">Все</button>
+          <button class="filter-btn" data-filter="match" data-i18n="filter_matches">Матчи</button>
+          <button class="filter-btn" data-filter="training" data-i18n="filter_training">Тренировки</button>
+          <button class="filter-btn" data-filter="fans" data-i18n="filter_fans">Болельщики</button>
+          <button class="filter-btn" data-filter="press" data-i18n="filter_press">Пресса</button>
+        </div>
+
+        <div class="gallery-grid" id="galleryGrid"></div>
+      </div>
+    </section>
+
+    <section class="media-section">
+      <div class="container">
+        <h2 class="section-title" data-i18n="press_title">СМИ о клубе</h2>
+        <p class="section-text" data-i18n="press_text">
+          Подборка публикаций о Deportivo Moscu в российских, аргентинских и международных СМИ.
+        </p>
+
+        <div class="press-grid">
+          <div class="press-card">
+            <div class="press-source">La Nación</div>
+            <h3>Un club ruso en Buenos Aires</h3>
+            <a href="https://www.lanacion.com.ar/deportes/futbol/deportivo-moscu-un-club-ruso-en-buenos-aires-como-funciona-a-que-aspira-y-el-rol-de-la-embajada-nid01082025/" target="_blank" rel="noopener" data-i18n="open_source">Открыть источник</a>
+          </div>
+
+          <div class="press-card">
+            <div class="press-source">CNN Español</div>
+            <h3>Club de rusos en Argentina</h3>
+            <a href="https://cnnespanol.cnn.com/2025/08/07/argentina/video/club-rusos-argentina-moscu-cafe-tv" target="_blank" rel="noopener" data-i18n="open_source">Открыть источник</a>
+          </div>
+
+          <div class="press-card">
+            <div class="press-source">Sport24</div>
+            <h3>Интервью с основателем клуба</h3>
+            <a href="https://sport24.ru/football/article-808059-nam-skazali-ubrat-simvoliku-rossii-radi-sponsorom-otkazalis-intervyu-s-osnovatelem-russkogo-kluba-deportivo-moskva-v-argentine-antonom-nefedchevym-brakamonte-prezident-khavyer-miley" target="_blank" rel="noopener" data-i18n="open_source">Открыть источник</a>
+          </div>
+
+          <div class="press-card">
+            <div class="press-source">Матч ТВ</div>
+            <h3>Интерес к России после создания клуба</h3>
+            <a href="https://matchtv.ru/football/matchtvnews_NI2132710_Trener_Deportivo_de_Moscu_rasskazal_chto_posle_sozdanija_futbolnogo_kluba_v_Argentine_vyros_interes_k_Rossii?ysclid=mpe9r3sjt6933923294" target="_blank" rel="noopener" data-i18n="open_source">Открыть источник</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="modal" id="mediaModal">
+    <div class="modal-overlay" id="modalOverlay"></div>
+
+    <div class="modal-card">
+      <button class="modal-close" id="modalClose">×</button>
+      <div class="modal-image"></div>
+
+      <div class="modal-content">
+        <h2 id="modalTitle"></h2>
+        <p id="modalText"></p>
+      </div>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <img src="images/logo.png" alt="Deportivo Moscu">
+        <h3>Deportivo Moscu</h3>
+        <p data-i18n="footer_slogan">Единый город. Одна страсть. Одна зелёно-чёрная семья.</p>
+      </div>
+
+      <div class="footer-col">
+        <h4 data-i18n="nav_club">Клуб</h4>
+        <a href="club.html" data-i18n="about_club">О клубе</a>
+        <a href="team.html" data-i18n="nav_team">Команда</a>
+        <a href="league.html" data-i18n="nav_matches">Матчи</a>
+      </div>
+
+      <div class="footer-col">
+        <h4 data-i18n="help">Помощь</h4>
+        <a href="store.html" data-i18n="tickets">Билеты</a>
+        <a href="academy.html" data-i18n="academy_request">Запись в академию</a>
+        <a href="media.html" data-i18n="media_center">Медиацентр</a>
+      </div>
+
+      <div class="footer-col">
+        <h4 data-i18n="contacts">Контакты</h4>
+        <p>Buenos Aires, Argentina</p>
+        <p>media@deportivomoscu.com</p>
+        <p>+54 11 0000-0000</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const translations = {
+      ru: {
+        nav_home: "Главная",
+        nav_news: "Новости",
+        nav_team: "Команда",
+        nav_matches: "Матчи",
+        nav_club: "Клуб",
+        nav_academy: "Академия",
+        nav_media: "Медиа",
+        nav_store: "Магазин",
+        buy_tickets: "Купить билеты",
+        media_label: "Медиа-центр",
+        media_title: "Медиа<br>Deportivo Moscu",
+        media_subtitle: "Фото, видео, публикации, интервью и материалы о клубе Deportivo Moscu.",
+        hero_slogan: "История клуба в кадре",
+        video_title: "Главное видео",
+        video_text: "Здесь можно разместить главный ролик о клубе, интервью, репортаж или презентацию Deportivo Moscu.",
+        video_card_title: "Deportivo Moscu на YouTube",
+        video_card_text: "Видео-материал о клубе, его идее, атмосфере и развитии проекта в Аргентине.",
+        open_video: "Смотреть видео",
+        gallery_title: "Галерея",
+        gallery_text: "Раздел готов для реальных фотографий: матчи, тренировки, болельщики, медиа-дни и закулисье клуба.",
+        filter_all: "Все",
+        filter_matches: "Матчи",
+        filter_training: "Тренировки",
+        filter_fans: "Болельщики",
+        filter_press: "Пресса",
+        press_title: "СМИ о клубе",
+        press_text: "Подборка публикаций о Deportivo Moscu в российских, аргентинских и международных СМИ.",
+        open_source: "Открыть источник",
+        footer_slogan: "Единый город. Одна страсть. Одна зелёно-чёрная семья.",
+        about_club: "О клубе",
+        help: "Помощь",
+        tickets: "Билеты",
+        academy_request: "Запись в академию",
+        media_center: "Медиацентр",
+        contacts: "Контакты"
+      },
+      en: {
+        nav_home: "Home",
+        nav_news: "News",
+        nav_team: "Team",
+        nav_matches: "Matches",
+        nav_club: "Club",
+        nav_academy: "Academy",
+        nav_media: "Media",
+        nav_store: "Store",
+        buy_tickets: "Buy tickets",
+        media_label: "Media center",
+        media_title: "Deportivo Moscu<br>Media",
+        media_subtitle: "Photos, videos, publications, interviews and materials about Deportivo Moscu.",
+        hero_slogan: "The club story in frames",
+        video_title: "Featured video",
+        video_text: "A place for the main club video, interview, report or Deportivo Moscu presentation.",
+        video_card_title: "Deportivo Moscu on YouTube",
+        video_card_text: "A video about the club, its idea, atmosphere and project development in Argentina.",
+        open_video: "Watch video",
+        gallery_title: "Gallery",
+        gallery_text: "This section is ready for real photos: matches, training, fans, media days and behind the scenes.",
+        filter_all: "All",
+        filter_matches: "Matches",
+        filter_training: "Training",
+        filter_fans: "Fans",
+        filter_press: "Press",
+        press_title: "Media about the club",
+        press_text: "A selection of publications about Deportivo Moscu in Russian, Argentine and international media.",
+        open_source: "Open source",
+        footer_slogan: "One city. One passion. One green-and-black family.",
+        about_club: "About club",
+        help: "Help",
+        tickets: "Tickets",
+        academy_request: "Academy application",
+        media_center: "Media center",
+        contacts: "Contacts"
+      },
+      es: {
+        nav_home: "Inicio",
+        nav_news: "Noticias",
+        nav_team: "Equipo",
+        nav_matches: "Partidos",
+        nav_club: "Club",
+        nav_academy: "Academia",
+        nav_media: "Media",
+        nav_store: "Tienda",
+        buy_tickets: "Comprar entradas",
+        media_label: "Centro de media",
+        media_title: "Media<br>Deportivo Moscu",
+        media_subtitle: "Fotos, videos, publicaciones, entrevistas y materiales sobre Deportivo Moscu.",
+        hero_slogan: "La historia del club en imágenes",
+        video_title: "Video principal",
+        video_text: "Aquí puede estar el video principal del club, una entrevista, reportaje o presentación de Deportivo Moscu.",
+        video_card_title: "Deportivo Moscu en YouTube",
+        video_card_text: "Video sobre el club, su idea, ambiente y desarrollo del proyecto en Argentina.",
+        open_video: "Ver video",
+        gallery_title: "Galería",
+        gallery_text: "Sección preparada para fotos reales: partidos, entrenamientos, hinchas, media days y backstage.",
+        filter_all: "Todos",
+        filter_matches: "Partidos",
+        filter_training: "Entrenamientos",
+        filter_fans: "Hinchas",
+        filter_press: "Prensa",
+        press_title: "Medios sobre el club",
+        press_text: "Selección de publicaciones sobre Deportivo Moscu en medios rusos, argentinos e internacionales.",
+        open_source: "Abrir fuente",
+        footer_slogan: "Una ciudad. Una pasión. Una familia verde y negra.",
+        about_club: "Sobre el club",
+        help: "Ayuda",
+        tickets: "Entradas",
+        academy_request: "Inscripción academia",
+        media_center: "Media center",
+        contacts: "Contactos"
+      }
+    };
+
+    const galleryItems = [
+      {
+        type: "match",
+        title: {
+          ru: "Матч Deportivo Moscu",
+          en: "Deportivo Moscu match",
+          es: "Partido de Deportivo Moscu"
+        },
+        text: {
+          ru: "Фото с игрового дня, эмоции команды и атмосфера матча.",
+          en: "Photos from matchday, team emotions and the atmosphere of the game.",
+          es: "Fotos del día de partido, emociones del equipo y ambiente del juego."
+        }
+      },
+      {
+        type: "training",
+        title: {
+          ru: "Тренировка команды",
+          en: "Team training",
+          es: "Entrenamiento del equipo"
+        },
+        text: {
+          ru: "Рабочий процесс команды: техника, тактика и подготовка к следующему туру.",
+          en: "Team work process: technique, tactics and preparation for the next round.",
+          es: "Proceso de trabajo del equipo: técnica, táctica y preparación para la próxima fecha."
+        }
+      },
+      {
+        type: "fans",
+        title: {
+          ru: "Болельщики клуба",
+          en: "Club supporters",
+          es: "Hinchas del club"
+        },
+        text: {
+          ru: "Люди, которые создают энергию и поддерживают Deportivo Moscu.",
+          en: "People who create energy and support Deportivo Moscu.",
+          es: "Personas que crean energía y apoyan a Deportivo Moscu."
+        }
+      },
+      {
+        type: "press",
+        title: {
+          ru: "Интервью и СМИ",
+          en: "Interviews and media",
+          es: "Entrevistas y medios"
+        },
+        text: {
+          ru: "Материалы о клубе в российских, аргентинских и международных источниках.",
+          en: "Materials about the club in Russian, Argentine and international sources.",
+          es: "Materiales sobre el club en medios rusos, argentinos e internacionales."
+        }
+      },
+      {
+        type: "match",
+        title: {
+          ru: "Эмоции после гола",
+          en: "Goal celebration",
+          es: "Celebración de gol"
+        },
+        text: {
+          ru: "Кадры радости, командного духа и зелёно-чёрного характера.",
+          en: "Moments of joy, team spirit and green-black character.",
+          es: "Momentos de alegría, espíritu de equipo y carácter verde-negro."
+        }
+      },
+      {
+        type: "training",
+        title: {
+          ru: "Подготовка к туру",
+          en: "Round preparation",
+          es: "Preparación para la fecha"
+        },
+        text: {
+          ru: "Тренировочный день перед матчем Liga Escobarense.",
+          en: "Training day before a Liga Escobarense match.",
+          es: "Día de entrenamiento antes de un partido de Liga Escobarense."
+        }
+      }
+    ];
+
+    let currentLang = "ru";
+    let currentFilter = "all";
+
+    function getText(value) {
+      if (!value) return "—";
+      if (typeof value === "string") return value;
+      return value[currentLang] || value.ru || value.en || value.es || "—";
+    }
+
+    function setLanguage(lang) {
+      currentLang = lang;
+      document.documentElement.lang = lang;
+
+      document.querySelectorAll("[data-i18n]").forEach((element) => {
+        const key = element.getAttribute("data-i18n");
+
+        if (translations[lang] && translations[lang][key]) {
+          element.innerHTML = translations[lang][key];
+        }
+      });
+
+      document.querySelectorAll(".lang-btn").forEach((button) => {
+        button.classList.toggle("active", button.dataset.lang === lang);
+      });
+
+      renderGallery();
+    }
+
+    function getTypeLabel(type) {
+      const labels = {
+        ru: {
+          match: "Матч",
+          training: "Тренировка",
+          fans: "Болельщики",
+          press: "Пресса"
+        },
+        en: {
+          match: "Match",
+          training: "Training",
+          fans: "Fans",
+          press: "Press"
+        },
+        es: {
+          match: "Partido",
+          training: "Entreno",
+          fans: "Hinchas",
+          press: "Prensa"
+        }
+      };
+
+      return labels[currentLang][type] || type;
+    }
+
+    function renderGallery() {
+      const galleryGrid = document.getElementById("galleryGrid");
+
+      const filteredItems = currentFilter === "all"
+        ? galleryItems
+        : galleryItems.filter((item) => item.type === currentFilter);
+
+      galleryGrid.innerHTML = filteredItems.map((item, index) => {
+        return `
+          <article class="media-card" data-index="${index}">
+            <div class="media-thumb">
+              <div class="media-type">${getTypeLabel(item.type)}</div>
+            </div>
+            <div class="media-body">
+              <h3>${getText(item.title)}</h3>
+              <p>${getText(item.text)}</p>
+            </div>
+          </article>
+        `;
+      }).join("");
+
+      document.querySelectorAll(".media-card").forEach((card) => {
+        card.addEventListener("click", () => {
+          const item = filteredItems[Number(card.dataset.index)];
+          openModal(item);
+        });
+      });
+    }
+
+    function openModal(item) {
+      document.getElementById("modalTitle").textContent = getText(item.title);
+      document.getElementById("modalText").textContent = getText(item.text);
+      document.getElementById("mediaModal").classList.add("open");
+    }
+
+    function closeModal() {
+      document.getElementById("mediaModal").classList.remove("open");
+    }
+
+    document.querySelectorAll(".lang-btn").forEach((button) => {
+      button.addEventListener("click", () => {
+        setLanguage(button.dataset.lang);
+      });
+    });
+
+    document.querySelectorAll(".filter-btn").forEach((button) => {
+      button.addEventListener("click", () => {
+        currentFilter = button.dataset.filter;
+
+        document.querySelectorAll(".filter-btn").forEach((item) => {
+          item.classList.toggle("active", item.dataset.filter === currentFilter);
+        });
+
+        renderGallery();
+      });
+    });
+
+    document.getElementById("burgerBtn").addEventListener("click", () => {
+      document.getElementById("mobileMenu").classList.toggle("open");
+    });
+
+    document.getElementById("modalClose").addEventListener("click", closeModal);
+    document.getElementById("modalOverlay").addEventListener("click", closeModal);
+
+    document.getElementById("mainVideoBtn").addEventListener("click", () => {
+      window.open("https://youtu.be/Fl0Q9ikyY9o?si=Fs0-25dueluzUk0G", "_blank");
+    });
+
+    setLanguage("ru");
+    renderGallery();
+  </script>
+</body>
+</html>

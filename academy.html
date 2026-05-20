@@ -1,0 +1,1075 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Академия — Deportivo Moscu</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --white: #ffffff;
+      --light: #f5f6f5;
+      --black: #070807;
+      --muted: #6d756f;
+      --green: #008c3a;
+      --green2: #12b85a;
+      --border: #dfe5e1;
+      --shadow: 0 22px 70px rgba(0,0,0,0.12);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Inter", sans-serif;
+      background: #ffffff;
+      color: var(--black);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button {
+      font-family: inherit;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    .container {
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .header-inner {
+      min-height: 86px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 22px;
+    }
+
+    .logo-box {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 210px;
+    }
+
+    .logo-img {
+      width: 58px;
+      height: 58px;
+      object-fit: contain;
+    }
+
+    .logo-text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    .logo-text span {
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .logo-text strong {
+      font-family: "Oswald", sans-serif;
+      font-size: 24px;
+      color: var(--green);
+    }
+
+    .main-nav {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      font-size: 14px;
+      font-weight: 800;
+    }
+
+    .main-nav a:hover,
+    .main-nav a.active {
+      color: var(--green);
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .language-switcher {
+      display: flex;
+      background: var(--light);
+      padding: 4px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+    }
+
+    .lang-btn {
+      border: 0;
+      background: transparent;
+      padding: 8px 10px;
+      border-radius: 999px;
+      font-weight: 900;
+      cursor: pointer;
+      font-size: 12px;
+    }
+
+    .lang-btn.active {
+      background: var(--black);
+      color: var(--white);
+    }
+
+    .ticket-btn {
+      background: var(--green);
+      color: white;
+      border-radius: 999px;
+      padding: 13px 20px;
+      font-size: 14px;
+      font-weight: 900;
+      box-shadow: 0 12px 26px rgba(0,140,58,0.22);
+    }
+
+    .burger-btn {
+      display: none;
+      width: 42px;
+      height: 42px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: white;
+      cursor: pointer;
+      padding: 9px;
+    }
+
+    .burger-btn span {
+      display: block;
+      height: 2px;
+      background: var(--black);
+      margin: 5px 0;
+    }
+
+    .mobile-menu {
+      display: none;
+      padding: 16px;
+      border-top: 1px solid var(--border);
+      background: white;
+    }
+
+    .mobile-menu.open {
+      display: grid;
+      gap: 12px;
+    }
+
+    .mobile-menu a {
+      padding: 12px;
+      border-radius: 14px;
+      background: var(--light);
+      font-weight: 900;
+    }
+
+    .academy-hero {
+      padding: 78px 0 58px;
+      background:
+        radial-gradient(circle at 85% 10%, rgba(18,184,90,0.2), transparent 35%),
+        linear-gradient(180deg, #ffffff 0%, #f5f6f5 100%);
+    }
+
+    .academy-hero-grid {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      align-items: center;
+      gap: 46px;
+    }
+
+    .section-label {
+      display: inline-flex;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(0,140,58,0.1);
+      color: var(--green);
+      font-weight: 900;
+      font-size: 13px;
+      margin-bottom: 18px;
+    }
+
+    .academy-hero h1 {
+      font-family: "Oswald", sans-serif;
+      font-size: clamp(48px, 7vw, 88px);
+      line-height: 0.95;
+      margin: 0;
+      letter-spacing: -0.03em;
+      text-transform: uppercase;
+    }
+
+    .academy-hero p {
+      max-width: 700px;
+      color: var(--muted);
+      font-size: 20px;
+      line-height: 1.55;
+      margin: 24px 0 0;
+    }
+
+    .hero-card {
+      min-height: 430px;
+      border-radius: 38px;
+      background:
+        radial-gradient(circle at 30% 20%, rgba(18,184,90,0.48), transparent 36%),
+        linear-gradient(145deg, #008c3a, #071008 62%, #050505);
+      color: white;
+      box-shadow: var(--shadow);
+      display: grid;
+      place-items: center;
+      text-align: center;
+      padding: 38px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-card::before {
+      content: "";
+      position: absolute;
+      inset: 22px;
+      border: 1px solid rgba(255,255,255,0.16);
+      border-radius: 30px;
+    }
+
+    .hero-card-inner {
+      position: relative;
+      display: grid;
+      place-items: center;
+    }
+
+    .hero-card img {
+      width: 185px;
+      margin-bottom: 20px;
+      filter: drop-shadow(0 20px 34px rgba(0,0,0,0.42));
+    }
+
+    .hero-card h2 {
+      font-family: "Oswald", sans-serif;
+      font-size: 40px;
+      letter-spacing: 0.04em;
+      margin: 0;
+      text-transform: uppercase;
+    }
+
+    .hero-card span {
+      color: rgba(255,255,255,0.76);
+      font-weight: 900;
+      margin-top: 8px;
+    }
+
+    .academy-section {
+      padding: 58px 0;
+    }
+
+    .section-title {
+      font-family: "Oswald", sans-serif;
+      font-size: clamp(38px, 5vw, 62px);
+      line-height: 0.98;
+      text-transform: uppercase;
+      margin: 0 0 22px;
+    }
+
+    .section-text {
+      color: var(--muted);
+      line-height: 1.75;
+      font-size: 18px;
+      max-width: 850px;
+      margin: 0;
+    }
+
+    .programs-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+      margin-top: 34px;
+    }
+
+    .program-card,
+    .coach-card,
+    .step-card,
+    .form-card {
+      border: 1px solid var(--border);
+      border-radius: 30px;
+      background: white;
+      box-shadow: 0 14px 42px rgba(0,0,0,0.07);
+      padding: 28px;
+    }
+
+    .program-age {
+      width: fit-content;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(0,140,58,0.1);
+      color: var(--green);
+      font-weight: 900;
+      margin-bottom: 16px;
+    }
+
+    .program-card h3,
+    .coach-card h3,
+    .step-card h3,
+    .form-card h3 {
+      font-family: "Oswald", sans-serif;
+      text-transform: uppercase;
+      font-size: 30px;
+      margin: 0 0 12px;
+    }
+
+    .program-card p,
+    .coach-card p,
+    .step-card p,
+    .form-card p {
+      color: var(--muted);
+      line-height: 1.65;
+      margin: 0;
+    }
+
+    .training-grid {
+      display: grid;
+      grid-template-columns: 0.95fr 1.05fr;
+      gap: 24px;
+      margin-top: 34px;
+      align-items: stretch;
+    }
+
+    .training-visual {
+      border-radius: 34px;
+      min-height: 420px;
+      background:
+        radial-gradient(circle at 32% 25%, rgba(255,255,255,0.22), transparent 24%),
+        linear-gradient(145deg, #0b0b0b, #008c3a);
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .training-visual::after {
+      content: "ACADEMY";
+      position: absolute;
+      left: 34px;
+      bottom: 28px;
+      font-family: "Oswald", sans-serif;
+      font-size: 70px;
+      line-height: 0.9;
+      color: rgba(255,255,255,0.2);
+    }
+
+    .training-list {
+      display: grid;
+      gap: 16px;
+    }
+
+    .step-card {
+      display: grid;
+      grid-template-columns: 70px 1fr;
+      gap: 18px;
+      align-items: center;
+    }
+
+    .step-number {
+      width: 58px;
+      height: 58px;
+      border-radius: 18px;
+      background: var(--black);
+      color: var(--green2);
+      display: grid;
+      place-items: center;
+      font-family: "Oswald", sans-serif;
+      font-size: 28px;
+      font-weight: 800;
+    }
+
+    .coaches-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+      margin-top: 34px;
+    }
+
+    .coach-photo {
+      height: 210px;
+      border-radius: 24px;
+      background:
+        radial-gradient(circle at 50% 22%, rgba(255,255,255,0.24), transparent 24%),
+        linear-gradient(145deg, #111111, #008c3a);
+      margin-bottom: 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .coach-photo::before {
+      content: "";
+      position: absolute;
+      left: 50%;
+      bottom: -30px;
+      transform: translateX(-50%);
+      width: 150px;
+      height: 190px;
+      border-radius: 80px 80px 24px 24px;
+      background: linear-gradient(180deg, #eeeeee 0%, #dddddd 24%, #111111 24%, #080808 100%);
+    }
+
+    .coach-photo::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 50px;
+      transform: translateX(-50%);
+      width: 76px;
+      height: 76px;
+      border-radius: 50%;
+      background: linear-gradient(145deg, #d9b18d, #8b6046);
+    }
+
+    .form-section {
+      padding: 58px 0 80px;
+      background: var(--light);
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 24px;
+      align-items: start;
+      margin-top: 34px;
+    }
+
+    .form-card.green {
+      background:
+        radial-gradient(circle at 30% 20%, rgba(18,184,90,0.35), transparent 36%),
+        linear-gradient(145deg, #008c3a, #071008);
+      color: white;
+      border-color: transparent;
+    }
+
+    .form-card.green p {
+      color: rgba(255,255,255,0.78);
+    }
+
+    .contact-list {
+      display: grid;
+      gap: 12px;
+      margin-top: 20px;
+      font-weight: 900;
+    }
+
+    .academy-form {
+      display: grid;
+      gap: 14px;
+    }
+
+    .academy-form input,
+    .academy-form select,
+    .academy-form textarea {
+      width: 100%;
+      border: 1px solid var(--border);
+      background: white;
+      border-radius: 18px;
+      padding: 15px 16px;
+      font-family: inherit;
+      font-size: 15px;
+      outline: none;
+    }
+
+    .academy-form textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    .academy-form button {
+      border: 0;
+      background: var(--green);
+      color: white;
+      padding: 15px 20px;
+      border-radius: 999px;
+      font-weight: 900;
+      cursor: pointer;
+      box-shadow: 0 12px 26px rgba(0,140,58,0.22);
+    }
+
+    .site-footer {
+      background: var(--black);
+      color: white;
+      padding: 54px 0;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.3fr repeat(3, 1fr);
+      gap: 34px;
+    }
+
+    .footer-brand img {
+      width: 90px;
+      margin-bottom: 14px;
+    }
+
+    .footer-brand h3 {
+      font-family: "Oswald", sans-serif;
+      font-size: 30px;
+      margin: 0;
+      text-transform: uppercase;
+    }
+
+    .footer-brand p,
+    .footer-col p,
+    .footer-col a {
+      color: rgba(255,255,255,0.68);
+    }
+
+    .footer-col {
+      display: grid;
+      align-content: start;
+      gap: 10px;
+    }
+
+    .footer-col h4 {
+      margin: 0 0 8px;
+      color: var(--green2);
+      text-transform: uppercase;
+    }
+
+    @media (max-width: 980px) {
+      .main-nav {
+        display: none;
+      }
+
+      .burger-btn {
+        display: block;
+      }
+
+      .ticket-btn {
+        display: none;
+      }
+
+      .academy-hero-grid,
+      .training-grid,
+      .form-grid,
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .programs-grid,
+      .coaches-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 620px) {
+      .language-switcher {
+        display: none;
+      }
+
+      .logo-text {
+        display: none;
+      }
+
+      .academy-hero {
+        padding: 44px 0 32px;
+      }
+
+      .academy-hero h1 {
+        font-size: 44px;
+      }
+
+      .step-card {
+        grid-template-columns: 1fr;
+      }
+
+      .training-visual::after {
+        font-size: 44px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="logo-box">
+        <img src="images/logo.png" alt="Deportivo Moscu Logo" class="logo-img">
+        <div class="logo-text">
+          <span>Deportivo</span>
+          <strong>Moscu</strong>
+        </div>
+      </a>
+
+      <nav class="main-nav">
+        <a href="index.html" data-i18n="nav_home">Главная</a>
+        <a href="news.html" data-i18n="nav_news">Новости</a>
+        <a href="team.html" data-i18n="nav_team">Команда</a>
+        <a href="league.html" data-i18n="nav_matches">Матчи</a>
+        <a href="club.html" data-i18n="nav_club">Клуб</a>
+        <a href="academy.html" class="active" data-i18n="nav_academy">Академия</a>
+        <a href="media.html" data-i18n="nav_media">Медиа</a>
+        <a href="store.html" data-i18n="nav_store">Магазин</a>
+      </nav>
+
+      <div class="header-actions">
+        <div class="language-switcher">
+          <button class="lang-btn active" data-lang="ru">RU</button>
+          <button class="lang-btn" data-lang="en">EN</button>
+          <button class="lang-btn" data-lang="es">ES</button>
+        </div>
+
+        <a href="store.html" class="ticket-btn" data-i18n="buy_tickets">Купить билеты</a>
+
+        <button class="burger-btn" id="burgerBtn" aria-label="Menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="index.html" data-i18n="nav_home">Главная</a>
+      <a href="news.html" data-i18n="nav_news">Новости</a>
+      <a href="team.html" data-i18n="nav_team">Команда</a>
+      <a href="league.html" data-i18n="nav_matches">Матчи</a>
+      <a href="club.html" data-i18n="nav_club">Клуб</a>
+      <a href="academy.html" data-i18n="nav_academy">Академия</a>
+      <a href="media.html" data-i18n="nav_media">Медиа</a>
+      <a href="store.html" data-i18n="nav_store">Магазин</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="academy-hero">
+      <div class="container academy-hero-grid">
+        <div>
+          <div class="section-label" data-i18n="academy_label">Академия клуба</div>
+          <h1 data-i18n="academy_title">Академия<br>Deportivo Moscu</h1>
+          <p data-i18n="academy_subtitle">
+            Подготовка молодых футболистов в стиле Deportivo Moscu: техника, дисциплина, командная игра и футбольный характер.
+          </p>
+        </div>
+
+        <div class="hero-card">
+          <div class="hero-card-inner">
+            <img src="images/logo.png" alt="Deportivo Moscu">
+            <h2>DM ACADEMY</h2>
+            <span data-i18n="hero_slogan">Будущее начинается здесь</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="academy-section">
+      <div class="container">
+        <h2 class="section-title" data-i18n="programs_title">Программы подготовки</h2>
+        <p class="section-text" data-i18n="programs_text">
+          Академия делится на возрастные группы, чтобы каждый игрок получал правильную нагрузку, развитие техники и понимание игры.
+        </p>
+
+        <div class="programs-grid">
+          <div class="program-card">
+            <div class="program-age">U-8 / U-10</div>
+            <h3 data-i18n="program_1_title">База</h3>
+            <p data-i18n="program_1_text">Координация, первый пас, ведение мяча, любовь к футболу и первые командные принципы.</p>
+          </div>
+
+          <div class="program-card">
+            <div class="program-age">U-12 / U-14</div>
+            <h3 data-i18n="program_2_title">Развитие</h3>
+            <p data-i18n="program_2_text">Тактика, скорость мышления, игра один в один, прессинг и работа по позициям.</p>
+          </div>
+
+          <div class="program-card">
+            <div class="program-age">U-16 / U-18</div>
+            <h3 data-i18n="program_3_title">Подготовка</h3>
+            <p data-i18n="program_3_text">Переход к взрослому футболу: физика, интенсивность, дисциплина и игровая ответственность.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="academy-section">
+      <div class="container">
+        <h2 class="section-title" data-i18n="training_title">Как проходит тренировка</h2>
+
+        <div class="training-grid">
+          <div class="training-visual"></div>
+
+          <div class="training-list">
+            <div class="step-card">
+              <div class="step-number">01</div>
+              <div>
+                <h3 data-i18n="step_1_title">Разминка</h3>
+                <p data-i18n="step_1_text">Координация, мобильность, контроль тела и подготовка к работе с мячом.</p>
+              </div>
+            </div>
+
+            <div class="step-card">
+              <div class="step-number">02</div>
+              <div>
+                <h3 data-i18n="step_2_title">Техника</h3>
+                <p data-i18n="step_2_text">Пас, приём, ведение, удар, игра под давлением и решение в ограниченном пространстве.</p>
+              </div>
+            </div>
+
+            <div class="step-card">
+              <div class="step-number">03</div>
+              <div>
+                <h3 data-i18n="step_3_title">Тактика</h3>
+                <p data-i18n="step_3_text">Понимание позиции, взаимодействие линий, прессинг, выход из обороны и атака.</p>
+              </div>
+            </div>
+
+            <div class="step-card">
+              <div class="step-number">04</div>
+              <div>
+                <h3 data-i18n="step_4_title">Игра</h3>
+                <p data-i18n="step_4_text">Мини-матчи, игровые задания и закрепление принципов Deportivo Moscu.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="academy-section">
+      <div class="container">
+        <h2 class="section-title" data-i18n="coaches_title">Тренерский штаб</h2>
+        <p class="section-text" data-i18n="coaches_text">
+          Здесь будут реальные тренеры академии, их роли, опыт и контакты. Сейчас блок подготовлен под будущую замену на настоящие данные.
+        </p>
+
+        <div class="coaches-grid">
+          <div class="coach-card">
+            <div class="coach-photo"></div>
+            <h3 data-i18n="coach_1_title">Главный тренер</h3>
+            <p data-i18n="coach_1_text">Отвечает за методику, тренировочный процесс и развитие игроков.</p>
+          </div>
+
+          <div class="coach-card">
+            <div class="coach-photo"></div>
+            <h3 data-i18n="coach_2_title">Тренер по технике</h3>
+            <p data-i18n="coach_2_text">Работает над пасом, приёмом, дриблингом, ударом и индивидуальными качествами.</p>
+          </div>
+
+          <div class="coach-card">
+            <div class="coach-photo"></div>
+            <h3 data-i18n="coach_3_title">Физподготовка</h3>
+            <p data-i18n="coach_3_text">Следит за нагрузками, восстановлением, скоростью, силой и профилактикой травм.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="form-section">
+      <div class="container">
+        <h2 class="section-title" data-i18n="join_title">Записаться в академию</h2>
+        <p class="section-text" data-i18n="join_text">
+          Оставьте заявку, и представитель клуба свяжется с вами для просмотра или пробной тренировки.
+        </p>
+
+        <div class="form-grid">
+          <div class="form-card green">
+            <h3 data-i18n="contacts_title">Контакты академии</h3>
+            <p data-i18n="contacts_text">
+              После запуска формы заявки будут отправляться на почту клуба. Пока это визуальная форма для будущего подключения.
+            </p>
+
+            <div class="contact-list">
+              <span>academy@deportivomoscu.com</span>
+              <span>Buenos Aires, Argentina</span>
+              <span>Deportivo Moscu Academy</span>
+            </div>
+          </div>
+
+          <div class="form-card">
+            <h3 data-i18n="form_title">Форма заявки</h3>
+
+            <form class="academy-form" id="academyForm">
+              <input type="text" data-placeholder-ru="Имя игрока" data-placeholder-en="Player name" data-placeholder-es="Nombre del jugador" placeholder="Имя игрока">
+              <input type="text" data-placeholder-ru="Возраст" data-placeholder-en="Age" data-placeholder-es="Edad" placeholder="Возраст">
+
+              <select>
+                <option data-i18n="select_group">Выберите группу</option>
+                <option>U-8 / U-10</option>
+                <option>U-12 / U-14</option>
+                <option>U-16 / U-18</option>
+              </select>
+
+              <input type="tel" data-placeholder-ru="Телефон родителя" data-placeholder-en="Parent phone" data-placeholder-es="Teléfono del padre/madre" placeholder="Телефон родителя">
+              <textarea data-placeholder-ru="Комментарий" data-placeholder-en="Comment" data-placeholder-es="Comentario" placeholder="Комментарий"></textarea>
+
+              <button type="submit" data-i18n="send_request">Отправить заявку</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <img src="images/logo.png" alt="Deportivo Moscu">
+        <h3>Deportivo Moscu</h3>
+        <p data-i18n="footer_slogan">Единый город. Одна страсть. Одна зелёно-чёрная семья.</p>
+      </div>
+
+      <div class="footer-col">
+        <h4 data-i18n="nav_club">Клуб</h4>
+        <a href="club.html" data-i18n="about_club">О клубе</a>
+        <a href="team.html" data-i18n="nav_team">Команда</a>
+        <a href="league.html" data-i18n="nav_matches">Матчи</a>
+      </div>
+
+      <div class="footer-col">
+        <h4 data-i18n="help">Помощь</h4>
+        <a href="store.html" data-i18n="tickets">Билеты</a>
+        <a href="academy.html" data-i18n="academy_request">Запись в академию</a>
+        <a href="media.html" data-i18n="media_center">Медиацентр</a>
+      </div>
+
+      <div class="footer-col">
+        <h4 data-i18n="contacts">Контакты</h4>
+        <p>Buenos Aires, Argentina</p>
+        <p>academy@deportivomoscu.com</p>
+        <p>+54 11 0000-0000</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const translations = {
+      ru: {
+        nav_home: "Главная",
+        nav_news: "Новости",
+        nav_team: "Команда",
+        nav_matches: "Матчи",
+        nav_club: "Клуб",
+        nav_academy: "Академия",
+        nav_media: "Медиа",
+        nav_store: "Магазин",
+        buy_tickets: "Купить билеты",
+        academy_label: "Академия клуба",
+        academy_title: "Академия<br>Deportivo Moscu",
+        academy_subtitle: "Подготовка молодых футболистов в стиле Deportivo Moscu: техника, дисциплина, командная игра и футбольный характер.",
+        hero_slogan: "Будущее начинается здесь",
+        programs_title: "Программы подготовки",
+        programs_text: "Академия делится на возрастные группы, чтобы каждый игрок получал правильную нагрузку, развитие техники и понимание игры.",
+        program_1_title: "База",
+        program_1_text: "Координация, первый пас, ведение мяча, любовь к футболу и первые командные принципы.",
+        program_2_title: "Развитие",
+        program_2_text: "Тактика, скорость мышления, игра один в один, прессинг и работа по позициям.",
+        program_3_title: "Подготовка",
+        program_3_text: "Переход к взрослому футболу: физика, интенсивность, дисциплина и игровая ответственность.",
+        training_title: "Как проходит тренировка",
+        step_1_title: "Разминка",
+        step_1_text: "Координация, мобильность, контроль тела и подготовка к работе с мячом.",
+        step_2_title: "Техника",
+        step_2_text: "Пас, приём, ведение, удар, игра под давлением и решение в ограниченном пространстве.",
+        step_3_title: "Тактика",
+        step_3_text: "Понимание позиции, взаимодействие линий, прессинг, выход из обороны и атака.",
+        step_4_title: "Игра",
+        step_4_text: "Мини-матчи, игровые задания и закрепление принципов Deportivo Moscu.",
+        coaches_title: "Тренерский штаб",
+        coaches_text: "Здесь будут реальные тренеры академии, их роли, опыт и контакты. Сейчас блок подготовлен под будущую замену на настоящие данные.",
+        coach_1_title: "Главный тренер",
+        coach_1_text: "Отвечает за методику, тренировочный процесс и развитие игроков.",
+        coach_2_title: "Тренер по технике",
+        coach_2_text: "Работает над пасом, приёмом, дриблингом, ударом и индивидуальными качествами.",
+        coach_3_title: "Физподготовка",
+        coach_3_text: "Следит за нагрузками, восстановлением, скоростью, силой и профилактикой травм.",
+        join_title: "Записаться в академию",
+        join_text: "Оставьте заявку, и представитель клуба свяжется с вами для просмотра или пробной тренировки.",
+        contacts_title: "Контакты академии",
+        contacts_text: "После запуска формы заявки будут отправляться на почту клуба. Пока это визуальная форма для будущего подключения.",
+        form_title: "Форма заявки",
+        select_group: "Выберите группу",
+        send_request: "Отправить заявку",
+        footer_slogan: "Единый город. Одна страсть. Одна зелёно-чёрная семья.",
+        about_club: "О клубе",
+        help: "Помощь",
+        tickets: "Билеты",
+        academy_request: "Запись в академию",
+        media_center: "Медиацентр",
+        contacts: "Контакты",
+        form_alert: "Заявка пока не отправляется. Позже подключим почту или Telegram."
+      },
+      en: {
+        nav_home: "Home",
+        nav_news: "News",
+        nav_team: "Team",
+        nav_matches: "Matches",
+        nav_club: "Club",
+        nav_academy: "Academy",
+        nav_media: "Media",
+        nav_store: "Store",
+        buy_tickets: "Buy tickets",
+        academy_label: "Club academy",
+        academy_title: "Deportivo Moscu<br>Academy",
+        academy_subtitle: "Training young footballers in Deportivo Moscu style: technique, discipline, team play and football character.",
+        hero_slogan: "The future starts here",
+        programs_title: "Training programs",
+        programs_text: "The academy is divided into age groups so each player receives the right workload, technical development and game understanding.",
+        program_1_title: "Foundation",
+        program_1_text: "Coordination, first pass, ball control, love for football and first team principles.",
+        program_2_title: "Development",
+        program_2_text: "Tactics, speed of thought, one-on-one play, pressing and positional work.",
+        program_3_title: "Preparation",
+        program_3_text: "Transition to senior football: physical work, intensity, discipline and game responsibility.",
+        training_title: "How training works",
+        step_1_title: "Warm-up",
+        step_1_text: "Coordination, mobility, body control and preparation for ball work.",
+        step_2_title: "Technique",
+        step_2_text: "Passing, receiving, dribbling, shooting, playing under pressure and solving situations in tight spaces.",
+        step_3_title: "Tactics",
+        step_3_text: "Position understanding, line interaction, pressing, build-up and attack.",
+        step_4_title: "Game",
+        step_4_text: "Small-sided games, match tasks and Deportivo Moscu principles.",
+        coaches_title: "Coaching staff",
+        coaches_text: "Real academy coaches, roles, experience and contacts will be added here. This block is ready for future replacement with real data.",
+        coach_1_title: "Head coach",
+        coach_1_text: "Responsible for methodology, training process and player development.",
+        coach_2_title: "Technical coach",
+        coach_2_text: "Works on passing, receiving, dribbling, shooting and individual qualities.",
+        coach_3_title: "Fitness coach",
+        coach_3_text: "Manages loads, recovery, speed, strength and injury prevention.",
+        join_title: "Join the academy",
+        join_text: "Leave a request, and a club representative will contact you for a trial or training session.",
+        contacts_title: "Academy contacts",
+        contacts_text: "After launch, requests will be sent to the club email. For now, this is a visual form for future connection.",
+        form_title: "Application form",
+        select_group: "Choose group",
+        send_request: "Send request",
+        footer_slogan: "One city. One passion. One green-and-black family.",
+        about_club: "About club",
+        help: "Help",
+        tickets: "Tickets",
+        academy_request: "Academy application",
+        media_center: "Media center",
+        contacts: "Contacts",
+        form_alert: "The form is not sending yet. Later we will connect email or Telegram."
+      },
+      es: {
+        nav_home: "Inicio",
+        nav_news: "Noticias",
+        nav_team: "Equipo",
+        nav_matches: "Partidos",
+        nav_club: "Club",
+        nav_academy: "Academia",
+        nav_media: "Media",
+        nav_store: "Tienda",
+        buy_tickets: "Comprar entradas",
+        academy_label: "Academia del club",
+        academy_title: "Academia<br>Deportivo Moscu",
+        academy_subtitle: "Formación de jóvenes futbolistas con estilo Deportivo Moscu: técnica, disciplina, juego colectivo y carácter.",
+        hero_slogan: "El futuro empieza aquí",
+        programs_title: "Programas de formación",
+        programs_text: "La academia se divide por edades para que cada jugador reciba la carga adecuada, desarrollo técnico y comprensión del juego.",
+        program_1_title: "Base",
+        program_1_text: "Coordinación, primer pase, conducción, amor por el fútbol y primeros principios de equipo.",
+        program_2_title: "Desarrollo",
+        program_2_text: "Táctica, velocidad mental, uno contra uno, presión y trabajo por posiciones.",
+        program_3_title: "Preparación",
+        program_3_text: "Transición al fútbol adulto: físico, intensidad, disciplina y responsabilidad de juego.",
+        training_title: "Cómo es el entrenamiento",
+        step_1_title: "Entrada en calor",
+        step_1_text: "Coordinación, movilidad, control corporal y preparación para trabajar con balón.",
+        step_2_title: "Técnica",
+        step_2_text: "Pase, recepción, conducción, remate, juego bajo presión y decisión en espacios reducidos.",
+        step_3_title: "Táctica",
+        step_3_text: "Comprensión de la posición, interacción de líneas, presión, salida y ataque.",
+        step_4_title: "Juego",
+        step_4_text: "Partidos reducidos, tareas de juego y principios de Deportivo Moscu.",
+        coaches_title: "Cuerpo técnico",
+        coaches_text: "Aquí estarán los entrenadores reales de la academia, sus roles, experiencia y contactos. El bloque está preparado para datos reales.",
+        coach_1_title: "Entrenador principal",
+        coach_1_text: "Responsable de la metodología, el proceso de entrenamiento y el desarrollo de jugadores.",
+        coach_2_title: "Entrenador técnico",
+        coach_2_text: "Trabaja pase, recepción, dribbling, remate y cualidades individuales.",
+        coach_3_title: "Preparador físico",
+        coach_3_text: "Controla cargas, recuperación, velocidad, fuerza y prevención de lesiones.",
+        join_title: "Inscribirse en la academia",
+        join_text: "Deja una solicitud y un representante del club se comunicará contigo para una prueba o entrenamiento.",
+        contacts_title: "Contactos de academia",
+        contacts_text: "Después del lanzamiento, las solicitudes se enviarán al correo del club. Por ahora es un formulario visual para futura conexión.",
+        form_title: "Formulario de solicitud",
+        select_group: "Elegir grupo",
+        send_request: "Enviar solicitud",
+        footer_slogan: "Una ciudad. Una pasión. Una familia verde y negra.",
+        about_club: "Sobre el club",
+        help: "Ayuda",
+        tickets: "Entradas",
+        academy_request: "Inscripción academia",
+        media_center: "Media center",
+        contacts: "Contactos",
+        form_alert: "El formulario aún no envía datos. Luego conectaremos email o Telegram."
+      }
+    };
+
+    let currentLang = "ru";
+
+    function setLanguage(lang) {
+      currentLang = lang;
+      document.documentElement.lang = lang;
+
+      document.querySelectorAll("[data-i18n]").forEach((element) => {
+        const key = element.getAttribute("data-i18n");
+
+        if (translations[lang] && translations[lang][key]) {
+          element.innerHTML = translations[lang][key];
+        }
+      });
+
+      document.querySelectorAll("[data-placeholder-ru]").forEach((element) => {
+        const placeholder = element.getAttribute(`data-placeholder-${lang}`);
+        if (placeholder) {
+          element.placeholder = placeholder;
+        }
+      });
+
+      document.querySelectorAll(".lang-btn").forEach((button) => {
+        button.classList.toggle("active", button.dataset.lang === lang);
+      });
+    }
+
+    document.querySelectorAll(".lang-btn").forEach((button) => {
+      button.addEventListener("click", () => {
+        setLanguage(button.dataset.lang);
+      });
+    });
+
+    document.getElementById("burgerBtn").addEventListener("click", () => {
+      document.getElementById("mobileMenu").classList.toggle("open");
+    });
+
+    document.getElementById("academyForm").addEventListener("submit", (event) => {
+      event.preventDefault();
+      alert(translations[currentLang].form_alert);
+    });
+
+    setLanguage("ru");
+  </script>
+</body>
+</html>

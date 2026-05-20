@@ -1,0 +1,982 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Матчи и таблица — Deportivo Moscu</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --white: #ffffff;
+      --light: #f5f6f5;
+      --black: #070807;
+      --muted: #6d756f;
+      --green: #008c3a;
+      --green2: #12b85a;
+      --border: #dfe5e1;
+      --shadow: 0 22px 70px rgba(0,0,0,0.12);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Inter", sans-serif;
+      background: #ffffff;
+      color: var(--black);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button {
+      font-family: inherit;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    .container {
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .header-inner {
+      min-height: 86px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 22px;
+    }
+
+    .logo-box {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 210px;
+    }
+
+    .logo-img {
+      width: 58px;
+      height: 58px;
+      object-fit: contain;
+    }
+
+    .logo-text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    .logo-text span {
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .logo-text strong {
+      font-family: "Oswald", sans-serif;
+      font-size: 24px;
+      color: var(--green);
+    }
+
+    .main-nav {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      font-size: 14px;
+      font-weight: 800;
+    }
+
+    .main-nav a:hover,
+    .main-nav a.active {
+      color: var(--green);
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .language-switcher {
+      display: flex;
+      background: var(--light);
+      padding: 4px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+    }
+
+    .lang-btn {
+      border: 0;
+      background: transparent;
+      padding: 8px 10px;
+      border-radius: 999px;
+      font-weight: 900;
+      cursor: pointer;
+      font-size: 12px;
+    }
+
+    .lang-btn.active {
+      background: var(--black);
+      color: var(--white);
+    }
+
+    .ticket-btn {
+      background: var(--green);
+      color: white;
+      border-radius: 999px;
+      padding: 13px 20px;
+      font-size: 14px;
+      font-weight: 900;
+      box-shadow: 0 12px 26px rgba(0,140,58,0.22);
+    }
+
+    .burger-btn {
+      display: none;
+      width: 42px;
+      height: 42px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: white;
+      cursor: pointer;
+      padding: 9px;
+    }
+
+    .burger-btn span {
+      display: block;
+      height: 2px;
+      background: var(--black);
+      margin: 5px 0;
+    }
+
+    .mobile-menu {
+      display: none;
+      padding: 16px;
+      border-top: 1px solid var(--border);
+      background: white;
+    }
+
+    .mobile-menu.open {
+      display: grid;
+      gap: 12px;
+    }
+
+    .mobile-menu a {
+      padding: 12px;
+      border-radius: 14px;
+      background: var(--light);
+      font-weight: 900;
+    }
+
+    .league-hero {
+      padding: 72px 0 52px;
+      background:
+        radial-gradient(circle at 84% 10%, rgba(18,184,90,0.18), transparent 34%),
+        linear-gradient(180deg, #ffffff 0%, #f5f6f5 100%);
+    }
+
+    .section-label {
+      display: inline-flex;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(0,140,58,0.1);
+      color: var(--green);
+      font-weight: 900;
+      font-size: 13px;
+      margin-bottom: 18px;
+    }
+
+    .league-hero h1 {
+      font-family: "Oswald", sans-serif;
+      font-size: clamp(48px, 7vw, 86px);
+      line-height: 0.95;
+      margin: 0;
+      letter-spacing: -0.03em;
+      text-transform: uppercase;
+    }
+
+    .league-hero p {
+      max-width: 760px;
+      color: var(--muted);
+      font-size: 20px;
+      line-height: 1.55;
+      margin: 24px 0 0;
+    }
+
+    .league-section {
+      padding: 48px 0 70px;
+    }
+
+    .top-panel {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 18px;
+      flex-wrap: wrap;
+      margin-bottom: 24px;
+    }
+
+    .tabs {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .tab-btn,
+    .round-btn {
+      border: 1px solid var(--border);
+      background: white;
+      color: var(--black);
+      padding: 12px 18px;
+      border-radius: 999px;
+      font-weight: 900;
+      cursor: pointer;
+    }
+
+    .tab-btn.active,
+    .round-btn.active {
+      background: var(--black);
+      color: white;
+      border-color: var(--black);
+    }
+
+    .source-link {
+      color: var(--green);
+      font-weight: 900;
+    }
+
+    .panel {
+      display: none;
+    }
+
+    .panel.active {
+      display: block;
+    }
+
+    .table-card {
+      border: 1px solid var(--border);
+      border-radius: 30px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      background: white;
+    }
+
+    .table-scroll {
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 880px;
+    }
+
+    th,
+    td {
+      padding: 16px 14px;
+      border-bottom: 1px solid var(--border);
+      text-align: left;
+      white-space: nowrap;
+    }
+
+    th {
+      color: var(--muted);
+      font-size: 12px;
+      text-transform: uppercase;
+      background: var(--light);
+    }
+
+    .team-cell {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 900;
+    }
+
+    .club-logo {
+      width: 42px;
+      height: 42px;
+      object-fit: contain;
+      flex: 0 0 auto;
+    }
+
+    .deportivo-row {
+      background: rgba(0,140,58,0.09);
+      color: var(--green);
+      font-weight: 900;
+    }
+
+    .pos {
+      font-family: "Oswald", sans-serif;
+      font-size: 24px;
+      font-weight: 800;
+    }
+
+    .legend-box {
+      margin-top: 18px;
+      display: grid;
+      gap: 8px;
+      color: var(--muted);
+      font-weight: 700;
+      line-height: 1.5;
+    }
+
+    .rounds-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 22px;
+    }
+
+    .matches-grid {
+      display: grid;
+      gap: 18px;
+    }
+
+    .match-card {
+      border: 1px solid var(--border);
+      background: white;
+      border-radius: 28px;
+      box-shadow: 0 14px 42px rgba(0,0,0,0.07);
+      padding: 22px;
+      display: grid;
+      grid-template-columns: 150px 1fr;
+      gap: 22px;
+      align-items: center;
+    }
+
+    .match-info {
+      background: var(--black);
+      color: white;
+      border-radius: 22px;
+      padding: 18px;
+      display: grid;
+      gap: 6px;
+      align-content: center;
+      min-height: 130px;
+    }
+
+    .match-round {
+      color: var(--green2);
+      font-weight: 900;
+      text-transform: uppercase;
+      font-size: 13px;
+    }
+
+    .match-date {
+      font-family: "Oswald", sans-serif;
+      font-size: 28px;
+      line-height: 1;
+    }
+
+    .teams-line {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      gap: 18px;
+      text-align: center;
+    }
+
+    .team-box {
+      display: grid;
+      place-items: center;
+      gap: 8px;
+      font-weight: 900;
+      text-transform: uppercase;
+      line-height: 1.2;
+    }
+
+    .match-logo {
+      width: 64px;
+      height: 64px;
+      object-fit: contain;
+    }
+
+    .score {
+      font-family: "Oswald", sans-serif;
+      font-size: 42px;
+      font-weight: 800;
+      color: var(--black);
+      min-width: 90px;
+    }
+
+    .deportivo-match {
+      border-color: var(--green);
+      background: rgba(0,140,58,0.05);
+    }
+
+    .site-footer {
+      background: var(--black);
+      color: white;
+      padding: 54px 0;
+      margin-top: 40px;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.3fr repeat(3, 1fr);
+      gap: 34px;
+    }
+
+    .footer-brand img {
+      width: 90px;
+      margin-bottom: 14px;
+    }
+
+    .footer-brand h3 {
+      font-family: "Oswald", sans-serif;
+      font-size: 30px;
+      margin: 0;
+      text-transform: uppercase;
+    }
+
+    .footer-brand p,
+    .footer-col p,
+    .footer-col a {
+      color: rgba(255,255,255,0.68);
+    }
+
+    .footer-col {
+      display: grid;
+      align-content: start;
+      gap: 10px;
+    }
+
+    .footer-col h4 {
+      margin: 0 0 8px;
+      color: var(--green2);
+      text-transform: uppercase;
+    }
+
+    @media (max-width: 980px) {
+      .main-nav {
+        display: none;
+      }
+
+      .burger-btn {
+        display: block;
+      }
+
+      .ticket-btn {
+        display: none;
+      }
+
+      .match-card,
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 620px) {
+      .language-switcher {
+        display: none;
+      }
+
+      .logo-text {
+        display: none;
+      }
+
+      .league-hero {
+        padding: 44px 0 32px;
+      }
+
+      .league-hero h1 {
+        font-size: 44px;
+      }
+
+      .teams-line {
+        grid-template-columns: 1fr;
+      }
+
+      .score {
+        font-size: 34px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="logo-box">
+        <img src="images/logo.png" alt="Deportivo Moscu Logo" class="logo-img">
+        <div class="logo-text">
+          <span>Deportivo</span>
+          <strong>Moscu</strong>
+        </div>
+      </a>
+
+      <nav class="main-nav">
+        <a href="index.html" data-i18n="nav_home">Главная</a>
+        <a href="news.html" data-i18n="nav_news">Новости</a>
+        <a href="team.html" data-i18n="nav_team">Команда</a>
+        <a href="league.html" class="active" data-i18n="nav_matches">Матчи</a>
+        <a href="club.html" data-i18n="nav_club">Клуб</a>
+        <a href="academy.html" data-i18n="nav_academy">Академия</a>
+        <a href="media.html" data-i18n="nav_media">Медиа</a>
+        <a href="store.html" data-i18n="nav_store">Магазин</a>
+      </nav>
+
+      <div class="header-actions">
+        <div class="language-switcher">
+          <button class="lang-btn active" data-lang="ru">RU</button>
+          <button class="lang-btn" data-lang="en">EN</button>
+          <button class="lang-btn" data-lang="es">ES</button>
+        </div>
+
+        <a href="store.html" class="ticket-btn" data-i18n="buy_tickets">Купить билеты</a>
+
+        <button class="burger-btn" id="burgerBtn" aria-label="Menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="index.html" data-i18n="nav_home">Главная</a>
+      <a href="news.html" data-i18n="nav_news">Новости</a>
+      <a href="team.html" data-i18n="nav_team">Команда</a>
+      <a href="league.html" data-i18n="nav_matches">Матчи</a>
+      <a href="club.html" data-i18n="nav_club">Клуб</a>
+      <a href="academy.html" data-i18n="nav_academy">Академия</a>
+      <a href="media.html" data-i18n="nav_media">Медиа</a>
+      <a href="store.html" data-i18n="nav_store">Магазин</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="league-hero">
+      <div class="container">
+        <div class="section-label" data-i18n="league_label">Liga Escobarense</div>
+        <h1 data-i18n="league_title">Таблица и<br>матчи</h1>
+        <p data-i18n="league_subtitle">
+          Primera División B 2025-26 / Zona Escobar. Таблица, эмблемы клубов и календарь матчей в стиле Deportivo Moscu.
+        </p>
+      </div>
+    </section>
+
+    <section class="league-section">
+      <div class="container">
+        <div class="top-panel">
+          <div class="tabs">
+            <button class="tab-btn active" data-tab="table" data-i18n="tab_table">Таблица</button>
+            <button class="tab-btn" data-tab="matches" data-i18n="tab_matches">Матчи</button>
+          </div>
+
+          <a class="source-link" href="https://ligaescobarense.ar/index.php/competition/primera-division-b-2025-26-zona-escobar/" target="_blank" rel="noopener" data-i18n="source_link">
+            Источник: Liga Escobarense
+          </a>
+        </div>
+
+        <div class="panel active" id="tablePanel">
+          <div class="table-card">
+            <div class="table-scroll">
+              <table>
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th data-i18n="team">Команда</th>
+                    <th>PJ</th>
+                    <th>G</th>
+                    <th>E</th>
+                    <th>P</th>
+                    <th>GF</th>
+                    <th>GC</th>
+                    <th>DIF</th>
+                    <th>Pts</th>
+                  </tr>
+                </thead>
+                <tbody id="tableBody"></tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="legend-box">
+            <div data-i18n="legend_champion">1 место — чемпион, повышение в Primera División A 2026/27.</div>
+            <div data-i18n="legend_reduced">Команды ниже борются за попадание в Torneo Reducido за второй подъём.</div>
+          </div>
+        </div>
+
+        <div class="panel" id="matchesPanel">
+          <div class="rounds-row" id="roundsRow"></div>
+          <div class="matches-grid" id="matchesGrid"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <img src="images/logo.png" alt="Deportivo Moscu">
+        <h3>Deportivo Moscu</h3>
+        <p data-i18n="footer_slogan">Единый город. Одна страсть. Одна зелёно-чёрная семья.</p>
+      </div>
+
+      <div class="footer-col">
+        <h4 data-i18n="nav_club">Клуб</h4>
+        <a href="club.html" data-i18n="about_club">О клубе</a>
+        <a href="team.html" data-i18n="nav_team">Команда</a>
+        <a href="league.html" data-i18n="nav_matches">Матчи</a>
+      </div>
+
+      <div class="footer-col">
+        <h4 data-i18n="help">Помощь</h4>
+        <a href="store.html" data-i18n="tickets">Билеты</a>
+        <a href="academy.html" data-i18n="academy_request">Запись в академию</a>
+        <a href="media.html" data-i18n="media_center">Медиацентр</a>
+      </div>
+
+      <div class="footer-col">
+        <h4 data-i18n="contacts">Контакты</h4>
+        <p>Buenos Aires, Argentina</p>
+        <p>info@deportivomoscu.com</p>
+        <p>+54 11 0000-0000</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="league-data.js"></script>
+
+  <script>
+    const translations = {
+      ru: {
+        nav_home: "Главная",
+        nav_news: "Новости",
+        nav_team: "Команда",
+        nav_matches: "Матчи",
+        nav_club: "Клуб",
+        nav_academy: "Академия",
+        nav_media: "Медиа",
+        nav_store: "Магазин",
+        buy_tickets: "Купить билеты",
+        league_label: "Liga Escobarense",
+        league_title: "Таблица и<br>матчи",
+        league_subtitle: "Primera División B 2025-26 / Zona Escobar. Таблица, эмблемы клубов и календарь матчей в стиле Deportivo Moscu.",
+        tab_table: "Таблица",
+        tab_matches: "Матчи",
+        source_link: "Источник: Liga Escobarense",
+        team: "Команда",
+        legend_champion: "1 место — чемпион, повышение в Primera División A 2026/27.",
+        legend_reduced: "Команды ниже борются за попадание в Torneo Reducido за второй подъём.",
+        footer_slogan: "Единый город. Одна страсть. Одна зелёно-чёрная семья.",
+        about_club: "О клубе",
+        help: "Помощь",
+        tickets: "Билеты",
+        academy_request: "Запись в академию",
+        media_center: "Медиацентр",
+        contacts: "Контакты",
+        all_rounds: "Все туры"
+      },
+      en: {
+        nav_home: "Home",
+        nav_news: "News",
+        nav_team: "Team",
+        nav_matches: "Matches",
+        nav_club: "Club",
+        nav_academy: "Academy",
+        nav_media: "Media",
+        nav_store: "Store",
+        buy_tickets: "Buy tickets",
+        league_label: "Liga Escobarense",
+        league_title: "Table and<br>matches",
+        league_subtitle: "Primera División B 2025-26 / Zona Escobar. League table, club badges and fixtures in Deportivo Moscu style.",
+        tab_table: "Table",
+        tab_matches: "Matches",
+        source_link: "Source: Liga Escobarense",
+        team: "Team",
+        legend_champion: "1st place — champion, promoted to Primera División A 2026/27.",
+        legend_reduced: "The following teams fight for the Torneo Reducido for the second promotion.",
+        footer_slogan: "One city. One passion. One green-and-black family.",
+        about_club: "About club",
+        help: "Help",
+        tickets: "Tickets",
+        academy_request: "Academy application",
+        media_center: "Media center",
+        contacts: "Contacts",
+        all_rounds: "All rounds"
+      },
+      es: {
+        nav_home: "Inicio",
+        nav_news: "Noticias",
+        nav_team: "Equipo",
+        nav_matches: "Partidos",
+        nav_club: "Club",
+        nav_academy: "Academia",
+        nav_media: "Media",
+        nav_store: "Tienda",
+        buy_tickets: "Comprar entradas",
+        league_label: "Liga Escobarense",
+        league_title: "Tabla y<br>partidos",
+        league_subtitle: "Primera División B 2025-26 / Zona Escobar. Tabla, escudos y calendario con el estilo de Deportivo Moscu.",
+        tab_table: "Tabla",
+        tab_matches: "Partidos",
+        source_link: "Fuente: Liga Escobarense",
+        team: "Equipo",
+        legend_champion: "1º puesto — campeón, asciende a Primera División A 2026/27.",
+        legend_reduced: "Los siguientes equipos compiten en el Torneo Reducido por el segundo ascenso.",
+        footer_slogan: "Una ciudad. Una pasión. Una familia verde y negra.",
+        about_club: "Sobre el club",
+        help: "Ayuda",
+        tickets: "Entradas",
+        academy_request: "Inscripción academia",
+        media_center: "Media center",
+        contacts: "Contactos",
+        all_rounds: "Todas las fechas"
+      }
+    };
+
+    const fallbackLeague = {
+      source: "https://ligaescobarense.ar/index.php/competition/primera-division-b-2025-26-zona-escobar/",
+      teams: {
+        "Falucho": { logo: "https://ligaescobarense.ar/wp-content/uploads/2024/01/Falucho.png" },
+        "America": { logo: "https://ligaescobarense.ar/wp-content/uploads/2024/01/America.png" },
+        "Los Altos": { logo: "https://ligaescobarense.ar/wp-content/uploads/2024/01/Los-Altos.png" },
+        "Domingo Matheu": { logo: "https://ligaescobarense.ar/wp-content/uploads/2024/01/Domingo-Matheu.png" },
+        "Deportivo Moscu": { logo: "images/logo.png" },
+        "Lomas Futbol": { logo: "https://ligaescobarense.ar/wp-content/uploads/2024/12/Lomas-Futbol.png" },
+        "Fair Play": { logo: "https://ligaescobarense.ar/wp-content/uploads/2025/10/Fair-Play.png" },
+        "Villa Juana": { logo: "https://ligaescobarense.ar/wp-content/uploads/2024/01/Villa-Juana.png" },
+        "Colectividad Boliviana": { logo: "https://ligaescobarense.ar/wp-content/uploads/2024/01/C.-B.-E.png" },
+        "Capitanes": { logo: "https://ligaescobarense.ar/wp-content/uploads/2024/01/Capitanes.png" },
+        "Parque III": { logo: "https://ligaescobarense.ar/wp-content/uploads/2024/01/Parque-Villarino-1.png" },
+        "La Sonia B": { logo: "https://ligaescobarense.ar/wp-content/uploads/2024/08/La-Sonia-nuevo.png" },
+        "Tribuna Sport Club": { logo: "https://ligaescobarense.ar/wp-content/uploads/2025/10/Tribuna-Sport-Club.png" },
+        "Sportivo Union": { logo: "https://ligaescobarense.ar/wp-content/uploads/2024/09/Sportivo-Union.png" }
+      },
+      table: [
+        { position: 1, team: "Falucho", pj: 21, g: 18, e: 0, p: 3, gf: 64, gc: 20, dif: 44, pts: 54 },
+        { position: 2, team: "America", pj: 21, g: 14, e: 1, p: 6, gf: 68, gc: 41, dif: 27, pts: 43 },
+        { position: 3, team: "Los Altos", pj: 21, g: 13, e: 2, p: 6, gf: 48, gc: 32, dif: 16, pts: 41 },
+        { position: 4, team: "Domingo Matheu", pj: 20, g: 12, e: 3, p: 5, gf: 41, gc: 30, dif: 11, pts: 39 },
+        { position: 5, team: "Deportivo Moscu", pj: 21, g: 12, e: 2, p: 7, gf: 44, gc: 38, dif: 6, pts: 38 },
+        { position: 6, team: "Lomas Futbol", pj: 20, g: 10, e: 4, p: 6, gf: 41, gc: 25, dif: 16, pts: 34 },
+        { position: 7, team: "Fair Play", pj: 21, g: 9, e: 5, p: 7, gf: 41, gc: 34, dif: 7, pts: 32 },
+        { position: 8, team: "Villa Juana", pj: 21, g: 8, e: 3, p: 10, gf: 37, gc: 40, dif: -3, pts: 27 },
+        { position: 9, team: "Colectividad Boliviana", pj: 21, g: 7, e: 3, p: 11, gf: 51, gc: 56, dif: -5, pts: 24 },
+        { position: 10, team: "Capitanes", pj: 20, g: 5, e: 6, p: 9, gf: 33, gc: 45, dif: -12, pts: 21 },
+        { position: 11, team: "Parque III", pj: 21, g: 5, e: 1, p: 15, gf: 25, gc: 54, dif: -29, pts: 16 },
+        { position: 12, team: "La Sonia B", pj: 21, g: 4, e: 4, p: 13, gf: 22, gc: 55, dif: -33, pts: 16 },
+        { position: 13, team: "Tribuna Sport Club", pj: 20, g: 3, e: 6, p: 11, gf: 18, gc: 41, dif: -23, pts: 15 },
+        { position: 14, team: "Sportivo Union", pj: 21, g: 4, e: 2, p: 15, gf: 37, gc: 59, dif: -22, pts: 14 }
+      ],
+      matches: [
+        { round: "Fecha 1", date: "1 Nov 2025", home: "Domingo Matheu", away: "La Sonia B", homeScore: 2, awayScore: 0 },
+        { round: "Fecha 1", date: "1 Nov 2025", home: "Colectividad Boliviana", away: "America", homeScore: 1, awayScore: 5 },
+        { round: "Fecha 1", date: "1 Nov 2025", home: "Falucho", away: "Villa Juana", homeScore: 2, awayScore: 1 },
+        { round: "Fecha 1", date: "2 Nov 2025", home: "Sportivo Union", away: "Tribuna Sport Club", homeScore: 2, awayScore: 2 },
+        { round: "Fecha 1", date: "2 Nov 2025", home: "Los Altos", away: "Fair Play", homeScore: 0, awayScore: 2 },
+        { round: "Fecha 1", date: "2 Nov 2025", home: "Deportivo Moscu", away: "Capitanes", homeScore: 0, awayScore: 1 },
+        { round: "Fecha 1", date: "2 Nov 2025", home: "Parque III", away: "Lomas Futbol", homeScore: 0, awayScore: 3 },
+
+        { round: "Fecha 2", date: "8 Nov 2025", home: "Villa Juana", away: "Colectividad Boliviana", homeScore: 1, awayScore: 2 },
+        { round: "Fecha 2", date: "8 Nov 2025", home: "America", away: "Deportivo Moscu", homeScore: 1, awayScore: 0 },
+        { round: "Fecha 2", date: "9 Nov 2025", home: "Sportivo Union", away: "Los Altos", homeScore: 0, awayScore: 4 },
+        { round: "Fecha 2", date: "9 Nov 2025", home: "Tribuna Sport Club", away: "Parque III", homeScore: 2, awayScore: 3 },
+        { round: "Fecha 2", date: "9 Nov 2025", home: "Lomas Futbol", away: "Domingo Matheu", homeScore: 0, awayScore: 2 },
+        { round: "Fecha 2", date: "9 Nov 2025", home: "Capitanes", away: "Fair Play", homeScore: 5, awayScore: 2 },
+        { round: "Fecha 2", date: "10 Nov 2025", home: "La Sonia B", away: "Falucho", homeScore: 0, awayScore: 7 },
+
+        { round: "Fecha 3", date: "15 Nov 2025", home: "Fair Play", away: "America", homeScore: 1, awayScore: 3 },
+        { round: "Fecha 3", date: "15 Nov 2025", home: "Colectividad Boliviana", away: "La Sonia B", homeScore: 2, awayScore: 2 },
+        { round: "Fecha 3", date: "15 Nov 2025", home: "Falucho", away: "Lomas Futbol", homeScore: 1, awayScore: 2 },
+        { round: "Fecha 3", date: "15 Nov 2025", home: "Domingo Matheu", away: "Tribuna Sport Club", homeScore: 4, awayScore: 1 },
+        { round: "Fecha 3", date: "15 Nov 2025", home: "Parque III", away: "Sportivo Union", homeScore: 3, awayScore: 1 },
+        { round: "Fecha 3", date: "16 Nov 2025", home: "Deportivo Moscu", away: "Villa Juana", homeScore: 5, awayScore: 1 },
+        { round: "Fecha 3", date: "22 Nov 2025", home: "Los Altos", away: "Capitanes", homeScore: 4, awayScore: 1 },
+
+        { round: "Fecha 4", date: "22 Nov 2025", home: "Lomas Futbol", away: "Colectividad Boliviana", homeScore: 1, awayScore: 2 },
+        { round: "Fecha 4", date: "22 Nov 2025", home: "Villa Juana", away: "Fair Play", homeScore: 3, awayScore: 1 },
+        { round: "Fecha 4", date: "23 Nov 2025", home: "Tribuna Sport Club", away: "Falucho", homeScore: 0, awayScore: 3 },
+        { round: "Fecha 4", date: "24 Nov 2025", home: "Parque III", away: "Los Altos", homeScore: 2, awayScore: 3 },
+        { round: "Fecha 4", date: "24 Nov 2025", home: "Sportivo Union", away: "Domingo Matheu", homeScore: 1, awayScore: 2 },
+        { round: "Fecha 4", date: "24 Nov 2025", home: "La Sonia B", away: "Deportivo Moscu", homeScore: 0, awayScore: 1 },
+        { round: "Fecha 4", date: "24 Nov 2025", home: "America", away: "Capitanes", homeScore: 2, awayScore: 1 },
+
+        { round: "Fecha 5", date: "30 Nov 2025", home: "Deportivo Moscu", away: "Lomas Futbol", homeScore: 1, awayScore: 0 },
+        { round: "Fecha 5", date: "6 Dic 2025", home: "Capitanes", away: "Villa Juana", homeScore: 3, awayScore: 1 },
+        { round: "Fecha 5", date: "6 Dic 2025", home: "Colectividad Boliviana", away: "Tribuna Sport Club", homeScore: 3, awayScore: 0 },
+        { round: "Fecha 5", date: "6 Dic 2025", home: "Domingo Matheu", away: "Parque III", homeScore: 3, awayScore: 1 },
+        { round: "Fecha 5", date: "7 Dic 2025", home: "Los Altos", away: "America", homeScore: 5, awayScore: 3 },
+        { round: "Fecha 5", date: "8 Dic 2025", home: "Fair Play", away: "La Sonia B", homeScore: 7, awayScore: 0 },
+        { round: "Fecha 5", date: "8 Dic 2025", home: "Falucho", away: "Sportivo Union", homeScore: 2, awayScore: 1 },
+
+        { round: "Fecha 6", date: "8 Dic 2025", home: "Tribuna Sport Club", away: "Deportivo Moscu", homeScore: 1, awayScore: 3 },
+        { round: "Fecha 8", date: "18 Ene 2026", home: "Parque III", away: "Deportivo Moscu", homeScore: 1, awayScore: 2 }
+      ]
+    };
+
+    const league = window.deportivoLeague || fallbackLeague;
+    let currentLang = "ru";
+    let currentRound = "all";
+
+    function setLanguage(lang) {
+      currentLang = lang;
+      document.documentElement.lang = lang;
+
+      document.querySelectorAll("[data-i18n]").forEach((element) => {
+        const key = element.getAttribute("data-i18n");
+        if (translations[lang] && translations[lang][key]) {
+          element.innerHTML = translations[lang][key];
+        }
+      });
+
+      document.querySelectorAll(".lang-btn").forEach((button) => {
+        button.classList.toggle("active", button.dataset.lang === lang);
+      });
+
+      renderRounds();
+      renderMatches();
+    }
+
+    function getLogo(teamName) {
+      return league.teams[teamName] ? league.teams[teamName].logo : "images/logo.png";
+    }
+
+    function isDeportivo(teamName) {
+      return teamName.toLowerCase().includes("deportivo");
+    }
+
+    function renderTable() {
+      const tableBody = document.getElementById("tableBody");
+
+      tableBody.innerHTML = league.table.map((row) => {
+        return `
+          <tr class="${isDeportivo(row.team) ? "deportivo-row" : ""}">
+            <td class="pos">${row.position}</td>
+            <td>
+              <div class="team-cell">
+                <img class="club-logo" src="${getLogo(row.team)}" alt="${row.team}">
+                <span>${row.team}</span>
+              </div>
+            </td>
+            <td>${row.pj}</td>
+            <td>${row.g}</td>
+            <td>${row.e}</td>
+            <td>${row.p}</td>
+            <td>${row.gf}</td>
+            <td>${row.gc}</td>
+            <td>${row.dif}</td>
+            <td><strong>${row.pts}</strong></td>
+          </tr>
+        `;
+      }).join("");
+    }
+
+    function renderRounds() {
+      const roundsRow = document.getElementById("roundsRow");
+      const rounds = ["all", ...new Set(league.matches.map((match) => match.round))];
+
+      roundsRow.innerHTML = rounds.map((round) => {
+        const label = round === "all" ? translations[currentLang].all_rounds : round;
+
+        return `
+          <button class="round-btn ${round === currentRound ? "active" : ""}" data-round="${round}">
+            ${label}
+          </button>
+        `;
+      }).join("");
+
+      document.querySelectorAll(".round-btn").forEach((button) => {
+        button.addEventListener("click", () => {
+          currentRound = button.dataset.round;
+
+          document.querySelectorAll(".round-btn").forEach((item) => {
+            item.classList.toggle("active", item.dataset.round === currentRound);
+          });
+
+          renderMatches();
+        });
+      });
+    }
+
+    function renderTeamBox(teamName) {
+      return `
+        <div class="team-box">
+          <img class="match-logo" src="${getLogo(teamName)}" alt="${teamName}">
+          <span>${teamName}</span>
+        </div>
+      `;
+    }
+
+    function renderMatches() {
+      const matchesGrid = document.getElementById("matchesGrid");
+
+      const filteredMatches = currentRound === "all"
+        ? league.matches
+        : league.matches.filter((match) => match.round === currentRound);
+
+      matchesGrid.innerHTML = filteredMatches.map((match) => {
+        const deportivoClass = isDeportivo(match.home) || isDeportivo(match.away) ? "deportivo-match" : "";
+
+        return `
+          <article class="match-card ${deportivoClass}">
+            <div class="match-info">
+              <div class="match-round">${match.round}</div>
+              <div class="match-date">${match.date}</div>
+            </div>
+
+            <div class="teams-line">
+              ${renderTeamBox(match.home)}
+              <div class="score">${match.homeScore} : ${match.awayScore}</div>
+              ${renderTeamBox(match.away)}
+            </div>
+          </article>
+        `;
+      }).join("");
+    }
+
+    document.querySelectorAll(".lang-btn").forEach((button) => {
+      button.addEventListener("click", () => {
+        setLanguage(button.dataset.lang);
+      });
+    });
+
+    document.querySelectorAll(".tab-btn").forEach((button) => {
+      button.addEventListener("click", () => {
+        const tab = button.dataset.tab;
+
+        document.querySelectorAll(".tab-btn").forEach((item) => {
+          item.classList.toggle("active", item.dataset.tab === tab);
+        });
+
+        document.getElementById("tablePanel").classList.toggle("active", tab === "table");
+        document.getElementById("matchesPanel").classList.toggle("active", tab === "matches");
+      });
+    });
+
+    document.getElementById("burgerBtn").addEventListener("click", () => {
+      document.getElementById("mobileMenu").classList.toggle("open");
+    });
+
+    renderTable();
+    renderRounds();
+    renderMatches();
+    setLanguage("ru");
+  </script>
+</body>
+</html>
