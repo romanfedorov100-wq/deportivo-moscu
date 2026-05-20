@@ -89,6 +89,16 @@
     );
   }
 
+  function getPlayerBirthDate(player) {
+    return getText(
+      player.birthDate ||
+        player.birth ||
+        player.dateOfBirth ||
+        player.dob,
+      "—"
+    );
+  }
+
   function getPlayerPhoto(player) {
     return (
       player.photo ||
@@ -279,6 +289,10 @@
         overflow-x: hidden !important;
       }
 
+      body.modal-open {
+        overflow: hidden !important;
+      }
+
       #players {
         scroll-margin-top: 125px !important;
       }
@@ -290,11 +304,6 @@
       .players-section {
         padding-top: 72px !important;
         padding-bottom: 70px !important;
-      }
-
-      .club-section {
-        padding-top: 70px !important;
-        padding-bottom: 90px !important;
       }
 
       .section-head {
@@ -588,6 +597,144 @@
         transform: translateY(-2px) !important;
       }
 
+      .player-modal {
+        position: fixed !important;
+        inset: 0 !important;
+        z-index: 99999 !important;
+        display: none !important;
+        align-items: center !important;
+        justify-content: center !important;
+        padding: 24px !important;
+        background: rgba(0, 0, 0, 0.64) !important;
+        backdrop-filter: blur(12px) !important;
+      }
+
+      .player-modal.is-open {
+        display: flex !important;
+      }
+
+      .player-modal-card {
+        position: relative !important;
+        width: min(940px, 100%) !important;
+        max-height: 92vh !important;
+        overflow: auto !important;
+        border-radius: 34px !important;
+        background: #ffffff !important;
+        box-shadow: 0 40px 90px rgba(0, 0, 0, 0.35) !important;
+      }
+
+      .player-modal-close {
+        position: absolute !important;
+        top: 18px !important;
+        right: 18px !important;
+        z-index: 5 !important;
+        width: 48px !important;
+        height: 48px !important;
+        border: none !important;
+        border-radius: 50% !important;
+        background: rgba(255, 255, 255, 0.94) !important;
+        color: #050505 !important;
+        font-size: 28px !important;
+        font-weight: 900 !important;
+        cursor: pointer !important;
+      }
+
+      .player-modal-top {
+        display: grid !important;
+        grid-template-columns: 0.9fr 1.1fr !important;
+        min-height: 420px !important;
+        background: radial-gradient(circle at center, #006b2a 0%, #003b16 62%, #001b09 100%) !important;
+      }
+
+      .player-modal-photo {
+        position: relative !important;
+        display: flex !important;
+        align-items: flex-end !important;
+        justify-content: center !important;
+        overflow: hidden !important;
+      }
+
+      .player-modal-photo .player-real-photo {
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: cover !important;
+      }
+
+      .player-modal-photo .player-placeholder {
+        transform: scale(1.25) !important;
+        transform-origin: bottom center !important;
+      }
+
+      .player-modal-main {
+        padding: 56px 52px 44px !important;
+        color: #ffffff !important;
+      }
+
+      .player-modal-number {
+        display: inline-flex !important;
+        width: 78px !important;
+        height: 62px !important;
+        align-items: center !important;
+        justify-content: center !important;
+        margin-bottom: 30px !important;
+        border-radius: 18px !important;
+        background: #ffffff !important;
+        color: #008c35 !important;
+        font-size: 30px !important;
+        font-weight: 950 !important;
+      }
+
+      .player-modal-position {
+        margin-bottom: 18px !important;
+        color: #7dffac !important;
+        font-size: 14px !important;
+        font-weight: 950 !important;
+        letter-spacing: 0.18em !important;
+        text-transform: uppercase !important;
+      }
+
+      .player-modal-name {
+        font-size: clamp(34px, 5vw, 64px) !important;
+        line-height: 0.98 !important;
+        font-weight: 950 !important;
+        letter-spacing: 0.05em !important;
+        text-transform: uppercase !important;
+      }
+
+      .player-modal-bottom {
+        display: grid !important;
+        grid-template-columns: repeat(4, 1fr) !important;
+        gap: 1px !important;
+        background: #e9eee9 !important;
+      }
+
+      .player-modal-stat {
+        padding: 26px !important;
+        background: #ffffff !important;
+      }
+
+      .player-modal-stat span {
+        display: block !important;
+        margin-bottom: 8px !important;
+        color: #7c8580 !important;
+        font-size: 13px !important;
+        font-weight: 900 !important;
+        letter-spacing: 0.12em !important;
+        text-transform: uppercase !important;
+      }
+
+      .player-modal-stat strong {
+        color: #050505 !important;
+        font-size: 21px !important;
+        font-weight: 950 !important;
+      }
+
+      .player-modal-country {
+        display: flex !important;
+        align-items: center !important;
+        gap: 12px !important;
+      }
+
       @media (max-width: 1280px) {
         .players-grid {
           grid-template-columns: repeat(3, minmax(230px, 1fr)) !important;
@@ -597,6 +744,18 @@
       @media (max-width: 980px) {
         .players-grid {
           grid-template-columns: repeat(2, minmax(220px, 1fr)) !important;
+        }
+
+        .player-modal-top {
+          grid-template-columns: 1fr !important;
+        }
+
+        .player-modal-photo {
+          min-height: 320px !important;
+        }
+
+        .player-modal-bottom {
+          grid-template-columns: 1fr 1fr !important;
         }
       }
 
@@ -610,6 +769,18 @@
         }
 
         .players-grid {
+          grid-template-columns: 1fr !important;
+        }
+
+        .player-modal {
+          padding: 12px !important;
+        }
+
+        .player-modal-main {
+          padding: 36px 26px 30px !important;
+        }
+
+        .player-modal-bottom {
           grid-template-columns: 1fr !important;
         }
       }
@@ -664,7 +835,8 @@
 
     playersGrid.innerHTML = players
       .map(function (player, index) {
-        const number = getPlayerNumber(player, index);
+        const originalIndex = allPlayers.indexOf(player);
+        const number = getPlayerNumber(player, originalIndex);
         const name = getPlayerName(player);
         const position = getPlayerPosition(player);
         const country = getPlayerCountry(player);
@@ -689,12 +861,149 @@
                 <span>${escapeHtml(country)}</span>
               </div>
 
-              <button class="player-btn" type="button">Подробнее →</button>
+              <button class="player-btn" type="button" data-player-index="${originalIndex}">
+                Подробнее →
+              </button>
             </div>
           </article>
         `;
       })
       .join("");
+
+    setupPlayerButtons();
+  }
+
+  function createModal() {
+    const oldModal = document.querySelector("#playerModal");
+    if (oldModal) oldModal.remove();
+
+    const modal = document.createElement("div");
+    modal.id = "playerModal";
+    modal.className = "player-modal";
+
+    modal.innerHTML = `
+      <div class="player-modal-card">
+        <button class="player-modal-close" type="button" aria-label="Закрыть">×</button>
+        <div id="playerModalContent"></div>
+      </div>
+    `;
+
+    document.body.appendChild(modal);
+
+    modal.addEventListener("click", function (event) {
+      if (
+        event.target === modal ||
+        event.target.classList.contains("player-modal-close")
+      ) {
+        closePlayerModal();
+      }
+    });
+
+    document.addEventListener("keydown", function (event) {
+      if (event.key === "Escape") {
+        closePlayerModal();
+      }
+    });
+  }
+
+  function openPlayerModal(index) {
+    const players = getPlayersData();
+    const player = players[index];
+
+    if (!player) return;
+
+    const modal = document.querySelector("#playerModal");
+    const content = document.querySelector("#playerModalContent");
+
+    if (!modal || !content) return;
+
+    const number = getPlayerNumber(player, index);
+    const name = getPlayerName(player);
+    const position = getPlayerPosition(player);
+    const country = getPlayerCountry(player);
+    const birthDate = getPlayerBirthDate(player);
+    const photoHtml = createPhotoHtml(player);
+    const flagHtml = createFlagHtml(country);
+    const stats = player.stats || {};
+
+    content.innerHTML = `
+      <div class="player-modal-top">
+        <div class="player-modal-photo">
+          ${photoHtml}
+        </div>
+
+        <div class="player-modal-main">
+          <div class="player-modal-number">${escapeHtml(number)}</div>
+          <div class="player-modal-position">${escapeHtml(position)}</div>
+          <div class="player-modal-name">${escapeHtml(name)}</div>
+        </div>
+      </div>
+
+      <div class="player-modal-bottom">
+        <div class="player-modal-stat">
+          <span>Номер</span>
+          <strong>${escapeHtml(number)}</strong>
+        </div>
+
+        <div class="player-modal-stat">
+          <span>Позиция</span>
+          <strong>${escapeHtml(position)}</strong>
+        </div>
+
+        <div class="player-modal-stat">
+          <span>Страна</span>
+          <strong class="player-modal-country">${flagHtml}${escapeHtml(country)}</strong>
+        </div>
+
+        <div class="player-modal-stat">
+          <span>Дата рождения</span>
+          <strong>${escapeHtml(birthDate)}</strong>
+        </div>
+
+        <div class="player-modal-stat">
+          <span>Матчи</span>
+          <strong>${escapeHtml(stats.matches || 0)}</strong>
+        </div>
+
+        <div class="player-modal-stat">
+          <span>Голы</span>
+          <strong>${escapeHtml(stats.goals || 0)}</strong>
+        </div>
+
+        <div class="player-modal-stat">
+          <span>Передачи</span>
+          <strong>${escapeHtml(stats.assists || 0)}</strong>
+        </div>
+
+        <div class="player-modal-stat">
+          <span>Минуты</span>
+          <strong>${escapeHtml(stats.minutes || 0)}</strong>
+        </div>
+      </div>
+    `;
+
+    modal.classList.add("is-open");
+    document.body.classList.add("modal-open");
+  }
+
+  function closePlayerModal() {
+    const modal = document.querySelector("#playerModal");
+
+    if (!modal) return;
+
+    modal.classList.remove("is-open");
+    document.body.classList.remove("modal-open");
+  }
+
+  function setupPlayerButtons() {
+    const buttons = document.querySelectorAll(".player-btn[data-player-index]");
+
+    buttons.forEach(function (button) {
+      button.addEventListener("click", function () {
+        const index = Number(button.getAttribute("data-player-index"));
+        openPlayerModal(index);
+      });
+    });
   }
 
   function setupFilters() {
@@ -747,6 +1056,7 @@
 
   document.addEventListener("DOMContentLoaded", function () {
     injectFixStyles();
+    createModal();
     renderPlayers("all");
     setupFilters();
     setActiveNavLink();
