@@ -33,6 +33,17 @@
       .replace(/'/g, "&#039;");
   }
 
+  function slugify(value) {
+    return String(value || "")
+      .trim()
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .replace(/ñ/g, "n")
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-+|-+$/g, "");
+  }
+
   function getPlayerNumber(player, index) {
     return getText(
       player.number ||
@@ -42,6 +53,10 @@
         index + 1,
       index + 1
     );
+  }
+
+  function getPlayerId(player) {
+    return slugify(player.id || getPlayerName(player));
   }
 
   function getPlayerName(player) {
@@ -103,27 +118,34 @@
     return "all";
   }
 
-  function countryToFlag(country) {
+  function countryToFlagClass(country) {
     const value = String(country || "").trim().toLowerCase();
 
     const flags = {
-      "аргентина": "🇦🇷",
-      "argentina": "🇦🇷",
-      "россия": "🇷🇺",
-      "russia": "🇷🇺",
-      "бразилия": "🇧🇷",
-      "brazil": "🇧🇷",
-      "brasil": "🇧🇷",
-      "эквадор": "🇪🇨",
-      "ecuador": "🇪🇨",
-      "венесуэла": "🇻🇪",
-      "venezuela": "🇻🇪",
-      "украина": "🇺🇦",
-      "ukraine": "🇺🇦",
-      "беларусь": "🇧🇾",
-      "belarus": "🇧🇾",
-      "казахстан": "🇰🇿",
-      "kazakhstan": "🇰🇿"
+      "аргентина": "flag-argentina",
+      "argentina": "flag-argentina",
+
+      "россия": "flag-russia",
+      "russia": "flag-russia",
+
+      "бразилия": "flag-brazil",
+      "brazil": "flag-brazil",
+      "brasil": "flag-brazil",
+
+      "эквадор": "flag-ecuador",
+      "ecuador": "flag-ecuador",
+
+      "венесуэла": "flag-venezuela",
+      "venezuela": "flag-venezuela",
+
+      "украина": "flag-ukraine",
+      "ukraine": "flag-ukraine",
+
+      "беларусь": "flag-belarus",
+      "belarus": "flag-belarus",
+
+      "казахстан": "flag-kazakhstan",
+      "kazakhstan": "flag-kazakhstan"
     };
 
     return flags[value] || "";
@@ -184,28 +206,393 @@
   }
 
   function createPhotoHtml(player) {
-    const photo = getPlayerPhoto(player);
+    const manualPhoto = getPlayerPhoto(player);
     const name = getPlayerName(player);
+    const id = getPlayerId(player);
 
-    if (isRealPlayerPhoto(photo)) {
+    if (isRealPlayerPhoto(manualPhoto)) {
       return (
         '<img class="player-real-photo" src="' +
-        escapeHtml(photo) +
+        escapeHtml(manualPhoto) +
         '" alt="' +
         escapeHtml(name) +
-        '" onerror="this.parentElement.innerHTML=\'<div class=&quot;player-placeholder&quot;></div>\';">'
+        '" onerror="tryNextPlayerPhoto(this);">'
       );
     }
 
-    return '<div class="player-placeholder"></div>';
+    return (
+      '<img class="player-real-photo" src="images/players/' +
+      escapeHtml(id) +
+      '.jpg" data-player-id="' +
+      escapeHtml(id) +
+      '" data-photo-step="jpg" alt="' +
+      escapeHtml(name) +
+      '" onerror="tryNextPlayerPhoto(this);">'
+    );
   }
 
   function createFlagHtml(country) {
-    const flag = countryToFlag(country);
+    const flagClass = countryToFlagClass(country);
 
-    if (!flag) return "";
+    if (!flagClass) return "";
 
-    return '<span class="player-flag-emoji" aria-hidden="true">' + flag + "</span>";
+    return '<span class="player-flag ' + flagClass + '" aria-hidden="true"></span>';
+  }
+
+  window.tryNextPlayerPhoto = function (img) {
+    const id = img.getAttribute("data-player-id");
+    const step = img.getAttribute("data-photo-step");
+
+    if (!id) {
+      img.parentElement.innerHTML = '<div class="player-placeholder"></div>';
+      return;
+    }
+
+    if (step === "jpg") {
+      img.setAttribute("data-photo-step", "png");
+      img.src = "images/players/" + id + ".png";
+      return;
+    }
+
+    if (step === "png") {
+      img.setAttribute("data-photo-step", "webp");
+      img.src = "images/players/" + id + ".webp";
+      return;
+    }
+
+    img.parentElement.innerHTML = '<div class="player-placeholder"></div>';
+  };
+
+  function injectFixStyles() {
+    const oldStyle = document.querySelector("#deportivo-fix-style");
+    if (oldStyle) oldStyle.remove();
+
+    const style = document.createElement("style");
+    style.id = "deportivo-fix-style";
+
+    style.textContent = `
+      html {
+        scroll-padding-top: 130px !important;
+      }
+
+      #players {
+        scroll-margin-top: 130px !important;
+      }
+
+      .players-section {
+        padding-top: 110px !important;
+      }
+
+      .players-grid {
+        display: grid !important;
+        grid-template-columns: repeat(4, minmax(230px, 1fr)) !important;
+        gap: 34px !important;
+        align-items: stretch !important;
+      }
+
+      .player-card {
+        position: relative !important;
+        overflow: hidden !important;
+        min-height: 520px !important;
+        border-radius: 0 38px 18px 18px !important;
+        background: #ffffff !important;
+        box-shadow: 0 18px 40px rgba(0, 0, 0, 0.08) !important;
+      }
+
+      .player-number {
+        position: absolute !important;
+        top: 0 !important;
+        left: 0 !important;
+        z-index: 10 !important;
+        width: 88px !important;
+        height: 74px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        border-bottom-right-radius: 28px !important;
+        background: #ffffff !important;
+        color: #008c35 !important;
+        font-size: 30px !important;
+        font-weight: 950 !important;
+      }
+
+      .player-photo {
+        position: relative !important;
+        height: 300px !important;
+        overflow: hidden !important;
+        background: radial-gradient(circle at center, #00551f 0%, #003b16 60%, #00250d 100%) !important;
+        display: flex !important;
+        align-items: flex-end !important;
+        justify-content: center !important;
+      }
+
+      .player-photo .player-flag,
+      .player-photo .flag,
+      .player-photo .flag-icon,
+      .player-photo .country-flag,
+      .player-photo .nationality-flag,
+      .player-photo [class*="flag"],
+      .player-photo [class*="Flag"] {
+        display: none !important;
+        visibility: hidden !important;
+        opacity: 0 !important;
+      }
+
+      .player-real-photo {
+        display: block !important;
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: cover !important;
+      }
+
+      .player-placeholder {
+        position: relative !important;
+        width: 230px !important;
+        height: 250px !important;
+      }
+
+      .player-placeholder::before {
+        content: "" !important;
+        position: absolute !important;
+        top: 0 !important;
+        left: 50% !important;
+        width: 98px !important;
+        height: 98px !important;
+        transform: translateX(-50%) !important;
+        border-radius: 50% !important;
+        background: #c4a07b !important;
+      }
+
+      .player-placeholder::after {
+        content: "" !important;
+        position: absolute !important;
+        left: 50% !important;
+        bottom: 0 !important;
+        width: 210px !important;
+        height: 165px !important;
+        transform: translateX(-50%) !important;
+        border-radius: 110px 110px 0 0 !important;
+        background: linear-gradient(180deg, #d7d7d7 0%, #111111 45%, #050505 100%) !important;
+      }
+
+      .player-info {
+        padding: 32px 32px 28px !important;
+        background: #ffffff !important;
+      }
+
+      .player-position {
+        margin-bottom: 18px !important;
+        color: #008c35 !important;
+        font-size: 15px !important;
+        font-weight: 950 !important;
+        letter-spacing: 0.12em !important;
+        text-transform: uppercase !important;
+      }
+
+      .player-name {
+        min-height: 72px !important;
+        margin-bottom: 24px !important;
+        color: #050505 !important;
+        font-size: 27px !important;
+        line-height: 1.08 !important;
+        font-weight: 950 !important;
+        letter-spacing: 0.08em !important;
+        text-transform: uppercase !important;
+        word-break: break-word !important;
+      }
+
+      .player-country {
+        display: flex !important;
+        align-items: center !important;
+        gap: 14px !important;
+        min-height: 34px !important;
+        margin-bottom: 28px !important;
+        color: #67726a !important;
+        font-size: 17px !important;
+        font-weight: 800 !important;
+      }
+
+      .player-flag {
+        position: relative !important;
+        display: inline-block !important;
+        width: 44px !important;
+        height: 28px !important;
+        flex: 0 0 44px !important;
+        overflow: hidden !important;
+        border-radius: 4px !important;
+        box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.08) !important;
+        background: #eeeeee !important;
+      }
+
+      .flag-argentina {
+        background: linear-gradient(
+          to bottom,
+          #74acdf 0%,
+          #74acdf 33.33%,
+          #ffffff 33.33%,
+          #ffffff 66.66%,
+          #74acdf 66.66%,
+          #74acdf 100%
+        ) !important;
+      }
+
+      .flag-argentina::after {
+        content: "" !important;
+        position: absolute !important;
+        top: 50% !important;
+        left: 50% !important;
+        width: 7px !important;
+        height: 7px !important;
+        transform: translate(-50%, -50%) !important;
+        border-radius: 50% !important;
+        background: #f6b40e !important;
+      }
+
+      .flag-russia {
+        background: linear-gradient(
+          to bottom,
+          #ffffff 0%,
+          #ffffff 33.33%,
+          #0039a6 33.33%,
+          #0039a6 66.66%,
+          #d52b1e 66.66%,
+          #d52b1e 100%
+        ) !important;
+      }
+
+      .flag-brazil {
+        background: #009b3a !important;
+      }
+
+      .flag-brazil::before {
+        content: "" !important;
+        position: absolute !important;
+        top: 50% !important;
+        left: 50% !important;
+        width: 22px !important;
+        height: 16px !important;
+        transform: translate(-50%, -50%) rotate(45deg) !important;
+        background: #ffdf00 !important;
+      }
+
+      .flag-brazil::after {
+        content: "" !important;
+        position: absolute !important;
+        top: 50% !important;
+        left: 50% !important;
+        width: 10px !important;
+        height: 10px !important;
+        transform: translate(-50%, -50%) !important;
+        border-radius: 50% !important;
+        background: #002776 !important;
+      }
+
+      .flag-ecuador {
+        background: linear-gradient(
+          to bottom,
+          #ffdd00 0%,
+          #ffdd00 50%,
+          #034ea2 50%,
+          #034ea2 75%,
+          #ed1c24 75%,
+          #ed1c24 100%
+        ) !important;
+      }
+
+      .flag-venezuela {
+        background: linear-gradient(
+          to bottom,
+          #f4d900 0%,
+          #f4d900 33.33%,
+          #0033a0 33.33%,
+          #0033a0 66.66%,
+          #ef3340 66.66%,
+          #ef3340 100%
+        ) !important;
+      }
+
+      .flag-ukraine {
+        background: linear-gradient(
+          to bottom,
+          #0057b7 0%,
+          #0057b7 50%,
+          #ffd700 50%,
+          #ffd700 100%
+        ) !important;
+      }
+
+      .flag-belarus {
+        background: linear-gradient(
+          to bottom,
+          #d22730 0%,
+          #d22730 66%,
+          #00af66 66%,
+          #00af66 100%
+        ) !important;
+      }
+
+      .flag-kazakhstan {
+        background: #00afca !important;
+      }
+
+      .flag-kazakhstan::after {
+        content: "" !important;
+        position: absolute !important;
+        top: 50% !important;
+        left: 50% !important;
+        width: 8px !important;
+        height: 8px !important;
+        transform: translate(-50%, -50%) !important;
+        border-radius: 50% !important;
+        background: #f6c400 !important;
+      }
+
+      .player-btn {
+        width: 100% !important;
+        height: 54px !important;
+        border: none !important;
+        border-radius: 999px !important;
+        background: #008c35 !important;
+        color: #ffffff !important;
+        font-size: 17px !important;
+        font-weight: 950 !important;
+        cursor: pointer !important;
+        transition: 0.2s ease !important;
+      }
+
+      .player-btn:hover {
+        background: #006e29 !important;
+        transform: translateY(-2px) !important;
+      }
+
+      @media (max-width: 1280px) {
+        .players-grid {
+          grid-template-columns: repeat(3, minmax(230px, 1fr)) !important;
+        }
+      }
+
+      @media (max-width: 980px) {
+        .players-grid {
+          grid-template-columns: repeat(2, minmax(220px, 1fr)) !important;
+        }
+      }
+
+      @media (max-width: 620px) {
+        html {
+          scroll-padding-top: 160px !important;
+        }
+
+        #players {
+          scroll-margin-top: 160px !important;
+        }
+
+        .players-grid {
+          grid-template-columns: 1fr !important;
+        }
+      }
+    `;
+
+    document.head.appendChild(style);
   }
 
   function renderPlayers(filter) {
@@ -320,6 +707,7 @@
   }
 
   document.addEventListener("DOMContentLoaded", function () {
+    injectFixStyles();
     renderPlayers("all");
     setupFilters();
     setActiveNavLink();
