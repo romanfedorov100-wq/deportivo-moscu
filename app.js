@@ -180,12 +180,12 @@
     return map[value] || "";
   }
 
-  function isRealPlayerPhoto(src) {
+  function isFlagFile(src) {
     if (!src) return false;
 
     const value = String(src).toLowerCase();
 
-    const forbiddenWords = [
+    const flagWords = [
       "flag",
       "flags",
       "флаг",
@@ -210,20 +210,26 @@
       "украина"
     ];
 
-    const isFlag = forbiddenWords.some(function (word) {
+    return flagWords.some(function (word) {
       return value.includes(word);
     });
+  }
 
-    if (isFlag) return false;
+  function isRealPlayerPhoto(src) {
+    if (!src) return false;
 
-    const allowedPlayerFolders = [
+    const value = String(src).toLowerCase();
+
+    if (isFlagFile(value)) return false;
+
+    const allowedPhotoFolders = [
       "images/players/",
       "./images/players/",
       "/images/players/",
       "players/"
     ];
 
-    return allowedPlayerFolders.some(function (folder) {
+    return allowedPhotoFolders.some(function (folder) {
       return value.includes(folder);
     });
   }
@@ -237,6 +243,7 @@
     if (isRealPlayerPhoto(photo)) {
       return `
         <img 
+          class="player-real-photo"
           src="${escapeHtml(photo)}" 
           alt="${escapeHtml(name || "Player")}" 
           onerror="this.parentElement.innerHTML='<div class=&quot;player-placeholder&quot;></div>';"
@@ -250,6 +257,17 @@
   function createFlagHtml(player) {
     const country = getPlayerCountry(player);
     const flag = getPlayerFlag(player);
+
+    if (flag && !isFlagFile(flag)) {
+      return `
+        <img 
+          class="player-flag" 
+          src="${escapeHtml(flag)}" 
+          alt="${escapeHtml(country)}" 
+          onerror="this.remove();"
+        >
+      `;
+    }
 
     if (flag) {
       return `
@@ -269,6 +287,250 @@
     }
 
     return "";
+  }
+
+  function injectPlayerFixStyles() {
+    const oldStyle = document.querySelector("#deportivo-player-fix-styles");
+    if (oldStyle) oldStyle.remove();
+
+    const style = document.createElement("style");
+    style.id = "deportivo-player-fix-styles";
+
+    style.textContent = `
+      .players-grid {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(230px, 1fr));
+        gap: 34px;
+        align-items: stretch;
+      }
+
+      .player-card {
+        position: relative;
+        overflow: hidden;
+        background: #ffffff;
+        border-radius: 0 38px 18px 18px;
+        box-shadow: 0 18px 40px rgba(0, 0, 0, 0.08);
+      }
+
+      .player-photo {
+        position: relative;
+        height: 300px;
+        overflow: hidden;
+        background: radial-gradient(circle at center, #00551f 0%, #003b16 60%, #00250d 100%);
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+      }
+
+      .player-photo img:not(.player-real-photo),
+      .player-photo .player-flag,
+      .player-photo .flag,
+      .player-photo .flag-icon,
+      .player-photo .country-flag,
+      .player-photo .nationality-flag,
+      .player-photo [class*="flag"],
+      .player-photo [class*="Flag"] {
+        display: none !important;
+        opacity: 0 !important;
+        visibility: hidden !important;
+      }
+
+      .player-card > .player-flag,
+      .player-card > .flag,
+      .player-card > .flag-icon,
+      .player-card > .country-flag,
+      .player-card > .nationality-flag,
+      .player-card > [class*="flag"],
+      .player-card > [class*="Flag"] {
+        display: none !important;
+        opacity: 0 !important;
+        visibility: hidden !important;
+      }
+
+      .player-number {
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 10;
+        width: 88px;
+        height: 74px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-bottom-right-radius: 28px;
+        background: #ffffff;
+        color: #008c35;
+        font-size: 30px;
+        font-weight: 950;
+      }
+
+      .player-real-photo {
+        display: block !important;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .player-placeholder {
+        position: relative;
+        width: 230px;
+        height: 250px;
+      }
+
+      .player-placeholder::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 50%;
+        width: 98px;
+        height: 98px;
+        transform: translateX(-50%);
+        border-radius: 50%;
+        background: #c4a07b;
+      }
+
+      .player-placeholder::after {
+        content: "";
+        position: absolute;
+        left: 50%;
+        bottom: 0;
+        width: 210px;
+        height: 165px;
+        transform: translateX(-50%);
+        border-radius: 110px 110px 0 0;
+        background: linear-gradient(180deg, #d7d7d7 0%, #111111 45%, #050505 100%);
+      }
+
+      .player-info {
+        padding: 32px 32px 28px;
+        background: #ffffff;
+      }
+
+      .player-position {
+        margin-bottom: 18px;
+        color: #008c35;
+        font-size: 15px;
+        font-weight: 950;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+
+      .player-name {
+        min-height: 66px;
+        margin-bottom: 24px;
+        color: #050505;
+        font-size: 27px;
+        line-height: 1.08;
+        font-weight: 950;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        word-break: break-word;
+      }
+
+      .player-country {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        min-height: 34px;
+        margin-bottom: 28px;
+        color: #67726a;
+        font-size: 17px;
+        font-weight: 800;
+      }
+
+      .player-country .player-flag {
+        display: block !important;
+        width: 44px;
+        height: 28px;
+        object-fit: cover;
+        border-radius: 4px;
+        box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.08);
+        flex: 0 0 auto;
+        opacity: 1 !important;
+        visibility: visible !important;
+      }
+
+      .player-country .flag-emoji {
+        display: inline-block !important;
+        font-size: 28px;
+        line-height: 1;
+        opacity: 1 !important;
+        visibility: visible !important;
+      }
+
+      .player-btn {
+        width: 100%;
+        height: 54px;
+        border: none;
+        border-radius: 999px;
+        background: #008c35;
+        color: #ffffff;
+        font-size: 17px;
+        font-weight: 950;
+        cursor: pointer;
+        transition: 0.2s ease;
+      }
+
+      .player-btn:hover {
+        background: #006e29;
+        transform: translateY(-2px);
+      }
+
+      @media (max-width: 1280px) {
+        .players-grid {
+          grid-template-columns: repeat(3, minmax(230px, 1fr));
+        }
+      }
+
+      @media (max-width: 980px) {
+        .players-grid {
+          grid-template-columns: repeat(2, minmax(220px, 1fr));
+        }
+      }
+
+      @media (max-width: 620px) {
+        .players-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    `;
+
+    document.head.appendChild(style);
+  }
+
+  function removeTopFlags() {
+    const cards = document.querySelectorAll(".player-card");
+
+    cards.forEach(function (card) {
+      const photoZone = card.querySelector(".player-photo");
+
+      if (photoZone) {
+        const flagElements = photoZone.querySelectorAll(
+          "img:not(.player-real-photo), .player-flag, .flag, .flag-icon, .country-flag, .nationality-flag, [class*='flag'], [class*='Flag']"
+        );
+
+        flagElements.forEach(function (element) {
+          element.remove();
+        });
+      }
+
+      const directChildren = Array.from(card.children);
+
+      directChildren.forEach(function (element) {
+        if (
+          element.classList &&
+          element !== card.querySelector(".player-number") &&
+          element !== card.querySelector(".player-photo") &&
+          element !== card.querySelector(".player-info")
+        ) {
+          const className = String(element.className || "").toLowerCase();
+
+          if (className.includes("flag")) {
+            element.remove();
+          }
+        }
+      });
+    });
   }
 
   function renderPlayers() {
@@ -325,11 +587,13 @@
         `;
       })
       .join("");
+
+    removeTopFlags();
   }
 
   function setActiveNavLink() {
     const currentPath = window.location.pathname.split("/").pop() || "index.html";
-    const links = document.querySelectorAll(".main-nav a");
+    const links = document.querySelectorAll(".main-nav a, .nav a, header a");
 
     links.forEach(function (link) {
       const href = link.getAttribute("href") || "";
@@ -341,7 +605,12 @@
   }
 
   document.addEventListener("DOMContentLoaded", function () {
+    injectPlayerFixStyles();
     renderPlayers();
+    removeTopFlags();
     setActiveNavLink();
+
+    setTimeout(removeTopFlags, 300);
+    setTimeout(removeTopFlags, 1000);
   });
 })();
