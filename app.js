@@ -3,6 +3,35 @@
 
   const LANG = "ru";
 
+  const opponentLogoMap = {
+    "america": "america.png",
+    "américa": "america.png",
+    "capitanes": "capitanes.png",
+    "colectividad boliviana": "colectividad-boliviana.png",
+    "colectividad-boliviana": "colectividad-boliviana.png",
+    "deportivo moscu": "deportivo-moscu.png",
+    "deportivo moscú": "deportivo-moscu.png",
+    "moscu": "deportivo-moscu.png",
+    "moscú": "deportivo-moscu.png",
+    "domingo matheu": "domingo-matheu.png",
+    "matheu": "domingo-matheu.png",
+    "fair play": "fair-play.png",
+    "fair-play": "fair-play.png",
+    "falucho": "falucho.png",
+    "la sonia b": "la-sonia-b.png",
+    "la sonia": "la-sonia-b.png",
+    "lomas futbol": "lomas-futbol.png",
+    "lomas fútbol": "lomas-futbol.png",
+    "lomas-futbol": "lomas-futbol.png",
+    "los altos": "los-altos.png",
+    "parque iii": "parque-iii.png",
+    "parque 3": "parque-iii.png",
+    "sportivo union": "sportivo-union.png",
+    "sportivo unión": "sportivo-union.png",
+    "tribuna sport club": "tribuna-sport-club.png",
+    "villa juana": "villa-juana.png"
+  };
+
   function qs(selector, root) {
     return (root || document).querySelector(selector);
   }
@@ -30,6 +59,17 @@
       .replace(/'/g, "&#039;");
   }
 
+  function normalizeKey(value) {
+    return String(value || "")
+      .trim()
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .replace(/ñ/g, "n")
+      .replace(/\s+/g, " ")
+      .replace(/[._]/g, "-");
+  }
+
   function slugify(value) {
     return String(value || "")
       .trim()
@@ -39,6 +79,44 @@
       .replace(/ñ/g, "n")
       .replace(/[^a-z0-9]+/g, "-")
       .replace(/^-+|-+$/g, "");
+  }
+
+  function getOpponentLogo(opponentName, customLogo) {
+    if (customLogo) return String(customLogo);
+
+    const key = normalizeKey(opponentName);
+    const file = opponentLogoMap[key];
+
+    if (file) {
+      return "images/opponents/" + file;
+    }
+
+    const autoSlug = slugify(opponentName);
+
+    if (autoSlug) {
+      return "images/opponents/" + autoSlug + ".png";
+    }
+
+    return "";
+  }
+
+  function createOpponentLogoHtml(opponentName, customLogo) {
+    const logoPath = getOpponentLogo(opponentName, customLogo);
+    const firstLetter = String(opponentName || "M").trim().charAt(0).toUpperCase() || "M";
+
+    if (!logoPath) {
+      return '<div class="opponent-logo">' + escapeHtml(firstLetter) + '</div>';
+    }
+
+    return (
+      '<img class="opponent-logo-img" src="' +
+      escapeHtml(logoPath) +
+      '" alt="' +
+      escapeHtml(opponentName) +
+      '" onerror="this.outerHTML=\'<div class=&quot;opponent-logo&quot;>' +
+      escapeHtml(firstLetter) +
+      '</div>\';">'
+    );
   }
 
   function getPlayersData() {
@@ -112,7 +190,7 @@
     setText("statMatches", matches.length || "—");
   }
 
-  function createNewsCard(item, index) {
+  function createNewsCard(item) {
     const title = getText(item.title || item.name || item.heading, "Новость клуба");
     const date = getText(item.date || item.createdAt || item.day, "Deportivo Moscu");
     const text = getText(item.text || item.description || item.body || item.excerpt, "Скоро здесь появится подробная новость клуба.");
@@ -164,10 +242,18 @@
     const date = getText(item.date || item.day || item.matchDate, "Дата будет добавлена");
     const place = getText(item.place || item.stadium || item.location, "Buenos Aires, Argentina");
     const tournament = getText(item.tournament || item.league || item.competition, "Liga Escobarense");
+    const logo = item.opponentLogo || item.logo || item.awayLogo || "";
 
     return `
-      <article class="match-card">
+      <article class="match-card match-card-with-logo">
         <span class="match-date">${escapeHtml(tournament)}</span>
+
+        <div class="match-card-logos">
+          <img src="images/logo.png" alt="Deportivo Moscu">
+          <span>VS</span>
+          ${createOpponentLogoHtml(opponent, logo)}
+        </div>
+
         <h3>Deportivo Moscu — ${escapeHtml(opponent)}</h3>
         <p>${escapeHtml(date)}<br>${escapeHtml(place)}</p>
         <a class="card-btn" href="league.html">Открыть матч</a>
@@ -183,19 +269,19 @@
 
     const fallback = [
       {
-        opponent: "Matheu",
+        opponent: "Domingo Matheu",
         date: "Дата и время скоро будут добавлены",
         place: "Buenos Aires, Argentina",
         tournament: "Liga Escobarense"
       },
       {
-        opponent: "Próximo rival",
+        opponent: "Fair Play",
         date: "Календарь обновляется",
         place: "Liga Escobarense",
         tournament: "Primera División B"
       },
       {
-        opponent: "Fecha por confirmar",
+        opponent: "Villa Juana",
         date: "Следите за новостями клуба",
         place: "Deportivo Moscu",
         tournament: "Temporada 2026"
@@ -208,22 +294,31 @@
 
   function updateNextMatch() {
     const matches = getMatchesData();
-    if (!matches.length) return;
+    const first = matches.length
+      ? matches[0]
+      : {
+          opponent: "Domingo Matheu",
+          date: "Дата скоро будет добавлена",
+          place: "Buenos Aires, Argentina",
+          tournament: "Liga Escobarense"
+        };
 
-    const first = matches[0];
-
-    const opponent = getText(first.opponent || first.rival || first.team2 || first.awayTeam, "Matheu");
+    const opponent = getText(first.opponent || first.rival || first.team2 || first.awayTeam, "Domingo Matheu");
     const date = getText(first.date || first.day || first.matchDate, "Дата скоро будет добавлена");
     const place = getText(first.place || first.stadium || first.location, "Buenos Aires, Argentina");
     const league = getText(first.tournament || first.league || first.competition, "Liga Escobarense");
+    const logo = first.opponentLogo || first.logo || first.awayLogo || "";
 
     setText("nextOpponentName", opponent);
     setText("nextMatchDate", date);
     setText("nextMatchPlace", place);
     setText("nextMatchLeague", league);
 
-    const logo = qs("#nextOpponentLogo");
-    if (logo) logo.textContent = opponent.trim().charAt(0).toUpperCase() || "M";
+    const logoContainer = qs("#nextOpponentLogo");
+
+    if (logoContainer) {
+      logoContainer.outerHTML = createOpponentLogoHtml(opponent, logo);
+    }
   }
 
   function getPlayerName(player) {
@@ -474,6 +569,10 @@
         img.dataset.fallbackApplied = "true";
 
         if (img.classList.contains("logo-img")) {
+          return;
+        }
+
+        if (img.classList.contains("opponent-logo-img")) {
           return;
         }
 
