@@ -66,8 +66,8 @@
       .normalize("NFD")
       .replace(/[\u0300-\u036f]/g, "")
       .replace(/ñ/g, "n")
-      .replace(/\s+/g, " ")
-      .replace(/[._]/g, "-");
+      .replace(/[._-]+/g, " ")
+      .replace(/\s+/g, " ");
   }
 
   function slugify(value) {
@@ -88,13 +88,13 @@
     const file = opponentLogoMap[key];
 
     if (file) {
-      return "images/opponents/" + file;
+      return "images/" + file;
     }
 
     const autoSlug = slugify(opponentName);
 
     if (autoSlug) {
-      return "images/opponents/" + autoSlug + ".png";
+      return "images/" + autoSlug + ".png";
     }
 
     return "";
@@ -238,7 +238,7 @@
   }
 
   function createMatchCard(item, index) {
-    const opponent = getText(item.opponent || item.rival || item.team2 || item.awayTeam, index === 0 ? "Matheu" : "Соперник");
+    const opponent = getText(item.opponent || item.rival || item.team2 || item.awayTeam, index === 0 ? "Domingo Matheu" : "Соперник");
     const date = getText(item.date || item.day || item.matchDate, "Дата будет добавлена");
     const place = getText(item.place || item.stadium || item.location, "Buenos Aires, Argentina");
     const tournament = getText(item.tournament || item.league || item.competition, "Liga Escobarense");
@@ -568,13 +568,8 @@
 
         img.dataset.fallbackApplied = "true";
 
-        if (img.classList.contains("logo-img")) {
-          return;
-        }
-
-        if (img.classList.contains("opponent-logo-img")) {
-          return;
-        }
+        if (img.classList.contains("logo-img")) return;
+        if (img.classList.contains("opponent-logo-img")) return;
 
         img.style.display = "none";
       });
