@@ -13,9 +13,8 @@
   <style>
     :root {
       --bg: #020605;
-      --bg2: #06110f;
-      --panel: rgba(4, 21, 18, 0.82);
-      --panel2: rgba(5, 31, 25, 0.92);
+      --panel: rgba(4, 21, 18, 0.84);
+      --panel2: rgba(5, 31, 25, 0.94);
       --line: rgba(0, 255, 157, 0.22);
       --green: #00ff9d;
       --cyan: #39ffe1;
@@ -515,7 +514,8 @@
     .table-card,
     .info-card,
     .match-card,
-    .round-block {
+    .round-block,
+    .schedule-summary {
       position: relative;
       background: var(--panel);
       border: 1px solid var(--line);
@@ -527,7 +527,8 @@
     .table-card::before,
     .info-card::before,
     .match-card::before,
-    .round-block::before {
+    .round-block::before,
+    .schedule-summary::before {
       content: "";
       position: absolute;
       inset: 0;
@@ -669,6 +670,40 @@
       letter-spacing: 0.08em;
     }
 
+    .schedule-summary {
+      padding: 20px;
+      margin-bottom: 18px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+
+    .summary-item {
+      position: relative;
+      z-index: 2;
+      padding: 14px;
+      border: 1px solid rgba(0, 255, 157, 0.15);
+      background: rgba(0, 255, 157, 0.045);
+      border-radius: 4px;
+    }
+
+    .summary-item strong {
+      display: block;
+      color: var(--green);
+      font-family: "Oswald", sans-serif;
+      font-size: 34px;
+      line-height: 1;
+      margin-bottom: 7px;
+    }
+
+    .summary-item span {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 950;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
     .matches-list {
       display: grid;
       gap: 18px;
@@ -715,7 +750,7 @@
     .match-card {
       padding: 16px;
       display: grid;
-      grid-template-columns: 110px 1fr auto;
+      grid-template-columns: 118px 1fr auto;
       gap: 14px;
       align-items: center;
       box-shadow: none;
@@ -779,9 +814,20 @@
       text-align: right;
     }
 
+    .match-status.upcoming {
+      color: var(--cyan);
+    }
+
     .moscu-match {
       border-color: rgba(0, 255, 157, 0.42);
       box-shadow: inset 3px 0 0 var(--green);
+    }
+
+    .match-note {
+      grid-column: 2 / 4;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.5;
     }
 
     .site-footer {
@@ -861,8 +907,14 @@
         grid-template-columns: 1fr;
       }
 
-      .match-status {
+      .match-status,
+      .match-note {
         text-align: left;
+        grid-column: auto;
+      }
+
+      .schedule-summary {
+        grid-template-columns: repeat(2, 1fr);
       }
     }
 
@@ -919,7 +971,8 @@
         width: 100%;
       }
 
-      .mini-stats {
+      .mini-stats,
+      .schedule-summary {
         grid-template-columns: 1fr;
       }
 
@@ -988,13 +1041,13 @@
           <div class="section-label">Liga Escobarense</div>
           <h1>Таблица и<br>матчи</h1>
           <p>
-            Primera División B 2025-26 / Zona Escobar. Турнирная таблица, календарь матчей,
-            эмблемы клубов и результаты Deportivo Moscu в новом матч-центре.
+            Primera División B 2025-26 / Zona Escobar. Таблица, полный календарь Deportivo Moscu,
+            сыгранные матчи, будущие туры и общий матч-центр лиги.
           </p>
 
           <div class="hero-buttons">
             <a href="#tablePanel" class="primary-btn">Открыть таблицу</a>
-            <a href="#matchesPanel" class="secondary-btn">Открыть матчи</a>
+            <a href="#moscuPanel" class="secondary-btn">Матчи Deportivo</a>
           </div>
         </div>
 
@@ -1012,12 +1065,13 @@
       <div class="container">
         <div class="section-top">
           <h2>Матч-центр</h2>
-          <a href="#" id="sourceLink" class="source-btn" target="_blank" rel="noopener">Источник Liga Escobarense</a>
+          <a href="https://ligaescobarense.ar/index.php/competition/primera-division-b-2025-26-zona-escobar/" id="sourceLink" class="source-btn" target="_blank" rel="noopener">Источник Liga Escobarense</a>
         </div>
 
         <div class="tabs-row">
           <button class="tab-btn active" type="button" data-tab="tablePanel">Таблица</button>
-          <button class="tab-btn" type="button" data-tab="matchesPanel">Матчи</button>
+          <button class="tab-btn" type="button" data-tab="moscuPanel">Матчи Deportivo</button>
+          <button class="tab-btn" type="button" data-tab="allMatchesPanel">Все матчи лиги</button>
         </div>
 
         <div class="tab-panel active" id="tablePanel">
@@ -1049,8 +1103,8 @@
               <img src="images/logo.png" alt="Deportivo Moscu">
               <h3>Deportivo Moscu</h3>
               <p>
-                Единый город. Одна страсть. Одна зелёно-чёрная семья.
-                В таблице команда Deportivo Moscu подсвечена неоновым цветом.
+                Команда Deportivo Moscu подсвечена в таблице неоновым цветом.
+                Расписание Deportivo берётся отдельно из полного календаря на 26 туров.
               </p>
 
               <div class="mini-stats">
@@ -1076,15 +1130,19 @@
               </div>
 
               <p>
-                1 место — чемпион и повышение. Команды ниже борются за попадание
-                в Torneo Reducido за второй подъём.
+                Вкладка “Матчи Deportivo” показывает все туры: уже сыгранные и будущие.
               </p>
             </aside>
           </div>
         </div>
 
-        <div class="tab-panel" id="matchesPanel">
-          <div class="matches-list" id="matchesList"></div>
+        <div class="tab-panel" id="moscuPanel">
+          <div class="schedule-summary" id="moscuSummary"></div>
+          <div class="matches-list" id="moscuMatchesList"></div>
+        </div>
+
+        <div class="tab-panel" id="allMatchesPanel">
+          <div class="matches-list" id="allMatchesList"></div>
         </div>
       </div>
     </section>
@@ -1122,6 +1180,10 @@
   </footer>
 
   <script src="league-data.js"></script>
+  <script>
+    window.deportivoLeagueFull = window.deportivoLeague || {};
+  </script>
+  <script src="matches-data.js"></script>
 
   <script>
     const burgerBtn = document.getElementById("burgerBtn");
@@ -1133,15 +1195,34 @@
       });
     }
 
-    const leagueData = window.deportivoLeague || {
-      source: "",
-      teams: {},
-      table: [],
-      matches: []
-    };
+    const fullLeagueData = window.deportivoLeagueFull || {};
+    const moscuScheduleData = window.deportivoLeague || {};
+
+    function normalizeTable() {
+      if (Array.isArray(fullLeagueData.table)) return fullLeagueData.table;
+      if (Array.isArray(fullLeagueData.standings)) return fullLeagueData.standings;
+      if (Array.isArray(moscuScheduleData.table)) return moscuScheduleData.table;
+      if (Array.isArray(moscuScheduleData.standings)) return moscuScheduleData.standings;
+      return [];
+    }
+
+    function normalizeAllLeagueMatches() {
+      if (Array.isArray(fullLeagueData.matches)) return fullLeagueData.matches;
+      return [];
+    }
+
+    function normalizeMoscuMatches() {
+      if (Array.isArray(moscuScheduleData.matches)) return moscuScheduleData.matches;
+      return [];
+    }
 
     function getTeamLogo(teamName) {
-      const team = leagueData.teams && leagueData.teams[teamName];
+      if (teamName && String(teamName).toLowerCase().includes("deportivo moscu")) {
+        return "images/logo.png";
+      }
+
+      const teams = fullLeagueData.teams || {};
+      const team = teams[teamName];
 
       if (team && team.logo) {
         return team.logo;
@@ -1152,6 +1233,11 @@
 
     function isMoscu(teamName) {
       return String(teamName || "").toLowerCase().includes("deportivo moscu");
+    }
+
+    function getRoundName(match) {
+      if (typeof match.round === "number") return `Fecha ${match.round}`;
+      return match.round || "Матчи";
     }
 
     function getScore(match) {
@@ -1169,20 +1255,21 @@
       const hasHome = match.homeScore !== undefined && match.homeScore !== null;
       const hasAway = match.awayScore !== undefined && match.awayScore !== null;
 
+      if (match.status === "upcoming") return "Ожидается";
+      if (match.status === "played") return "Сыгран";
+
       return hasHome && hasAway ? "Сыгран" : "Ожидается";
     }
 
-    function renderSource() {
-      const sourceLink = document.getElementById("sourceLink");
-
-      if (sourceLink && leagueData.source) {
-        sourceLink.href = leagueData.source;
-      }
+    function isUpcoming(match) {
+      const hasHome = match.homeScore !== undefined && match.homeScore !== null;
+      const hasAway = match.awayScore !== undefined && match.awayScore !== null;
+      return match.status === "upcoming" || (!hasHome && !hasAway);
     }
 
     function renderTable() {
       const tableBody = document.getElementById("leagueTableBody");
-      const table = Array.isArray(leagueData.table) ? leagueData.table : [];
+      const table = normalizeTable();
 
       if (!tableBody) return;
 
@@ -1192,21 +1279,21 @@
 
         return `
           <tr class="${moscuClass}">
-            <td class="position-cell">${row.position}</td>
+            <td class="position-cell">${row.position ?? "—"}</td>
             <td>
               <div class="team-cell">
                 <img class="team-logo" src="${logo}" alt="${row.team}" onerror="this.src='images/logo.png'">
-                <span>${row.team}</span>
+                <span>${row.team || "Команда"}</span>
               </div>
             </td>
-            <td>${row.pj}</td>
-            <td>${row.g}</td>
-            <td>${row.e}</td>
-            <td>${row.p}</td>
-            <td>${row.gf}</td>
-            <td>${row.gc}</td>
-            <td>${row.dif}</td>
-            <td>${row.pts}</td>
+            <td>${row.pj ?? "—"}</td>
+            <td>${row.g ?? "—"}</td>
+            <td>${row.e ?? "—"}</td>
+            <td>${row.p ?? "—"}</td>
+            <td>${row.gf ?? "—"}</td>
+            <td>${row.gc ?? "—"}</td>
+            <td>${row.dif ?? "—"}</td>
+            <td>${row.pts ?? "—"}</td>
           </tr>
         `;
       }).join("");
@@ -1214,33 +1301,65 @@
       const moscu = table.find((row) => isMoscu(row.team));
 
       if (moscu) {
-        document.getElementById("moscuPosition").textContent = moscu.position;
-        document.getElementById("moscuPoints").textContent = moscu.pts;
-        document.getElementById("moscuPlayed").textContent = moscu.pj;
-        document.getElementById("moscuDiff").textContent = moscu.dif;
+        document.getElementById("moscuPosition").textContent = moscu.position ?? "—";
+        document.getElementById("moscuPoints").textContent = moscu.pts ?? "—";
+        document.getElementById("moscuPlayed").textContent = moscu.pj ?? "—";
+        document.getElementById("moscuDiff").textContent = moscu.dif ?? "—";
       }
     }
 
     function groupMatchesByRound(matches) {
       return matches.reduce((groups, match) => {
-        const round = match.round || "Матчи";
+        const round = getRoundName(match);
         if (!groups[round]) groups[round] = [];
         groups[round].push(match);
         return groups;
       }, {});
     }
 
-    function renderMatches() {
-      const matchesList = document.getElementById("matchesList");
-      const matches = Array.isArray(leagueData.matches) ? leagueData.matches : [];
+    function renderMatchCard(match) {
+      const home = match.home || "Команда";
+      const away = match.away || "Команда";
+      const homeLogo = getTeamLogo(home);
+      const awayLogo = getTeamLogo(away);
+      const moscuClass = isMoscu(home) || isMoscu(away) ? "moscu-match" : "";
+      const statusClass = isUpcoming(match) ? "upcoming" : "";
+      const note = match.note ? `<div class="match-note">${match.note}</div>` : "";
 
-      if (!matchesList) return;
+      return `
+        <article class="match-card ${moscuClass}">
+          <div class="match-date">${match.date || "A confirmar"}</div>
+
+          <div class="match-main">
+            <div class="match-team">
+              <img src="${homeLogo}" alt="${home}" onerror="this.src='images/logo.png'">
+              <span>${home}</span>
+            </div>
+
+            <div class="score-box">${getScore(match)}</div>
+
+            <div class="match-team away">
+              <span>${away}</span>
+              <img src="${awayLogo}" alt="${away}" onerror="this.src='images/logo.png'">
+            </div>
+          </div>
+
+          <div class="match-status ${statusClass}">${getMatchStatus(match)}</div>
+          ${note}
+        </article>
+      `;
+    }
+
+    function renderMatchesList(containerId, matches, emptyTitle) {
+      const container = document.getElementById(containerId);
+
+      if (!container) return;
 
       if (!matches.length) {
-        matchesList.innerHTML = `
+        container.innerHTML = `
           <div class="round-block">
             <div class="round-title">
-              <h3>Матчи скоро появятся</h3>
+              <h3>${emptyTitle}</h3>
               <span>Deportivo Moscu</span>
             </div>
           </div>
@@ -1250,7 +1369,7 @@
 
       const grouped = groupMatchesByRound(matches);
 
-      matchesList.innerHTML = Object.entries(grouped).map(([round, roundMatches]) => {
+      container.innerHTML = Object.entries(grouped).map(([round, roundMatches]) => {
         return `
           <section class="round-block">
             <div class="round-title">
@@ -1259,37 +1378,54 @@
             </div>
 
             <div class="round-matches">
-              ${roundMatches.map((match) => {
-                const homeLogo = getTeamLogo(match.home);
-                const awayLogo = getTeamLogo(match.away);
-                const moscuClass = isMoscu(match.home) || isMoscu(match.away) ? "moscu-match" : "";
-
-                return `
-                  <article class="match-card ${moscuClass}">
-                    <div class="match-date">${match.date || "Дата уточняется"}</div>
-
-                    <div class="match-main">
-                      <div class="match-team">
-                        <img src="${homeLogo}" alt="${match.home}" onerror="this.src='images/logo.png'">
-                        <span>${match.home || "Команда"}</span>
-                      </div>
-
-                      <div class="score-box">${getScore(match)}</div>
-
-                      <div class="match-team away">
-                        <span>${match.away || "Команда"}</span>
-                        <img src="${awayLogo}" alt="${match.away}" onerror="this.src='images/logo.png'">
-                      </div>
-                    </div>
-
-                    <div class="match-status">${getMatchStatus(match)}</div>
-                  </article>
-                `;
-              }).join("")}
+              ${roundMatches.map(renderMatchCard).join("")}
             </div>
           </section>
         `;
       }).join("");
+    }
+
+    function renderMoscuSummary(matches) {
+      const container = document.getElementById("moscuSummary");
+
+      if (!container) return;
+
+      const total = matches.length;
+      const played = matches.filter((match) => !isUpcoming(match)).length;
+      const upcoming = matches.filter(isUpcoming).length;
+      const wins = matches.filter((match) => {
+        if (isUpcoming(match)) return false;
+
+        const home = isMoscu(match.home);
+        const away = isMoscu(match.away);
+
+        if (home) return Number(match.homeScore) > Number(match.awayScore);
+        if (away) return Number(match.awayScore) > Number(match.homeScore);
+
+        return false;
+      }).length;
+
+      container.innerHTML = `
+        <div class="summary-item">
+          <strong>${total}</strong>
+          <span>Всего туров</span>
+        </div>
+
+        <div class="summary-item">
+          <strong>${played}</strong>
+          <span>Сыграно</span>
+        </div>
+
+        <div class="summary-item">
+          <strong>${upcoming}</strong>
+          <span>Будущие</span>
+        </div>
+
+        <div class="summary-item">
+          <strong>${wins}</strong>
+          <span>Победы</span>
+        </div>
+      `;
     }
 
     function setupTabs() {
@@ -1308,9 +1444,14 @@
       });
     }
 
-    renderSource();
+    const table = normalizeTable();
+    const allLeagueMatches = normalizeAllLeagueMatches();
+    const moscuMatches = normalizeMoscuMatches();
+
     renderTable();
-    renderMatches();
+    renderMoscuSummary(moscuMatches);
+    renderMatchesList("moscuMatchesList", moscuMatches, "Матчи Deportivo скоро появятся");
+    renderMatchesList("allMatchesList", allLeagueMatches, "Общий календарь лиги скоро появится");
     setupTabs();
   </script>
 </body>
