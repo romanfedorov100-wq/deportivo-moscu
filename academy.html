@@ -334,87 +334,49 @@
       font-weight: 700;
     }
 
-    .hero-card {
+    .academy-photo-card {
       min-height: 430px;
       border-radius: 2px;
       background:
-        linear-gradient(90deg, rgba(2, 6, 5, 0.4), rgba(2, 6, 5, 0.9)),
         radial-gradient(circle at 48% 34%, rgba(0, 255, 157, 0.2), transparent 34%),
-        radial-gradient(circle at 68% 56%, rgba(57, 255, 225, 0.09), transparent 30%),
         linear-gradient(135deg, rgba(0, 255, 157, 0.08), rgba(2, 6, 5, 0.9));
       color: var(--text);
       box-shadow: var(--shadow), var(--glow);
-      display: grid;
-      place-items: center;
-      text-align: center;
-      padding: 38px;
       position: relative;
       overflow: hidden;
       border: 1px solid var(--line);
     }
 
-    .hero-card::before {
+    .academy-photo-card::before {
       content: "";
       position: absolute;
       inset: 18px;
+      z-index: 2;
       border: 1px solid rgba(0, 255, 157, 0.18);
       box-shadow: inset 0 0 44px rgba(0, 255, 157, 0.08);
       pointer-events: none;
     }
 
-    .hero-card::after {
-      content: "ACADEMY";
+    .academy-photo-card::after {
+      content: "ACADEMY PHOTO";
       position: absolute;
       right: 28px;
       bottom: 24px;
-      color: rgba(0, 255, 157, 0.38);
+      z-index: 3;
+      color: rgba(0, 255, 157, 0.5);
       font-size: 11px;
       font-weight: 950;
       letter-spacing: 0.22em;
       text-transform: uppercase;
     }
 
-    .hero-card-inner {
-      position: relative;
-      z-index: 2;
-      display: grid;
-      place-items: center;
-    }
-
-    .hero-card-inner::before {
-      content: "";
-      position: absolute;
-      width: 440px;
-      height: 440px;
-      background:
-        linear-gradient(rgba(0, 255, 157, 0.055) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0, 255, 157, 0.055) 1px, transparent 1px);
-      background-size: 30px 30px;
-      mask-image: radial-gradient(circle at 50% 50%, black 0%, transparent 70%);
-      z-index: -1;
-    }
-
-    .hero-card img {
-      width: 170px;
-      margin-bottom: 20px;
-      filter: drop-shadow(0 0 32px rgba(0, 255, 157, 0.32));
-    }
-
-    .hero-card h2 {
-      font-family: "Oswald", sans-serif;
-      font-size: 40px;
-      letter-spacing: 0.14em;
-      margin: 0;
-      text-transform: uppercase;
-      text-shadow: 0 0 28px rgba(0, 255, 157, 0.34);
-    }
-
-    .hero-card span {
-      color: var(--green);
-      font-weight: 950;
-      margin-top: 10px;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
+    .academy-photo-card img {
+      width: 100%;
+      height: 100%;
+      min-height: 430px;
+      object-fit: cover;
+      object-position: center;
+      filter: contrast(1.04) saturate(0.96);
     }
 
     .academy-section {
@@ -771,7 +733,11 @@
         grid-template-columns: 1fr;
       }
 
-      .hero-card {
+      .academy-photo-card {
+        min-height: 340px;
+      }
+
+      .academy-photo-card img {
         min-height: 340px;
       }
     }
@@ -803,6 +769,14 @@
         font-size: 16px;
       }
 
+      .academy-photo-card {
+        min-height: 300px;
+      }
+
+      .academy-photo-card img {
+        min-height: 300px;
+      }
+
       .step-card {
         grid-template-columns: 1fr;
       }
@@ -813,10 +787,6 @@
 
       .section-title {
         font-size: 34px;
-      }
-
-      .hero-card h2 {
-        font-size: 30px;
       }
     }
   </style>
@@ -886,12 +856,8 @@
           </p>
         </div>
 
-        <div class="hero-card">
-          <div class="hero-card-inner">
-            <img src="images/logo.png" alt="Deportivo Moscu">
-            <h2>DM ACADEMY</h2>
-            <span data-i18n="hero_slogan">Будущее начинается здесь</span>
-          </div>
+        <div class="academy-photo-card">
+          <img src="images/academy-page-main.jpg" alt="Академия Deportivo Moscu">
         </div>
       </div>
     </section>
@@ -1092,7 +1058,6 @@
         academy_label: "Академия клуба",
         academy_title: "Академия<br>Deportivo Moscu",
         academy_subtitle: "Подготовка молодых футболистов в стиле Deportivo Moscu: техника, дисциплина, командная игра и футбольный характер.",
-        hero_slogan: "Будущее начинается здесь",
         programs_title: "Программы подготовки",
         programs_text: "Академия делится на возрастные группы, чтобы каждый игрок получал правильную нагрузку, развитие техники и понимание игры.",
         program_1_title: "База",
@@ -1148,7 +1113,6 @@
         academy_label: "Club academy",
         academy_title: "Deportivo Moscu<br>Academy",
         academy_subtitle: "Training young footballers in Deportivo Moscu style: technique, discipline, team play and football character.",
-        hero_slogan: "The future starts here",
         programs_title: "Training programs",
         programs_text: "The academy is divided into age groups so each player receives the right workload, technical development and game understanding.",
         program_1_title: "Foundation",
@@ -1204,7 +1168,6 @@
         academy_label: "Academia del club",
         academy_title: "Academia<br>Deportivo Moscu",
         academy_subtitle: "Formación de jóvenes futbolistas con estilo Deportivo Moscu: técnica, disciplina, juego colectivo y carácter.",
-        hero_slogan: "El futuro empieza aquí",
         programs_title: "Programas de formación",
         programs_text: "La academia se divide por edades para que cada jugador reciba la carga adecuada, desarrollo técnico y comprensión del juego.",
         program_1_title: "Base",
