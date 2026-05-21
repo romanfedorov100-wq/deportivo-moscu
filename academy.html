@@ -23,9 +23,7 @@
       --glow: 0 0 32px rgba(0, 255, 157, 0.24);
     }
 
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     html {
       scroll-behavior: smooth;
@@ -62,9 +60,7 @@
       text-decoration: none;
     }
 
-    button {
-      font-family: inherit;
-    }
+    button { font-family: inherit; }
 
     img {
       max-width: 100%;
@@ -133,10 +129,10 @@
     .main-nav {
       display: flex;
       align-items: center;
-      gap: 20px;
-      font-size: 12px;
+      gap: 18px;
+      font-size: 11px;
       font-weight: 950;
-      letter-spacing: 0.12em;
+      letter-spacing: 0.11em;
       text-transform: uppercase;
     }
 
@@ -435,21 +431,6 @@
       overflow: hidden;
     }
 
-    .program-card::before,
-    .coach-card::before,
-    .step-card::before,
-    .form-card::before,
-    .training-visual::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      background:
-        linear-gradient(135deg, rgba(0, 255, 157, 0.08), transparent 42%),
-        linear-gradient(180deg, transparent, rgba(0, 255, 157, 0.035));
-      opacity: 0.85;
-    }
-
     .program-age {
       position: relative;
       z-index: 2;
@@ -703,22 +684,20 @@
 
     @media (max-width: 1100px) {
       .main-nav {
-        gap: 14px;
-        font-size: 11px;
+        gap: 12px;
+        font-size: 10px;
       }
     }
 
     @media (max-width: 980px) {
-      .main-nav {
+      .main-nav,
+      .language-switcher,
+      .ticket-btn {
         display: none;
       }
 
       .burger-btn {
         display: block;
-      }
-
-      .ticket-btn {
-        display: none;
       }
 
       .academy-hero-grid,
@@ -751,7 +730,6 @@
         min-height: 76px;
       }
 
-      .language-switcher,
       .logo-text {
         display: none;
       }
@@ -811,6 +789,7 @@
         <a href="club.html" data-i18n="nav_club">Клуб</a>
         <a href="stadium.html" data-i18n="nav_stadium">Стадион</a>
         <a href="academy.html" class="active" data-i18n="nav_academy">Академия</a>
+        <a href="management.html" data-i18n="nav_management">Руководство</a>
         <a href="media.html" data-i18n="nav_media">Медиа</a>
         <a href="store.html" data-i18n="nav_store">Магазин</a>
       </nav>
@@ -840,6 +819,7 @@
       <a href="club.html" data-i18n="nav_club">Клуб</a>
       <a href="stadium.html" data-i18n="nav_stadium">Стадион</a>
       <a href="academy.html" data-i18n="nav_academy">Академия</a>
+      <a href="management.html" data-i18n="nav_management">Руководство</a>
       <a href="media.html" data-i18n="nav_media">Медиа</a>
       <a href="store.html" data-i18n="nav_store">Магазин</a>
     </div>
@@ -1024,6 +1004,7 @@
         <a href="team.html" data-i18n="nav_team">Команда</a>
         <a href="league.html" data-i18n="nav_matches">Матчи</a>
         <a href="stadium.html" data-i18n="nav_stadium">Стадион</a>
+        <a href="management.html" data-i18n="nav_management">Руководство</a>
       </div>
 
       <div class="footer-col">
@@ -1052,6 +1033,7 @@
         nav_club: "Клуб",
         nav_stadium: "Стадион",
         nav_academy: "Академия",
+        nav_management: "Руководство",
         nav_media: "Медиа",
         nav_store: "Магазин",
         buy_tickets: "Купить билеты",
@@ -1098,148 +1080,30 @@
         media_center: "Медиацентр",
         contacts: "Контакты",
         form_alert: "Заявка пока не отправляется. Позже подключим почту или Telegram."
-      },
-      en: {
-        nav_home: "Home",
-        nav_news: "News",
-        nav_team: "Team",
-        nav_matches: "Matches",
-        nav_club: "Club",
-        nav_stadium: "Stadium",
-        nav_academy: "Academy",
-        nav_media: "Media",
-        nav_store: "Store",
-        buy_tickets: "Buy tickets",
-        academy_label: "Club academy",
-        academy_title: "Deportivo Moscu<br>Academy",
-        academy_subtitle: "Training young footballers in Deportivo Moscu style: technique, discipline, team play and football character.",
-        programs_title: "Training programs",
-        programs_text: "The academy is divided into age groups so each player receives the right workload, technical development and game understanding.",
-        program_1_title: "Foundation",
-        program_1_text: "Coordination, first pass, ball control, love for football and first team principles.",
-        program_2_title: "Development",
-        program_2_text: "Tactics, speed of thought, one-on-one play, pressing and positional work.",
-        program_3_title: "Preparation",
-        program_3_text: "Transition to senior football: physical work, intensity, discipline and game responsibility.",
-        training_title: "How training works",
-        step_1_title: "Warm-up",
-        step_1_text: "Coordination, mobility, body control and preparation for ball work.",
-        step_2_title: "Technique",
-        step_2_text: "Passing, receiving, dribbling, shooting, playing under pressure and solving situations in tight spaces.",
-        step_3_title: "Tactics",
-        step_3_text: "Position understanding, line interaction, pressing, build-up and attack.",
-        step_4_title: "Game",
-        step_4_text: "Small-sided games, match tasks and Deportivo Moscu principles.",
-        coaches_title: "Coaching staff",
-        coaches_text: "Real academy coaches, roles, experience and contacts will be added here. This block is ready for future replacement with real data.",
-        coach_1_title: "Head coach",
-        coach_1_text: "Responsible for methodology, training process and player development.",
-        coach_2_title: "Technical coach",
-        coach_2_text: "Works on passing, receiving, dribbling, shooting and individual qualities.",
-        coach_3_title: "Fitness coach",
-        coach_3_text: "Manages loads, recovery, speed, strength and injury prevention.",
-        join_title: "Join the academy",
-        join_text: "Leave a request, and a club representative will contact you for a trial or training session.",
-        contacts_title: "Academy contacts",
-        contacts_text: "After launch, requests will be sent to the club email. For now, this is a visual form for future connection.",
-        form_title: "Application form",
-        select_group: "Choose group",
-        send_request: "Send request",
-        footer_slogan: "One city. One passion. One green-and-black family.",
-        about_club: "About club",
-        help: "Help",
-        tickets: "Tickets",
-        academy_request: "Academy application",
-        media_center: "Media center",
-        contacts: "Contacts",
-        form_alert: "The form is not sending yet. Later we will connect email or Telegram."
-      },
-      es: {
-        nav_home: "Inicio",
-        nav_news: "Noticias",
-        nav_team: "Equipo",
-        nav_matches: "Partidos",
-        nav_club: "Club",
-        nav_stadium: "Estadio",
-        nav_academy: "Academia",
-        nav_media: "Media",
-        nav_store: "Tienda",
-        buy_tickets: "Comprar entradas",
-        academy_label: "Academia del club",
-        academy_title: "Academia<br>Deportivo Moscu",
-        academy_subtitle: "Formación de jóvenes futbolistas con estilo Deportivo Moscu: técnica, disciplina, juego colectivo y carácter.",
-        programs_title: "Programas de formación",
-        programs_text: "La academia se divide por edades para que cada jugador reciba la carga adecuada, desarrollo técnico y comprensión del juego.",
-        program_1_title: "Base",
-        program_1_text: "Coordinación, primer pase, conducción, amor por el fútbol y primeros principios de equipo.",
-        program_2_title: "Desarrollo",
-        program_2_text: "Táctica, velocidad mental, uno contra uno, presión y trabajo por posiciones.",
-        program_3_title: "Preparación",
-        program_3_text: "Transición al fútbol adulto: físico, intensidad, disciplina y responsabilidad de juego.",
-        training_title: "Cómo es el entrenamiento",
-        step_1_title: "Entrada en calor",
-        step_1_text: "Coordinación, movilidad, control corporal y preparación para trabajar con balón.",
-        step_2_title: "Técnica",
-        step_2_text: "Pase, recepción, conducción, remate, juego bajo presión y decisión en espacios reducidos.",
-        step_3_title: "Táctica",
-        step_3_text: "Comprensión de la posición, interacción de líneas, presión, salida y ataque.",
-        step_4_title: "Juego",
-        step_4_text: "Partidos reducidos, tareas de juego y principios de Deportivo Moscu.",
-        coaches_title: "Cuerpo técnico",
-        coaches_text: "Aquí estarán los entrenadores reales de la academia, sus roles, experiencia y contactos. El bloque está preparado para datos reales.",
-        coach_1_title: "Entrenador principal",
-        coach_1_text: "Responsable de la metodología, el proceso de entrenamiento y el desarrollo de jugadores.",
-        coach_2_title: "Entrenador técnico",
-        coach_2_text: "Trabaja pase, recepción, dribbling, remate y cualidades individuales.",
-        coach_3_title: "Preparador físico",
-        coach_3_text: "Controla cargas, recuperación, velocidad, fuerza y prevención de lesiones.",
-        join_title: "Inscribirse en la academia",
-        join_text: "Deja una solicitud y un representante del club se comunicará contigo para una prueba o entrenamiento.",
-        contacts_title: "Contactos de academia",
-        contacts_text: "Después del lanzamiento, las solicitudes se enviarán al correo del club. Por ahora es un formulario visual para futura conexión.",
-        form_title: "Formulario de solicitud",
-        select_group: "Elegir grupo",
-        send_request: "Enviar solicitud",
-        footer_slogan: "Una ciudad. Una pasión. Una familia verde y negra.",
-        about_club: "Sobre el club",
-        help: "Ayuda",
-        tickets: "Entradas",
-        academy_request: "Inscripción academia",
-        media_center: "Media center",
-        contacts: "Contactos",
-        form_alert: "El formulario aún no envía datos. Luego conectaremos email o Telegram."
       }
     };
 
     let currentLang = "ru";
 
     function setLanguage(lang) {
-      currentLang = lang;
-      document.documentElement.lang = lang;
+      currentLang = "ru";
+      document.documentElement.lang = "ru";
 
       document.querySelectorAll("[data-i18n]").forEach((element) => {
         const key = element.getAttribute("data-i18n");
-
-        if (translations[lang] && translations[lang][key]) {
-          element.innerHTML = translations[lang][key];
-        }
-      });
-
-      document.querySelectorAll("[data-placeholder-ru]").forEach((element) => {
-        const placeholder = element.getAttribute(`data-placeholder-${lang}`);
-        if (placeholder) {
-          element.placeholder = placeholder;
+        if (translations.ru[key]) {
+          element.innerHTML = translations.ru[key];
         }
       });
 
       document.querySelectorAll(".lang-btn").forEach((button) => {
-        button.classList.toggle("active", button.dataset.lang === lang);
+        button.classList.toggle("active", button.dataset.lang === "ru");
       });
     }
 
     document.querySelectorAll(".lang-btn").forEach((button) => {
       button.addEventListener("click", () => {
-        setLanguage(button.dataset.lang);
+        setLanguage("ru");
       });
     });
 
@@ -1249,7 +1113,7 @@
 
     document.getElementById("academyForm").addEventListener("submit", (event) => {
       event.preventDefault();
-      alert(translations[currentLang].form_alert);
+      alert(translations.ru.form_alert);
     });
 
     setLanguage("ru");
