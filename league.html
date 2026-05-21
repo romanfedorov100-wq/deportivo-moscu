@@ -14,7 +14,6 @@
     :root {
       --bg: #020605;
       --panel: rgba(4, 21, 18, 0.84);
-      --panel2: rgba(5, 31, 25, 0.94);
       --line: rgba(0, 255, 157, 0.22);
       --green: #00ff9d;
       --cyan: #39ffe1;
@@ -638,31 +637,39 @@
       margin: 0;
     }
 
-    .mini-stats {
+    .mini-stats,
+    .schedule-summary {
       position: relative;
       z-index: 2;
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(4, 1fr);
       gap: 10px;
     }
 
-    .mini-stat {
+    .mini-stats {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .mini-stat,
+    .summary-item {
       border: 1px solid rgba(0, 255, 157, 0.15);
       background: rgba(0, 255, 157, 0.045);
       padding: 14px;
       border-radius: 4px;
     }
 
-    .mini-stat strong {
+    .mini-stat strong,
+    .summary-item strong {
       display: block;
       color: var(--green);
       font-family: "Oswald", sans-serif;
-      font-size: 28px;
+      font-size: 30px;
       line-height: 1;
       margin-bottom: 6px;
     }
 
-    .mini-stat span {
+    .mini-stat span,
+    .summary-item span {
       color: var(--muted);
       font-size: 12px;
       font-weight: 900;
@@ -673,35 +680,6 @@
     .schedule-summary {
       padding: 20px;
       margin-bottom: 18px;
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 12px;
-    }
-
-    .summary-item {
-      position: relative;
-      z-index: 2;
-      padding: 14px;
-      border: 1px solid rgba(0, 255, 157, 0.15);
-      background: rgba(0, 255, 157, 0.045);
-      border-radius: 4px;
-    }
-
-    .summary-item strong {
-      display: block;
-      color: var(--green);
-      font-family: "Oswald", sans-serif;
-      font-size: 34px;
-      line-height: 1;
-      margin-bottom: 7px;
-    }
-
-    .summary-item span {
-      color: var(--muted);
-      font-size: 12px;
-      font-weight: 950;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
     }
 
     .matches-list {
@@ -1041,8 +1019,8 @@
           <div class="section-label">Liga Escobarense</div>
           <h1>Таблица и<br>матчи</h1>
           <p>
-            Primera División B 2025-26 / Zona Escobar. Таблица, полный календарь Deportivo Moscu,
-            сыгранные матчи, будущие туры и общий матч-центр лиги.
+            Primera División B 2025-26 / Zona Escobar. Таблица, полный календарь Deportivo Moscu
+            и полный календарь лиги на 26 туров.
           </p>
 
           <div class="hero-buttons">
@@ -1104,7 +1082,7 @@
               <h3>Deportivo Moscu</h3>
               <p>
                 Команда Deportivo Moscu подсвечена в таблице неоновым цветом.
-                Расписание Deportivo берётся отдельно из полного календаря на 26 туров.
+                Вкладка “Все матчи лиги” теперь строит полный календарь на 26 туров.
               </p>
 
               <div class="mini-stats">
@@ -1128,10 +1106,6 @@
                   <span>Разница</span>
                 </div>
               </div>
-
-              <p>
-                Вкладка “Матчи Deportivo” показывает все туры: уже сыгранные и будущие.
-              </p>
             </aside>
           </div>
         </div>
@@ -1142,6 +1116,7 @@
         </div>
 
         <div class="tab-panel" id="allMatchesPanel">
+          <div class="schedule-summary" id="leagueSummary"></div>
           <div class="matches-list" id="allMatchesList"></div>
         </div>
       </div>
@@ -1198,6 +1173,208 @@
     const fullLeagueData = window.deportivoLeagueFull || {};
     const moscuScheduleData = window.deportivoLeague || {};
 
+    const baseFirstRound = [
+      [
+        ["Domingo Matheu", "La Sonia B"],
+        ["Colectividad Boliviana", "America"],
+        ["Falucho", "Villa Juana"],
+        ["Sportivo Union", "Tribuna Sport Club"],
+        ["Los Altos", "Fair Play"],
+        ["Deportivo Moscu", "Capitanes"],
+        ["Parque III", "Lomas Futbol"]
+      ],
+      [
+        ["Villa Juana", "Colectividad Boliviana"],
+        ["America", "Deportivo Moscu"],
+        ["Sportivo Union", "Los Altos"],
+        ["Tribuna Sport Club", "Parque III"],
+        ["Lomas Futbol", "Domingo Matheu"],
+        ["Capitanes", "Fair Play"],
+        ["La Sonia B", "Falucho"]
+      ],
+      [
+        ["Fair Play", "America"],
+        ["Colectividad Boliviana", "La Sonia B"],
+        ["Falucho", "Lomas Futbol"],
+        ["Domingo Matheu", "Tribuna Sport Club"],
+        ["Parque III", "Sportivo Union"],
+        ["Deportivo Moscu", "Villa Juana"],
+        ["Los Altos", "Capitanes"]
+      ],
+      [
+        ["Lomas Futbol", "Colectividad Boliviana"],
+        ["Villa Juana", "Fair Play"],
+        ["Tribuna Sport Club", "Falucho"],
+        ["Parque III", "Los Altos"],
+        ["Sportivo Union", "Domingo Matheu"],
+        ["La Sonia B", "Deportivo Moscu"],
+        ["America", "Capitanes"]
+      ],
+      [
+        ["Deportivo Moscu", "Lomas Futbol"],
+        ["Capitanes", "Villa Juana"],
+        ["Colectividad Boliviana", "Tribuna Sport Club"],
+        ["Domingo Matheu", "Parque III"],
+        ["Los Altos", "America"],
+        ["Fair Play", "La Sonia B"],
+        ["Falucho", "Sportivo Union"]
+      ],
+      [
+        ["Lomas Futbol", "Fair Play"],
+        ["Tribuna Sport Club", "Deportivo Moscu"],
+        ["Domingo Matheu", "Los Altos"],
+        ["Parque III", "Capitanes"],
+        ["Sportivo Union", "America"],
+        ["Villa Juana", "La Sonia B"],
+        ["Falucho", "Colectividad Boliviana"]
+      ],
+      [
+        ["Deportivo Moscu", "Sportivo Union"],
+        ["Capitanes", "Colectividad Boliviana"],
+        ["Los Altos", "Tribuna Sport Club"],
+        ["Villa Juana", "Domingo Matheu"],
+        ["La Sonia B", "Parque III"],
+        ["Lomas Futbol", "Falucho"],
+        ["Fair Play", "America"]
+      ],
+      [
+        ["Sportivo Union", "Fair Play"],
+        ["Falucho", "Los Altos"],
+        ["La Sonia B", "Villa Juana"],
+        ["Parque III", "Deportivo Moscu"],
+        ["Tribuna Sport Club", "Capitanes"],
+        ["Lomas Futbol", "America"],
+        ["Domingo Matheu", "Colectividad Boliviana"]
+      ],
+      [
+        ["America", "Tribuna Sport Club"],
+        ["Capitanes", "Sportivo Union"],
+        ["Colectividad Boliviana", "Falucho"],
+        ["Los Altos", "La Sonia B"],
+        ["Deportivo Moscu", "Domingo Matheu"],
+        ["Villa Juana", "Parque III"],
+        ["Fair Play", "Lomas Futbol"]
+      ],
+      [
+        ["Parque III", "Fair Play"],
+        ["Domingo Matheu", "Los Altos"],
+        ["Falucho", "Capitanes"],
+        ["Lomas Futbol", "Villa Juana"],
+        ["Deportivo Moscu", "America"],
+        ["Sportivo Union", "Colectividad Boliviana"],
+        ["Tribuna Sport Club", "La Sonia B"]
+      ],
+      [
+        ["Capitanes", "Domingo Matheu"],
+        ["Fair Play", "Falucho"],
+        ["Los Altos", "Lomas Futbol"],
+        ["Villa Juana", "Sportivo Union"],
+        ["America", "Parque III"],
+        ["Deportivo Moscu", "Colectividad Boliviana"],
+        ["La Sonia B", "Tribuna Sport Club"]
+      ],
+      [
+        ["Deportivo Moscu", "Los Altos"],
+        ["Colectividad Boliviana", "Fair Play"],
+        ["Sportivo Union", "La Sonia B"],
+        ["Tribuna Sport Club", "Lomas Futbol"],
+        ["Parque III", "Domingo Matheu"],
+        ["America", "Villa Juana"],
+        ["Falucho", "Capitanes"]
+      ],
+      [
+        ["Fair Play", "Deportivo Moscu"],
+        ["La Sonia B", "America"],
+        ["Lomas Futbol", "Sportivo Union"],
+        ["Domingo Matheu", "Villa Juana"],
+        ["Capitanes", "Parque III"],
+        ["Tribuna Sport Club", "Los Altos"],
+        ["Colectividad Boliviana", "Falucho"]
+      ]
+    ];
+
+    function buildFullLeagueFixture() {
+      const firstRound = baseFirstRound.flatMap((roundMatches, index) => {
+        return roundMatches.map((pair) => ({
+          round: `Fecha ${index + 1}`,
+          date: "A confirmar",
+          home: pair[0],
+          away: pair[1],
+          homeScore: null,
+          awayScore: null,
+          status: "upcoming"
+        }));
+      });
+
+      const secondRound = baseFirstRound.flatMap((roundMatches, index) => {
+        return roundMatches.map((pair) => ({
+          round: `Fecha ${index + 14}`,
+          date: "A confirmar",
+          home: pair[1],
+          away: pair[0],
+          homeScore: null,
+          awayScore: null,
+          status: "upcoming"
+        }));
+      });
+
+      return [...firstRound, ...secondRound];
+    }
+
+    function matchKey(match) {
+      return `${match.round}|${match.home}|${match.away}`.toLowerCase();
+    }
+
+    function matchReverseKey(match) {
+      return `${match.round}|${match.away}|${match.home}`.toLowerCase();
+    }
+
+    function normalizeRound(round) {
+      if (typeof round === "number") return `Fecha ${round}`;
+      if (!round) return "Fecha ?";
+      return String(round).startsWith("Fecha") ? String(round) : `Fecha ${round}`;
+    }
+
+    function normalizeMatch(match) {
+      return {
+        ...match,
+        round: normalizeRound(match.round),
+        date: match.date || "A confirmar",
+        homeScore: match.homeScore === undefined ? null : match.homeScore,
+        awayScore: match.awayScore === undefined ? null : match.awayScore,
+        status: match.status || ((match.homeScore !== null && match.awayScore !== null) ? "played" : "upcoming")
+      };
+    }
+
+    function overlayKnownResults(generatedMatches) {
+      const knownLeagueMatches = Array.isArray(fullLeagueData.matches) ? fullLeagueData.matches.map(normalizeMatch) : [];
+      const knownMoscuMatches = Array.isArray(moscuScheduleData.matches) ? moscuScheduleData.matches.map(normalizeMatch) : [];
+      const knownMatches = [...knownLeagueMatches, ...knownMoscuMatches];
+
+      const byKey = new Map();
+
+      knownMatches.forEach((match) => {
+        byKey.set(matchKey(match), match);
+      });
+
+      return generatedMatches.map((generated) => {
+        const direct = byKey.get(matchKey(generated));
+
+        if (direct) {
+          return {
+            ...generated,
+            date: direct.date || generated.date,
+            homeScore: direct.homeScore,
+            awayScore: direct.awayScore,
+            status: direct.status || generated.status,
+            note: direct.note || ""
+          };
+        }
+
+        return generated;
+      });
+    }
+
     function normalizeTable() {
       if (Array.isArray(fullLeagueData.table)) return fullLeagueData.table;
       if (Array.isArray(fullLeagueData.standings)) return fullLeagueData.standings;
@@ -1206,13 +1383,11 @@
       return [];
     }
 
-    function normalizeAllLeagueMatches() {
-      if (Array.isArray(fullLeagueData.matches)) return fullLeagueData.matches;
-      return [];
-    }
-
     function normalizeMoscuMatches() {
-      if (Array.isArray(moscuScheduleData.matches)) return moscuScheduleData.matches;
+      if (Array.isArray(moscuScheduleData.matches)) {
+        return moscuScheduleData.matches.map(normalizeMatch);
+      }
+
       return [];
     }
 
@@ -1236,8 +1411,7 @@
     }
 
     function getRoundName(match) {
-      if (typeof match.round === "number") return `Fecha ${match.round}`;
-      return match.round || "Матчи";
+      return normalizeRound(match.round);
     }
 
     function getScore(match) {
@@ -1255,8 +1429,8 @@
       const hasHome = match.homeScore !== undefined && match.homeScore !== null;
       const hasAway = match.awayScore !== undefined && match.awayScore !== null;
 
-      if (match.status === "upcoming") return "Ожидается";
       if (match.status === "played") return "Сыгран";
+      if (match.status === "upcoming") return "Ожидается";
 
       return hasHome && hasAway ? "Сыгран" : "Ожидается";
     }
@@ -1385,30 +1559,25 @@
       }).join("");
     }
 
-    function renderMoscuSummary(matches) {
-      const container = document.getElementById("moscuSummary");
+    function renderSummary(containerId, matches, labelTotal) {
+      const container = document.getElementById(containerId);
 
       if (!container) return;
 
       const total = matches.length;
       const played = matches.filter((match) => !isUpcoming(match)).length;
       const upcoming = matches.filter(isUpcoming).length;
-      const wins = matches.filter((match) => {
-        if (isUpcoming(match)) return false;
-
-        const home = isMoscu(match.home);
-        const away = isMoscu(match.away);
-
-        if (home) return Number(match.homeScore) > Number(match.awayScore);
-        if (away) return Number(match.awayScore) > Number(match.homeScore);
-
-        return false;
-      }).length;
+      const rounds = new Set(matches.map((match) => getRoundName(match))).size;
 
       container.innerHTML = `
         <div class="summary-item">
+          <strong>${rounds}</strong>
+          <span>${labelTotal}</span>
+        </div>
+
+        <div class="summary-item">
           <strong>${total}</strong>
-          <span>Всего туров</span>
+          <span>Матчей</span>
         </div>
 
         <div class="summary-item">
@@ -1419,11 +1588,6 @@
         <div class="summary-item">
           <strong>${upcoming}</strong>
           <span>Будущие</span>
-        </div>
-
-        <div class="summary-item">
-          <strong>${wins}</strong>
-          <span>Победы</span>
         </div>
       `;
     }
@@ -1444,14 +1608,18 @@
       });
     }
 
-    const table = normalizeTable();
-    const allLeagueMatches = normalizeAllLeagueMatches();
+    const generatedLeagueMatches = buildFullLeagueFixture();
+    const fullLeagueMatches = overlayKnownResults(generatedLeagueMatches);
     const moscuMatches = normalizeMoscuMatches();
 
     renderTable();
-    renderMoscuSummary(moscuMatches);
+
+    renderSummary("moscuSummary", moscuMatches, "Всего туров");
     renderMatchesList("moscuMatchesList", moscuMatches, "Матчи Deportivo скоро появятся");
-    renderMatchesList("allMatchesList", allLeagueMatches, "Общий календарь лиги скоро появится");
+
+    renderSummary("leagueSummary", fullLeagueMatches, "Туров лиги");
+    renderMatchesList("allMatchesList", fullLeagueMatches, "Матчи лиги скоро появятся");
+
     setupTabs();
   </script>
 </body>
