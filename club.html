@@ -133,10 +133,10 @@
     .main-nav {
       display: flex;
       align-items: center;
-      gap: 20px;
-      font-size: 12px;
+      gap: 18px;
+      font-size: 11px;
       font-weight: 950;
-      letter-spacing: 0.12em;
+      letter-spacing: 0.11em;
       text-transform: uppercase;
     }
 
@@ -205,7 +205,7 @@
     }
 
     .ticket-btn,
-    .club-btn {
+    .card-btn {
       display: inline-flex;
       align-items: center;
       justify-content: center;
@@ -223,7 +223,7 @@
     }
 
     .ticket-btn:hover,
-    .club-btn:hover {
+    .card-btn:hover {
       transform: translateY(-2px);
       box-shadow: 0 0 34px rgba(0, 255, 157, 0.42);
     }
@@ -328,7 +328,7 @@
     }
 
     .club-hero p {
-      max-width: 680px;
+      max-width: 700px;
       color: var(--muted);
       font-size: 18px;
       line-height: 1.65;
@@ -420,7 +420,7 @@
     }
 
     .club-section {
-      padding: 48px 0;
+      padding: 54px 0;
     }
 
     .section-title {
@@ -428,7 +428,7 @@
       font-size: clamp(38px, 5vw, 62px);
       line-height: 0.98;
       text-transform: uppercase;
-      margin: 0 0 22px;
+      margin: 0 0 18px;
       color: var(--green);
       letter-spacing: 0.12em;
       text-shadow: 0 0 20px rgba(0, 255, 157, 0.28);
@@ -438,34 +438,32 @@
       color: var(--muted);
       line-height: 1.75;
       font-size: 18px;
-      max-width: 820px;
-      margin: 0;
+      max-width: 880px;
+      margin: 0 0 34px;
     }
 
-    .story-grid,
     .values-grid,
-    .contacts-grid {
+    .info-grid,
+    .club-links-grid {
       display: grid;
       gap: 22px;
-      margin-top: 34px;
-    }
-
-    .story-grid {
-      grid-template-columns: 1fr 1fr;
     }
 
     .values-grid {
       grid-template-columns: repeat(4, 1fr);
     }
 
-    .contacts-grid {
-      grid-template-columns: 1.1fr 0.9fr;
+    .info-grid {
+      grid-template-columns: 1fr 1fr;
     }
 
-    .story-card,
+    .club-links-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
     .value-card,
-    .timeline-card,
-    .contact-card {
+    .info-card,
+    .club-link-card {
       position: relative;
       border: 1px solid var(--line);
       border-radius: 2px;
@@ -473,12 +471,12 @@
       box-shadow: 0 18px 54px rgba(0, 0, 0, 0.36);
       padding: 28px;
       overflow: hidden;
+      transition: 0.22s;
     }
 
-    .story-card::before,
     .value-card::before,
-    .timeline-card::before,
-    .contact-card::before {
+    .info-card::before,
+    .club-link-card::before {
       content: "";
       position: absolute;
       inset: 0;
@@ -489,26 +487,34 @@
       opacity: 0.85;
     }
 
-    .story-card h3,
-    .value-card h3,
-    .timeline-card h3,
-    .contact-card h3,
-    .story-card p,
-    .value-card p,
-    .timeline-card p,
-    .contact-card p,
-    .value-icon,
-    .contact-row,
-    .timeline-year,
-    .club-btn {
-      position: relative;
-      z-index: 2;
+    .club-link-card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(0, 255, 157, 0.48);
+      box-shadow: 0 0 44px rgba(0, 255, 157, 0.28), 0 28px 84px rgba(0, 0, 0, 0.48);
     }
 
-    .story-card h3,
+    .card-kicker,
+    .value-number {
+      position: relative;
+      z-index: 2;
+      display: inline-flex;
+      padding: 8px 12px;
+      border-radius: 4px;
+      background: rgba(0, 255, 157, 0.08);
+      border: 1px solid rgba(0, 255, 157, 0.18);
+      color: var(--green);
+      font-size: 12px;
+      font-weight: 950;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
     .value-card h3,
-    .timeline-card h3,
-    .contact-card h3 {
+    .info-card h3,
+    .club-link-card h3 {
+      position: relative;
+      z-index: 2;
       font-family: "Oswald", sans-serif;
       text-transform: uppercase;
       font-size: 30px;
@@ -517,67 +523,14 @@
       color: var(--text);
     }
 
-    .story-card p,
     .value-card p,
-    .timeline-card p,
-    .contact-card p {
+    .info-card p,
+    .club-link-card p {
+      position: relative;
+      z-index: 2;
       color: var(--muted);
       line-height: 1.65;
-      margin: 0;
-    }
-
-    .value-icon {
-      width: 54px;
-      height: 54px;
-      border-radius: 4px;
-      background: rgba(0, 255, 157, 0.08);
-      border: 1px solid var(--line);
-      color: var(--green);
-      display: grid;
-      place-items: center;
-      font-size: 28px;
-      margin-bottom: 16px;
-      box-shadow: var(--glow);
-    }
-
-    .timeline {
-      display: grid;
-      gap: 16px;
-      margin-top: 34px;
-    }
-
-    .timeline-card {
-      display: grid;
-      grid-template-columns: 150px 1fr;
-      gap: 20px;
-      align-items: center;
-    }
-
-    .timeline-year {
-      font-family: "Oswald", sans-serif;
-      font-size: 42px;
-      color: var(--green);
-      line-height: 1;
-      text-shadow: 0 0 20px rgba(0, 255, 157, 0.28);
-    }
-
-    .contact-card.green {
-      background:
-        radial-gradient(circle at 20% 14%, rgba(0, 255, 157, 0.16), transparent 34%),
-        linear-gradient(180deg, rgba(6, 24, 20, 0.94), rgba(2, 6, 5, 0.98));
-      border-color: rgba(0, 255, 157, 0.35);
-    }
-
-    .contact-row {
-      display: grid;
-      gap: 10px;
-      margin-top: 18px;
-      font-weight: 900;
-      color: var(--green);
-    }
-
-    .contact-row a {
-      color: var(--green);
+      margin: 0 0 20px;
     }
 
     .site-footer {
@@ -632,8 +585,8 @@
 
     @media (max-width: 1100px) {
       .main-nav {
-        gap: 14px;
-        font-size: 11px;
+        gap: 12px;
+        font-size: 10px;
       }
 
       .values-grid {
@@ -642,7 +595,9 @@
     }
 
     @media (max-width: 980px) {
-      .main-nav {
+      .main-nav,
+      .language-switcher,
+      .ticket-btn {
         display: none;
       }
 
@@ -650,14 +605,13 @@
         display: block;
       }
 
-      .ticket-btn {
-        display: none;
+      .club-hero-grid,
+      .info-grid,
+      .footer-grid {
+        grid-template-columns: 1fr;
       }
 
-      .club-hero-grid,
-      .story-grid,
-      .contacts-grid,
-      .footer-grid {
+      .club-links-grid {
         grid-template-columns: 1fr;
       }
 
@@ -675,7 +629,6 @@
         min-height: 76px;
       }
 
-      .language-switcher,
       .logo-text {
         display: none;
       }
@@ -689,15 +642,12 @@
         letter-spacing: 0.05em;
       }
 
-      .club-hero p {
+      .club-hero p,
+      .section-text {
         font-size: 16px;
       }
 
       .values-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .timeline-card {
         grid-template-columns: 1fr;
       }
 
@@ -724,27 +674,28 @@
       </a>
 
       <nav class="main-nav">
-        <a href="index.html" data-i18n="nav_home">Главная</a>
-        <a href="news.html" data-i18n="nav_news">Новости</a>
-        <a href="team.html" data-i18n="nav_team">Команда</a>
-        <a href="league.html" data-i18n="nav_matches">Матчи</a>
-        <a href="club.html" class="active" data-i18n="nav_club">Клуб</a>
-        <a href="stadium.html" data-i18n="nav_stadium">Стадион</a>
-        <a href="academy.html" data-i18n="nav_academy">Академия</a>
-        <a href="media.html" data-i18n="nav_media">Медиа</a>
-        <a href="store.html" data-i18n="nav_store">Магазин</a>
+        <a href="index.html">Главная</a>
+        <a href="news.html">Новости</a>
+        <a href="team.html">Команда</a>
+        <a href="league.html">Матчи</a>
+        <a href="club.html" class="active">Клуб</a>
+        <a href="stadium.html">Стадион</a>
+        <a href="academy.html">Академия</a>
+        <a href="management.html">Руководство</a>
+        <a href="media.html">Медиа</a>
+        <a href="store.html">Магазин</a>
       </nav>
 
       <div class="header-actions">
         <div class="language-switcher">
-          <button class="lang-btn active" data-lang="ru">RU</button>
-          <button class="lang-btn" data-lang="en">EN</button>
-          <button class="lang-btn" data-lang="es">ES</button>
+          <button class="lang-btn active" type="button">RU</button>
+          <button class="lang-btn" type="button">EN</button>
+          <button class="lang-btn" type="button">ES</button>
         </div>
 
-        <a href="store.html" class="ticket-btn" data-i18n="buy_tickets">Купить билеты</a>
+        <a href="store.html" class="ticket-btn">Купить билеты</a>
 
-        <button class="burger-btn" id="burgerBtn" aria-label="Menu">
+        <button class="burger-btn" id="burgerBtn" aria-label="Menu" type="button">
           <span></span>
           <span></span>
           <span></span>
@@ -753,15 +704,16 @@
     </div>
 
     <div class="mobile-menu" id="mobileMenu">
-      <a href="index.html" data-i18n="nav_home">Главная</a>
-      <a href="news.html" data-i18n="nav_news">Новости</a>
-      <a href="team.html" data-i18n="nav_team">Команда</a>
-      <a href="league.html" data-i18n="nav_matches">Матчи</a>
-      <a href="club.html" data-i18n="nav_club">Клуб</a>
-      <a href="stadium.html" data-i18n="nav_stadium">Стадион</a>
-      <a href="academy.html" data-i18n="nav_academy">Академия</a>
-      <a href="media.html" data-i18n="nav_media">Медиа</a>
-      <a href="store.html" data-i18n="nav_store">Магазин</a>
+      <a href="index.html">Главная</a>
+      <a href="news.html">Новости</a>
+      <a href="team.html">Команда</a>
+      <a href="league.html">Матчи</a>
+      <a href="club.html">Клуб</a>
+      <a href="stadium.html">Стадион</a>
+      <a href="academy.html">Академия</a>
+      <a href="management.html">Руководство</a>
+      <a href="media.html">Медиа</a>
+      <a href="store.html">Магазин</a>
     </div>
   </header>
 
@@ -769,18 +721,19 @@
     <section class="club-hero">
       <div class="container club-hero-grid">
         <div>
-          <div class="section-label" data-i18n="club_label">О клубе</div>
-          <h1 data-i18n="club_title">Deportivo<br>Moscu</h1>
-          <p data-i18n="club_subtitle">
-            Футбольный клуб, который соединяет Россию и Аргентину через спорт, культуру, характер и настоящую футбольную страсть.
+          <div class="section-label">О клубе</div>
+          <h1>Deportivo<br>Moscu</h1>
+          <p>
+            Deportivo Moscu — футбольный клуб в Буэнос-Айресе с зелёно-чёрной идентичностью,
+            русским характером, аргентинской футбольной энергией и амбициями расти как спортивный проект.
           </p>
         </div>
 
         <div class="hero-card">
           <div class="hero-card-inner">
             <img src="images/logo.png" alt="Deportivo Moscu">
-            <h2>DEPORTIVO MOSCU</h2>
-            <span data-i18n="hero_slogan">Футбол. Страсть. Москва.</span>
+            <h2>DM CLUB</h2>
+            <span>Характер. Команда. Будущее.</span>
           </div>
         </div>
       </div>
@@ -788,121 +741,135 @@
 
     <section class="club-section">
       <div class="container">
-        <h2 class="section-title" data-i18n="story_title">История клуба</h2>
-        <p class="section-text" data-i18n="story_text">
-          Deportivo Moscu — футбольный проект в Аргентине, созданный вокруг идеи объединить игроков, болельщиков и русско-аргентинское сообщество. Клуб развивает собственную идентичность, команду, медиа и спортивную инфраструктуру.
+        <h2 class="section-title">Идентичность клуба</h2>
+        <p class="section-text">
+          Клуб строится вокруг идеи сильной команды, уважения к эмблеме, дисциплины и современной футбольной культуры.
+          Deportivo Moscu должен быть не просто командой, а полноценным спортивным брендом с болельщиками,
+          медиа, академией, стадионом и клубной инфраструктурой.
         </p>
 
-        <div class="story-grid">
-          <div class="story-card">
-            <h3 data-i18n="mission_title">Миссия</h3>
-            <p data-i18n="mission_text">
-              Создать сильный, узнаваемый и честный футбольный клуб, который будет расти спортивно, медийно и культурно.
-            </p>
-          </div>
-
-          <div class="story-card">
-            <h3 data-i18n="vision_title">Видение</h3>
-            <p data-i18n="vision_text">
-              Стать клубом, который знают в Аргентине, России и за пределами двух стран — через футбол, стиль и результат.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="club-section">
-      <div class="container">
-        <h2 class="section-title" data-i18n="values_title">Ценности</h2>
-
         <div class="values-grid">
-          <div class="value-card">
-            <div class="value-icon">⚽</div>
-            <h3 data-i18n="value_football_title">Футбол</h3>
-            <p data-i18n="value_football_text">Игра, команда, дисциплина и уважение к сопернику.</p>
-          </div>
+          <article class="value-card">
+            <div class="value-number">01</div>
+            <h3>Эмблема</h3>
+            <p>Символ клуба — знак идентичности, за который команда выходит играть каждый матч.</p>
+          </article>
 
-          <div class="value-card">
-            <div class="value-icon">🔥</div>
-            <h3 data-i18n="value_character_title">Характер</h3>
-            <p data-i18n="value_character_text">Бороться до конца и сохранять веру даже в сложные минуты.</p>
-          </div>
+          <article class="value-card">
+            <div class="value-number">02</div>
+            <h3>Характер</h3>
+            <p>Команда должна играть смело, агрессивно, дисциплинированно и до последней минуты.</p>
+          </article>
 
-          <div class="value-card">
-            <div class="value-icon">🌍</div>
-            <h3 data-i18n="value_culture_title">Культура</h3>
-            <p data-i18n="value_culture_text">Связь России и Аргентины через спорт, людей и историю.</p>
-          </div>
+          <article class="value-card">
+            <div class="value-number">03</div>
+            <h3>Город</h3>
+            <p>Клуб развивается в Буэнос-Айресе и соединяет разные культуры через футбол.</p>
+          </article>
 
-          <div class="value-card">
-            <div class="value-icon">🟢</div>
-            <h3 data-i18n="value_family_title">Семья</h3>
-            <p data-i18n="value_family_text">Клуб — это игроки, staff, болельщики и все, кто верит в проект.</p>
-          </div>
+          <article class="value-card">
+            <div class="value-number">04</div>
+            <h3>Будущее</h3>
+            <p>Проект растёт через академию, медиа, стадион, партнёрства и профессиональную структуру.</p>
+          </article>
         </div>
       </div>
     </section>
 
     <section class="club-section">
       <div class="container">
-        <h2 class="section-title" data-i18n="timeline_title">Путь клуба</h2>
+        <h2 class="section-title">Структура проекта</h2>
 
-        <div class="timeline">
-          <div class="timeline-card">
-            <div class="timeline-year">2025</div>
-            <div>
-              <h3 data-i18n="timeline_1_title">Медиа-интерес</h3>
-              <p data-i18n="timeline_1_text">О клубе начинают писать российские, аргентинские и международные СМИ.</p>
-            </div>
-          </div>
+        <div class="info-grid">
+          <article class="info-card">
+            <div class="card-kicker">Спорт</div>
+            <h3>Команда и матчи</h3>
+            <p>
+              Основной фокус клуба — футбольная команда, участие в матчах, развитие состава,
+              работа тренерского штаба и рост спортивных результатов.
+            </p>
+          </article>
 
-          <div class="timeline-card">
-            <div class="timeline-year">2025/26</div>
-            <div>
-              <h3 data-i18n="timeline_2_title">Liga Escobarense</h3>
-              <p data-i18n="timeline_2_text">Команда выступает в Primera División B 2025-26 / Zona Escobar.</p>
-            </div>
-          </div>
+          <article class="info-card">
+            <div class="card-kicker">Развитие</div>
+            <h3>Академия</h3>
+            <p>
+              Академия нужна для будущего набора молодых игроков, тренировочного процесса,
+              воспитания футбольной культуры и создания системы развития.
+            </p>
+          </article>
 
-          <div class="timeline-card">
-            <div class="timeline-year">NEXT</div>
-            <div>
-              <h3 data-i18n="timeline_3_title">Развитие</h3>
-              <p data-i18n="timeline_3_text">Следующий этап — академия, партнёры, магазин, медиа, стадион и рост болельщицкой базы.</p>
-            </div>
-          </div>
+          <article class="info-card">
+            <div class="card-kicker">Инфраструктура</div>
+            <h3>Стадион</h3>
+            <p>
+              Проект стадиона — важная часть будущего клуба: закрытая арена, трибуны близко к полю,
+              клубная атмосфера и медиа-пространство.
+            </p>
+          </article>
+
+          <article class="info-card">
+            <div class="card-kicker">Медиа</div>
+            <h3>Бренд и контент</h3>
+            <p>
+              Соцсети, новости, афиши, фото, видео и магазин формируют образ клуба и помогают привлечь
+              болельщиков, партнёров и игроков.
+            </p>
+          </article>
         </div>
       </div>
     </section>
 
     <section class="club-section">
       <div class="container">
-        <h2 class="section-title" data-i18n="contacts_title">Контакты и партнёрство</h2>
+        <h2 class="section-title">Разделы клуба</h2>
+        <p class="section-text">
+          Основные страницы сайта, которые постепенно будут заполняться реальными фото, новостями,
+          матчами, составом, проектами и клубной информацией.
+        </p>
 
-        <div class="contacts-grid">
-          <div class="contact-card green">
-            <h3 data-i18n="partner_title">Стать партнёром клуба</h3>
-            <p data-i18n="partner_text">
-              Deportivo Moscu открыт для сотрудничества с брендами, медиа, спортивными организациями и бизнесом.
-            </p>
-            <div class="contact-row">
-              <span>info@deportivomoscu.com</span>
-              <span>Buenos Aires, Argentina</span>
-              <a href="stadium.html" class="club-btn" data-i18n="stadium_project">Проект стадиона</a>
-            </div>
-          </div>
+        <div class="club-links-grid">
+          <article class="club-link-card">
+            <div class="card-kicker">Состав</div>
+            <h3>Команда</h3>
+            <p>Игроки Deportivo Moscu, позиции, карточки, гражданство и статистика.</p>
+            <a href="team.html" class="card-btn">Открыть</a>
+          </article>
 
-          <div class="contact-card">
-            <h3 data-i18n="fans_title">Для болельщиков</h3>
-            <p data-i18n="fans_text">
-              Следите за новостями, матчами и составом команды на официальном сайте Deportivo Moscu.
-            </p>
-            <div class="contact-row">
-              <a href="news.html" data-i18n="go_news">Перейти в новости</a>
-              <a href="league.html" data-i18n="go_matches">Перейти к матчам</a>
-              <a href="team.html" data-i18n="go_team">Перейти к команде</a>
-            </div>
-          </div>
+          <article class="club-link-card">
+            <div class="card-kicker">Управление</div>
+            <h3>Руководство</h3>
+            <p>Президент, казначей, главный тренер, СММ и тренерский штаб клуба.</p>
+            <a href="management.html" class="card-btn">Открыть</a>
+          </article>
+
+          <article class="club-link-card">
+            <div class="card-kicker">Арена</div>
+            <h3>Стадион</h3>
+            <p>Проект нового закрытого стадиона Deportivo Moscu в Буэнос-Айресе.</p>
+            <a href="stadium.html" class="card-btn">Открыть</a>
+          </article>
+
+          <article class="club-link-card">
+            <div class="card-kicker">Развитие</div>
+            <h3>Академия</h3>
+            <p>Программы подготовки молодых футболистов и заявка на пробную тренировку.</p>
+            <a href="academy.html" class="card-btn">Открыть</a>
+          </article>
+
+          <article class="club-link-card">
+            <div class="card-kicker">Контент</div>
+            <h3>Медиа</h3>
+            <p>Фото, видео, афиши, визуальный стиль и материалы клуба.</p>
+            <a href="media.html" class="card-btn">Открыть</a>
+          </article>
+
+          <article class="club-link-card">
+            <div class="card-kicker">Коммерция</div>
+            <h3>Магазин</h3>
+            <p>Форма, билеты, атрибутика и будущая коммерческая часть клуба.</p>
+            <a href="store.html" class="card-btn">Открыть</a>
+          </article>
         </div>
       </div>
     </section>
@@ -913,26 +880,27 @@
       <div class="footer-brand">
         <img src="images/logo.png" alt="Deportivo Moscu">
         <h3>Deportivo Moscu</h3>
-        <p data-i18n="footer_slogan">Единый город. Одна страсть. Одна зелёно-чёрная семья.</p>
+        <p>Единый город. Одна страсть. Одна зелёно-чёрная семья.</p>
       </div>
 
       <div class="footer-col">
-        <h4 data-i18n="nav_club">Клуб</h4>
-        <a href="club.html" data-i18n="about_club">О клубе</a>
-        <a href="team.html" data-i18n="nav_team">Команда</a>
-        <a href="league.html" data-i18n="nav_matches">Матчи</a>
-        <a href="stadium.html" data-i18n="nav_stadium">Стадион</a>
+        <h4>Клуб</h4>
+        <a href="club.html">О клубе</a>
+        <a href="team.html">Команда</a>
+        <a href="league.html">Матчи</a>
+        <a href="stadium.html">Стадион</a>
+        <a href="management.html">Руководство</a>
       </div>
 
       <div class="footer-col">
-        <h4 data-i18n="help">Помощь</h4>
-        <a href="store.html" data-i18n="tickets">Билеты</a>
-        <a href="academy.html" data-i18n="academy_request">Запись в академию</a>
-        <a href="media.html" data-i18n="media_center">Медиацентр</a>
+        <h4>Помощь</h4>
+        <a href="store.html">Билеты</a>
+        <a href="academy.html">Запись в академию</a>
+        <a href="media.html">Медиацентр</a>
       </div>
 
       <div class="footer-col">
-        <h4 data-i18n="contacts">Контакты</h4>
+        <h4>Контакты</h4>
         <p>Buenos Aires, Argentina</p>
         <p>info@deportivomoscu.com</p>
         <p>+54 11 0000-0000</p>
@@ -941,198 +909,14 @@
   </footer>
 
   <script>
-    const translations = {
-      ru: {
-        nav_home: "Главная",
-        nav_news: "Новости",
-        nav_team: "Команда",
-        nav_matches: "Матчи",
-        nav_club: "Клуб",
-        nav_stadium: "Стадион",
-        nav_academy: "Академия",
-        nav_media: "Медиа",
-        nav_store: "Магазин",
-        buy_tickets: "Купить билеты",
-        club_label: "О клубе",
-        club_title: "Deportivo<br>Moscu",
-        club_subtitle: "Футбольный клуб, который соединяет Россию и Аргентину через спорт, культуру, характер и настоящую футбольную страсть.",
-        hero_slogan: "Футбол. Страсть. Москва.",
-        story_title: "История клуба",
-        story_text: "Deportivo Moscu — футбольный проект в Аргентине, созданный вокруг идеи объединить игроков, болельщиков и русско-аргентинское сообщество. Клуб развивает собственную идентичность, команду, медиа и спортивную инфраструктуру.",
-        mission_title: "Миссия",
-        mission_text: "Создать сильный, узнаваемый и честный футбольный клуб, который будет расти спортивно, медийно и культурно.",
-        vision_title: "Видение",
-        vision_text: "Стать клубом, который знают в Аргентине, России и за пределами двух стран — через футбол, стиль и результат.",
-        values_title: "Ценности",
-        value_football_title: "Футбол",
-        value_football_text: "Игра, команда, дисциплина и уважение к сопернику.",
-        value_character_title: "Характер",
-        value_character_text: "Бороться до конца и сохранять веру даже в сложные минуты.",
-        value_culture_title: "Культура",
-        value_culture_text: "Связь России и Аргентины через спорт, людей и историю.",
-        value_family_title: "Семья",
-        value_family_text: "Клуб — это игроки, staff, болельщики и все, кто верит в проект.",
-        timeline_title: "Путь клуба",
-        timeline_1_title: "Медиа-интерес",
-        timeline_1_text: "О клубе начинают писать российские, аргентинские и международные СМИ.",
-        timeline_2_title: "Liga Escobarense",
-        timeline_2_text: "Команда выступает в Primera División B 2025-26 / Zona Escobar.",
-        timeline_3_title: "Развитие",
-        timeline_3_text: "Следующий этап — академия, партнёры, магазин, медиа, стадион и рост болельщицкой базы.",
-        contacts_title: "Контакты и партнёрство",
-        partner_title: "Стать партнёром клуба",
-        partner_text: "Deportivo Moscu открыт для сотрудничества с брендами, медиа, спортивными организациями и бизнесом.",
-        fans_title: "Для болельщиков",
-        fans_text: "Следите за новостями, матчами и составом команды на официальном сайте Deportivo Moscu.",
-        stadium_project: "Проект стадиона",
-        go_news: "Перейти в новости",
-        go_matches: "Перейти к матчам",
-        go_team: "Перейти к команде",
-        footer_slogan: "Единый город. Одна страсть. Одна зелёно-чёрная семья.",
-        about_club: "О клубе",
-        help: "Помощь",
-        tickets: "Билеты",
-        academy_request: "Запись в академию",
-        media_center: "Медиацентр",
-        contacts: "Контакты"
-      },
-      en: {
-        nav_home: "Home",
-        nav_news: "News",
-        nav_team: "Team",
-        nav_matches: "Matches",
-        nav_club: "Club",
-        nav_stadium: "Stadium",
-        nav_academy: "Academy",
-        nav_media: "Media",
-        nav_store: "Store",
-        buy_tickets: "Buy tickets",
-        club_label: "About club",
-        club_title: "Deportivo<br>Moscu",
-        club_subtitle: "A football club connecting Russia and Argentina through sport, culture, character and true football passion.",
-        hero_slogan: "Football. Passion. Moscow.",
-        story_title: "Club story",
-        story_text: "Deportivo Moscu is a football project in Argentina built around the idea of uniting players, supporters and the Russian-Argentine community. The club develops its own identity, team, media and sports infrastructure.",
-        mission_title: "Mission",
-        mission_text: "To build a strong, recognizable and honest football club that grows in sport, media and culture.",
-        vision_title: "Vision",
-        vision_text: "To become a club known in Argentina, Russia and beyond — through football, style and results.",
-        values_title: "Values",
-        value_football_title: "Football",
-        value_football_text: "The game, the team, discipline and respect for opponents.",
-        value_character_title: "Character",
-        value_character_text: "Fight until the end and keep faith even in difficult moments.",
-        value_culture_title: "Culture",
-        value_culture_text: "A connection between Russia and Argentina through sport, people and history.",
-        value_family_title: "Family",
-        value_family_text: "The club is players, staff, supporters and everyone who believes in the project.",
-        timeline_title: "Club path",
-        timeline_1_title: "Media interest",
-        timeline_1_text: "Russian, Argentine and international media begin covering the club.",
-        timeline_2_title: "Liga Escobarense",
-        timeline_2_text: "The team competes in Primera División B 2025-26 / Zona Escobar.",
-        timeline_3_title: "Development",
-        timeline_3_text: "The next stage is academy, partners, store, media, stadium and supporter growth.",
-        contacts_title: "Contacts and partnership",
-        partner_title: "Become a club partner",
-        partner_text: "Deportivo Moscu is open to cooperation with brands, media, sports organizations and businesses.",
-        fans_title: "For supporters",
-        fans_text: "Follow news, matches and the squad on the official Deportivo Moscu website.",
-        stadium_project: "Stadium project",
-        go_news: "Go to news",
-        go_matches: "Go to matches",
-        go_team: "Go to team",
-        footer_slogan: "One city. One passion. One green-and-black family.",
-        about_club: "About club",
-        help: "Help",
-        tickets: "Tickets",
-        academy_request: "Academy application",
-        media_center: "Media center",
-        contacts: "Contacts"
-      },
-      es: {
-        nav_home: "Inicio",
-        nav_news: "Noticias",
-        nav_team: "Equipo",
-        nav_matches: "Partidos",
-        nav_club: "Club",
-        nav_stadium: "Estadio",
-        nav_academy: "Academia",
-        nav_media: "Media",
-        nav_store: "Tienda",
-        buy_tickets: "Comprar entradas",
-        club_label: "Sobre el club",
-        club_title: "Deportivo<br>Moscu",
-        club_subtitle: "Un club de fútbol que conecta Rusia y Argentina a través del deporte, la cultura, el carácter y la verdadera pasión futbolera.",
-        hero_slogan: "Fútbol. Pasión. Moscú.",
-        story_title: "Historia del club",
-        story_text: "Deportivo Moscu es un proyecto futbolístico en Argentina creado con la idea de unir jugadores, hinchas y la comunidad ruso-argentina. El club desarrolla su propia identidad, equipo, medios e infraestructura deportiva.",
-        mission_title: "Misión",
-        mission_text: "Crear un club fuerte, reconocible y honesto que crezca deportiva, mediática y culturalmente.",
-        vision_title: "Visión",
-        vision_text: "Convertirse en un club conocido en Argentina, Rusia y más allá, a través del fútbol, el estilo y los resultados.",
-        values_title: "Valores",
-        value_football_title: "Fútbol",
-        value_football_text: "El juego, el equipo, la disciplina y el respeto al rival.",
-        value_character_title: "Carácter",
-        value_character_text: "Luchar hasta el final y mantener la fe incluso en los momentos difíciles.",
-        value_culture_title: "Cultura",
-        value_culture_text: "La conexión entre Rusia y Argentina a través del deporte, la gente y la historia.",
-        value_family_title: "Familia",
-        value_family_text: "El club son jugadores, staff, hinchas y todos los que creen en el proyecto.",
-        timeline_title: "Camino del club",
-        timeline_1_title: "Interés mediático",
-        timeline_1_text: "Medios rusos, argentinos e internacionales comienzan a hablar del club.",
-        timeline_2_title: "Liga Escobarense",
-        timeline_2_text: "El equipo compite en Primera División B 2025-26 / Zona Escobar.",
-        timeline_3_title: "Desarrollo",
-        timeline_3_text: "La siguiente etapa es academia, socios, tienda, media, estadio y crecimiento de la hinchada.",
-        contacts_title: "Contactos y alianzas",
-        partner_title: "Ser socio del club",
-        partner_text: "Deportivo Moscu está abierto a colaborar con marcas, medios, organizaciones deportivas y empresas.",
-        fans_title: "Para hinchas",
-        fans_text: "Sigue las noticias, partidos y plantilla en el sitio oficial de Deportivo Moscu.",
-        stadium_project: "Proyecto de estadio",
-        go_news: "Ir a noticias",
-        go_matches: "Ir a partidos",
-        go_team: "Ir al equipo",
-        footer_slogan: "Una ciudad. Una pasión. Una familia verde y negra.",
-        about_club: "Sobre el club",
-        help: "Ayuda",
-        tickets: "Entradas",
-        academy_request: "Inscripción academia",
-        media_center: "Media center",
-        contacts: "Contactos"
-      }
-    };
+    const burgerBtn = document.getElementById("burgerBtn");
+    const mobileMenu = document.getElementById("mobileMenu");
 
-    function setLanguage(lang) {
-      document.documentElement.lang = lang;
-
-      document.querySelectorAll("[data-i18n]").forEach((element) => {
-        const key = element.getAttribute("data-i18n");
-
-        if (translations[lang] && translations[lang][key]) {
-          element.innerHTML = translations[lang][key];
-        }
-      });
-
-      document.querySelectorAll(".lang-btn").forEach((button) => {
-        button.classList.toggle("active", button.dataset.lang === lang);
+    if (burgerBtn && mobileMenu) {
+      burgerBtn.addEventListener("click", () => {
+        mobileMenu.classList.toggle("open");
       });
     }
-
-    document.querySelectorAll(".lang-btn").forEach((button) => {
-      button.addEventListener("click", () => {
-        setLanguage(button.dataset.lang);
-      });
-    });
-
-    document.getElementById("burgerBtn").addEventListener("click", () => {
-      document.getElementById("mobileMenu").classList.toggle("open");
-    });
-
-    setLanguage("ru");
   </script>
 </body>
 </html>
