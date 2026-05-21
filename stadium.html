@@ -1,1 +1,1390 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+  <title>Стадион — Deportivo Moscu</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #020605;
+      --panel: rgba(4, 21, 18, 0.84);
+      --line: rgba(0, 255, 157, 0.22);
+      --green: #00ff9d;
+      --cyan: #39ffe1;
+      --text: rgba(237, 255, 249, 0.96);
+      --muted: rgba(218, 255, 244, 0.62);
+      --shadow: 0 26px 80px rgba(0, 0, 0, 0.48);
+      --glow: 0 0 32px rgba(0, 255, 157, 0.24);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      background: var(--bg);
+    }
+
+    body {
+      margin: 0;
+      font-family: "Inter", sans-serif;
+      background:
+        radial-gradient(circle at 12% 6%, rgba(0, 255, 157, 0.15), transparent 28%),
+        radial-gradient(circle at 88% 10%, rgba(57, 255, 225, 0.1), transparent 32%),
+        radial-gradient(circle at 50% 70%, rgba(0, 255, 157, 0.08), transparent 38%),
+        linear-gradient(180deg, #020605 0%, #06110f 42%, #020605 100%);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: -2;
+      background:
+        linear-gradient(rgba(0, 255, 157, 0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 255, 157, 0.035) 1px, transparent 1px);
+      background-size: 56px 56px;
+      mask-image: radial-gradient(circle at center, black 0%, transparent 80%);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button {
+      font-family: inherit;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    .container {
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(2, 6, 5, 0.78);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--line);
+      box-shadow: 0 14px 44px rgba(0, 0, 0, 0.42);
+    }
+
+    .header-inner {
+      min-height: 86px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 22px;
+    }
+
+    .logo-box {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 210px;
+    }
+
+    .logo-img {
+      width: 58px;
+      height: 58px;
+      object-fit: contain;
+      filter: drop-shadow(0 0 18px rgba(0, 255, 157, 0.34));
+    }
+
+    .logo-text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .logo-text span {
+      font-size: 12px;
+      font-weight: 800;
+      color: rgba(237, 255, 249, 0.82);
+    }
+
+    .logo-text strong {
+      font-family: "Oswald", sans-serif;
+      font-size: 25px;
+      color: rgba(237, 255, 249, 0.98);
+      letter-spacing: 0.18em;
+      text-shadow: 0 0 22px rgba(0, 255, 157, 0.34);
+    }
+
+    .main-nav {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      font-size: 12px;
+      font-weight: 950;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .main-nav a {
+      position: relative;
+      color: rgba(237, 255, 249, 0.76);
+      transition: 0.2s;
+      white-space: nowrap;
+    }
+
+    .main-nav a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: -12px;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--green), transparent);
+      opacity: 0;
+      transform: scaleX(0.4);
+      transition: 0.2s;
+      box-shadow: var(--glow);
+    }
+
+    .main-nav a:hover,
+    .main-nav a.active {
+      color: var(--green);
+      text-shadow: 0 0 16px rgba(0, 255, 157, 0.5);
+    }
+
+    .main-nav a:hover::after,
+    .main-nav a.active::after {
+      opacity: 1;
+      transform: scaleX(1);
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .language-switcher {
+      display: flex;
+      background: rgba(0, 255, 157, 0.055);
+      padding: 4px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+    }
+
+    .lang-btn {
+      border: 0;
+      background: transparent;
+      color: rgba(237, 255, 249, 0.72);
+      padding: 8px 10px;
+      border-radius: 999px;
+      font-weight: 950;
+      cursor: pointer;
+      font-size: 12px;
+    }
+
+    .lang-btn.active {
+      background: var(--green);
+      color: #00130c;
+      box-shadow: 0 0 24px rgba(0, 255, 157, 0.42);
+    }
+
+    .header-btn,
+    .stadium-link,
+    .cta-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 4px;
+      padding: 14px 20px;
+      font-size: 12px;
+      font-weight: 950;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      background: linear-gradient(135deg, var(--green), var(--cyan));
+      color: #00130c;
+      border: 1px solid rgba(0, 255, 157, 0.58);
+      box-shadow: 0 0 24px rgba(0, 255, 157, 0.28);
+      transition: 0.2s;
+      width: fit-content;
+    }
+
+    .header-btn:hover,
+    .stadium-link:hover,
+    .cta-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 34px rgba(0, 255, 157, 0.42);
+    }
+
+    .burger-btn {
+      display: none;
+      width: 42px;
+      height: 42px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: rgba(0, 255, 157, 0.055);
+      cursor: pointer;
+      padding: 9px;
+    }
+
+    .burger-btn span {
+      display: block;
+      height: 2px;
+      background: var(--green);
+      margin: 5px 0;
+      box-shadow: var(--glow);
+    }
+
+    .mobile-menu {
+      display: none;
+      padding: 16px;
+      border-top: 1px solid var(--line);
+      background: rgba(2, 6, 5, 0.96);
+    }
+
+    .mobile-menu.open {
+      display: grid;
+      gap: 12px;
+    }
+
+    .mobile-menu a {
+      padding: 14px;
+      border-radius: 10px;
+      background: rgba(0, 255, 157, 0.055);
+      border: 1px solid var(--line);
+      color: rgba(237, 255, 249, 0.86);
+      font-weight: 950;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .stadium-hero {
+      position: relative;
+      padding: 78px 0 54px;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 74% 26%, rgba(0, 255, 157, 0.17), transparent 28%),
+        radial-gradient(circle at 34% 70%, rgba(57, 255, 225, 0.08), transparent 30%),
+        linear-gradient(180deg, rgba(2, 6, 5, 0.2) 0%, rgba(2, 6, 5, 0.92) 100%);
+    }
+
+    .stadium-hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background:
+        linear-gradient(90deg, rgba(0, 255, 157, 0.12), transparent 22%, transparent 78%, rgba(0, 255, 157, 0.08)),
+        linear-gradient(180deg, transparent 0%, rgba(0, 255, 157, 0.06) 100%);
+      opacity: 0.85;
+    }
+
+    .stadium-hero-grid {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      grid-template-columns: 1.02fr 0.98fr;
+      align-items: center;
+      gap: 44px;
+    }
+
+    .section-label {
+      display: inline-flex;
+      padding: 8px 12px;
+      border-radius: 4px;
+      background: rgba(0, 255, 157, 0.08);
+      border: 1px solid var(--line);
+      color: var(--green);
+      font-weight: 950;
+      font-size: 12px;
+      margin-bottom: 18px;
+      text-transform: uppercase;
+      letter-spacing: 0.22em;
+    }
+
+    .stadium-hero h1 {
+      font-family: "Oswald", sans-serif;
+      font-size: clamp(50px, 8vw, 96px);
+      line-height: 0.9;
+      margin: 0;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(237, 255, 249, 0.96);
+      text-shadow:
+        0 0 18px rgba(0, 255, 157, 0.22),
+        0 0 48px rgba(57, 255, 225, 0.12);
+    }
+
+    .stadium-hero p {
+      max-width: 700px;
+      color: var(--muted);
+      font-size: 18px;
+      line-height: 1.7;
+      margin: 24px 0 0;
+      font-weight: 700;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-top: 28px;
+    }
+
+    .ghost-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 4px;
+      padding: 14px 20px;
+      font-size: 12px;
+      font-weight: 950;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      background: rgba(0, 255, 157, 0.05);
+      color: var(--text);
+      border: 1px solid var(--line);
+      transition: 0.2s;
+    }
+
+    .ghost-btn:hover {
+      color: var(--green);
+      border-color: rgba(0, 255, 157, 0.48);
+      box-shadow: var(--glow);
+    }
+
+    .hero-visual {
+      min-height: 420px;
+      border-radius: 2px;
+      background:
+        linear-gradient(rgba(2, 6, 5, 0.28), rgba(2, 6, 5, 0.54)),
+        url('images/stadium-project.png'),
+        radial-gradient(circle at 50% 34%, rgba(0, 255, 157, 0.18), transparent 34%),
+        linear-gradient(145deg, #020605, #0a3025);
+      background-size: cover;
+      background-position: center;
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow), var(--glow);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-visual::before {
+      content: "";
+      position: absolute;
+      inset: 18px;
+      border: 1px solid rgba(0, 255, 157, 0.18);
+      pointer-events: none;
+      box-shadow: inset 0 0 44px rgba(0, 255, 157, 0.08);
+    }
+
+    .hero-visual::after {
+      content: "ESTADIO DEPORTIVO MOSCU";
+      position: absolute;
+      left: 24px;
+      bottom: 20px;
+      color: rgba(237, 255, 249, 0.92);
+      font-family: "Oswald", sans-serif;
+      font-size: 26px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-shadow: 0 0 24px rgba(0, 255, 157, 0.28);
+    }
+
+    .stadium-section {
+      padding: 48px 0;
+    }
+
+    .section-title {
+      font-family: "Oswald", sans-serif;
+      font-size: clamp(38px, 5vw, 62px);
+      line-height: 0.98;
+      text-transform: uppercase;
+      margin: 0 0 22px;
+      color: var(--green);
+      letter-spacing: 0.12em;
+      text-shadow: 0 0 20px rgba(0, 255, 157, 0.28);
+    }
+
+    .section-text {
+      color: var(--muted);
+      line-height: 1.75;
+      font-size: 18px;
+      max-width: 850px;
+      margin: 0;
+    }
+
+    .stats-grid,
+    .concept-grid,
+    .plan-grid,
+    .features-grid,
+    .stages-grid,
+    .infra-grid {
+      display: grid;
+      gap: 22px;
+      margin-top: 34px;
+    }
+
+    .stats-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    .concept-grid {
+      grid-template-columns: 1.05fr 0.95fr;
+      align-items: start;
+    }
+
+    .plan-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .features-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .stages-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    .infra-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    .stat-card,
+    .glass-card,
+    .feature-card,
+    .stage-card,
+    .infra-card {
+      position: relative;
+      border: 1px solid var(--line);
+      border-radius: 2px;
+      background: var(--panel);
+      box-shadow: 0 18px 54px rgba(0, 0, 0, 0.36);
+      overflow: hidden;
+    }
+
+    .stat-card::before,
+    .glass-card::before,
+    .feature-card::before,
+    .stage-card::before,
+    .infra-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background:
+        linear-gradient(135deg, rgba(0, 255, 157, 0.08), transparent 42%),
+        linear-gradient(180deg, transparent, rgba(0, 255, 157, 0.035));
+      opacity: 0.85;
+    }
+
+    .stat-card {
+      padding: 24px;
+    }
+
+    .stat-card strong,
+    .stat-card span,
+    .glass-card h3,
+    .glass-card p,
+    .feature-card h3,
+    .feature-card p,
+    .stage-card h3,
+    .stage-card p,
+    .infra-card h3,
+    .infra-card p {
+      position: relative;
+      z-index: 2;
+    }
+
+    .stat-card strong {
+      display: block;
+      font-family: "Oswald", sans-serif;
+      font-size: 44px;
+      color: var(--green);
+      line-height: 1;
+      letter-spacing: 0.05em;
+      text-shadow: 0 0 18px rgba(0, 255, 157, 0.28);
+    }
+
+    .stat-card span {
+      display: block;
+      margin-top: 10px;
+      color: var(--muted);
+      font-weight: 900;
+      line-height: 1.5;
+      text-transform: uppercase;
+      font-size: 13px;
+      letter-spacing: 0.08em;
+    }
+
+    .glass-card {
+      padding: 28px;
+    }
+
+    .glass-card h3,
+    .feature-card h3,
+    .stage-card h3,
+    .infra-card h3 {
+      font-family: "Oswald", sans-serif;
+      text-transform: uppercase;
+      font-size: 28px;
+      line-height: 1.05;
+      margin: 0 0 14px;
+      letter-spacing: 0.08em;
+      color: var(--text);
+    }
+
+    .glass-card p,
+    .feature-card p,
+    .stage-card p,
+    .infra-card p {
+      color: var(--muted);
+      line-height: 1.7;
+      margin: 0;
+    }
+
+    .render-card {
+      min-height: 420px;
+      background:
+        linear-gradient(rgba(2, 6, 5, 0.24), rgba(2, 6, 5, 0.48)),
+        url('images/stadium-project.png'),
+        linear-gradient(145deg, #020605, #0a3025);
+      background-size: cover;
+      background-position: center;
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow), var(--glow);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .render-card::before {
+      content: "";
+      position: absolute;
+      inset: 18px;
+      border: 1px solid rgba(0, 255, 157, 0.18);
+      pointer-events: none;
+    }
+
+    .render-label {
+      position: absolute;
+      left: 22px;
+      top: 22px;
+      z-index: 2;
+      background: rgba(0, 255, 157, 0.08);
+      color: var(--green);
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      padding: 8px 12px;
+      font-weight: 950;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      box-shadow: var(--glow);
+    }
+
+    .plan-visual {
+      min-height: 320px;
+      border: 1px solid var(--line);
+      background:
+        linear-gradient(rgba(2, 6, 5, 0.34), rgba(2, 6, 5, 0.34)),
+        url('images/stadium-project.png'),
+        linear-gradient(145deg, #020605, #0a3025);
+      background-size: cover;
+      background-position: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .plan-visual::after {
+      content: "PROJECT VIEW";
+      position: absolute;
+      right: 18px;
+      bottom: 16px;
+      color: rgba(0, 255, 157, 0.42);
+      font-size: 11px;
+      font-weight: 950;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+    }
+
+    .plan-list {
+      display: grid;
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .plan-item {
+      padding: 14px 16px;
+      border: 1px solid rgba(0, 255, 157, 0.16);
+      background: rgba(0, 255, 157, 0.045);
+      color: var(--text);
+      font-weight: 800;
+      border-radius: 4px;
+      line-height: 1.55;
+    }
+
+    .feature-card,
+    .stage-card,
+    .infra-card {
+      padding: 24px;
+    }
+
+    .feature-icon,
+    .infra-icon,
+    .stage-number {
+      position: relative;
+      z-index: 2;
+      width: 58px;
+      height: 58px;
+      border-radius: 4px;
+      background: rgba(0, 255, 157, 0.08);
+      border: 1px solid var(--line);
+      color: var(--green);
+      display: grid;
+      place-items: center;
+      font-size: 26px;
+      margin-bottom: 18px;
+      box-shadow: var(--glow);
+    }
+
+    .stage-number {
+      font-family: "Oswald", sans-serif;
+      font-size: 28px;
+      font-weight: 900;
+    }
+
+    .cta-panel {
+      margin-top: 34px;
+      padding: 30px;
+      border: 1px solid rgba(0, 255, 157, 0.28);
+      background:
+        radial-gradient(circle at 20% 14%, rgba(0, 255, 157, 0.16), transparent 34%),
+        linear-gradient(180deg, rgba(6, 24, 20, 0.94), rgba(2, 6, 5, 0.98));
+      box-shadow: var(--shadow), var(--glow);
+    }
+
+    .cta-panel h3 {
+      font-family: "Oswald", sans-serif;
+      font-size: 34px;
+      line-height: 1;
+      margin: 0 0 14px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text);
+    }
+
+    .cta-panel p {
+      color: var(--muted);
+      line-height: 1.7;
+      margin: 0 0 20px;
+    }
+
+    .site-footer {
+      background:
+        radial-gradient(circle at 20% 0%, rgba(0, 255, 157, 0.1), transparent 30%),
+        linear-gradient(180deg, rgba(4, 16, 14, 0.96), #020605);
+      color: var(--text);
+      padding: 54px 0;
+      border-top: 1px solid var(--line);
+      margin-top: 42px;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.3fr repeat(3, 1fr);
+      gap: 34px;
+    }
+
+    .footer-brand img {
+      width: 90px;
+      margin-bottom: 14px;
+      filter: drop-shadow(0 0 18px rgba(0, 255, 157, 0.24));
+    }
+
+    .footer-brand h3 {
+      font-family: "Oswald", sans-serif;
+      font-size: 30px;
+      margin: 0;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    .footer-brand p,
+    .footer-col p,
+    .footer-col a {
+      color: var(--muted);
+    }
+
+    .footer-col {
+      display: grid;
+      align-content: start;
+      gap: 10px;
+    }
+
+    .footer-col h4 {
+      margin: 0 0 8px;
+      color: var(--green);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-size: 13px;
+    }
+
+    @media (max-width: 1100px) {
+      .main-nav {
+        gap: 14px;
+        font-size: 11px;
+      }
+
+      .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .features-grid,
+      .stages-grid,
+      .infra-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 980px) {
+      .main-nav {
+        display: none;
+      }
+
+      .burger-btn {
+        display: block;
+      }
+
+      .header-btn {
+        display: none;
+      }
+
+      .stadium-hero-grid,
+      .concept-grid,
+      .plan-grid,
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-visual {
+        min-height: 340px;
+      }
+    }
+
+    @media (max-width: 620px) {
+      .container {
+        width: min(100% - 22px, 1180px);
+      }
+
+      .header-inner {
+        min-height: 76px;
+      }
+
+      .language-switcher,
+      .logo-text {
+        display: none;
+      }
+
+      .stadium-hero {
+        padding: 44px 0 32px;
+      }
+
+      .stadium-hero h1 {
+        font-size: 42px;
+        letter-spacing: 0.05em;
+      }
+
+      .stadium-hero p,
+      .section-text {
+        font-size: 16px;
+      }
+
+      .stats-grid,
+      .features-grid,
+      .stages-grid,
+      .infra-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .section-title {
+        font-size: 34px;
+      }
+
+      .hero-actions {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .stadium-link,
+      .ghost-btn,
+      .cta-btn {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="logo-box">
+        <img src="images/logo.png" alt="Deportivo Moscu Logo" class="logo-img">
+        <div class="logo-text">
+          <span>Deportivo</span>
+          <strong>Moscu</strong>
+        </div>
+      </a>
+
+      <nav class="main-nav">
+        <a href="index.html" data-i18n="nav_home">Главная</a>
+        <a href="news.html" data-i18n="nav_news">Новости</a>
+        <a href="team.html" data-i18n="nav_team">Команда</a>
+        <a href="league.html" data-i18n="nav_matches">Матчи</a>
+        <a href="club.html" data-i18n="nav_club">Клуб</a>
+        <a href="stadium.html" class="active" data-i18n="nav_stadium">Стадион</a>
+        <a href="academy.html" data-i18n="nav_academy">Академия</a>
+        <a href="media.html" data-i18n="nav_media">Медиа</a>
+        <a href="store.html" data-i18n="nav_store">Магазин</a>
+      </nav>
+
+      <div class="header-actions">
+        <div class="language-switcher">
+          <button class="lang-btn active" data-lang="ru">RU</button>
+          <button class="lang-btn" data-lang="en">EN</button>
+          <button class="lang-btn" data-lang="es">ES</button>
+        </div>
+
+        <a href="#project" class="header-btn" data-i18n="project_btn">Проект</a>
+
+        <button class="burger-btn" id="burgerBtn" aria-label="Menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="index.html" data-i18n="nav_home">Главная</a>
+      <a href="news.html" data-i18n="nav_news">Новости</a>
+      <a href="team.html" data-i18n="nav_team">Команда</a>
+      <a href="league.html" data-i18n="nav_matches">Матчи</a>
+      <a href="club.html" data-i18n="nav_club">Клуб</a>
+      <a href="stadium.html" data-i18n="nav_stadium">Стадион</a>
+      <a href="academy.html" data-i18n="nav_academy">Академия</a>
+      <a href="media.html" data-i18n="nav_media">Медиа</a>
+      <a href="store.html" data-i18n="nav_store">Магазин</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="stadium-hero">
+      <div class="container stadium-hero-grid">
+        <div>
+          <div class="section-label" data-i18n="stadium_label">Проект стадиона</div>
+          <h1 data-i18n="stadium_title">Новый стадион<br>Deportivo Moscu</h1>
+          <p data-i18n="stadium_subtitle">
+            Концепт современной домашней арены Deportivo Moscu в Буэнос-Айресе: закрытый стадион, трибуны близко к полю, яркая клубная идентичность и инфраструктура для болельщиков.
+          </p>
+
+          <div class="hero-actions">
+            <a href="#project" class="stadium-link" data-i18n="open_project">Смотреть проект</a>
+            <a href="#stages" class="ghost-btn" data-i18n="construction_plan">Этапы развития</a>
+          </div>
+        </div>
+
+        <div class="hero-visual"></div>
+      </div>
+    </section>
+
+    <section class="stadium-section" id="project">
+      <div class="container">
+        <h2 class="section-title" data-i18n="overview_title">Общая концепция</h2>
+        <p class="section-text" data-i18n="overview_text">
+          Новый стадион задуман как символ роста клуба. Проект сочетает футуристичную архитектуру, атмосферу близости к полю и полноценную клубную экосистему: фан-зоны, магазин, медиа-пространство и инфраструктуру для матчей и мероприятий.
+        </p>
+
+        <div class="stats-grid">
+          <div class="stat-card">
+            <strong>7 500–10 000</strong>
+            <span data-i18n="stat_capacity">вместимость зрителей</span>
+          </div>
+
+          <div class="stat-card">
+            <strong data-i18n="stat_type_value">Закрытый</strong>
+            <span data-i18n="stat_type">тип стадиона</span>
+          </div>
+
+          <div class="stat-card">
+            <strong data-i18n="stat_track_value">Нет</strong>
+            <span data-i18n="stat_track">беговая дорожка</span>
+          </div>
+
+          <div class="stat-card">
+            <strong>7–9 м</strong>
+            <span data-i18n="stat_distance">расстояние трибун до поля</span>
+          </div>
+        </div>
+
+        <div class="concept-grid">
+          <div class="glass-card render-card">
+            <div class="render-label" data-i18n="main_render">Главный рендер</div>
+          </div>
+
+          <div class="glass-card">
+            <h3 data-i18n="concept_card_title">Идея проекта</h3>
+            <p data-i18n="concept_card_text">
+              Арена должна передавать характер Deportivo Moscu: современность, энергия, узнаваемый чёрно-зелёный визуальный язык и ощущение большого клуба. Важная задача — сделать стадион не просто местом для матчей, а новой точкой притяжения для болельщиков и партнёров.
+            </p>
+
+            <div class="plan-list">
+              <div class="plan-item" data-i18n="concept_point_1">Закрытая современная арена с ярким фасадом и LED-подсветкой.</div>
+              <div class="plan-item" data-i18n="concept_point_2">Компактная посадка трибун для максимальной атмосферы и давления на соперника.</div>
+              <div class="plan-item" data-i18n="concept_point_3">Клубный магазин, музей, VIP-зоны, медиа-центр и инфраструктура вокруг стадиона.</div>
+              <div class="plan-item" data-i18n="concept_point_4">Арена для футбола, клубных событий, презентаций и будущего роста Deportivo Moscu.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="stadium-section">
+      <div class="container">
+        <h2 class="section-title" data-i18n="plan_title">Архитектурный план</h2>
+        <p class="section-text" data-i18n="plan_text">
+          На странице можно показать сам проект, схему арены, фасады, внутренний обзор и ключевые характеристики будущего стадиона.
+        </p>
+
+        <div class="plan-grid">
+          <div class="glass-card">
+            <div class="plan-visual"></div>
+            <h3 style="margin-top:20px;" data-i18n="plan_left_title">Визуальный проект</h3>
+            <p data-i18n="plan_left_text">
+              Здесь можно размещать рендеры: внешний вид, вид сверху, внутренний обзор чаши стадиона и отдельные архитектурные решения.
+            </p>
+          </div>
+
+          <div class="glass-card">
+            <h3 data-i18n="plan_right_title">Ключевые характеристики</h3>
+            <p data-i18n="plan_right_text">
+              Этот блок уже подготовлен под будущие реальные данные по строительству и техническому описанию проекта.
+            </p>
+
+            <div class="plan-list">
+              <div class="plan-item" data-i18n="plan_point_1">Полностью закрытая конструкция.</div>
+              <div class="plan-item" data-i18n="plan_point_2">Трибуны максимально близко к полю.</div>
+              <div class="plan-item" data-i18n="plan_point_3">Современная акустика и световые решения.</div>
+              <div class="plan-item" data-i18n="plan_point_4">Фирменный чёрно-зелёный дизайн клуба.</div>
+              <div class="plan-item" data-i18n="plan_point_5">Места для VIP-гостей, партнёров и медиа.</div>
+              <div class="plan-item" data-i18n="plan_point_6">Инфраструктура для матчей, мероприятий и клубной жизни.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="stadium-section">
+      <div class="container">
+        <h2 class="section-title" data-i18n="features_title">Удобства и инфраструктура</h2>
+        <p class="section-text" data-i18n="features_text">
+          Новый стадион должен стать полноценным клубным пространством для матча, отдыха, медиа и коммерческой активности.
+        </p>
+
+        <div class="features-grid">
+          <div class="feature-card">
+            <div class="feature-icon">🏟</div>
+            <h3 data-i18n="feature_1_title">Компактная арена</h3>
+            <p data-i18n="feature_1_text">Близкие трибуны и атмосфера настоящего футбольного давления на каждом матче.</p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon">💺</div>
+            <h3 data-i18n="feature_2_title">VIP и фан-зоны</h3>
+            <p data-i18n="feature_2_text">Отдельные зоны для болельщиков, партнёров клуба и специальных гостей.</p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon">🛍</div>
+            <h3 data-i18n="feature_3_title">Магазин клуба</h3>
+            <p data-i18n="feature_3_text">Точка продаж официальной атрибутики и продукции Deportivo Moscu.</p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon">🎥</div>
+            <h3 data-i18n="feature_4_title">Медиа-центр</h3>
+            <p data-i18n="feature_4_text">Помещения для интервью, контента, трансляций и клубной коммуникации.</p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon">🍽</div>
+            <h3 data-i18n="feature_5_title">Фуд-зоны</h3>
+            <p data-i18n="feature_5_text">Рестораны, точки питания и пространства для болельщиков до и после матча.</p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon">🚗</div>
+            <h3 data-i18n="feature_6_title">Инфраструктура вокруг</h3>
+            <p data-i18n="feature_6_text">Парковка, входные группы, навигация и комфортная логистика для зрителей.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="stadium-section" id="stages">
+      <div class="container">
+        <h2 class="section-title" data-i18n="stages_title">Этапы проекта</h2>
+        <p class="section-text" data-i18n="stages_text">
+          Страница уже готова для постепенного наполнения: от концепции и презентации до реального развития проекта.
+        </p>
+
+        <div class="stages-grid">
+          <div class="stage-card">
+            <div class="stage-number">01</div>
+            <h3 data-i18n="stage_1_title">Концепт</h3>
+            <p data-i18n="stage_1_text">Подготовка визуальной идеи, рендеров и общего образа будущей арены.</p>
+          </div>
+
+          <div class="stage-card">
+            <div class="stage-number">02</div>
+            <h3 data-i18n="stage_2_title">Презентация</h3>
+            <p data-i18n="stage_2_text">Публикация проекта для болельщиков, партнёров, СМИ и потенциальных инвесторов.</p>
+          </div>
+
+          <div class="stage-card">
+            <div class="stage-number">03</div>
+            <h3 data-i18n="stage_3_title">Разработка</h3>
+            <p data-i18n="stage_3_text">Детализация технической части, архитектуры, инфраструктуры и этапов реализации.</p>
+          </div>
+
+          <div class="stage-card">
+            <div class="stage-number">04</div>
+            <h3 data-i18n="stage_4_title">Будущее строительство</h3>
+            <p data-i18n="stage_4_text">После утверждения концепции этот блок можно обновить под реальные статусы проекта.</p>
+          </div>
+        </div>
+
+        <div class="cta-panel">
+          <h3 data-i18n="cta_title">Новый дом Deportivo Moscu</h3>
+          <p data-i18n="cta_text">
+            Это заготовка официальной страницы проекта стадиона. Сюда позже можно добавить реальные рендеры, подробные планы, этапы, текст от клуба и новые фотографии.
+          </p>
+          <a href="club.html" class="cta-btn" data-i18n="cta_btn">Вернуться в клуб</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <img src="images/logo.png" alt="Deportivo Moscu">
+        <h3>Deportivo Moscu</h3>
+        <p data-i18n="footer_slogan">Единый город. Одна страсть. Одна зелёно-чёрная семья.</p>
+      </div>
+
+      <div class="footer-col">
+        <h4 data-i18n="nav_club">Клуб</h4>
+        <a href="club.html" data-i18n="about_club">О клубе</a>
+        <a href="team.html" data-i18n="nav_team">Команда</a>
+        <a href="league.html" data-i18n="nav_matches">Матчи</a>
+        <a href="stadium.html" data-i18n="nav_stadium">Стадион</a>
+      </div>
+
+      <div class="footer-col">
+        <h4 data-i18n="help">Помощь</h4>
+        <a href="store.html" data-i18n="tickets">Атрибутика</a>
+        <a href="academy.html" data-i18n="academy_request">Академия</a>
+        <a href="media.html" data-i18n="media_center">Медиацентр</a>
+      </div>
+
+      <div class="footer-col">
+        <h4 data-i18n="contacts">Контакты</h4>
+        <p>Buenos Aires, Argentina</p>
+        <p>info@deportivomoscu.com</p>
+        <p>+54 11 0000-0000</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const translations = {
+      ru: {
+        nav_home: "Главная",
+        nav_news: "Новости",
+        nav_team: "Команда",
+        nav_matches: "Матчи",
+        nav_club: "Клуб",
+        nav_stadium: "Стадион",
+        nav_academy: "Академия",
+        nav_media: "Медиа",
+        nav_store: "Магазин",
+        project_btn: "Проект",
+        stadium_label: "Проект стадиона",
+        stadium_title: "Новый стадион<br>Deportivo Moscu",
+        stadium_subtitle: "Концепт современной домашней арены Deportivo Moscu в Буэнос-Айресе: закрытый стадион, трибуны близко к полю, яркая клубная идентичность и инфраструктура для болельщиков.",
+        open_project: "Смотреть проект",
+        construction_plan: "Этапы развития",
+        overview_title: "Общая концепция",
+        overview_text: "Новый стадион задуман как символ роста клуба. Проект сочетает футуристичную архитектуру, атмосферу близости к полю и полноценную клубную экосистему: фан-зоны, магазин, медиа-пространство и инфраструктуру для матчей и мероприятий.",
+        stat_capacity: "вместимость зрителей",
+        stat_type_value: "Закрытый",
+        stat_type: "тип стадиона",
+        stat_track_value: "Нет",
+        stat_track: "беговая дорожка",
+        stat_distance: "расстояние трибун до поля",
+        main_render: "Главный рендер",
+        concept_card_title: "Идея проекта",
+        concept_card_text: "Арена должна передавать характер Deportivo Moscu: современность, энергия, узнаваемый чёрно-зелёный визуальный язык и ощущение большого клуба. Важная задача — сделать стадион не просто местом для матчей, а новой точкой притяжения для болельщиков и партнёров.",
+        concept_point_1: "Закрытая современная арена с ярким фасадом и LED-подсветкой.",
+        concept_point_2: "Компактная посадка трибун для максимальной атмосферы и давления на соперника.",
+        concept_point_3: "Клубный магазин, музей, VIP-зоны, медиа-центр и инфраструктура вокруг стадиона.",
+        concept_point_4: "Арена для футбола, клубных событий, презентаций и будущего роста Deportivo Moscu.",
+        plan_title: "Архитектурный план",
+        plan_text: "На странице можно показать сам проект, схему арены, фасады, внутренний обзор и ключевые характеристики будущего стадиона.",
+        plan_left_title: "Визуальный проект",
+        plan_left_text: "Здесь можно размещать рендеры: внешний вид, вид сверху, внутренний обзор чаши стадиона и отдельные архитектурные решения.",
+        plan_right_title: "Ключевые характеристики",
+        plan_right_text: "Этот блок уже подготовлен под будущие реальные данные по строительству и техническому описанию проекта.",
+        plan_point_1: "Полностью закрытая конструкция.",
+        plan_point_2: "Трибуны максимально близко к полю.",
+        plan_point_3: "Современная акустика и световые решения.",
+        plan_point_4: "Фирменный чёрно-зелёный дизайн клуба.",
+        plan_point_5: "Места для VIP-гостей, партнёров и медиа.",
+        plan_point_6: "Инфраструктура для матчей, мероприятий и клубной жизни.",
+        features_title: "Удобства и инфраструктура",
+        features_text: "Новый стадион должен стать полноценным клубным пространством для матча, отдыха, медиа и коммерческой активности.",
+        feature_1_title: "Компактная арена",
+        feature_1_text: "Близкие трибуны и атмосфера настоящего футбольного давления на каждом матче.",
+        feature_2_title: "VIP и фан-зоны",
+        feature_2_text: "Отдельные зоны для болельщиков, партнёров клуба и специальных гостей.",
+        feature_3_title: "Магазин клуба",
+        feature_3_text: "Точка продаж официальной атрибутики и продукции Deportivo Moscu.",
+        feature_4_title: "Медиа-центр",
+        feature_4_text: "Помещения для интервью, контента, трансляций и клубной коммуникации.",
+        feature_5_title: "Фуд-зоны",
+        feature_5_text: "Рестораны, точки питания и пространства для болельщиков до и после матча.",
+        feature_6_title: "Инфраструктура вокруг",
+        feature_6_text: "Парковка, входные группы, навигация и комфортная логистика для зрителей.",
+        stages_title: "Этапы проекта",
+        stages_text: "Страница уже готова для постепенного наполнения: от концепции и презентации до реального развития проекта.",
+        stage_1_title: "Концепт",
+        stage_1_text: "Подготовка визуальной идеи, рендеров и общего образа будущей арены.",
+        stage_2_title: "Презентация",
+        stage_2_text: "Публикация проекта для болельщиков, партнёров, СМИ и потенциальных инвесторов.",
+        stage_3_title: "Разработка",
+        stage_3_text: "Детализация технической части, архитектуры, инфраструктуры и этапов реализации.",
+        stage_4_title: "Будущее строительство",
+        stage_4_text: "После утверждения концепции этот блок можно обновить под реальные статусы проекта.",
+        cta_title: "Новый дом Deportivo Moscu",
+        cta_text: "Это заготовка официальной страницы проекта стадиона. Сюда позже можно добавить реальные рендеры, подробные планы, этапы, текст от клуба и новые фотографии.",
+        cta_btn: "Вернуться в клуб",
+        footer_slogan: "Единый город. Одна страсть. Одна зелёно-чёрная семья.",
+        about_club: "О клубе",
+        help: "Помощь",
+        tickets: "Атрибутика",
+        academy_request: "Академия",
+        media_center: "Медиацентр",
+        contacts: "Контакты"
+      },
+      en: {
+        nav_home: "Home",
+        nav_news: "News",
+        nav_team: "Team",
+        nav_matches: "Matches",
+        nav_club: "Club",
+        nav_stadium: "Stadium",
+        nav_academy: "Academy",
+        nav_media: "Media",
+        nav_store: "Store",
+        project_btn: "Project",
+        stadium_label: "Stadium project",
+        stadium_title: "New Stadium<br>Deportivo Moscu",
+        stadium_subtitle: "A concept for Deportivo Moscu’s modern home arena in Buenos Aires: indoor stadium, stands close to the pitch, strong club identity and full fan infrastructure.",
+        open_project: "View project",
+        construction_plan: "Development stages",
+        overview_title: "Overall concept",
+        overview_text: "The new stadium is designed as a symbol of the club’s growth. The project combines futuristic architecture, close-to-the-pitch atmosphere and a full club ecosystem: fan zones, store, media space and infrastructure for matches and events.",
+        stat_capacity: "spectator capacity",
+        stat_type_value: "Indoor",
+        stat_type: "stadium type",
+        stat_track_value: "No",
+        stat_track: "running track",
+        stat_distance: "distance from stands to pitch",
+        main_render: "Main render",
+        concept_card_title: "Project idea",
+        concept_card_text: "The arena should reflect Deportivo Moscu’s character: modernity, energy, recognizable black-and-green visual language and the feeling of a big club. An important goal is to make the stadium not only a match venue, but also a new attraction point for supporters and partners.",
+        concept_point_1: "Modern indoor arena with a bright facade and LED lighting.",
+        concept_point_2: "Compact stands for maximum atmosphere and pressure on the opponent.",
+        concept_point_3: "Club store, museum, VIP areas, media center and outer infrastructure.",
+        concept_point_4: "Arena for football, club events, presentations and future Deportivo Moscu growth.",
+        plan_title: "Architectural plan",
+        plan_text: "This page can show the project itself, arena scheme, facades, interior views and key stadium characteristics.",
+        plan_left_title: "Visual project",
+        plan_left_text: "You can place renders here: exterior, top view, bowl interior and separate architectural solutions.",
+        plan_right_title: "Key characteristics",
+        plan_right_text: "This block is already prepared for future real construction and technical data.",
+        plan_point_1: "Fully enclosed structure.",
+        plan_point_2: "Stands placed as close to the pitch as possible.",
+        plan_point_3: "Modern acoustics and lighting systems.",
+        plan_point_4: "Signature black-and-green club design.",
+        plan_point_5: "Space for VIP guests, partners and media.",
+        plan_point_6: "Infrastructure for matches, events and club life.",
+        features_title: "Amenities and infrastructure",
+        features_text: "The new stadium should become a full club space for matches, leisure, media and commercial activity.",
+        feature_1_title: "Compact arena",
+        feature_1_text: "Close stands and the atmosphere of real football pressure in every match.",
+        feature_2_title: "VIP and fan zones",
+        feature_2_text: "Dedicated areas for supporters, club partners and special guests.",
+        feature_3_title: "Club store",
+        feature_3_text: "Point of sale for official Deportivo Moscu merchandise.",
+        feature_4_title: "Media center",
+        feature_4_text: "Rooms for interviews, content, broadcasts and club communication.",
+        feature_5_title: "Food zones",
+        feature_5_text: "Restaurants, food points and spaces for supporters before and after the match.",
+        feature_6_title: "Surrounding infrastructure",
+        feature_6_text: "Parking, entrance groups, navigation and comfortable logistics for spectators.",
+        stages_title: "Project stages",
+        stages_text: "The page is ready for gradual updates: from concept and presentation to the real development of the project.",
+        stage_1_title: "Concept",
+        stage_1_text: "Preparation of the visual idea, renders and overall image of the future arena.",
+        stage_2_title: "Presentation",
+        stage_2_text: "Project publication for supporters, partners, media and potential investors.",
+        stage_3_title: "Development",
+        stage_3_text: "Detailing of technical aspects, architecture, infrastructure and implementation stages.",
+        stage_4_title: "Future construction",
+        stage_4_text: "After concept approval, this block can be updated with real project statuses.",
+        cta_title: "The new home of Deportivo Moscu",
+        cta_text: "This is a prepared official stadium project page. Later you can add real renders, detailed plans, stages, club text and new photos.",
+        cta_btn: "Back to club",
+        footer_slogan: "One city. One passion. One green-and-black family.",
+        about_club: "About club",
+        help: "Help",
+        tickets: "Merchandise",
+        academy_request: "Academy",
+        media_center: "Media center",
+        contacts: "Contacts"
+      },
+      es: {
+        nav_home: "Inicio",
+        nav_news: "Noticias",
+        nav_team: "Equipo",
+        nav_matches: "Partidos",
+        nav_club: "Club",
+        nav_stadium: "Estadio",
+        nav_academy: "Academia",
+        nav_media: "Media",
+        nav_store: "Tienda",
+        project_btn: "Proyecto",
+        stadium_label: "Proyecto del estadio",
+        stadium_title: "Nuevo Estadio<br>Deportivo Moscu",
+        stadium_subtitle: "Un concepto para la nueva casa de Deportivo Moscu en Buenos Aires: estadio cubierto, tribunas cerca del campo, fuerte identidad del club e infraestructura completa para los hinchas.",
+        open_project: "Ver proyecto",
+        construction_plan: "Etapas de desarrollo",
+        overview_title: "Concepto general",
+        overview_text: "El nuevo estadio está pensado como símbolo del crecimiento del club. El proyecto combina arquitectura futurista, atmósfera cercana al campo y un ecosistema completo del club: zonas de hinchas, tienda, espacio de media e infraestructura para partidos y eventos.",
+        stat_capacity: "capacidad de espectadores",
+        stat_type_value: "Cubierto",
+        stat_type: "tipo de estadio",
+        stat_track_value: "No",
+        stat_track: "pista de atletismo",
+        stat_distance: "distancia de tribunas al campo",
+        main_render: "Render principal",
+        concept_card_title: "Idea del proyecto",
+        concept_card_text: "La arena debe reflejar el carácter de Deportivo Moscu: modernidad, energía, lenguaje visual negro-verde reconocible y sensación de gran club. El objetivo es que el estadio no sea solo una sede de partidos, sino también un nuevo punto de atracción para hinchas y socios.",
+        concept_point_1: "Arena moderna cubierta con fachada llamativa e iluminación LED.",
+        concept_point_2: "Tribunas compactas para máxima atmósfera y presión sobre el rival.",
+        concept_point_3: "Tienda del club, museo, zonas VIP, media center e infraestructura exterior.",
+        concept_point_4: "Arena para fútbol, eventos del club, presentaciones y crecimiento futuro de Deportivo Moscu.",
+        plan_title: "Plan arquitectónico",
+        plan_text: "En esta página se puede mostrar el proyecto, esquema de la arena, fachadas, vistas interiores y características principales del estadio.",
+        plan_left_title: "Proyecto visual",
+        plan_left_text: "Aquí se pueden colocar renders: exterior, vista superior, interior de la cancha y soluciones arquitectónicas.",
+        plan_right_title: "Características clave",
+        plan_right_text: "Este bloque ya está preparado para futuros datos reales de construcción y aspectos técnicos.",
+        plan_point_1: "Estructura completamente cubierta.",
+        plan_point_2: "Tribunas ubicadas lo más cerca posible del campo.",
+        plan_point_3: "Acústica moderna y sistemas de iluminación.",
+        plan_point_4: "Diseño negro y verde característico del club.",
+        plan_point_5: "Espacio para invitados VIP, socios y media.",
+        plan_point_6: "Infraestructura para partidos, eventos y vida del club.",
+        features_title: "Comodidades e infraestructura",
+        features_text: "El nuevo estadio debe convertirse en un espacio integral del club para partidos, ocio, media y actividad comercial.",
+        feature_1_title: "Arena compacta",
+        feature_1_text: "Tribunas cercanas y atmósfera de verdadera presión futbolera en cada partido.",
+        feature_2_title: "Zonas VIP e hinchas",
+        feature_2_text: "Espacios dedicados para hinchas, socios del club e invitados especiales.",
+        feature_3_title: "Tienda del club",
+        feature_3_text: "Punto de venta de merchandising oficial de Deportivo Moscu.",
+        feature_4_title: "Media center",
+        feature_4_text: "Espacios para entrevistas, contenido, transmisiones y comunicación del club.",
+        feature_5_title: "Zonas gastronómicas",
+        feature_5_text: "Restaurantes, puestos de comida y espacios para hinchas antes y después del partido.",
+        feature_6_title: "Infraestructura exterior",
+        feature_6_text: "Estacionamiento, accesos, señalización y logística cómoda para espectadores.",
+        stages_title: "Etapas del proyecto",
+        stages_text: "La página está lista para actualizarse gradualmente: desde el concepto y la presentación hasta el desarrollo real del proyecto.",
+        stage_1_title: "Concepto",
+        stage_1_text: "Preparación de la idea visual, renders e imagen general de la futura arena.",
+        stage_2_title: "Presentación",
+        stage_2_text: "Publicación del proyecto para hinchas, socios, medios e inversores potenciales.",
+        stage_3_title: "Desarrollo",
+        stage_3_text: "Detalle de la parte técnica, arquitectura, infraestructura y etapas de implementación.",
+        stage_4_title: "Construcción futura",
+        stage_4_text: "Después de aprobar el concepto, este bloque puede actualizarse con estados reales del proyecto.",
+        cta_title: "La nueva casa de Deportivo Moscu",
+        cta_text: "Esta es una versión preparada de la página oficial del proyecto del estadio. Luego se pueden agregar renders reales, planes detallados, etapas, textos del club y nuevas fotos.",
+        cta_btn: "Volver al club",
+        footer_slogan: "Una ciudad. Una pasión. Una familia verde y negra.",
+        about_club: "Sobre el club",
+        help: "Ayuda",
+        tickets: "Merchandising",
+        academy_request: "Academia",
+        media_center: "Media center",
+        contacts: "Contactos"
+      }
+    };
+
+    function setLanguage(lang) {
+      document.documentElement.lang = lang;
+
+      document.querySelectorAll("[data-i18n]").forEach((element) => {
+        const key = element.getAttribute("data-i18n");
+        if (translations[lang] && translations[lang][key]) {
+          element.innerHTML = translations[lang][key];
+        }
+      });
+
+      document.querySelectorAll(".lang-btn").forEach((button) => {
+        button.classList.toggle("active", button.dataset.lang === lang);
+      });
+    }
+
+    document.querySelectorAll(".lang-btn").forEach((button) => {
+      button.addEventListener("click", () => {
+        setLanguage(button.dataset.lang);
+      });
+    });
+
+    document.getElementById("burgerBtn").addEventListener("click", () => {
+      document.getElementById("mobileMenu").classList.toggle("open");
+    });
+
+    setLanguage("ru");
+  </script>
+</body>
+</html>
