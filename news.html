@@ -133,10 +133,10 @@
     .main-nav {
       display: flex;
       align-items: center;
-      gap: 20px;
-      font-size: 12px;
+      gap: 18px;
+      font-size: 11px;
       font-weight: 950;
-      letter-spacing: 0.12em;
+      letter-spacing: 0.11em;
       text-transform: uppercase;
     }
 
@@ -205,8 +205,7 @@
     }
 
     .ticket-btn,
-    .source-link,
-    .source-btn {
+    .card-btn {
       display: inline-flex;
       align-items: center;
       justify-content: center;
@@ -224,8 +223,7 @@
     }
 
     .ticket-btn:hover,
-    .source-link:hover,
-    .source-btn:hover {
+    .card-btn:hover {
       transform: translateY(-2px);
       box-shadow: 0 0 34px rgba(0, 255, 157, 0.42);
     }
@@ -293,13 +291,13 @@
       opacity: 0.85;
     }
 
-    .news-hero-inner {
+    .news-hero-grid {
       position: relative;
       z-index: 2;
       display: grid;
       grid-template-columns: 1.05fr 0.95fr;
       align-items: center;
-      gap: 44px;
+      gap: 46px;
     }
 
     .section-label {
@@ -330,7 +328,7 @@
     }
 
     .news-hero p {
-      max-width: 680px;
+      max-width: 700px;
       color: var(--muted);
       font-size: 18px;
       line-height: 1.65;
@@ -339,18 +337,19 @@
     }
 
     .hero-card {
-      min-height: 420px;
+      min-height: 430px;
       border-radius: 2px;
       background:
         linear-gradient(90deg, rgba(2, 6, 5, 0.4), rgba(2, 6, 5, 0.9)),
         radial-gradient(circle at 48% 34%, rgba(0, 255, 157, 0.2), transparent 34%),
         radial-gradient(circle at 68% 56%, rgba(57, 255, 225, 0.09), transparent 30%),
         linear-gradient(135deg, rgba(0, 255, 157, 0.08), rgba(2, 6, 5, 0.9));
+      color: var(--text);
       box-shadow: var(--shadow), var(--glow);
       display: grid;
       place-items: center;
       text-align: center;
-      padding: 34px;
+      padding: 38px;
       position: relative;
       overflow: hidden;
       border: 1px solid var(--line);
@@ -366,7 +365,7 @@
     }
 
     .hero-card::after {
-      content: "NEWS CENTER";
+      content: "CLUB NEWS";
       position: absolute;
       right: 28px;
       bottom: 24px;
@@ -397,46 +396,73 @@
       z-index: -1;
     }
 
-    .hero-card-inner img {
-      width: 150px;
-      margin-bottom: 22px;
+    .hero-card img {
+      width: 170px;
+      margin-bottom: 20px;
       filter: drop-shadow(0 0 32px rgba(0, 255, 157, 0.32));
     }
 
-    .hero-card-inner h2 {
+    .hero-card h2 {
       font-family: "Oswald", sans-serif;
-      font-size: 38px;
-      margin: 0;
+      font-size: 40px;
       letter-spacing: 0.14em;
+      margin: 0;
       text-transform: uppercase;
       text-shadow: 0 0 28px rgba(0, 255, 157, 0.34);
     }
 
-    .hero-card-inner span {
+    .hero-card span {
       color: var(--green);
-      margin-top: 10px;
       font-weight: 950;
+      margin-top: 10px;
       letter-spacing: 0.16em;
       text-transform: uppercase;
     }
 
-    .slider-section {
-      padding: 48px 0 70px;
+    .news-section {
+      padding: 54px 0;
     }
 
-    .slider-card {
+    .section-title {
+      font-family: "Oswald", sans-serif;
+      font-size: clamp(38px, 5vw, 62px);
+      line-height: 0.98;
+      text-transform: uppercase;
+      margin: 0 0 18px;
+      color: var(--green);
+      letter-spacing: 0.12em;
+      text-shadow: 0 0 20px rgba(0, 255, 157, 0.28);
+    }
+
+    .section-text {
+      color: var(--muted);
+      line-height: 1.75;
+      font-size: 18px;
+      max-width: 880px;
+      margin: 0 0 34px;
+    }
+
+    .news-grid {
       display: grid;
-      grid-template-columns: 0.9fr 1.1fr;
-      min-height: 520px;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+    }
+
+    .news-card {
+      position: relative;
       border: 1px solid var(--line);
       border-radius: 2px;
-      overflow: hidden;
-      box-shadow: var(--shadow);
       background: var(--panel);
-      position: relative;
+      box-shadow: 0 18px 54px rgba(0, 0, 0, 0.36);
+      padding: 28px;
+      overflow: hidden;
+      transition: 0.22s;
+      min-height: 290px;
+      display: flex;
+      flex-direction: column;
     }
 
-    .slider-card::before {
+    .news-card::before {
       content: "";
       position: absolute;
       inset: 0;
@@ -445,229 +471,57 @@
         linear-gradient(135deg, rgba(0, 255, 157, 0.08), transparent 42%),
         linear-gradient(180deg, transparent, rgba(0, 255, 157, 0.035));
       opacity: 0.85;
-      z-index: 2;
     }
 
-    .slider-image {
-      position: relative;
-      background:
-        radial-gradient(circle at 50% 22%, rgba(0, 255, 157, 0.2), transparent 28%),
-        linear-gradient(145deg, #020605, #0a3025);
-      overflow: hidden;
-      border-right: 1px solid var(--line);
-    }
-
-    .slider-image::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background:
-        linear-gradient(rgba(0, 255, 157, 0.055) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0, 255, 157, 0.055) 1px, transparent 1px);
-      background-size: 30px 30px;
-      mask-image: radial-gradient(circle at 50% 50%, black 0%, transparent 72%);
-    }
-
-    .slider-image::after {
-      content: "DEPORTIVO MOSCU";
-      position: absolute;
-      left: 34px;
-      bottom: 28px;
-      font-family: "Oswald", sans-serif;
-      font-size: 52px;
-      line-height: 0.95;
-      color: rgba(0, 255, 157, 0.22);
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-    }
-
-    .source-badge {
-      position: absolute;
-      top: 26px;
-      left: 26px;
-      background: rgba(0, 255, 157, 0.08);
-      color: var(--green);
-      border: 1px solid var(--line);
-      border-radius: 4px;
-      padding: 10px 15px;
-      font-weight: 950;
-      z-index: 4;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      box-shadow: var(--glow);
-    }
-
-    .slider-content {
-      position: relative;
-      z-index: 3;
-      padding: 46px;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .news-meta {
-      color: var(--green);
-      font-size: 12px;
-      font-weight: 950;
-      text-transform: uppercase;
-      margin-bottom: 18px;
-      letter-spacing: 0.12em;
-    }
-
-    .slider-title {
-      font-family: "Oswald", sans-serif;
-      font-size: clamp(38px, 5vw, 62px);
-      line-height: 0.95;
-      text-transform: uppercase;
-      margin: 0 0 22px;
-      color: var(--text);
-      letter-spacing: 0.07em;
-      text-shadow: 0 0 24px rgba(0, 255, 157, 0.18);
-    }
-
-    .slider-text {
-      color: var(--muted);
-      line-height: 1.75;
-      font-size: 17px;
-      margin: 0 0 28px;
-    }
-
-    .slider-actions {
-      margin-top: auto;
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-      align-items: center;
-    }
-
-    .control-btn {
-      width: 48px;
-      height: 48px;
-      border: 1px solid var(--line);
-      background: rgba(0, 255, 157, 0.055);
-      color: var(--green);
-      border-radius: 4px;
-      font-size: 22px;
-      font-weight: 950;
-      cursor: pointer;
-      box-shadow: var(--glow);
-    }
-
-    .slider-bottom {
-      display: flex;
-      justify-content: space-between;
-      gap: 18px;
-      align-items: center;
-      margin-top: 24px;
-      flex-wrap: wrap;
-    }
-
-    .slider-counter {
-      font-weight: 950;
-      color: var(--green);
-      background: rgba(0, 255, 157, 0.08);
-      border: 1px solid var(--line);
-      padding: 10px 14px;
-      border-radius: 4px;
-      letter-spacing: 0.08em;
-    }
-
-    .dots {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
-
-    .dot {
-      width: 12px;
-      height: 12px;
-      border-radius: 2px;
-      border: 1px solid var(--line);
-      background: rgba(0, 255, 157, 0.08);
-      cursor: pointer;
-      padding: 0;
-    }
-
-    .dot.active {
-      background: var(--green);
-      box-shadow: var(--glow);
-      transform: scale(1.2);
-    }
-
-    .news-list-title {
-      font-family: "Oswald", sans-serif;
-      font-size: 38px;
-      text-transform: uppercase;
-      margin: 54px 0 22px;
-      color: var(--green);
-      letter-spacing: 0.12em;
-      text-shadow: 0 0 20px rgba(0, 255, 157, 0.28);
-    }
-
-    .news-list {
-      display: grid;
-      gap: 14px;
-    }
-
-    .news-row {
-      border: 1px solid var(--line);
-      background: var(--panel);
-      border-radius: 2px;
-      padding: 18px;
-      display: grid;
-      grid-template-columns: 150px 1fr auto;
-      gap: 18px;
-      align-items: center;
-      cursor: pointer;
-      transition: 0.2s;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .news-row::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      background:
-        linear-gradient(135deg, rgba(0, 255, 157, 0.08), transparent 42%),
-        linear-gradient(180deg, transparent, rgba(0, 255, 157, 0.035));
-      opacity: 0.5;
-    }
-
-    .news-row:hover,
-    .news-row.active {
+    .news-card:hover {
+      transform: translateY(-5px);
       border-color: rgba(0, 255, 157, 0.48);
-      box-shadow: 0 0 34px rgba(0, 255, 157, 0.2);
-      transform: translateY(-2px);
+      box-shadow: 0 0 44px rgba(0, 255, 157, 0.28), 0 28px 84px rgba(0, 0, 0, 0.48);
     }
 
-    .news-row-source,
-    .news-row-title,
-    .news-row-date {
+    .news-date {
       position: relative;
       z-index: 2;
-    }
-
-    .news-row-source {
-      font-weight: 950;
+      display: inline-flex;
+      width: fit-content;
+      padding: 8px 12px;
+      border-radius: 4px;
+      background: rgba(0, 255, 157, 0.08);
+      border: 1px solid rgba(0, 255, 157, 0.18);
       color: var(--green);
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
       font-size: 12px;
+      font-weight: 950;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
     }
 
-    .news-row-title {
-      font-weight: 950;
-      line-height: 1.35;
+    .news-card h3 {
+      position: relative;
+      z-index: 2;
+      font-family: "Oswald", sans-serif;
+      text-transform: uppercase;
+      font-size: 30px;
+      line-height: 1.05;
+      margin: 0 0 14px;
+      letter-spacing: 0.08em;
       color: var(--text);
     }
 
-    .news-row-date {
+    .news-card p {
+      position: relative;
+      z-index: 2;
       color: var(--muted);
-      font-weight: 850;
-      font-size: 13px;
-      white-space: nowrap;
+      line-height: 1.65;
+      margin: 0 0 20px;
+      flex: 1;
+    }
+
+    .news-card .card-btn {
+      position: relative;
+      z-index: 2;
+      margin-top: auto;
+      width: fit-content;
     }
 
     .site-footer {
@@ -677,6 +531,7 @@
       color: var(--text);
       padding: 54px 0;
       border-top: 1px solid var(--line);
+      margin-top: 42px;
     }
 
     .footer-grid {
@@ -721,13 +576,19 @@
 
     @media (max-width: 1100px) {
       .main-nav {
-        gap: 14px;
-        font-size: 11px;
+        gap: 12px;
+        font-size: 10px;
+      }
+
+      .news-grid {
+        grid-template-columns: repeat(2, 1fr);
       }
     }
 
     @media (max-width: 980px) {
-      .main-nav {
+      .main-nav,
+      .language-switcher,
+      .ticket-btn {
         display: none;
       }
 
@@ -735,23 +596,8 @@
         display: block;
       }
 
-      .ticket-btn {
-        display: none;
-      }
-
-      .news-hero-inner,
-      .slider-card,
+      .news-hero-grid,
       .footer-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .slider-image {
-        min-height: 300px;
-        border-right: 0;
-        border-bottom: 1px solid var(--line);
-      }
-
-      .news-row {
         grid-template-columns: 1fr;
       }
 
@@ -769,7 +615,6 @@
         min-height: 76px;
       }
 
-      .language-switcher,
       .logo-text {
         display: none;
       }
@@ -783,23 +628,20 @@
         letter-spacing: 0.05em;
       }
 
-      .news-hero p {
+      .news-hero p,
+      .section-text {
         font-size: 16px;
       }
 
-      .slider-content {
-        padding: 30px 22px;
+      .news-grid {
+        grid-template-columns: 1fr;
       }
 
-      .slider-image::after {
+      .section-title {
         font-size: 34px;
       }
 
-      .source-link {
-        width: 100%;
-      }
-
-      .news-list-title {
+      .hero-card h2 {
         font-size: 30px;
       }
     }
@@ -818,27 +660,28 @@
       </a>
 
       <nav class="main-nav">
-        <a href="index.html" data-i18n="nav_home">Главная</a>
-        <a href="news.html" class="active" data-i18n="nav_news">Новости</a>
-        <a href="team.html" data-i18n="nav_team">Команда</a>
-        <a href="league.html" data-i18n="nav_matches">Матчи</a>
-        <a href="club.html" data-i18n="nav_club">Клуб</a>
-        <a href="stadium.html" data-i18n="nav_stadium">Стадион</a>
-        <a href="academy.html" data-i18n="nav_academy">Академия</a>
-        <a href="media.html" data-i18n="nav_media">Медиа</a>
-        <a href="store.html" data-i18n="nav_store">Магазин</a>
+        <a href="index.html">Главная</a>
+        <a href="news.html" class="active">Новости</a>
+        <a href="team.html">Команда</a>
+        <a href="league.html">Матчи</a>
+        <a href="club.html">Клуб</a>
+        <a href="stadium.html">Стадион</a>
+        <a href="academy.html">Академия</a>
+        <a href="management.html">Руководство</a>
+        <a href="media.html">Медиа</a>
+        <a href="store.html">Магазин</a>
       </nav>
 
       <div class="header-actions">
         <div class="language-switcher">
-          <button class="lang-btn active" data-lang="ru">RU</button>
-          <button class="lang-btn" data-lang="en">EN</button>
-          <button class="lang-btn" data-lang="es">ES</button>
+          <button class="lang-btn active" type="button">RU</button>
+          <button class="lang-btn" type="button">EN</button>
+          <button class="lang-btn" type="button">ES</button>
         </div>
 
-        <a href="store.html" class="ticket-btn" data-i18n="buy_tickets">Купить билеты</a>
+        <a href="store.html" class="ticket-btn">Купить билеты</a>
 
-        <button class="burger-btn" id="burgerBtn" aria-label="Menu">
+        <button class="burger-btn" id="burgerBtn" aria-label="Menu" type="button">
           <span></span>
           <span></span>
           <span></span>
@@ -847,66 +690,110 @@
     </div>
 
     <div class="mobile-menu" id="mobileMenu">
-      <a href="index.html" data-i18n="nav_home">Главная</a>
-      <a href="news.html" data-i18n="nav_news">Новости</a>
-      <a href="team.html" data-i18n="nav_team">Команда</a>
-      <a href="league.html" data-i18n="nav_matches">Матчи</a>
-      <a href="club.html" data-i18n="nav_club">Клуб</a>
-      <a href="stadium.html" data-i18n="nav_stadium">Стадион</a>
-      <a href="academy.html" data-i18n="nav_academy">Академия</a>
-      <a href="media.html" data-i18n="nav_media">Медиа</a>
-      <a href="store.html" data-i18n="nav_store">Магазин</a>
+      <a href="index.html">Главная</a>
+      <a href="news.html">Новости</a>
+      <a href="team.html">Команда</a>
+      <a href="league.html">Матчи</a>
+      <a href="club.html">Клуб</a>
+      <a href="stadium.html">Стадион</a>
+      <a href="academy.html">Академия</a>
+      <a href="management.html">Руководство</a>
+      <a href="media.html">Медиа</a>
+      <a href="store.html">Магазин</a>
     </div>
   </header>
 
   <main>
     <section class="news-hero">
-      <div class="container news-hero-inner">
+      <div class="container news-hero-grid">
         <div>
-          <div class="section-label" data-i18n="news_label">Новости клуба</div>
-          <h1 data-i18n="news_title">Новости<br>Deportivo Moscu</h1>
-          <p data-i18n="news_subtitle">
-            Реальные публикации и видео о Deportivo Moscu в российских, аргентинских и международных СМИ.
+          <div class="section-label">Клубные новости</div>
+          <h1>Новости<br>Deportivo Moscu</h1>
+          <p>
+            Последние обновления клуба: матчи, состав, академия, проект стадиона,
+            медиа, магазин и развитие Deportivo Moscu.
           </p>
         </div>
 
         <div class="hero-card">
           <div class="hero-card-inner">
             <img src="images/logo.png" alt="Deportivo Moscu">
-            <h2>News Center</h2>
-            <span>Deportivo Moscu</span>
+            <h2>DM NEWS</h2>
+            <span>Матчи. Клуб. Команда.</span>
           </div>
         </div>
       </div>
     </section>
 
-    <section class="slider-section">
+    <section class="news-section">
       <div class="container">
-        <article class="slider-card">
-          <div class="slider-image">
-            <div class="source-badge" id="slideSource">Источник</div>
-          </div>
+        <h2 class="section-title">Все новости</h2>
+        <p class="section-text">
+          Сейчас это базовая новостная лента. Позже сюда можно подключить реальные новости,
+          фото, ссылки на посты в соцсетях и отдельные страницы новостей.
+        </p>
 
-          <div class="slider-content">
-            <div class="news-meta" id="slideMeta">Категория • дата</div>
-            <h2 class="slider-title" id="slideTitle">Заголовок</h2>
-            <p class="slider-text" id="slideText">Текст новости</p>
+        <div class="news-grid" id="newsPageGrid">
+          <article class="news-card">
+            <span class="news-date">Клуб</span>
+            <h3>Deportivo Moscu развивает сайт</h3>
+            <p>
+              На сайте клуба появляются новые разделы: команда, матчи, стадион,
+              академия, руководство, медиа и магазин.
+            </p>
+            <a href="club.html" class="card-btn">О клубе</a>
+          </article>
 
-            <div class="slider-actions">
-              <button class="control-btn" id="prevBtn">‹</button>
-              <button class="control-btn" id="nextBtn">›</button>
-              <a class="source-link" id="sourceLink" href="#" target="_blank" rel="noopener" data-i18n="open_source">Открыть источник</a>
-            </div>
-          </div>
-        </article>
+          <article class="news-card">
+            <span class="news-date">Стадион</span>
+            <h3>Проект нового стадиона</h3>
+            <p>
+              Подготовлена страница проекта будущей закрытой арены Deportivo Moscu
+              в Буэнос-Айресе.
+            </p>
+            <a href="stadium.html" class="card-btn">Открыть</a>
+          </article>
 
-        <div class="slider-bottom">
-          <div class="slider-counter" id="sliderCounter">1 / 1</div>
-          <div class="dots" id="dots"></div>
+          <article class="news-card">
+            <span class="news-date">Команда</span>
+            <h3>Карточки игроков</h3>
+            <p>
+              Раздел команды показывает игроков, позиции, гражданство, статистику
+              и подробные карточки состава.
+            </p>
+            <a href="team.html" class="card-btn">Команда</a>
+          </article>
+
+          <article class="news-card">
+            <span class="news-date">Руководство</span>
+            <h3>Структура клуба</h3>
+            <p>
+              Добавлен раздел руководства клуба: президент, казначей, главный тренер,
+              СММ и тренер.
+            </p>
+            <a href="management.html" class="card-btn">Руководство</a>
+          </article>
+
+          <article class="news-card">
+            <span class="news-date">Академия</span>
+            <h3>Академия Deportivo Moscu</h3>
+            <p>
+              Подготовлен раздел академии с программами подготовки,
+              тренировочным процессом и формой заявки.
+            </p>
+            <a href="academy.html" class="card-btn">Академия</a>
+          </article>
+
+          <article class="news-card">
+            <span class="news-date">Медиа</span>
+            <h3>Медиацентр клуба</h3>
+            <p>
+              Раздел медиа готов для будущих фото, видео, афиш, соцсетей
+              и визуальных материалов клуба.
+            </p>
+            <a href="media.html" class="card-btn">Медиа</a>
+          </article>
         </div>
-
-        <h2 class="news-list-title" data-i18n="all_publications">Все публикации</h2>
-        <div class="news-list" id="newsList"></div>
       </div>
     </section>
   </main>
@@ -916,26 +803,27 @@
       <div class="footer-brand">
         <img src="images/logo.png" alt="Deportivo Moscu">
         <h3>Deportivo Moscu</h3>
-        <p data-i18n="footer_slogan">Единый город. Одна страсть. Одна зелёно-чёрная семья.</p>
+        <p>Единый город. Одна страсть. Одна зелёно-чёрная семья.</p>
       </div>
 
       <div class="footer-col">
-        <h4 data-i18n="nav_club">Клуб</h4>
-        <a href="club.html" data-i18n="about_club">О клубе</a>
-        <a href="team.html" data-i18n="nav_team">Команда</a>
-        <a href="league.html" data-i18n="nav_matches">Матчи</a>
-        <a href="stadium.html" data-i18n="nav_stadium">Стадион</a>
+        <h4>Клуб</h4>
+        <a href="club.html">О клубе</a>
+        <a href="team.html">Команда</a>
+        <a href="league.html">Матчи</a>
+        <a href="stadium.html">Стадион</a>
+        <a href="management.html">Руководство</a>
       </div>
 
       <div class="footer-col">
-        <h4 data-i18n="help">Помощь</h4>
-        <a href="store.html" data-i18n="tickets">Билеты</a>
-        <a href="academy.html" data-i18n="academy_request">Запись в академию</a>
-        <a href="media.html" data-i18n="media_center">Медиацентр</a>
+        <h4>Помощь</h4>
+        <a href="store.html">Билеты</a>
+        <a href="academy.html">Запись в академию</a>
+        <a href="media.html">Медиацентр</a>
       </div>
 
       <div class="footer-col">
-        <h4 data-i18n="contacts">Контакты</h4>
+        <h4>Контакты</h4>
         <p>Buenos Aires, Argentina</p>
         <p>info@deportivomoscu.com</p>
         <p>+54 11 0000-0000</p>
@@ -946,306 +834,49 @@
   <script src="news-data.js"></script>
 
   <script>
-    const translations = {
-      ru: {
-        nav_home: "Главная",
-        nav_news: "Новости",
-        nav_team: "Команда",
-        nav_matches: "Матчи",
-        nav_club: "Клуб",
-        nav_stadium: "Стадион",
-        nav_academy: "Академия",
-        nav_media: "Медиа",
-        nav_store: "Магазин",
-        buy_tickets: "Купить билеты",
-        news_label: "Новости клуба",
-        news_title: "Новости<br>Deportivo Moscu",
-        news_subtitle: "Реальные публикации и видео о Deportivo Moscu в российских, аргентинских и международных СМИ.",
-        open_source: "Открыть источник",
-        all_publications: "Все публикации",
-        footer_slogan: "Единый город. Одна страсть. Одна зелёно-чёрная семья.",
-        about_club: "О клубе",
-        help: "Помощь",
-        tickets: "Билеты",
-        academy_request: "Запись в академию",
-        media_center: "Медиацентр",
-        contacts: "Контакты"
-      },
-      en: {
-        nav_home: "Home",
-        nav_news: "News",
-        nav_team: "Team",
-        nav_matches: "Matches",
-        nav_club: "Club",
-        nav_stadium: "Stadium",
-        nav_academy: "Academy",
-        nav_media: "Media",
-        nav_store: "Store",
-        buy_tickets: "Buy tickets",
-        news_label: "Club news",
-        news_title: "Deportivo Moscu<br>News",
-        news_subtitle: "Real publications and videos about Deportivo Moscu in Russian, Argentine and international media.",
-        open_source: "Open source",
-        all_publications: "All publications",
-        footer_slogan: "One city. One passion. One green-and-black family.",
-        about_club: "About club",
-        help: "Help",
-        tickets: "Tickets",
-        academy_request: "Academy application",
-        media_center: "Media center",
-        contacts: "Contacts"
-      },
-      es: {
-        nav_home: "Inicio",
-        nav_news: "Noticias",
-        nav_team: "Equipo",
-        nav_matches: "Partidos",
-        nav_club: "Club",
-        nav_stadium: "Estadio",
-        nav_academy: "Academia",
-        nav_media: "Media",
-        nav_store: "Tienda",
-        buy_tickets: "Comprar entradas",
-        news_label: "Noticias del club",
-        news_title: "Noticias<br>Deportivo Moscu",
-        news_subtitle: "Publicaciones y videos reales sobre Deportivo Moscu en medios rusos, argentinos e internacionales.",
-        open_source: "Abrir fuente",
-        all_publications: "Todas las publicaciones",
-        footer_slogan: "Una ciudad. Una pasión. Una familia verde y negra.",
-        about_club: "Sobre el club",
-        help: "Ayuda",
-        tickets: "Entradas",
-        academy_request: "Inscripción academia",
-        media_center: "Media center",
-        contacts: "Contactos"
-      }
-    };
+    const burgerBtn = document.getElementById("burgerBtn");
+    const mobileMenu = document.getElementById("mobileMenu");
 
-    const fallbackNews = [
-      {
-        id: "sport24-interview",
-        source: "Sport24",
-        date: "2025",
-        url: "https://sport24.ru/football/article-808059-nam-skazali-ubrat-simvoliku-rossii-radi-sponsorom-otkazalis-intervyu-s-osnovatelem-russkogo-kluba-deportivo-moskva-v-argentine-antonom-nefedchevym-brakamonte-prezident-khavyer-miley",
-        category: { ru: "Интервью", en: "Interview", es: "Entrevista" },
-        title: {
-          ru: "Интервью с основателем Deportivo Moscu в Аргентине",
-          en: "Interview with the founder of Deportivo Moscu in Argentina",
-          es: "Entrevista con el fundador de Deportivo Moscu en Argentina"
-        },
-        text: {
-          ru: "Большое интервью о создании русского футбольного клуба Deportivo Moscu в Аргентине, развитии проекта, символике и интересе к клубу.",
-          en: "A major interview about the creation of the Russian football club Deportivo Moscu in Argentina, the project’s development, identity and growing interest.",
-          es: "Una gran entrevista sobre la creación del club ruso Deportivo Moscu en Argentina, el desarrollo del proyecto, su identidad y el creciente interés."
-        }
-      },
-      {
-        id: "la-nacion",
-        source: "La Nación",
-        date: "01.08.2025",
-        url: "https://www.lanacion.com.ar/deportes/futbol/deportivo-moscu-un-club-ruso-en-buenos-aires-como-funciona-a-que-aspira-y-el-rol-de-la-embajada-nid01082025/",
-        category: { ru: "Аргентина", en: "Argentina", es: "Argentina" },
-        title: {
-          ru: "La Nación о Deportivo Moscu: русский клуб в Буэнос-Айресе",
-          en: "La Nación about Deportivo Moscu: a Russian club in Buenos Aires",
-          es: "La Nación sobre Deportivo Moscu: un club ruso en Buenos Aires"
-        },
-        text: {
-          ru: "Аргентинское издание La Nación рассказывает, как работает Deportivo Moscu, к чему стремится клуб и какую роль играет русское сообщество.",
-          en: "Argentine outlet La Nación explains how Deportivo Moscu works, what the club aims for and the role of the Russian community.",
-          es: "La Nación cuenta cómo funciona Deportivo Moscu, cuáles son sus aspiraciones y el papel de la comunidad rusa."
-        }
-      },
-      {
-        id: "ole",
-        source: "Olé",
-        date: "2025",
-        url: "https://www.ole.com.ar/informacion-general/deportivo-moscu-equipo-rusos-juega-argentina-quiere-jugador-torneos-afa-vodka_0_Mz7khgWkyc.html",
-        category: { ru: "СМИ", en: "Media", es: "Medios" },
-        title: {
-          ru: "Olé: команда русских в Аргентине хочет выйти на новый уровень",
-          en: "Olé: the Russian team in Argentina wants to reach a new level",
-          es: "Olé: el equipo de rusos en Argentina quiere llegar a otro nivel"
-        },
-        text: {
-          ru: "Olé пишет о Deportivo Moscu как о необычном футбольном проекте в Аргентине, который хочет развиваться и играть в официальных турнирах.",
-          en: "Olé presents Deportivo Moscu as an unusual football project in Argentina that wants to grow and compete in official tournaments.",
-          es: "Olé presenta a Deportivo Moscu como un proyecto futbolístico particular en Argentina que quiere crecer y competir oficialmente."
-        }
-      },
-      {
-        id: "cnn-espanol",
-        source: "CNN Español",
-        date: "07.08.2025",
-        url: "https://cnnespanol.cnn.com/2025/08/07/argentina/video/club-rusos-argentina-moscu-cafe-tv",
-        category: { ru: "Видео", en: "Video", es: "Video" },
-        title: {
-          ru: "CNN Español: сюжет о клубе русских в Аргентине",
-          en: "CNN Español: story about a Russian club in Argentina",
-          es: "CNN Español: informe sobre un club de rusos en Argentina"
-        },
-        text: {
-          ru: "Видео CNN Español о Deportivo Moscu, русском футбольном клубе в Аргентине и его культурной истории.",
-          en: "CNN Español video about Deportivo Moscu, a Russian football club in Argentina and its cultural story.",
-          es: "Video de CNN Español sobre Deportivo Moscu, un club de fútbol ruso en Argentina y su historia cultural."
-        }
-      },
-      {
-        id: "match-tv",
-        source: "Матч ТВ",
-        date: "2025",
-        url: "https://matchtv.ru/football/matchtvnews_NI2132710_Trener_Deportivo_de_Moscu_rasskazal_chto_posle_sozdanija_futbolnogo_kluba_v_Argentine_vyros_interes_k_Rossii?ysclid=mpe9r3sjt6933923294",
-        category: { ru: "Интервью", en: "Interview", es: "Entrevista" },
-        title: {
-          ru: "Тренер Deportivo de Moscu рассказал о росте интереса к России",
-          en: "Deportivo de Moscu coach spoke about growing interest in Russia",
-          es: "El entrenador de Deportivo de Moscu habló del creciente interés por Rusia"
-        },
-        text: {
-          ru: "Матч ТВ приводит слова тренера Deportivo de Moscu о том, что после создания клуба в Аргентине вырос интерес к России.",
-          en: "Match TV quotes the Deportivo de Moscu coach saying that after the club was created in Argentina, interest in Russia increased.",
-          es: "Match TV cita al entrenador de Deportivo de Moscu, quien afirma que tras la creación del club en Argentina creció el interés por Rusia."
-        }
-      }
-    ];
+    if (burgerBtn && mobileMenu) {
+      burgerBtn.addEventListener("click", () => {
+        mobileMenu.classList.toggle("open");
+      });
+    }
 
-    const news = Array.isArray(window.deportivoNews) && window.deportivoNews.length ? window.deportivoNews : fallbackNews;
+    function escapeHtml(value) {
+      return String(value || "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
 
-    let currentLang = "ru";
-    let currentIndex = 0;
-    let autoTimer = null;
-
-    function getText(value) {
-      if (!value) return "—";
+    function getText(value, fallback) {
+      if (!value) return fallback || "";
       if (typeof value === "string") return value;
-      return value[currentLang] || value.ru || value.en || value.es || "—";
+      return value.ru || value.en || value.es || fallback || "";
     }
 
-    function setLanguage(lang) {
-      currentLang = lang;
-      document.documentElement.lang = lang;
+    const newsGrid = document.getElementById("newsPageGrid");
 
-      document.querySelectorAll("[data-i18n]").forEach((element) => {
-        const key = element.getAttribute("data-i18n");
-        if (translations[lang] && translations[lang][key]) {
-          element.innerHTML = translations[lang][key];
-        }
-      });
+    if (newsGrid && Array.isArray(window.deportivoNews) && window.deportivoNews.length) {
+      newsGrid.innerHTML = window.deportivoNews.map((item) => {
+        const title = getText(item.title || item.name, "Новость Deportivo Moscu");
+        const date = getText(item.date || item.category, "Клуб");
+        const text = getText(item.text || item.description || item.body, "Описание новости скоро будет добавлено.");
+        const link = item.link || item.url || "news.html";
 
-      document.querySelectorAll(".lang-btn").forEach((button) => {
-        button.classList.toggle("active", button.dataset.lang === lang);
-      });
-
-      renderSlide();
-      renderList();
-    }
-
-    function renderSlide() {
-      if (!news.length) return;
-
-      const item = news[currentIndex];
-
-      document.getElementById("slideSource").textContent = item.source || "Deportivo";
-      document.getElementById("slideMeta").textContent = `${getText(item.category)} • ${item.date || ""}`;
-      document.getElementById("slideTitle").textContent = getText(item.title);
-      document.getElementById("slideText").textContent = getText(item.text);
-      document.getElementById("sourceLink").href = item.url || "#";
-      document.getElementById("sliderCounter").textContent = `${currentIndex + 1} / ${news.length}`;
-
-      renderDots();
-      highlightList();
-    }
-
-    function renderDots() {
-      const dots = document.getElementById("dots");
-
-      dots.innerHTML = news.map((_, index) => {
-        return `<button class="dot ${index === currentIndex ? "active" : ""}" data-index="${index}"></button>`;
-      }).join("");
-
-      document.querySelectorAll(".dot").forEach((dot) => {
-        dot.addEventListener("click", () => {
-          currentIndex = Number(dot.dataset.index);
-          renderSlide();
-          restartAuto();
-        });
-      });
-    }
-
-    function renderList() {
-      const newsList = document.getElementById("newsList");
-
-      newsList.innerHTML = news.map((item, index) => {
         return `
-          <article class="news-row ${index === currentIndex ? "active" : ""}" data-index="${index}">
-            <div class="news-row-source">${item.source || "Deportivo"}</div>
-            <div class="news-row-title">${getText(item.title)}</div>
-            <div class="news-row-date">${item.date || ""}</div>
+          <article class="news-card">
+            <span class="news-date">${escapeHtml(date)}</span>
+            <h3>${escapeHtml(title)}</h3>
+            <p>${escapeHtml(text)}</p>
+            <a href="${escapeHtml(link)}" class="card-btn">Подробнее</a>
           </article>
         `;
       }).join("");
-
-      document.querySelectorAll(".news-row").forEach((row) => {
-        row.addEventListener("click", () => {
-          currentIndex = Number(row.dataset.index);
-          renderSlide();
-          restartAuto();
-          window.scrollTo({ top: 0, behavior: "smooth" });
-        });
-      });
     }
-
-    function highlightList() {
-      document.querySelectorAll(".news-row").forEach((row) => {
-        row.classList.toggle("active", Number(row.dataset.index) === currentIndex);
-      });
-    }
-
-    function nextSlide() {
-      if (!news.length) return;
-      currentIndex = (currentIndex + 1) % news.length;
-      renderSlide();
-    }
-
-    function prevSlide() {
-      if (!news.length) return;
-      currentIndex = (currentIndex - 1 + news.length) % news.length;
-      renderSlide();
-    }
-
-    function startAuto() {
-      autoTimer = setInterval(nextSlide, 6000);
-    }
-
-    function restartAuto() {
-      clearInterval(autoTimer);
-      startAuto();
-    }
-
-    document.querySelectorAll(".lang-btn").forEach((button) => {
-      button.addEventListener("click", () => {
-        setLanguage(button.dataset.lang);
-      });
-    });
-
-    document.getElementById("nextBtn").addEventListener("click", () => {
-      nextSlide();
-      restartAuto();
-    });
-
-    document.getElementById("prevBtn").addEventListener("click", () => {
-      prevSlide();
-      restartAuto();
-    });
-
-    document.getElementById("burgerBtn").addEventListener("click", () => {
-      document.getElementById("mobileMenu").classList.toggle("open");
-    });
-
-    setLanguage("ru");
-    renderList();
-    renderSlide();
-    startAuto();
   </script>
 </body>
 </html>
