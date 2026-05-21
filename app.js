@@ -1,19 +1,18 @@
 (function () {
+  "use strict";
+
   const LANG = "ru";
 
-  function getPlayersData() {
-    if (Array.isArray(window.deportivoPlayers)) return window.deportivoPlayers;
-    if (Array.isArray(window.players)) return window.players;
-    if (Array.isArray(window.PLAYERS)) return window.PLAYERS;
-    if (Array.isArray(window.playersData)) return window.playersData;
-    if (Array.isArray(window.PLAYERS_DATA)) return window.PLAYERS_DATA;
-    return [];
+  function qs(selector, root) {
+    return (root || document).querySelector(selector);
+  }
+
+  function qsa(selector, root) {
+    return Array.from((root || document).querySelectorAll(selector));
   }
 
   function getText(value, fallback) {
-    if (value === undefined || value === null || value === "") {
-      return fallback || "";
-    }
+    if (value === undefined || value === null || value === "") return fallback || "";
 
     if (typeof value === "object") {
       return value[LANG] || value.ru || value.en || value.es || fallback || "";
@@ -42,147 +41,233 @@
       .replace(/^-+|-+$/g, "");
   }
 
-  function getPlayerNumber(player, index) {
-    return getText(
-      player.number || player.num || player.shirtNumber || player.shirt || index + 1,
-      index + 1
-    );
+  function getPlayersData() {
+    if (Array.isArray(window.deportivoPlayers)) return window.deportivoPlayers;
+    if (Array.isArray(window.players)) return window.players;
+    if (Array.isArray(window.PLAYERS)) return window.PLAYERS;
+    if (Array.isArray(window.playersData)) return window.playersData;
+    if (Array.isArray(window.PLAYERS_DATA)) return window.PLAYERS_DATA;
+    return [];
+  }
+
+  function getNewsData() {
+    if (Array.isArray(window.deportivoNews)) return window.deportivoNews;
+    if (Array.isArray(window.news)) return window.news;
+    if (Array.isArray(window.NEWS)) return window.NEWS;
+    if (Array.isArray(window.newsData)) return window.newsData;
+    if (Array.isArray(window.NEWS_DATA)) return window.NEWS_DATA;
+    return [];
+  }
+
+  function getMatchesData() {
+    if (Array.isArray(window.deportivoMatches)) return window.deportivoMatches;
+    if (Array.isArray(window.matches)) return window.matches;
+    if (Array.isArray(window.MATCHES)) return window.MATCHES;
+    if (Array.isArray(window.matchesData)) return window.matchesData;
+    if (Array.isArray(window.MATCHES_DATA)) return window.MATCHES_DATA;
+    return [];
+  }
+
+  function setupBurger() {
+    const burger = qs("#burgerBtn");
+    const menu = qs("#mobileMenu");
+
+    if (!burger || !menu) return;
+
+    burger.addEventListener("click", function () {
+      menu.classList.toggle("open");
+    });
+
+    qsa("a", menu).forEach(function (link) {
+      link.addEventListener("click", function () {
+        menu.classList.remove("open");
+      });
+    });
+  }
+
+  function setupActiveNav() {
+    const current = location.pathname.split("/").pop() || "index.html";
+
+    qsa(".main-nav a, .mobile-menu a").forEach(function (link) {
+      const href = link.getAttribute("href") || "";
+
+      if (href === current) {
+        link.classList.add("active");
+      }
+    });
+  }
+
+  function setText(id, value) {
+    const el = qs("#" + id);
+    if (el) el.textContent = value;
+  }
+
+  function updateStats() {
+    const players = getPlayersData();
+    const news = getNewsData();
+    const matches = getMatchesData();
+
+    setText("statPlayers", players.length || "—");
+    setText("statNews", news.length || "—");
+    setText("statMatches", matches.length || "—");
+  }
+
+  function createNewsCard(item, index) {
+    const title = getText(item.title || item.name || item.heading, "Новость клуба");
+    const date = getText(item.date || item.createdAt || item.day, "Deportivo Moscu");
+    const text = getText(item.text || item.description || item.body || item.excerpt, "Скоро здесь появится подробная новость клуба.");
+    const link = getText(item.link || item.url, "news.html");
+
+    return `
+      <article class="news-card">
+        <span class="news-date">${escapeHtml(date)}</span>
+        <h3>${escapeHtml(title)}</h3>
+        <p>${escapeHtml(text)}</p>
+        <a class="card-btn" href="${escapeHtml(link)}">Подробнее</a>
+      </article>
+    `;
+  }
+
+  function renderNews() {
+    const grid = qs("#newsGrid");
+    if (!grid) return;
+
+    const data = getNewsData();
+
+    const fallback = [
+      {
+        title: "Новый проект стадиона",
+        date: "Deportivo Moscu",
+        text: "Клуб представил концепцию нового закрытого стадиона в Буэнос-Айресе.",
+        link: "stadium.html"
+      },
+      {
+        title: "Команда готовится к сезону",
+        date: "Тренировки",
+        text: "Deportivo Moscu продолжает подготовку к матчам Liga Escobarense.",
+        link: "team.html"
+      },
+      {
+        title: "Магазин клуба",
+        date: "Store",
+        text: "Раздел магазина будет развиваться: форма, билеты, шарфы и атрибутика.",
+        link: "store.html"
+      }
+    ];
+
+    const items = (data.length ? data : fallback).slice(0, 3);
+    grid.innerHTML = items.map(createNewsCard).join("");
+  }
+
+  function createMatchCard(item, index) {
+    const opponent = getText(item.opponent || item.rival || item.team2 || item.awayTeam, index === 0 ? "Matheu" : "Соперник");
+    const date = getText(item.date || item.day || item.matchDate, "Дата будет добавлена");
+    const place = getText(item.place || item.stadium || item.location, "Buenos Aires, Argentina");
+    const tournament = getText(item.tournament || item.league || item.competition, "Liga Escobarense");
+
+    return `
+      <article class="match-card">
+        <span class="match-date">${escapeHtml(tournament)}</span>
+        <h3>Deportivo Moscu — ${escapeHtml(opponent)}</h3>
+        <p>${escapeHtml(date)}<br>${escapeHtml(place)}</p>
+        <a class="card-btn" href="league.html">Открыть матч</a>
+      </article>
+    `;
+  }
+
+  function renderMatches() {
+    const row = qs("#matchesRow");
+    if (!row) return;
+
+    const data = getMatchesData();
+
+    const fallback = [
+      {
+        opponent: "Matheu",
+        date: "Дата и время скоро будут добавлены",
+        place: "Buenos Aires, Argentina",
+        tournament: "Liga Escobarense"
+      },
+      {
+        opponent: "Próximo rival",
+        date: "Календарь обновляется",
+        place: "Liga Escobarense",
+        tournament: "Primera División B"
+      },
+      {
+        opponent: "Fecha por confirmar",
+        date: "Следите за новостями клуба",
+        place: "Deportivo Moscu",
+        tournament: "Temporada 2026"
+      }
+    ];
+
+    const items = (data.length ? data : fallback).slice(0, 3);
+    row.innerHTML = items.map(createMatchCard).join("");
+  }
+
+  function updateNextMatch() {
+    const matches = getMatchesData();
+    if (!matches.length) return;
+
+    const first = matches[0];
+
+    const opponent = getText(first.opponent || first.rival || first.team2 || first.awayTeam, "Matheu");
+    const date = getText(first.date || first.day || first.matchDate, "Дата скоро будет добавлена");
+    const place = getText(first.place || first.stadium || first.location, "Buenos Aires, Argentina");
+    const league = getText(first.tournament || first.league || first.competition, "Liga Escobarense");
+
+    setText("nextOpponentName", opponent);
+    setText("nextMatchDate", date);
+    setText("nextMatchPlace", place);
+    setText("nextMatchLeague", league);
+
+    const logo = qs("#nextOpponentLogo");
+    if (logo) logo.textContent = opponent.trim().charAt(0).toUpperCase() || "M";
   }
 
   function getPlayerName(player) {
-    return getText(
-      player.name || player.fullName || player.fullname || player.title,
-      "Игрок"
-    );
-  }
-
-  function getPlayerId(player) {
-    return slugify(player.id || getPlayerName(player));
+    return getText(player.name || player.fullName || player.fullname || player.title, "Игрок");
   }
 
   function getPlayerPosition(player) {
-    return getText(
-      player.position || player.role || player.pos || player.type,
-      "Игрок"
-    );
+    return getText(player.position || player.role || player.pos || player.type, "Игрок");
   }
 
   function getPlayerCountry(player) {
-    return getText(
-      player.nationality || player.country || player.nation || player.countryName,
-      ""
-    );
+    return getText(player.nationality || player.country || player.nation || player.countryName, "");
   }
 
-  function getPlayerBirthDate(player) {
-    return getText(
-      player.birthDate || player.birth || player.dateOfBirth || player.dob,
-      "—"
-    );
+  function getPlayerNumber(player, index) {
+    return getText(player.number || player.num || player.shirtNumber || player.shirt || index + 1, index + 1);
   }
 
   function getPlayerPhoto(player) {
-    return (
-      player.photo ||
-      player.image ||
-      player.img ||
-      player.avatar ||
-      player.picture ||
-      player.playerPhoto ||
-      ""
-    );
+    return player.photo || player.image || player.img || player.avatar || player.picture || "";
   }
 
-  function normalizeRole(role) {
-    const value = String(getText(role, "")).toLowerCase();
-
-    if (value === "goalkeeper") return "goalkeeper";
-    if (value === "defender") return "defender";
-    if (value === "midfielder") return "midfielder";
-    if (value === "forward") return "forward";
-    if (value === "striker") return "forward";
-
-    if (value.includes("врат")) return "goalkeeper";
-    if (value.includes("защит")) return "defender";
-    if (value.includes("полу")) return "midfielder";
-    if (value.includes("напад")) return "forward";
-
-    return "all";
-  }
-
-  function splitName(name) {
-    const clean = String(name || "Игрок").trim();
-    const parts = clean.split(/\s+/).filter(Boolean);
-
-    if (parts.length <= 2) {
-      return escapeHtml(clean);
-    }
-
-    if (parts.length === 3) {
-      return escapeHtml(parts[0]) + "<br>" + escapeHtml(parts.slice(1).join(" "));
-    }
-
-    return escapeHtml(parts.slice(0, 2).join(" ")) + "<br>" + escapeHtml(parts.slice(2).join(" "));
-  }
-
-  function countryToFlagClass(country) {
-    const value = String(country || "").trim().toLowerCase();
-
-    const flags = {
-      "аргентина": "flag-argentina",
-      "argentina": "flag-argentina",
-      "россия": "flag-russia",
-      "russia": "flag-russia",
-      "бразилия": "flag-brazil",
-      "brazil": "flag-brazil",
-      "brasil": "flag-brazil",
-      "эквадор": "flag-ecuador",
-      "ecuador": "flag-ecuador",
-      "венесуэла": "flag-venezuela",
-      "venezuela": "flag-venezuela",
-      "украина": "flag-ukraine",
-      "ukraine": "flag-ukraine",
-      "беларусь": "flag-belarus",
-      "belarus": "flag-belarus",
-      "казахстан": "flag-kazakhstan",
-      "kazakhstan": "flag-kazakhstan"
-    };
-
-    return flags[value] || "";
-  }
-
-  function createFlagHtml(country) {
-    const flagClass = countryToFlagClass(country);
-
-    if (!flagClass) return "";
-
-    return '<span class="player-flag ' + flagClass + '" aria-hidden="true"></span>';
-  }
-
-  function createPhotoHtml(player) {
+  function createPlayerPhoto(player) {
     const manualPhoto = getPlayerPhoto(player);
     const name = getPlayerName(player);
-    const id = getPlayerId(player);
+    const id = slugify(player.id || name);
 
-    if (manualPhoto && String(manualPhoto).includes("images/players/")) {
-      return (
-        '<img class="player-real-photo" src="' +
-        escapeHtml(manualPhoto) +
-        '" alt="' +
-        escapeHtml(name) +
-        '" onerror="this.parentElement.innerHTML=\'<div class=&quot;player-placeholder&quot;></div>\';">'
-      );
+    if (manualPhoto) {
+      return `
+        <img class="player-real-photo"
+             src="${escapeHtml(manualPhoto)}"
+             alt="${escapeHtml(name)}"
+             onerror="this.parentElement.innerHTML='<div class=&quot;player-placeholder&quot;></div>';">
+      `;
     }
 
-    return (
-      '<img class="player-real-photo" src="images/players/' +
-      escapeHtml(id) +
-      '.jpg" data-player-id="' +
-      escapeHtml(id) +
-      '" data-photo-step="jpg" alt="' +
-      escapeHtml(name) +
-      '" onerror="tryNextPlayerPhoto(this);">'
-    );
+    return `
+      <img class="player-real-photo"
+           src="images/players/${escapeHtml(id)}.jpg"
+           data-player-id="${escapeHtml(id)}"
+           data-photo-step="jpg"
+           alt="${escapeHtml(name)}"
+           onerror="tryNextPlayerPhoto(this);">
+    `;
   }
 
   window.tryNextPlayerPhoto = function (img) {
@@ -215,649 +300,203 @@
     img.parentElement.innerHTML = '<div class="player-placeholder"></div>';
   };
 
-  function injectStyles() {
-    const oldStyle = document.querySelector("#deportivo-app-styles");
-    if (oldStyle) oldStyle.remove();
-
-    const style = document.createElement("style");
-    style.id = "deportivo-app-styles";
-
-    style.textContent = `
-      html {
-        scroll-padding-top: 125px !important;
-      }
-
-      body {
-        overflow-x: hidden !important;
-      }
-
-      body.modal-open {
-        overflow: hidden !important;
-      }
-
-      #players {
-        scroll-margin-top: 125px !important;
-      }
-
-      .players-section {
-        padding-top: 72px !important;
-        padding-bottom: 70px !important;
-      }
-
-      .players-grid {
-        display: grid !important;
-        grid-template-columns: repeat(4, minmax(230px, 1fr)) !important;
-        gap: 34px !important;
-        align-items: stretch !important;
-      }
-
-      .player-card {
-        position: relative !important;
-        overflow: hidden !important;
-        min-height: 520px !important;
-        border-radius: 0 38px 18px 18px !important;
-        background: #ffffff !important;
-        box-shadow: 0 18px 40px rgba(0, 0, 0, 0.08) !important;
-      }
-
-      .player-number {
-        position: absolute !important;
-        top: 0 !important;
-        left: 0 !important;
-        z-index: 10 !important;
-        width: 88px !important;
-        height: 74px !important;
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-        border-bottom-right-radius: 28px !important;
-        background: #ffffff !important;
-        color: #008c35 !important;
-        font-size: 30px !important;
-        font-weight: 950 !important;
-      }
-
-      .player-photo {
-        position: relative !important;
-        height: 300px !important;
-        overflow: hidden !important;
-        background: radial-gradient(circle at center, #00551f 0%, #003b16 60%, #00250d 100%) !important;
-        display: flex !important;
-        align-items: flex-end !important;
-        justify-content: center !important;
-      }
-
-      .player-real-photo {
-        display: block !important;
-        width: 100% !important;
-        height: 100% !important;
-        object-fit: cover !important;
-      }
-
-      .player-placeholder {
-        position: relative !important;
-        width: 230px !important;
-        height: 250px !important;
-      }
-
-      .player-placeholder::before {
-        content: "" !important;
-        position: absolute !important;
-        top: 0 !important;
-        left: 50% !important;
-        width: 98px !important;
-        height: 98px !important;
-        transform: translateX(-50%) !important;
-        border-radius: 50% !important;
-        background: #c4a07b !important;
-      }
-
-      .player-placeholder::after {
-        content: "" !important;
-        position: absolute !important;
-        left: 50% !important;
-        bottom: 0 !important;
-        width: 210px !important;
-        height: 165px !important;
-        transform: translateX(-50%) !important;
-        border-radius: 110px 110px 0 0 !important;
-        background: linear-gradient(180deg, #d7d7d7 0%, #111111 45%, #050505 100%) !important;
-      }
-
-      .player-info {
-        padding: 32px 32px 28px !important;
-        background: #ffffff !important;
-      }
-
-      .player-position {
-        margin-bottom: 18px !important;
-        color: #008c35 !important;
-        font-size: 15px !important;
-        font-weight: 950 !important;
-        letter-spacing: 0.12em !important;
-        text-transform: uppercase !important;
-      }
-
-      .player-name {
-        min-height: 72px !important;
-        margin-bottom: 24px !important;
-        color: #050505 !important;
-        font-size: 27px !important;
-        line-height: 1.08 !important;
-        font-weight: 950 !important;
-        letter-spacing: 0.08em !important;
-        text-transform: uppercase !important;
-        word-break: break-word !important;
-      }
-
-      .player-country {
-        display: flex !important;
-        align-items: center !important;
-        gap: 14px !important;
-        min-height: 34px !important;
-        margin-bottom: 28px !important;
-        color: #67726a !important;
-        font-size: 17px !important;
-        font-weight: 800 !important;
-      }
-
-      .player-flag {
-        position: relative !important;
-        display: inline-block !important;
-        width: 44px !important;
-        height: 28px !important;
-        flex: 0 0 44px !important;
-        overflow: hidden !important;
-        border-radius: 4px !important;
-        box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.08) !important;
-        background: #eeeeee !important;
-      }
-
-      .flag-argentina {
-        background: linear-gradient(to bottom, #74acdf 0%, #74acdf 33.33%, #ffffff 33.33%, #ffffff 66.66%, #74acdf 66.66%, #74acdf 100%) !important;
-      }
-
-      .flag-argentina::after {
-        content: "" !important;
-        position: absolute !important;
-        top: 50% !important;
-        left: 50% !important;
-        width: 7px !important;
-        height: 7px !important;
-        transform: translate(-50%, -50%) !important;
-        border-radius: 50% !important;
-        background: #f6b40e !important;
-      }
-
-      .flag-russia {
-        background: linear-gradient(to bottom, #ffffff 0%, #ffffff 33.33%, #0039a6 33.33%, #0039a6 66.66%, #d52b1e 66.66%, #d52b1e 100%) !important;
-      }
-
-      .flag-brazil {
-        background: #009b3a !important;
-      }
-
-      .flag-brazil::before {
-        content: "" !important;
-        position: absolute !important;
-        top: 50% !important;
-        left: 50% !important;
-        width: 22px !important;
-        height: 16px !important;
-        transform: translate(-50%, -50%) rotate(45deg) !important;
-        background: #ffdf00 !important;
-      }
-
-      .flag-brazil::after {
-        content: "" !important;
-        position: absolute !important;
-        top: 50% !important;
-        left: 50% !important;
-        width: 10px !important;
-        height: 10px !important;
-        transform: translate(-50%, -50%) !important;
-        border-radius: 50% !important;
-        background: #002776 !important;
-      }
-
-      .flag-ecuador {
-        background: linear-gradient(to bottom, #ffdd00 0%, #ffdd00 50%, #034ea2 50%, #034ea2 75%, #ed1c24 75%, #ed1c24 100%) !important;
-      }
-
-      .flag-venezuela {
-        background: linear-gradient(to bottom, #f4d900 0%, #f4d900 33.33%, #0033a0 33.33%, #0033a0 66.66%, #ef3340 66.66%, #ef3340 100%) !important;
-      }
-
-      .player-btn {
-        width: 100% !important;
-        height: 54px !important;
-        border: none !important;
-        border-radius: 999px !important;
-        background: #008c35 !important;
-        color: #ffffff !important;
-        font-size: 17px !important;
-        font-weight: 950 !important;
-        cursor: pointer !important;
-        transition: 0.2s ease !important;
-      }
-
-      .player-btn:hover {
-        background: #006e29 !important;
-        transform: translateY(-2px) !important;
-      }
-
-      .player-modal {
-        position: fixed !important;
-        inset: 0 !important;
-        z-index: 99999 !important;
-        display: none !important;
-        align-items: center !important;
-        justify-content: center !important;
-        padding: 24px !important;
-        background: rgba(0, 0, 0, 0.64) !important;
-        backdrop-filter: blur(12px) !important;
-      }
-
-      .player-modal.is-open {
-        display: flex !important;
-      }
-
-      .player-modal-card {
-        position: relative !important;
-        width: min(940px, 100%) !important;
-        max-height: 92vh !important;
-        overflow: auto !important;
-        border-radius: 34px !important;
-        background: #ffffff !important;
-        box-shadow: 0 40px 90px rgba(0, 0, 0, 0.35) !important;
-      }
-
-      .player-modal-close {
-        position: absolute !important;
-        top: 18px !important;
-        right: 18px !important;
-        z-index: 5 !important;
-        width: 48px !important;
-        height: 48px !important;
-        border: none !important;
-        border-radius: 50% !important;
-        background: rgba(255, 255, 255, 0.94) !important;
-        color: #050505 !important;
-        font-size: 28px !important;
-        font-weight: 900 !important;
-        cursor: pointer !important;
-      }
-
-      .player-modal-top {
-        display: grid !important;
-        grid-template-columns: 0.9fr 1.1fr !important;
-        min-height: 420px !important;
-        background: radial-gradient(circle at center, #006b2a 0%, #003b16 62%, #001b09 100%) !important;
-      }
-
-      .player-modal-photo {
-        position: relative !important;
-        display: flex !important;
-        align-items: flex-end !important;
-        justify-content: center !important;
-        overflow: hidden !important;
-      }
-
-      .player-modal-main {
-        padding: 56px 52px 44px !important;
-        color: #ffffff !important;
-      }
-
-      .player-modal-number {
-        display: inline-flex !important;
-        width: 78px !important;
-        height: 62px !important;
-        align-items: center !important;
-        justify-content: center !important;
-        margin-bottom: 30px !important;
-        border-radius: 18px !important;
-        background: #ffffff !important;
-        color: #008c35 !important;
-        font-size: 30px !important;
-        font-weight: 950 !important;
-      }
-
-      .player-modal-position {
-        margin-bottom: 18px !important;
-        color: #7dffac !important;
-        font-size: 14px !important;
-        font-weight: 950 !important;
-        letter-spacing: 0.18em !important;
-        text-transform: uppercase !important;
-      }
-
-      .player-modal-name {
-        font-size: clamp(34px, 5vw, 64px) !important;
-        line-height: 0.98 !important;
-        font-weight: 950 !important;
-        letter-spacing: 0.05em !important;
-        text-transform: uppercase !important;
-      }
-
-      .player-modal-bottom {
-        display: grid !important;
-        grid-template-columns: repeat(4, 1fr) !important;
-        gap: 1px !important;
-        background: #e9eee9 !important;
-      }
-
-      .player-modal-stat {
-        padding: 26px !important;
-        background: #ffffff !important;
-      }
-
-      .player-modal-stat span {
-        display: block !important;
-        margin-bottom: 8px !important;
-        color: #7c8580 !important;
-        font-size: 13px !important;
-        font-weight: 900 !important;
-        letter-spacing: 0.12em !important;
-        text-transform: uppercase !important;
-      }
-
-      .player-modal-stat strong {
-        color: #050505 !important;
-        font-size: 21px !important;
-        font-weight: 950 !important;
-      }
-
-      .player-modal-country {
-        display: flex !important;
-        align-items: center !important;
-        gap: 12px !important;
-      }
-
-      @media (max-width: 1280px) {
-        .players-grid {
-          grid-template-columns: repeat(3, minmax(230px, 1fr)) !important;
-        }
-      }
-
-      @media (max-width: 980px) {
-        .players-grid {
-          grid-template-columns: repeat(2, minmax(220px, 1fr)) !important;
-        }
-
-        .player-modal-top {
-          grid-template-columns: 1fr !important;
-        }
-
-        .player-modal-bottom {
-          grid-template-columns: 1fr 1fr !important;
-        }
-      }
-
-      @media (max-width: 620px) {
-        .players-grid {
-          grid-template-columns: 1fr !important;
-        }
-
-        .player-modal-bottom {
-          grid-template-columns: 1fr !important;
-        }
-      }
-    `;
-
-    document.head.appendChild(style);
-  }
-
-  function renderPlayers(filter) {
-    const playersGrid =
-      document.querySelector("#playersGrid") ||
-      document.querySelector(".players-grid");
-
-    const playersCount = document.querySelector("#playersCount");
-
-    if (!playersGrid) return;
-
-    const allPlayers = getPlayersData();
-
-    if (!allPlayers.length) {
-      playersGrid.innerHTML = `
-        <article class="player-card">
-          <div class="player-info">
-            <div class="player-position">Ошибка</div>
-            <div class="player-name">Игроки<br>не найдены</div>
-            <div class="player-country">
-              <span>Проверь players-data.js и подключение перед app.js</span>
-            </div>
-          </div>
-        </article>
-      `;
-
-      if (playersCount) playersCount.textContent = "0 игроков";
-      return;
-    }
-
-    const activeFilter = filter || "all";
-
-    const players =
-      activeFilter === "all"
-        ? allPlayers
-        : allPlayers.filter(function (player) {
-            return normalizeRole(player.role || player.position) === activeFilter;
-          });
-
-    if (playersCount) {
-      playersCount.textContent = players.length + " игроков";
-    }
-
-    playersGrid.innerHTML = players
-      .map(function (player) {
-        const originalIndex = allPlayers.indexOf(player);
-        const number = getPlayerNumber(player, originalIndex);
-        const name = getPlayerName(player);
-        const position = getPlayerPosition(player);
-        const country = getPlayerCountry(player);
-        const photoHtml = createPhotoHtml(player);
-        const flagHtml = createFlagHtml(country);
-
-        return `
-          <article class="player-card">
-            <div class="player-number">${escapeHtml(number)}</div>
-
-            <div class="player-photo">
-              ${photoHtml}
-            </div>
-
-            <div class="player-info">
-              <div class="player-position">${escapeHtml(position)}</div>
-
-              <div class="player-name">${splitName(name)}</div>
-
-              <div class="player-country">
-                ${flagHtml}
-                <span>${escapeHtml(country)}</span>
-              </div>
-
-              <button class="player-btn" type="button" data-player-index="${originalIndex}">
-                Подробнее →
-              </button>
-            </div>
-          </article>
-        `;
-      })
-      .join("");
-
-    setupPlayerButtons();
-  }
-
-  function createModal() {
-    const oldModal = document.querySelector("#playerModal");
-    if (oldModal) oldModal.remove();
-
-    const modal = document.createElement("div");
-    modal.id = "playerModal";
-    modal.className = "player-modal";
-
-    modal.innerHTML = `
-      <div class="player-modal-card">
-        <button class="player-modal-close" type="button" aria-label="Закрыть">×</button>
-        <div id="playerModalContent"></div>
-      </div>
-    `;
-
-    document.body.appendChild(modal);
-
-    modal.addEventListener("click", function (event) {
-      if (
-        event.target === modal ||
-        event.target.classList.contains("player-modal-close")
-      ) {
-        closePlayerModal();
-      }
-    });
-
-    document.addEventListener("keydown", function (event) {
-      if (event.key === "Escape") {
-        closePlayerModal();
-      }
-    });
-  }
-
-  function openPlayerModal(index) {
-    const players = getPlayersData();
-    const player = players[index];
-
-    if (!player) return;
-
-    const modal = document.querySelector("#playerModal");
-    const content = document.querySelector("#playerModalContent");
-
-    if (!modal || !content) return;
-
-    const number = getPlayerNumber(player, index);
+  function createPlayerCard(player, index) {
     const name = getPlayerName(player);
     const position = getPlayerPosition(player);
     const country = getPlayerCountry(player);
-    const birthDate = getPlayerBirthDate(player);
-    const photoHtml = createPhotoHtml(player);
-    const flagHtml = createFlagHtml(country);
-    const stats = player.stats || {};
+    const number = getPlayerNumber(player, index);
 
-    content.innerHTML = `
-      <div class="player-modal-top">
-        <div class="player-modal-photo">
-          ${photoHtml}
+    return `
+      <article class="player-card">
+        <div class="player-number">${escapeHtml(number)}</div>
+        <div class="player-photo">
+          ${createPlayerPhoto(player)}
         </div>
-
-        <div class="player-modal-main">
-          <div class="player-modal-number">${escapeHtml(number)}</div>
-          <div class="player-modal-position">${escapeHtml(position)}</div>
-          <div class="player-modal-name">${escapeHtml(name)}</div>
+        <div class="player-info">
+          <div class="player-position">${escapeHtml(position)}</div>
+          <div class="player-name">${escapeHtml(name)}</div>
+          <div class="player-country">${escapeHtml(country || "Deportivo Moscu")}</div>
+          <button class="player-details-btn" type="button" data-player-index="${index}">
+            Подробнее
+          </button>
         </div>
-      </div>
-
-      <div class="player-modal-bottom">
-        <div class="player-modal-stat">
-          <span>Номер</span>
-          <strong>${escapeHtml(number)}</strong>
-        </div>
-
-        <div class="player-modal-stat">
-          <span>Позиция</span>
-          <strong>${escapeHtml(position)}</strong>
-        </div>
-
-        <div class="player-modal-stat">
-          <span>Страна</span>
-          <strong class="player-modal-country">${flagHtml}${escapeHtml(country)}</strong>
-        </div>
-
-        <div class="player-modal-stat">
-          <span>Дата рождения</span>
-          <strong>${escapeHtml(birthDate)}</strong>
-        </div>
-
-        <div class="player-modal-stat">
-          <span>Матчи</span>
-          <strong>${escapeHtml(stats.matches || 0)}</strong>
-        </div>
-
-        <div class="player-modal-stat">
-          <span>Голы</span>
-          <strong>${escapeHtml(stats.goals || 0)}</strong>
-        </div>
-
-        <div class="player-modal-stat">
-          <span>Передачи</span>
-          <strong>${escapeHtml(stats.assists || 0)}</strong>
-        </div>
-
-        <div class="player-modal-stat">
-          <span>Минуты</span>
-          <strong>${escapeHtml(stats.minutes || 0)}</strong>
-        </div>
-      </div>
+      </article>
     `;
+  }
 
-    modal.classList.add("is-open");
+  function renderPlayers() {
+    const grid =
+      qs("#playersGrid") ||
+      qs("#playersContainer") ||
+      qs(".players-grid");
+
+    if (!grid) return;
+
+    const players = getPlayersData();
+
+    if (!players.length) {
+      grid.innerHTML = `
+        <article class="glass-card">
+          <h3>Состав скоро будет добавлен</h3>
+          <p>Здесь появятся карточки игроков Deportivo Moscu.</p>
+        </article>
+      `;
+      return;
+    }
+
+    grid.innerHTML = players.map(createPlayerCard).join("");
+  }
+
+  function setupPlayerModal() {
+    document.addEventListener("click", function (event) {
+      const btn = event.target.closest(".player-details-btn");
+      if (!btn) return;
+
+      const index = Number(btn.getAttribute("data-player-index"));
+      const player = getPlayersData()[index];
+
+      if (!player) return;
+
+      const name = getPlayerName(player);
+      const position = getPlayerPosition(player);
+      const country = getPlayerCountry(player);
+      const number = getPlayerNumber(player, index);
+      const birth = getText(player.birthDate || player.birth || player.dateOfBirth || player.dob, "—");
+      const height = getText(player.height, "—");
+      const foot = getText(player.foot, "—");
+
+      openModal(`
+        <div class="modal-card">
+          <button class="modal-close" type="button" aria-label="Закрыть">×</button>
+          <h2>${escapeHtml(name)}</h2>
+          <p><strong>Номер:</strong> ${escapeHtml(number)}</p>
+          <p><strong>Позиция:</strong> ${escapeHtml(position)}</p>
+          <p><strong>Страна:</strong> ${escapeHtml(country || "—")}</p>
+          <p><strong>Дата рождения:</strong> ${escapeHtml(birth)}</p>
+          <p><strong>Рост:</strong> ${escapeHtml(height)}</p>
+          <p><strong>Рабочая нога:</strong> ${escapeHtml(foot)}</p>
+        </div>
+      `);
+    });
+  }
+
+  function injectModalStyles() {
+    if (qs("#modalStyles")) return;
+
+    const style = document.createElement("style");
+    style.id = "modalStyles";
+    style.textContent = `
+      .modal-overlay {
+        position: fixed;
+        inset: 0;
+        z-index: 999;
+        display: grid;
+        place-items: center;
+        padding: 20px;
+        background: rgba(0, 0, 0, 0.76);
+        backdrop-filter: blur(14px);
+      }
+
+      .modal-card {
+        width: min(560px, 100%);
+        position: relative;
+        padding: 30px;
+        background:
+          radial-gradient(circle at 20% 10%, rgba(0, 255, 157, 0.14), transparent 34%),
+          linear-gradient(180deg, rgba(4, 21, 18, 0.98), rgba(2, 6, 5, 0.98));
+        border: 1px solid rgba(0, 255, 157, 0.28);
+        color: rgba(237, 255, 249, 0.95);
+        box-shadow: 0 24px 90px rgba(0, 0, 0, 0.6);
+      }
+
+      .modal-card h2 {
+        margin: 0 0 18px;
+        color: #00ff9d;
+        font-family: "Oswald", sans-serif;
+        font-size: 42px;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+      }
+
+      .modal-card p {
+        color: rgba(218, 255, 244, 0.78);
+        line-height: 1.7;
+        margin: 0 0 8px;
+      }
+
+      .modal-card strong {
+        color: #ffffff;
+      }
+
+      .modal-close {
+        position: absolute;
+        right: 14px;
+        top: 12px;
+        border: 1px solid rgba(0, 255, 157, 0.28);
+        background: rgba(0, 255, 157, 0.08);
+        color: #00ff9d;
+        width: 38px;
+        height: 38px;
+        font-size: 26px;
+        line-height: 1;
+        cursor: pointer;
+      }
+    `;
+    document.head.appendChild(style);
+  }
+
+  function openModal(html) {
+    injectModalStyles();
+
+    const old = qs(".modal-overlay");
+    if (old) old.remove();
+
+    const overlay = document.createElement("div");
+    overlay.className = "modal-overlay";
+    overlay.innerHTML = html;
+
+    document.body.appendChild(overlay);
     document.body.classList.add("modal-open");
-  }
 
-  function closePlayerModal() {
-    const modal = document.querySelector("#playerModal");
-
-    if (!modal) return;
-
-    modal.classList.remove("is-open");
-    document.body.classList.remove("modal-open");
-  }
-
-  function setupPlayerButtons() {
-    const buttons = document.querySelectorAll(".player-btn[data-player-index]");
-
-    buttons.forEach(function (button) {
-      button.addEventListener("click", function () {
-        const index = Number(button.getAttribute("data-player-index"));
-        openPlayerModal(index);
-      });
-    });
-  }
-
-  function setupFilters() {
-    const filterButtons = document.querySelectorAll("[data-role-filter]");
-
-    if (!filterButtons.length) return;
-
-    filterButtons.forEach(function (button) {
-      button.addEventListener("click", function () {
-        const filter = button.getAttribute("data-role-filter") || "all";
-
-        filterButtons.forEach(function (item) {
-          item.classList.remove("is-active");
-        });
-
-        button.classList.add("is-active");
-        renderPlayers(filter);
-      });
-    });
-  }
-
-  function setActiveNavLink() {
-    const currentPath = window.location.pathname.split("/").pop() || "index.html";
-    const links = document.querySelectorAll(".main-nav a");
-
-    links.forEach(function (link) {
-      const href = link.getAttribute("href") || "";
-
-      if (href === currentPath || href.startsWith(currentPath + "#")) {
-        link.classList.add("active");
+    overlay.addEventListener("click", function (event) {
+      if (event.target === overlay || event.target.closest(".modal-close")) {
+        overlay.remove();
+        document.body.classList.remove("modal-open");
       }
     });
   }
 
-  document.addEventListener("DOMContentLoaded", function () {
-    injectStyles();
-    createModal();
-    renderPlayers("all");
-    setupFilters();
-    setActiveNavLink();
-  });
+  function fixBrokenImages() {
+    qsa("img").forEach(function (img) {
+      img.addEventListener("error", function () {
+        if (img.dataset.fallbackApplied === "true") return;
+
+        img.dataset.fallbackApplied = "true";
+
+        if (img.classList.contains("logo-img")) {
+          return;
+        }
+
+        img.style.display = "none";
+      });
+    });
+  }
+
+  function init() {
+    setupBurger();
+    setupActiveNav();
+    updateStats();
+    updateNextMatch();
+    renderNews();
+    renderMatches();
+    renderPlayers();
+    setupPlayerModal();
+    fixBrokenImages();
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init);
+  } else {
+    init();
+  }
 })();
