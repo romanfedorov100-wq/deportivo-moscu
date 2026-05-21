@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>Матчи и таблица — Deportivo Moscu</title>
+  <title>Матчи — Deportivo Moscu</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -133,10 +133,10 @@
     .main-nav {
       display: flex;
       align-items: center;
-      gap: 24px;
-      font-size: 12px;
+      gap: 18px;
+      font-size: 11px;
       font-weight: 950;
-      letter-spacing: 0.12em;
+      letter-spacing: 0.11em;
       text-transform: uppercase;
     }
 
@@ -144,6 +144,7 @@
       position: relative;
       color: rgba(237, 255, 249, 0.76);
       transition: 0.2s;
+      white-space: nowrap;
     }
 
     .main-nav a::after {
@@ -204,9 +205,7 @@
     }
 
     .ticket-btn,
-    .primary-btn,
-    .secondary-btn,
-    .source-btn {
+    .card-btn {
       display: inline-flex;
       align-items: center;
       justify-content: center;
@@ -216,28 +215,15 @@
       font-weight: 950;
       letter-spacing: 0.08em;
       text-transform: uppercase;
-      transition: 0.2s;
-    }
-
-    .ticket-btn,
-    .primary-btn,
-    .source-btn {
       background: linear-gradient(135deg, var(--green), var(--cyan));
       color: #00130c;
       border: 1px solid rgba(0, 255, 157, 0.58);
       box-shadow: 0 0 24px rgba(0, 255, 157, 0.28);
-    }
-
-    .secondary-btn {
-      background: rgba(0, 255, 157, 0.045);
-      color: var(--text);
-      border: 1px solid var(--line);
+      transition: 0.2s;
     }
 
     .ticket-btn:hover,
-    .primary-btn:hover,
-    .secondary-btn:hover,
-    .source-btn:hover {
+    .card-btn:hover {
       transform: translateY(-2px);
       box-shadow: 0 0 34px rgba(0, 255, 157, 0.42);
     }
@@ -307,11 +293,11 @@
 
     .league-hero-grid {
       position: relative;
-      z-index: 1;
+      z-index: 2;
       display: grid;
       grid-template-columns: 1.05fr 0.95fr;
       align-items: center;
-      gap: 44px;
+      gap: 46px;
     }
 
     .section-label {
@@ -342,22 +328,16 @@
     }
 
     .league-hero p {
-      max-width: 620px;
+      max-width: 700px;
       color: var(--muted);
       font-size: 18px;
       line-height: 1.65;
-      margin: 24px 0 30px;
+      margin: 24px 0 0;
       font-weight: 700;
     }
 
-    .hero-buttons {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-    }
-
-    .league-photo-card {
-      min-height: 420px;
+    .hero-card {
+      min-height: 430px;
       border-radius: 2px;
       background:
         linear-gradient(90deg, rgba(2, 6, 5, 0.4), rgba(2, 6, 5, 0.9)),
@@ -369,13 +349,13 @@
       display: grid;
       place-items: center;
       text-align: center;
-      padding: 34px;
+      padding: 38px;
       position: relative;
       overflow: hidden;
       border: 1px solid var(--line);
     }
 
-    .league-photo-card::before {
+    .hero-card::before {
       content: "";
       position: absolute;
       inset: 18px;
@@ -384,7 +364,7 @@
       pointer-events: none;
     }
 
-    .league-photo-card::after {
+    .hero-card::after {
       content: "MATCH CENTER";
       position: absolute;
       right: 28px;
@@ -396,14 +376,14 @@
       text-transform: uppercase;
     }
 
-    .league-card-inner {
+    .hero-card-inner {
       position: relative;
       z-index: 2;
       display: grid;
       place-items: center;
     }
 
-    .league-card-inner::before {
+    .hero-card-inner::before {
       content: "";
       position: absolute;
       width: 440px;
@@ -416,118 +396,70 @@
       z-index: -1;
     }
 
-    .league-card-inner img {
-      width: 150px;
-      margin-bottom: 22px;
+    .hero-card img {
+      width: 170px;
+      margin-bottom: 20px;
       filter: drop-shadow(0 0 32px rgba(0, 255, 157, 0.32));
     }
 
-    .league-card-inner h2 {
+    .hero-card h2 {
       font-family: "Oswald", sans-serif;
-      font-size: 38px;
-      margin: 0;
+      font-size: 40px;
       letter-spacing: 0.14em;
+      margin: 0;
       text-transform: uppercase;
       text-shadow: 0 0 28px rgba(0, 255, 157, 0.34);
     }
 
-    .league-card-inner span {
+    .hero-card span {
       color: var(--green);
-      margin-top: 10px;
       font-weight: 950;
+      margin-top: 10px;
       letter-spacing: 0.16em;
       text-transform: uppercase;
     }
 
-    .content-section {
-      padding: 42px 0;
+    .league-section {
+      padding: 54px 0;
     }
 
-    .section-top {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 18px;
-      margin-bottom: 22px;
-    }
-
-    .section-top h2 {
+    .section-title {
       font-family: "Oswald", sans-serif;
-      font-size: 34px;
-      line-height: 1;
-      margin: 0;
+      font-size: clamp(38px, 5vw, 62px);
+      line-height: 0.98;
       text-transform: uppercase;
+      margin: 0 0 18px;
       color: var(--green);
       letter-spacing: 0.12em;
       text-shadow: 0 0 20px rgba(0, 255, 157, 0.28);
     }
 
-    .tabs-row {
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-      margin-bottom: 22px;
+    .section-text {
+      color: var(--muted);
+      line-height: 1.75;
+      font-size: 18px;
+      max-width: 880px;
+      margin: 0 0 34px;
     }
 
-    .tab-btn {
-      border: 1px solid var(--line);
-      background: rgba(0, 255, 157, 0.045);
-      color: rgba(237, 255, 249, 0.84);
-      padding: 13px 19px;
-      border-radius: 4px;
-      font-weight: 950;
-      cursor: pointer;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      transition: 0.2s;
-    }
-
-    .tab-btn:hover {
-      color: var(--green);
-      border-color: rgba(0, 255, 157, 0.42);
-      box-shadow: var(--glow);
-    }
-
-    .tab-btn.active {
-      background: linear-gradient(135deg, var(--green), var(--cyan));
-      color: #00130c;
-      border-color: rgba(0, 255, 157, 0.7);
-      box-shadow: 0 0 28px rgba(0, 255, 157, 0.34);
-    }
-
-    .tab-panel {
-      display: none;
-    }
-
-    .tab-panel.active {
-      display: block;
-    }
-
-    .league-layout {
+    .match-grid {
       display: grid;
-      grid-template-columns: 1fr 330px;
+      grid-template-columns: repeat(2, 1fr);
       gap: 22px;
-      align-items: start;
     }
 
-    .table-card,
-    .info-card,
-    .match-card,
-    .round-block,
-    .schedule-summary {
+    .match-card {
       position: relative;
-      background: var(--panel);
       border: 1px solid var(--line);
       border-radius: 2px;
+      background: var(--panel);
       box-shadow: 0 18px 54px rgba(0, 0, 0, 0.36);
+      padding: 26px;
       overflow: hidden;
+      transition: 0.22s;
     }
 
-    .table-card::before,
-    .info-card::before,
-    .match-card::before,
-    .round-block::before,
-    .schedule-summary::before {
+    .match-card::before {
       content: "";
       position: absolute;
       inset: 0;
@@ -535,277 +467,153 @@
       background:
         linear-gradient(135deg, rgba(0, 255, 157, 0.08), transparent 42%),
         linear-gradient(180deg, transparent, rgba(0, 255, 157, 0.035));
-      opacity: 0.8;
+      opacity: 0.85;
     }
 
-    .table-card {
-      padding: 20px;
+    .match-card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(0, 255, 157, 0.48);
+      box-shadow: 0 0 44px rgba(0, 255, 157, 0.28), 0 28px 84px rgba(0, 0, 0, 0.48);
     }
 
-    .table-wrapper {
+    .match-top,
+    .match-teams,
+    .match-bottom {
       position: relative;
       z-index: 2;
-      overflow-x: auto;
     }
 
-    table {
+    .match-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 20px;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .match-status {
+      color: var(--green);
+      border: 1px solid rgba(0, 255, 157, 0.22);
+      background: rgba(0, 255, 157, 0.08);
+      border-radius: 4px;
+      padding: 7px 10px;
+      white-space: nowrap;
+    }
+
+    .match-teams {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      gap: 20px;
+      align-items: center;
+      margin-bottom: 22px;
+    }
+
+    .match-team {
+      display: grid;
+      justify-items: center;
+      gap: 10px;
+      text-align: center;
+      font-weight: 950;
+      color: var(--text);
+    }
+
+    .team-logo,
+    .opponent-logo {
+      width: 68px;
+      height: 68px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(0, 255, 157, 0.24);
+      background: rgba(0, 255, 157, 0.06);
+      color: var(--green);
+      font-family: "Oswald", sans-serif;
+      font-size: 25px;
+      font-weight: 900;
+      box-shadow: var(--glow);
+      overflow: hidden;
+    }
+
+    .team-logo img,
+    .opponent-logo img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      padding: 7px;
+    }
+
+    .score {
+      font-family: "Oswald", sans-serif;
+      font-size: 38px;
+      color: var(--green);
+      letter-spacing: 0.08em;
+      text-shadow: var(--glow);
+      white-space: nowrap;
+    }
+
+    .match-bottom {
+      display: grid;
+      gap: 7px;
+      color: var(--muted);
+      line-height: 1.5;
+      font-weight: 700;
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--line);
+      background: var(--panel);
+      box-shadow: 0 18px 54px rgba(0, 0, 0, 0.36);
+    }
+
+    .league-table {
       width: 100%;
       border-collapse: collapse;
       min-width: 760px;
     }
 
-    th,
-    td {
-      padding: 14px 12px;
+    .league-table th,
+    .league-table td {
+      padding: 16px 14px;
       border-bottom: 1px solid rgba(0, 255, 157, 0.12);
       text-align: left;
       color: var(--text);
     }
 
-    th {
-      color: var(--muted);
-      font-size: 12px;
+    .league-table th {
+      color: var(--green);
       text-transform: uppercase;
-      letter-spacing: 0.1em;
-      font-weight: 950;
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      background: rgba(0, 255, 157, 0.06);
     }
 
-    td {
-      font-size: 14px;
+    .league-table td {
+      color: rgba(237, 255, 249, 0.86);
       font-weight: 800;
     }
 
-    .position-cell {
-      color: var(--green);
-      font-weight: 950;
-      width: 68px;
+    .league-table tr:hover td {
+      background: rgba(0, 255, 157, 0.04);
     }
 
-    .team-cell {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      min-width: 220px;
+    .club-row {
+      color: var(--green) !important;
+      text-shadow: var(--glow);
     }
 
-    .team-logo {
-      width: 34px;
-      height: 34px;
-      object-fit: contain;
-      flex: 0 0 auto;
-      filter: drop-shadow(0 0 12px rgba(0, 255, 157, 0.18));
-    }
-
-    tr.deportivo-row {
-      background: rgba(0, 255, 157, 0.11);
-      box-shadow: inset 3px 0 0 var(--green);
-    }
-
-    tr.deportivo-row td {
-      color: var(--green);
-    }
-
-    .info-card {
-      padding: 24px;
-      display: grid;
-      gap: 18px;
-    }
-
-    .info-card img {
-      position: relative;
-      z-index: 2;
-      width: 120px;
-      filter: drop-shadow(0 0 22px rgba(0, 255, 157, 0.28));
-    }
-
-    .info-card h3 {
-      position: relative;
-      z-index: 2;
-      font-family: "Oswald", sans-serif;
-      font-size: 30px;
-      margin: 0;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: var(--text);
-    }
-
-    .info-card p {
-      position: relative;
-      z-index: 2;
-      color: var(--muted);
-      line-height: 1.65;
-      margin: 0;
-    }
-
-    .mini-stats,
-    .schedule-summary {
-      position: relative;
-      z-index: 2;
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 10px;
-    }
-
-    .mini-stats {
-      grid-template-columns: repeat(2, 1fr);
-    }
-
-    .mini-stat,
-    .summary-item {
-      border: 1px solid rgba(0, 255, 157, 0.15);
-      background: rgba(0, 255, 157, 0.045);
-      padding: 14px;
-      border-radius: 4px;
-    }
-
-    .mini-stat strong,
-    .summary-item strong {
-      display: block;
-      color: var(--green);
-      font-family: "Oswald", sans-serif;
-      font-size: 30px;
-      line-height: 1;
-      margin-bottom: 6px;
-    }
-
-    .mini-stat span,
-    .summary-item span {
-      color: var(--muted);
-      font-size: 12px;
-      font-weight: 900;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-    }
-
-    .schedule-summary {
-      padding: 20px;
-      margin-bottom: 18px;
-    }
-
-    .matches-list {
-      display: grid;
-      gap: 18px;
-    }
-
-    .round-block {
-      padding: 20px;
-    }
-
-    .round-title {
-      position: relative;
-      z-index: 2;
-      display: flex;
-      justify-content: space-between;
-      gap: 14px;
-      align-items: center;
-      margin-bottom: 14px;
-    }
-
-    .round-title h3 {
-      margin: 0;
-      font-family: "Oswald", sans-serif;
-      color: var(--green);
-      font-size: 26px;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-    }
-
-    .round-title span {
-      color: var(--muted);
-      font-size: 12px;
-      font-weight: 900;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-    }
-
-    .round-matches {
-      position: relative;
-      z-index: 2;
-      display: grid;
-      gap: 10px;
-    }
-
-    .match-card {
-      padding: 16px;
-      display: grid;
-      grid-template-columns: 118px 1fr auto;
-      gap: 14px;
-      align-items: center;
-      box-shadow: none;
-      background: rgba(0, 255, 157, 0.035);
-    }
-
-    .match-date {
-      color: var(--muted);
-      font-size: 12px;
-      font-weight: 950;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-    }
-
-    .match-main {
-      display: grid;
-      grid-template-columns: 1fr auto 1fr;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .match-team {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-weight: 950;
-      color: var(--text);
-    }
-
-    .match-team.away {
-      justify-content: flex-end;
-      text-align: right;
-    }
-
-    .match-team img {
-      width: 32px;
-      height: 32px;
-      object-fit: contain;
-      filter: drop-shadow(0 0 10px rgba(0, 255, 157, 0.16));
-    }
-
-    .score-box {
-      min-width: 82px;
-      padding: 8px 12px;
+    .empty-state {
       border: 1px solid var(--line);
-      background: rgba(2, 6, 5, 0.68);
-      color: var(--green);
-      text-align: center;
-      font-family: "Oswald", sans-serif;
-      font-size: 24px;
-      font-weight: 900;
-      text-shadow: 0 0 14px rgba(0, 255, 157, 0.42);
-    }
-
-    .match-status {
-      color: var(--green);
-      font-size: 11px;
-      font-weight: 950;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      text-align: right;
-    }
-
-    .match-status.upcoming {
-      color: var(--cyan);
-    }
-
-    .moscu-match {
-      border-color: rgba(0, 255, 157, 0.42);
-      box-shadow: inset 3px 0 0 var(--green);
-    }
-
-    .match-note {
-      grid-column: 2 / 4;
+      background: var(--panel);
+      padding: 28px;
       color: var(--muted);
-      font-size: 13px;
-      line-height: 1.5;
+      font-weight: 800;
+      line-height: 1.6;
     }
 
     .site-footer {
@@ -858,8 +666,17 @@
       font-size: 13px;
     }
 
-    @media (max-width: 980px) {
+    @media (max-width: 1100px) {
       .main-nav {
+        gap: 12px;
+        font-size: 10px;
+      }
+    }
+
+    @media (max-width: 980px) {
+      .main-nav,
+      .language-switcher,
+      .ticket-btn {
         display: none;
       }
 
@@ -867,32 +684,17 @@
         display: block;
       }
 
-      .ticket-btn {
-        display: none;
-      }
-
       .league-hero-grid,
-      .league-layout,
       .footer-grid {
         grid-template-columns: 1fr;
       }
 
-      .league-photo-card {
+      .hero-card {
         min-height: 340px;
       }
 
-      .match-card {
+      .match-grid {
         grid-template-columns: 1fr;
-      }
-
-      .match-status,
-      .match-note {
-        text-align: left;
-        grid-column: auto;
-      }
-
-      .schedule-summary {
-        grid-template-columns: repeat(2, 1fr);
       }
     }
 
@@ -905,8 +707,7 @@
         min-height: 76px;
       }
 
-      .logo-text,
-      .language-switcher {
+      .logo-text {
         display: none;
       }
 
@@ -919,43 +720,25 @@
         letter-spacing: 0.05em;
       }
 
-      .league-hero p {
+      .league-hero p,
+      .section-text {
         font-size: 16px;
       }
 
-      .hero-buttons,
-      .primary-btn,
-      .secondary-btn,
-      .source-btn {
-        width: 100%;
+      .section-title {
+        font-size: 34px;
       }
 
-      .section-top {
-        align-items: flex-start;
-        flex-direction: column;
-      }
-
-      .match-main {
-        grid-template-columns: 1fr;
-        gap: 8px;
-      }
-
-      .match-team.away {
-        justify-content: flex-start;
-        text-align: left;
-      }
-
-      .score-box {
-        width: 100%;
-      }
-
-      .mini-stats,
-      .schedule-summary {
-        grid-template-columns: 1fr;
-      }
-
-      .league-card-inner h2 {
+      .hero-card h2 {
         font-size: 30px;
+      }
+
+      .match-teams {
+        grid-template-columns: 1fr;
+      }
+
+      .score {
+        text-align: center;
       }
     }
   </style>
@@ -978,7 +761,9 @@
         <a href="team.html">Команда</a>
         <a href="league.html" class="active">Матчи</a>
         <a href="club.html">Клуб</a>
+        <a href="stadium.html">Стадион</a>
         <a href="academy.html">Академия</a>
+        <a href="management.html">Руководство</a>
         <a href="media.html">Медиа</a>
         <a href="store.html">Магазин</a>
       </nav>
@@ -1006,7 +791,9 @@
       <a href="team.html">Команда</a>
       <a href="league.html">Матчи</a>
       <a href="club.html">Клуб</a>
+      <a href="stadium.html">Стадион</a>
       <a href="academy.html">Академия</a>
+      <a href="management.html">Руководство</a>
       <a href="media.html">Медиа</a>
       <a href="store.html">Магазин</a>
     </div>
@@ -1016,108 +803,59 @@
     <section class="league-hero">
       <div class="container league-hero-grid">
         <div>
-          <div class="section-label">Liga Escobarense</div>
-          <h1>Таблица и<br>матчи</h1>
+          <div class="section-label">Match Center</div>
+          <h1>Матчи<br>Deportivo Moscu</h1>
           <p>
-            Primera División B 2025-26 / Zona Escobar. Таблица, полный календарь Deportivo Moscu
-            и полный календарь лиги на 26 туров.
+            Календарь матчей, результаты, будущие игры и турнирная таблица.
+            Здесь будут все матчи Deportivo Moscu и Liga Escobarense.
           </p>
-
-          <div class="hero-buttons">
-            <a href="#tablePanel" class="primary-btn">Открыть таблицу</a>
-            <a href="#moscuPanel" class="secondary-btn">Матчи Deportivo</a>
-          </div>
         </div>
 
-        <div class="league-photo-card">
-          <div class="league-card-inner">
+        <div class="hero-card">
+          <div class="hero-card-inner">
             <img src="images/logo.png" alt="Deportivo Moscu">
-            <h2>Match Center</h2>
-            <span>Deportivo Moscu</span>
+            <h2>DM MATCHES</h2>
+            <span>Календарь. Результаты. Таблица.</span>
           </div>
         </div>
       </div>
     </section>
 
-    <section class="content-section">
+    <section class="league-section">
       <div class="container">
-        <div class="section-top">
-          <h2>Матч-центр</h2>
-          <a href="https://ligaescobarense.ar/index.php/competition/primera-division-b-2025-26-zona-escobar/" id="sourceLink" class="source-btn" target="_blank" rel="noopener">Источник Liga Escobarense</a>
-        </div>
+        <h2 class="section-title">Календарь матчей</h2>
+        <p class="section-text">
+          Матчи подгружаются из файла `matches-data.js`. Если данных нет, страница покажет базовую заготовку.
+        </p>
 
-        <div class="tabs-row">
-          <button class="tab-btn active" type="button" data-tab="tablePanel">Таблица</button>
-          <button class="tab-btn" type="button" data-tab="moscuPanel">Матчи Deportivo</button>
-          <button class="tab-btn" type="button" data-tab="allMatchesPanel">Все матчи лиги</button>
-        </div>
+        <div class="match-grid" id="matchesGrid"></div>
+      </div>
+    </section>
 
-        <div class="tab-panel active" id="tablePanel">
-          <div class="league-layout">
-            <div class="table-card">
-              <div class="table-wrapper">
-                <table>
-                  <thead>
-                    <tr>
-                      <th>#</th>
-                      <th>Команда</th>
-                      <th>PJ</th>
-                      <th>G</th>
-                      <th>E</th>
-                      <th>P</th>
-                      <th>GF</th>
-                      <th>GC</th>
-                      <th>DIF</th>
-                      <th>Pts</th>
-                    </tr>
-                  </thead>
+    <section class="league-section">
+      <div class="container">
+        <h2 class="section-title">Турнирная таблица</h2>
+        <p class="section-text">
+          Таблица подгружается из файла `league-data.js`. Строка Deportivo Moscu подсвечивается автоматически.
+        </p>
 
-                  <tbody id="leagueTableBody"></tbody>
-                </table>
-              </div>
-            </div>
+        <div class="table-wrap">
+          <table class="league-table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Команда</th>
+                <th>И</th>
+                <th>В</th>
+                <th>Н</th>
+                <th>П</th>
+                <th>Мячи</th>
+                <th>О</th>
+              </tr>
+            </thead>
 
-            <aside class="info-card">
-              <img src="images/logo.png" alt="Deportivo Moscu">
-              <h3>Deportivo Moscu</h3>
-              <p>
-                Команда Deportivo Moscu подсвечена в таблице неоновым цветом.
-                Вкладка “Все матчи лиги” теперь строит полный календарь на 26 туров.
-              </p>
-
-              <div class="mini-stats">
-                <div class="mini-stat">
-                  <strong id="moscuPosition">—</strong>
-                  <span>Место</span>
-                </div>
-
-                <div class="mini-stat">
-                  <strong id="moscuPoints">—</strong>
-                  <span>Очки</span>
-                </div>
-
-                <div class="mini-stat">
-                  <strong id="moscuPlayed">—</strong>
-                  <span>Матчи</span>
-                </div>
-
-                <div class="mini-stat">
-                  <strong id="moscuDiff">—</strong>
-                  <span>Разница</span>
-                </div>
-              </div>
-            </aside>
-          </div>
-        </div>
-
-        <div class="tab-panel" id="moscuPanel">
-          <div class="schedule-summary" id="moscuSummary"></div>
-          <div class="matches-list" id="moscuMatchesList"></div>
-        </div>
-
-        <div class="tab-panel" id="allMatchesPanel">
-          <div class="schedule-summary" id="leagueSummary"></div>
-          <div class="matches-list" id="allMatchesList"></div>
+            <tbody id="leagueTableBody"></tbody>
+          </table>
         </div>
       </div>
     </section>
@@ -1136,6 +874,8 @@
         <a href="club.html">О клубе</a>
         <a href="team.html">Команда</a>
         <a href="league.html">Матчи</a>
+        <a href="stadium.html">Стадион</a>
+        <a href="management.html">Руководство</a>
       </div>
 
       <div class="footer-col">
@@ -1154,11 +894,8 @@
     </div>
   </footer>
 
-  <script src="league-data.js"></script>
-  <script>
-    window.deportivoLeagueFull = window.deportivoLeague || {};
-  </script>
   <script src="matches-data.js"></script>
+  <script src="league-data.js"></script>
 
   <script>
     const burgerBtn = document.getElementById("burgerBtn");
@@ -1170,457 +907,141 @@
       });
     }
 
-    const fullLeagueData = window.deportivoLeagueFull || {};
-    const moscuScheduleData = window.deportivoLeague || {};
-
-    const baseFirstRound = [
-      [
-        ["Domingo Matheu", "La Sonia B"],
-        ["Colectividad Boliviana", "America"],
-        ["Falucho", "Villa Juana"],
-        ["Sportivo Union", "Tribuna Sport Club"],
-        ["Los Altos", "Fair Play"],
-        ["Deportivo Moscu", "Capitanes"],
-        ["Parque III", "Lomas Futbol"]
-      ],
-      [
-        ["Villa Juana", "Colectividad Boliviana"],
-        ["America", "Deportivo Moscu"],
-        ["Sportivo Union", "Los Altos"],
-        ["Tribuna Sport Club", "Parque III"],
-        ["Lomas Futbol", "Domingo Matheu"],
-        ["Capitanes", "Fair Play"],
-        ["La Sonia B", "Falucho"]
-      ],
-      [
-        ["Fair Play", "America"],
-        ["Colectividad Boliviana", "La Sonia B"],
-        ["Falucho", "Lomas Futbol"],
-        ["Domingo Matheu", "Tribuna Sport Club"],
-        ["Parque III", "Sportivo Union"],
-        ["Deportivo Moscu", "Villa Juana"],
-        ["Los Altos", "Capitanes"]
-      ],
-      [
-        ["Lomas Futbol", "Colectividad Boliviana"],
-        ["Villa Juana", "Fair Play"],
-        ["Tribuna Sport Club", "Falucho"],
-        ["Parque III", "Los Altos"],
-        ["Sportivo Union", "Domingo Matheu"],
-        ["La Sonia B", "Deportivo Moscu"],
-        ["America", "Capitanes"]
-      ],
-      [
-        ["Deportivo Moscu", "Lomas Futbol"],
-        ["Capitanes", "Villa Juana"],
-        ["Colectividad Boliviana", "Tribuna Sport Club"],
-        ["Domingo Matheu", "Parque III"],
-        ["Los Altos", "America"],
-        ["Fair Play", "La Sonia B"],
-        ["Falucho", "Sportivo Union"]
-      ],
-      [
-        ["Lomas Futbol", "Fair Play"],
-        ["Tribuna Sport Club", "Deportivo Moscu"],
-        ["Domingo Matheu", "Los Altos"],
-        ["Parque III", "Capitanes"],
-        ["Sportivo Union", "America"],
-        ["Villa Juana", "La Sonia B"],
-        ["Falucho", "Colectividad Boliviana"]
-      ],
-      [
-        ["Deportivo Moscu", "Sportivo Union"],
-        ["Capitanes", "Colectividad Boliviana"],
-        ["Los Altos", "Tribuna Sport Club"],
-        ["Villa Juana", "Domingo Matheu"],
-        ["La Sonia B", "Parque III"],
-        ["Lomas Futbol", "Falucho"],
-        ["Fair Play", "America"]
-      ],
-      [
-        ["Sportivo Union", "Fair Play"],
-        ["Falucho", "Los Altos"],
-        ["La Sonia B", "Villa Juana"],
-        ["Parque III", "Deportivo Moscu"],
-        ["Tribuna Sport Club", "Capitanes"],
-        ["Lomas Futbol", "America"],
-        ["Domingo Matheu", "Colectividad Boliviana"]
-      ],
-      [
-        ["America", "Tribuna Sport Club"],
-        ["Capitanes", "Sportivo Union"],
-        ["Colectividad Boliviana", "Falucho"],
-        ["Los Altos", "La Sonia B"],
-        ["Deportivo Moscu", "Domingo Matheu"],
-        ["Villa Juana", "Parque III"],
-        ["Fair Play", "Lomas Futbol"]
-      ],
-      [
-        ["Parque III", "Fair Play"],
-        ["Domingo Matheu", "Los Altos"],
-        ["Falucho", "Capitanes"],
-        ["Lomas Futbol", "Villa Juana"],
-        ["Deportivo Moscu", "America"],
-        ["Sportivo Union", "Colectividad Boliviana"],
-        ["Tribuna Sport Club", "La Sonia B"]
-      ],
-      [
-        ["Capitanes", "Domingo Matheu"],
-        ["Fair Play", "Falucho"],
-        ["Los Altos", "Lomas Futbol"],
-        ["Villa Juana", "Sportivo Union"],
-        ["America", "Parque III"],
-        ["Deportivo Moscu", "Colectividad Boliviana"],
-        ["La Sonia B", "Tribuna Sport Club"]
-      ],
-      [
-        ["Deportivo Moscu", "Los Altos"],
-        ["Colectividad Boliviana", "Fair Play"],
-        ["Sportivo Union", "La Sonia B"],
-        ["Tribuna Sport Club", "Lomas Futbol"],
-        ["Parque III", "Domingo Matheu"],
-        ["America", "Villa Juana"],
-        ["Falucho", "Capitanes"]
-      ],
-      [
-        ["Fair Play", "Deportivo Moscu"],
-        ["La Sonia B", "America"],
-        ["Lomas Futbol", "Sportivo Union"],
-        ["Domingo Matheu", "Villa Juana"],
-        ["Capitanes", "Parque III"],
-        ["Tribuna Sport Club", "Los Altos"],
-        ["Colectividad Boliviana", "Falucho"]
-      ]
-    ];
-
-    function buildFullLeagueFixture() {
-      const firstRound = baseFirstRound.flatMap((roundMatches, index) => {
-        return roundMatches.map((pair) => ({
-          round: `Fecha ${index + 1}`,
-          date: "A confirmar",
-          home: pair[0],
-          away: pair[1],
-          homeScore: null,
-          awayScore: null,
-          status: "upcoming"
-        }));
-      });
-
-      const secondRound = baseFirstRound.flatMap((roundMatches, index) => {
-        return roundMatches.map((pair) => ({
-          round: `Fecha ${index + 14}`,
-          date: "A confirmar",
-          home: pair[1],
-          away: pair[0],
-          homeScore: null,
-          awayScore: null,
-          status: "upcoming"
-        }));
-      });
-
-      return [...firstRound, ...secondRound];
+    function escapeHtml(value) {
+      return String(value || "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
     }
 
-    function matchKey(match) {
-      return `${match.round}|${match.home}|${match.away}`.toLowerCase();
+    function getText(value, fallback) {
+      if (!value) return fallback || "";
+      if (typeof value === "string") return value;
+      return value.ru || value.en || value.es || fallback || "";
     }
 
-    function matchReverseKey(match) {
-      return `${match.round}|${match.away}|${match.home}`.toLowerCase();
+    function getInitials(name) {
+      return String(name || "?").trim().slice(0, 1).toUpperCase();
     }
 
-    function normalizeRound(round) {
-      if (typeof round === "number") return `Fecha ${round}`;
-      if (!round) return "Fecha ?";
-      return String(round).startsWith("Fecha") ? String(round) : `Fecha ${round}`;
+    function getOpponentLogo(item) {
+      const logo = item.opponentLogo || item.logo || item.logoUrl || "";
+      if (logo) {
+        return `<img src="${escapeHtml(logo)}" alt="${escapeHtml(getText(item.opponent, "Opponent"))}">`;
+      }
+
+      return escapeHtml(getInitials(getText(item.opponent, "O")));
     }
 
-    function normalizeMatch(match) {
-      return {
-        ...match,
-        round: normalizeRound(match.round),
-        date: match.date || "A confirmar",
-        homeScore: match.homeScore === undefined ? null : match.homeScore,
-        awayScore: match.awayScore === undefined ? null : match.awayScore,
-        status: match.status || ((match.homeScore !== null && match.awayScore !== null) ? "played" : "upcoming")
-      };
-    }
+    function renderMatches() {
+      const matchesGrid = document.getElementById("matchesGrid");
 
-    function overlayKnownResults(generatedMatches) {
-      const knownLeagueMatches = Array.isArray(fullLeagueData.matches) ? fullLeagueData.matches.map(normalizeMatch) : [];
-      const knownMoscuMatches = Array.isArray(moscuScheduleData.matches) ? moscuScheduleData.matches.map(normalizeMatch) : [];
-      const knownMatches = [...knownLeagueMatches, ...knownMoscuMatches];
-
-      const byKey = new Map();
-
-      knownMatches.forEach((match) => {
-        byKey.set(matchKey(match), match);
-      });
-
-      return generatedMatches.map((generated) => {
-        const direct = byKey.get(matchKey(generated));
-
-        if (direct) {
-          return {
-            ...generated,
-            date: direct.date || generated.date,
-            homeScore: direct.homeScore,
-            awayScore: direct.awayScore,
-            status: direct.status || generated.status,
-            note: direct.note || ""
-          };
+      const fallbackMatches = [
+        {
+          date: "Дата скоро будет добавлена",
+          tournament: "Liga Escobarense",
+          opponent: "Matheu",
+          status: "Будущий матч",
+          score: "VS",
+          place: "Buenos Aires, Argentina"
         }
+      ];
 
-        return generated;
-      });
-    }
+      const matches = Array.isArray(window.deportivoMatches) && window.deportivoMatches.length
+        ? window.deportivoMatches
+        : fallbackMatches;
 
-    function normalizeTable() {
-      if (Array.isArray(fullLeagueData.table)) return fullLeagueData.table;
-      if (Array.isArray(fullLeagueData.standings)) return fullLeagueData.standings;
-      if (Array.isArray(moscuScheduleData.table)) return moscuScheduleData.table;
-      if (Array.isArray(moscuScheduleData.standings)) return moscuScheduleData.standings;
-      return [];
-    }
-
-    function normalizeMoscuMatches() {
-      if (Array.isArray(moscuScheduleData.matches)) {
-        return moscuScheduleData.matches.map(normalizeMatch);
-      }
-
-      return [];
-    }
-
-    function getTeamLogo(teamName) {
-      if (teamName && String(teamName).toLowerCase().includes("deportivo moscu")) {
-        return "images/logo.png";
-      }
-
-      const teams = fullLeagueData.teams || {};
-      const team = teams[teamName];
-
-      if (team && team.logo) {
-        return team.logo;
-      }
-
-      return "images/logo.png";
-    }
-
-    function isMoscu(teamName) {
-      return String(teamName || "").toLowerCase().includes("deportivo moscu");
-    }
-
-    function getRoundName(match) {
-      return normalizeRound(match.round);
-    }
-
-    function getScore(match) {
-      const hasHome = match.homeScore !== undefined && match.homeScore !== null;
-      const hasAway = match.awayScore !== undefined && match.awayScore !== null;
-
-      if (hasHome && hasAway) {
-        return `${match.homeScore} : ${match.awayScore}`;
-      }
-
-      return "VS";
-    }
-
-    function getMatchStatus(match) {
-      const hasHome = match.homeScore !== undefined && match.homeScore !== null;
-      const hasAway = match.awayScore !== undefined && match.awayScore !== null;
-
-      if (match.status === "played") return "Сыгран";
-      if (match.status === "upcoming") return "Ожидается";
-
-      return hasHome && hasAway ? "Сыгран" : "Ожидается";
-    }
-
-    function isUpcoming(match) {
-      const hasHome = match.homeScore !== undefined && match.homeScore !== null;
-      const hasAway = match.awayScore !== undefined && match.awayScore !== null;
-      return match.status === "upcoming" || (!hasHome && !hasAway);
-    }
-
-    function renderTable() {
-      const tableBody = document.getElementById("leagueTableBody");
-      const table = normalizeTable();
-
-      if (!tableBody) return;
-
-      tableBody.innerHTML = table.map((row) => {
-        const logo = getTeamLogo(row.team);
-        const moscuClass = isMoscu(row.team) ? "deportivo-row" : "";
+      matchesGrid.innerHTML = matches.map((item) => {
+        const opponent = getText(item.opponent || item.away || item.home, "Соперник");
+        const tournament = getText(item.tournament || item.league || item.competition, "Liga Escobarense");
+        const date = getText(item.date || item.matchDate, "Дата скоро будет добавлена");
+        const status = getText(item.status || item.type, "Матч");
+        const place = getText(item.place || item.location || item.stadium, "Buenos Aires, Argentina");
+        const score = getText(item.score || item.result, "VS");
 
         return `
-          <tr class="${moscuClass}">
-            <td class="position-cell">${row.position ?? "—"}</td>
-            <td>
-              <div class="team-cell">
-                <img class="team-logo" src="${logo}" alt="${row.team}" onerror="this.src='images/logo.png'">
-                <span>${row.team || "Команда"}</span>
+          <article class="match-card">
+            <div class="match-top">
+              <span>${escapeHtml(tournament)}</span>
+              <span class="match-status">${escapeHtml(status)}</span>
+            </div>
+
+            <div class="match-teams">
+              <div class="match-team">
+                <div class="team-logo">
+                  <img src="images/logo.png" alt="Deportivo Moscu">
+                </div>
+                <span>Deportivo Moscu</span>
               </div>
-            </td>
-            <td>${row.pj ?? "—"}</td>
-            <td>${row.g ?? "—"}</td>
-            <td>${row.e ?? "—"}</td>
-            <td>${row.p ?? "—"}</td>
-            <td>${row.gf ?? "—"}</td>
-            <td>${row.gc ?? "—"}</td>
-            <td>${row.dif ?? "—"}</td>
-            <td>${row.pts ?? "—"}</td>
+
+              <div class="score">${escapeHtml(score)}</div>
+
+              <div class="match-team">
+                <div class="opponent-logo">${getOpponentLogo(item)}</div>
+                <span>${escapeHtml(opponent)}</span>
+              </div>
+            </div>
+
+            <div class="match-bottom">
+              <strong>${escapeHtml(date)}</strong>
+              <span>${escapeHtml(place)}</span>
+            </div>
+          </article>
+        `;
+      }).join("");
+    }
+
+    function renderLeagueTable() {
+      const tableBody = document.getElementById("leagueTableBody");
+
+      const fallbackTable = [
+        {
+          team: "Deportivo Moscu",
+          played: 0,
+          wins: 0,
+          draws: 0,
+          losses: 0,
+          goals: "0:0",
+          points: 0
+        }
+      ];
+
+      const table = Array.isArray(window.leagueTable) && window.leagueTable.length
+        ? window.leagueTable
+        : Array.isArray(window.deportivoLeagueTable) && window.deportivoLeagueTable.length
+          ? window.deportivoLeagueTable
+          : fallbackTable;
+
+      tableBody.innerHTML = table.map((item, index) => {
+        const team = getText(item.team || item.name || item.club, "Команда");
+        const isDeportivo = team.toLowerCase().includes("deportivo") || team.toLowerCase().includes("moscu");
+
+        const played = item.played ?? item.games ?? item.p ?? 0;
+        const wins = item.wins ?? item.w ?? 0;
+        const draws = item.draws ?? item.d ?? 0;
+        const losses = item.losses ?? item.l ?? 0;
+        const goals = item.goals ?? item.goalDifference ?? item.gd ?? "—";
+        const points = item.points ?? item.pts ?? 0;
+
+        return `
+          <tr>
+            <td class="${isDeportivo ? "club-row" : ""}">${index + 1}</td>
+            <td class="${isDeportivo ? "club-row" : ""}">${escapeHtml(team)}</td>
+            <td>${escapeHtml(played)}</td>
+            <td>${escapeHtml(wins)}</td>
+            <td>${escapeHtml(draws)}</td>
+            <td>${escapeHtml(losses)}</td>
+            <td>${escapeHtml(goals)}</td>
+            <td class="${isDeportivo ? "club-row" : ""}">${escapeHtml(points)}</td>
           </tr>
         `;
       }).join("");
-
-      const moscu = table.find((row) => isMoscu(row.team));
-
-      if (moscu) {
-        document.getElementById("moscuPosition").textContent = moscu.position ?? "—";
-        document.getElementById("moscuPoints").textContent = moscu.pts ?? "—";
-        document.getElementById("moscuPlayed").textContent = moscu.pj ?? "—";
-        document.getElementById("moscuDiff").textContent = moscu.dif ?? "—";
-      }
     }
 
-    function groupMatchesByRound(matches) {
-      return matches.reduce((groups, match) => {
-        const round = getRoundName(match);
-        if (!groups[round]) groups[round] = [];
-        groups[round].push(match);
-        return groups;
-      }, {});
-    }
-
-    function renderMatchCard(match) {
-      const home = match.home || "Команда";
-      const away = match.away || "Команда";
-      const homeLogo = getTeamLogo(home);
-      const awayLogo = getTeamLogo(away);
-      const moscuClass = isMoscu(home) || isMoscu(away) ? "moscu-match" : "";
-      const statusClass = isUpcoming(match) ? "upcoming" : "";
-      const note = match.note ? `<div class="match-note">${match.note}</div>` : "";
-
-      return `
-        <article class="match-card ${moscuClass}">
-          <div class="match-date">${match.date || "A confirmar"}</div>
-
-          <div class="match-main">
-            <div class="match-team">
-              <img src="${homeLogo}" alt="${home}" onerror="this.src='images/logo.png'">
-              <span>${home}</span>
-            </div>
-
-            <div class="score-box">${getScore(match)}</div>
-
-            <div class="match-team away">
-              <span>${away}</span>
-              <img src="${awayLogo}" alt="${away}" onerror="this.src='images/logo.png'">
-            </div>
-          </div>
-
-          <div class="match-status ${statusClass}">${getMatchStatus(match)}</div>
-          ${note}
-        </article>
-      `;
-    }
-
-    function renderMatchesList(containerId, matches, emptyTitle) {
-      const container = document.getElementById(containerId);
-
-      if (!container) return;
-
-      if (!matches.length) {
-        container.innerHTML = `
-          <div class="round-block">
-            <div class="round-title">
-              <h3>${emptyTitle}</h3>
-              <span>Deportivo Moscu</span>
-            </div>
-          </div>
-        `;
-        return;
-      }
-
-      const grouped = groupMatchesByRound(matches);
-
-      container.innerHTML = Object.entries(grouped).map(([round, roundMatches]) => {
-        return `
-          <section class="round-block">
-            <div class="round-title">
-              <h3>${round}</h3>
-              <span>${roundMatches.length} матчей</span>
-            </div>
-
-            <div class="round-matches">
-              ${roundMatches.map(renderMatchCard).join("")}
-            </div>
-          </section>
-        `;
-      }).join("");
-    }
-
-    function renderSummary(containerId, matches, labelTotal) {
-      const container = document.getElementById(containerId);
-
-      if (!container) return;
-
-      const total = matches.length;
-      const played = matches.filter((match) => !isUpcoming(match)).length;
-      const upcoming = matches.filter(isUpcoming).length;
-      const rounds = new Set(matches.map((match) => getRoundName(match))).size;
-
-      container.innerHTML = `
-        <div class="summary-item">
-          <strong>${rounds}</strong>
-          <span>${labelTotal}</span>
-        </div>
-
-        <div class="summary-item">
-          <strong>${total}</strong>
-          <span>Матчей</span>
-        </div>
-
-        <div class="summary-item">
-          <strong>${played}</strong>
-          <span>Сыграно</span>
-        </div>
-
-        <div class="summary-item">
-          <strong>${upcoming}</strong>
-          <span>Будущие</span>
-        </div>
-      `;
-    }
-
-    function setupTabs() {
-      document.querySelectorAll(".tab-btn").forEach((button) => {
-        button.addEventListener("click", () => {
-          const tabId = button.dataset.tab;
-
-          document.querySelectorAll(".tab-btn").forEach((item) => {
-            item.classList.toggle("active", item === button);
-          });
-
-          document.querySelectorAll(".tab-panel").forEach((panel) => {
-            panel.classList.toggle("active", panel.id === tabId);
-          });
-        });
-      });
-    }
-
-    const generatedLeagueMatches = buildFullLeagueFixture();
-    const fullLeagueMatches = overlayKnownResults(generatedLeagueMatches);
-    const moscuMatches = normalizeMoscuMatches();
-
-    renderTable();
-
-    renderSummary("moscuSummary", moscuMatches, "Всего туров");
-    renderMatchesList("moscuMatchesList", moscuMatches, "Матчи Deportivo скоро появятся");
-
-    renderSummary("leagueSummary", fullLeagueMatches, "Туров лиги");
-    renderMatchesList("allMatchesList", fullLeagueMatches, "Матчи лиги скоро появятся");
-
-    setupTabs();
+    renderMatches();
+    renderLeagueTable();
   </script>
 </body>
 </html>
