@@ -383,19 +383,6 @@
       place-items: center;
     }
 
-    .hero-card-inner::before {
-      content: "";
-      position: absolute;
-      width: 440px;
-      height: 440px;
-      background:
-        linear-gradient(rgba(0, 255, 157, 0.055) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0, 255, 157, 0.055) 1px, transparent 1px);
-      background-size: 30px 30px;
-      mask-image: radial-gradient(circle at 50% 50%, black 0%, transparent 70%);
-      z-index: -1;
-    }
-
     .hero-card img {
       width: 170px;
       margin-bottom: 20px;
@@ -607,15 +594,6 @@
       text-shadow: var(--glow);
     }
 
-    .empty-state {
-      border: 1px solid var(--line);
-      background: var(--panel);
-      padding: 28px;
-      color: var(--muted);
-      font-weight: 800;
-      line-height: 1.6;
-    }
-
     .site-footer {
       background:
         radial-gradient(circle at 20% 0%, rgba(0, 255, 157, 0.1), transparent 30%),
@@ -825,7 +803,7 @@
       <div class="container">
         <h2 class="section-title">Календарь матчей</h2>
         <p class="section-text">
-          Матчи подгружаются из файла `matches-data.js`. Если данных нет, страница покажет базовую заготовку.
+          Матчи подгружаются из файла matches-data.js. Если данных нет, страница покажет базовую заготовку.
         </p>
 
         <div class="match-grid" id="matchesGrid"></div>
@@ -836,7 +814,7 @@
       <div class="container">
         <h2 class="section-title">Турнирная таблица</h2>
         <p class="section-text">
-          Таблица подгружается из файла `league-data.js`. Строка Deportivo Moscu подсвечивается автоматически.
+          Таблица подгружается из файла league-data.js. Строка Deportivo Moscu подсвечивается автоматически.
         </p>
 
         <div class="table-wrap">
@@ -928,6 +906,7 @@
 
     function getOpponentLogo(item) {
       const logo = item.opponentLogo || item.logo || item.logoUrl || "";
+
       if (logo) {
         return `<img src="${escapeHtml(logo)}" alt="${escapeHtml(getText(item.opponent, "Opponent"))}">`;
       }
