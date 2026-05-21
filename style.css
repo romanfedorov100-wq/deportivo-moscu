@@ -72,6 +72,10 @@ a {
   text-decoration: none;
 }
 
+button {
+  font-family: inherit;
+}
+
 img {
   max-width: 100%;
   display: block;
@@ -139,7 +143,7 @@ img {
 .main-nav {
   display: flex;
   align-items: center;
-  gap: 24px;
+  gap: 22px;
   font-size: 12px;
   font-weight: 900;
   letter-spacing: 0.12em;
@@ -150,6 +154,7 @@ img {
   position: relative;
   color: rgba(237, 255, 249, 0.78);
   transition: 0.2s;
+  white-space: nowrap;
 }
 
 .main-nav a::after {
@@ -166,12 +171,14 @@ img {
   box-shadow: var(--glow);
 }
 
-.main-nav a:hover {
+.main-nav a:hover,
+.main-nav a.active {
   color: var(--green);
   text-shadow: 0 0 16px rgba(0, 255, 157, 0.5);
 }
 
-.main-nav a:hover::after {
+.main-nav a:hover::after,
+.main-nav a.active::after {
   opacity: 1;
   transform: scaleX(1);
 }
@@ -210,7 +217,8 @@ img {
 
 .ticket-btn,
 .primary-btn,
-.match-ticket-btn {
+.match-ticket-btn,
+.card-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -229,7 +237,8 @@ img {
 
 .ticket-btn:hover,
 .primary-btn:hover,
-.match-ticket-btn:hover {
+.match-ticket-btn:hover,
+.card-btn:hover {
   transform: translateY(-2px);
   box-shadow: 0 0 34px rgba(0, 255, 157, 0.5);
   filter: brightness(1.08);
@@ -300,7 +309,8 @@ img {
   letter-spacing: 0.08em;
 }
 
-.hero-section {
+.hero-section,
+.stadium-hero-page {
   position: relative;
   padding: 76px 0 52px;
   background:
@@ -310,7 +320,8 @@ img {
   overflow: hidden;
 }
 
-.hero-section::before {
+.hero-section::before,
+.stadium-hero-page::before {
   content: "";
   position: absolute;
   inset: 0;
@@ -321,25 +332,12 @@ img {
   opacity: 0.85;
 }
 
-.hero-section::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: 180px;
-  pointer-events: none;
-  background:
-    linear-gradient(180deg, transparent, rgba(0, 255, 157, 0.05)),
-    repeating-linear-gradient(90deg, rgba(0, 255, 157, 0.12) 0 1px, transparent 1px 90px);
-  opacity: 0.45;
-}
-
-.hero-grid {
+.hero-grid,
+.stadium-hero-grid {
   position: relative;
   z-index: 1;
   display: grid;
-  grid-template-columns: 0.86fr 1.14fr;
+  grid-template-columns: 0.9fr 1.1fr;
   align-items: center;
   gap: 42px;
 }
@@ -359,7 +357,8 @@ img {
   box-shadow: inset 0 0 24px rgba(0, 255, 157, 0.05);
 }
 
-.hero-content h1 {
+.hero-content h1,
+.stadium-hero-content h1 {
   font-family: "Oswald", sans-serif;
   font-size: clamp(52px, 8vw, 106px);
   line-height: 0.88;
@@ -372,8 +371,9 @@ img {
     0 0 48px rgba(57, 255, 225, 0.12);
 }
 
-.hero-content p {
-  max-width: 560px;
+.hero-content p,
+.stadium-hero-content p {
+  max-width: 660px;
   color: var(--muted);
   font-size: 18px;
   line-height: 1.65;
@@ -386,7 +386,9 @@ img {
   flex-wrap: wrap;
 }
 
-.hero-card {
+.hero-photo-card,
+.stadium-hero-main-image,
+.stadium-preview-image {
   position: relative;
   min-height: 520px;
   border-radius: 2px;
@@ -405,88 +407,80 @@ img {
   color: var(--white);
 }
 
-.hero-card::before {
+.hero-photo-card::before,
+.stadium-hero-main-image::before,
+.stadium-preview-image::before {
   content: "";
   position: absolute;
   inset: 18px;
   border: 1px solid rgba(0, 255, 157, 0.18);
   box-shadow: inset 0 0 44px rgba(0, 255, 157, 0.08);
   pointer-events: none;
+  z-index: 2;
 }
 
-.hero-card::after {
-  content: "CLUB PHOTO AREA";
-  position: absolute;
-  right: 28px;
-  bottom: 24px;
-  color: rgba(0, 255, 157, 0.38);
-  font-size: 11px;
-  font-weight: 900;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-}
-
-.hero-card-bg {
-  position: absolute;
-  inset: 0;
-  background:
-    linear-gradient(rgba(0, 255, 157, 0.055) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0, 255, 157, 0.055) 1px, transparent 1px);
-  background-size: 32px 32px;
-  mask-image: radial-gradient(circle at 50% 50%, black 0%, transparent 70%);
-}
-
-.hero-big-logo {
-  display: none;
-}
-
-.hero-club-name {
+.hero-card-inner {
   position: relative;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+}
+
+.hero-card-inner img {
+  width: 160px;
+  margin-bottom: 22px;
+  filter: drop-shadow(0 0 32px rgba(0, 255, 157, 0.32));
+}
+
+.hero-card-inner h2 {
   font-family: "Oswald", sans-serif;
   font-size: 42px;
-  font-weight: 800;
-  letter-spacing: 0.15em;
-  color: rgba(237, 255, 249, 0.94);
-  text-shadow: 0 0 28px rgba(0, 255, 157, 0.35);
+  margin: 0;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
+  text-shadow: 0 0 28px rgba(0, 255, 157, 0.34);
 }
 
-.hero-slogan {
-  position: relative;
+.hero-card-inner span {
   color: var(--green);
   margin-top: 10px;
-  font-weight: 900;
-  letter-spacing: 0.18em;
+  font-weight: 950;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
 }
 
-.content-section,
-.season-section,
-.table-section,
-.promo-section {
-  padding: 30px 0;
+.stadium-hero-main-image,
+.stadium-preview-image {
+  padding: 0;
 }
 
-.main-layout {
-  display: grid;
-  grid-template-columns: 1fr 360px;
-  gap: 22px;
-  align-items: start;
+.stadium-hero-main-image img,
+.stadium-preview-image img {
+  width: 100%;
+  height: 100%;
+  min-height: 520px;
+  object-fit: cover;
+}
+
+.content-section {
+  padding: 44px 0;
 }
 
 .section-top {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 16px;
-  margin-bottom: 18px;
+  gap: 18px;
+  margin-bottom: 24px;
 }
 
-.section-top h2 {
+.section-top h2,
+.section-title {
   font-family: "Oswald", sans-serif;
-  font-size: 30px;
-  margin: 0;
+  font-size: clamp(34px, 5vw, 62px);
+  line-height: 0.98;
   text-transform: uppercase;
+  margin: 0;
   color: var(--green);
   letter-spacing: 0.12em;
   text-shadow: 0 0 20px rgba(0, 255, 157, 0.28);
@@ -500,23 +494,45 @@ img {
   letter-spacing: 0.12em;
 }
 
-.news-grid {
+.dashboard-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 14px;
+  grid-template-columns: 1fr 360px;
+  gap: 22px;
+  align-items: start;
 }
 
-.news-card {
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+}
+
+.stat-card,
+.next-match-card,
+.news-card,
+.match-card,
+.promo-card,
+.glass-card,
+.feature-card,
+.stadium-card,
+.cta-panel {
   position: relative;
   background: var(--card);
   border: 1px solid var(--border);
   border-radius: 2px;
+  box-shadow: 0 18px 54px rgba(0, 0, 0, 0.36);
   overflow: hidden;
-  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.32);
-  transition: 0.22s;
 }
 
-.news-card::before {
+.stat-card::before,
+.next-match-card::before,
+.news-card::before,
+.match-card::before,
+.promo-card::before,
+.glass-card::before,
+.feature-card::before,
+.stadium-card::before,
+.cta-panel::before {
   content: "";
   position: absolute;
   inset: 0;
@@ -524,70 +540,45 @@ img {
   background:
     linear-gradient(135deg, rgba(0, 255, 157, 0.08), transparent 42%),
     linear-gradient(180deg, transparent, rgba(0, 255, 157, 0.035));
-  opacity: 0.8;
+  opacity: 0.85;
 }
 
-.news-card:hover {
-  transform: translateY(-4px);
-  border-color: rgba(0, 255, 157, 0.44);
-  box-shadow: var(--glow-strong), 0 24px 70px rgba(0, 0, 0, 0.44);
+.stat-card {
+  padding: 24px;
 }
 
-.news-image {
-  height: 150px;
-  background:
-    linear-gradient(135deg, rgba(0, 255, 157, 0.2), rgba(2, 6, 5, 0.92)),
-    radial-gradient(circle at 20% 20%, rgba(57, 255, 225, 0.26), transparent 25%),
-    linear-gradient(rgba(0, 255, 157, 0.055) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0, 255, 157, 0.055) 1px, transparent 1px);
-  background-size: auto, auto, 28px 28px, 28px 28px;
+.stat-card strong {
   position: relative;
-  border-bottom: 1px solid var(--border);
-}
-
-.news-body {
-  position: relative;
-  padding: 18px;
-}
-
-.news-meta {
+  z-index: 2;
+  display: block;
+  font-family: "Oswald", sans-serif;
+  font-size: 38px;
   color: var(--green);
-  font-weight: 950;
-  font-size: 11px;
-  margin-bottom: 10px;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
+  line-height: 1;
+  letter-spacing: 0.05em;
+  text-shadow: 0 0 18px rgba(0, 255, 157, 0.28);
 }
 
-.news-title {
-  font-size: 17px;
-  line-height: 1.3;
-  margin: 0;
-  color: rgba(237, 255, 249, 0.92);
+.stat-card span {
+  position: relative;
+  z-index: 2;
+  display: block;
+  margin-top: 10px;
+  color: var(--muted);
+  font-weight: 900;
+  line-height: 1.5;
+  text-transform: uppercase;
+  font-size: 13px;
+  letter-spacing: 0.08em;
 }
 
 .next-match-card {
-  position: relative;
-  background:
-    radial-gradient(circle at 18% 10%, rgba(0, 255, 157, 0.13), transparent 32%),
-    linear-gradient(180deg, rgba(6, 24, 20, 0.95), rgba(2, 6, 5, 0.96));
-  color: var(--white);
-  border-radius: 2px;
   padding: 24px;
-  border: 1px solid var(--border);
-  box-shadow: var(--shadow), var(--glow);
-  overflow: hidden;
-}
-
-.next-match-card::before {
-  content: "";
-  position: absolute;
-  inset: 12px;
-  pointer-events: none;
-  border: 1px solid rgba(0, 255, 157, 0.11);
 }
 
 .small-title {
+  position: relative;
+  z-index: 2;
   color: var(--green);
   font-size: 12px;
   font-weight: 950;
@@ -596,13 +587,16 @@ img {
 }
 
 .league-name {
-  margin-top: 5px;
+  position: relative;
+  z-index: 2;
+  margin-top: 6px;
   color: var(--muted);
   font-size: 13px;
 }
 
 .match-teams {
   position: relative;
+  z-index: 2;
   display: grid;
   grid-template-columns: 1fr auto 1fr;
   align-items: center;
@@ -622,241 +616,356 @@ img {
   color: rgba(237, 255, 249, 0.92);
 }
 
-.team img {
-  width: 70px;
-  height: 70px;
+.team img,
+.opponent-logo {
+  width: 72px;
+  height: 72px;
   object-fit: contain;
-  filter: drop-shadow(0 0 18px rgba(0, 255, 157, 0.24));
+  filter: drop-shadow(0 0 18px rgba(0, 255, 157, 0.3));
 }
 
 .opponent-logo {
-  width: 70px;
-  height: 70px;
-  border-radius: 2px;
-  background:
-    radial-gradient(circle at center, rgba(0, 255, 157, 0.16), rgba(2, 6, 5, 0.92));
-  color: var(--green);
-  border: 1px solid var(--border);
   display: grid;
   place-items: center;
+  border: 1px solid var(--border);
+  background: rgba(0, 255, 157, 0.08);
+  color: var(--green);
   font-family: "Oswald", sans-serif;
-  font-size: 34px;
-  font-weight: 900;
-  box-shadow: inset 0 0 26px rgba(0, 255, 157, 0.08);
+  font-size: 28px;
 }
 
 .vs {
   color: var(--green);
   font-family: "Oswald", sans-serif;
-  font-size: 28px;
-  text-shadow: 0 0 18px rgba(0, 255, 157, 0.46);
+  font-size: 22px;
+  text-shadow: var(--glow);
 }
 
 .match-info {
   position: relative;
+  z-index: 2;
   display: grid;
   gap: 6px;
-  padding: 16px;
-  border-radius: 2px;
-  background: rgba(0, 255, 157, 0.055);
-  border: 1px solid rgba(0, 255, 157, 0.14);
   margin-bottom: 18px;
+}
+
+.match-info strong {
+  color: rgba(237, 255, 249, 0.95);
+  font-size: 15px;
 }
 
 .match-info span {
   color: var(--muted);
+  font-size: 13px;
 }
 
-.match-ticket-btn {
-  width: 100%;
+.news-grid,
+.matches-row,
+.promo-grid,
+.features-grid,
+.stadium-gallery,
+.concept-grid {
+  display: grid;
+  gap: 22px;
+}
+
+.news-grid {
+  grid-template-columns: repeat(3, 1fr);
 }
 
 .matches-row {
-  display: grid;
-  grid-template-columns: repeat(5, minmax(170px, 1fr));
-  gap: 14px;
+  grid-template-columns: repeat(3, 1fr);
 }
 
-.match-mini-card {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 2px;
-  padding: 18px;
-  box-shadow: inset 0 0 28px rgba(0, 255, 157, 0.035);
+.promo-grid,
+.features-grid {
+  grid-template-columns: repeat(4, 1fr);
 }
 
-.match-mini-date {
-  color: var(--green);
-  font-weight: 950;
-  font-size: 12px;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
+.concept-grid {
+  grid-template-columns: 1fr 1fr;
 }
 
-.match-mini-teams {
-  color: rgba(237, 255, 249, 0.9);
-  font-weight: 950;
-  margin: 12px 0;
-  line-height: 1.35;
-}
-
-.match-mini-place {
-  color: var(--muted);
-  font-size: 14px;
-}
-
-.table-grid {
-  display: grid;
-  grid-template-columns: 1fr 340px;
-  gap: 22px;
-  align-items: stretch;
-}
-
-.league-table-card,
-.club-info-card {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 2px;
+.news-card,
+.match-card,
+.promo-card,
+.glass-card,
+.feature-card {
   padding: 24px;
-  box-shadow: 0 18px 55px rgba(0, 0, 0, 0.34);
 }
 
-.table-wrapper {
-  overflow-x: auto;
-}
-
-table {
-  width: 100%;
-  border-collapse: collapse;
-  min-width: 640px;
-}
-
-th,
-td {
-  padding: 15px 12px;
-  border-bottom: 1px solid rgba(0, 255, 157, 0.12);
-  text-align: left;
-}
-
-th {
-  color: var(--muted);
-  font-size: 12px;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-}
-
-td {
-  color: rgba(237, 255, 249, 0.86);
-}
-
-tr.deportivo-row {
-  background: rgba(0, 255, 157, 0.11);
-  color: var(--green);
-  font-weight: 950;
-  box-shadow: inset 3px 0 0 var(--green);
-}
-
-tr.deportivo-row td {
-  color: var(--green);
-}
-
-.club-info-card {
-  background:
-    radial-gradient(circle at 20% 14%, rgba(0, 255, 157, 0.14), transparent 34%),
-    linear-gradient(180deg, rgba(6, 24, 20, 0.94), rgba(2, 6, 5, 0.98));
-  color: var(--white);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.club-info-card img {
-  width: 130px;
-  margin-bottom: 20px;
-  filter: drop-shadow(0 0 24px rgba(0, 255, 157, 0.24));
-}
-
-.club-info-card h3 {
+.news-card h3,
+.match-card h3,
+.promo-card h3,
+.glass-card h3,
+.feature-card h3,
+.cta-panel h3 {
+  position: relative;
+  z-index: 2;
   font-family: "Oswald", sans-serif;
-  font-size: 34px;
-  margin: 0 0 12px;
   text-transform: uppercase;
+  font-size: 28px;
+  line-height: 1.05;
+  margin: 0 0 14px;
   letter-spacing: 0.08em;
-  color: rgba(237, 255, 249, 0.96);
+  color: var(--white);
 }
 
-.club-info-card p {
+.news-card p,
+.match-card p,
+.promo-card p,
+.glass-card p,
+.feature-card p,
+.cta-panel p {
+  position: relative;
+  z-index: 2;
   color: var(--muted);
-  line-height: 1.65;
+  line-height: 1.7;
+  margin: 0 0 18px;
 }
 
-.promo-grid {
+.news-date,
+.match-date,
+.card-kicker {
+  position: relative;
+  z-index: 2;
+  display: inline-flex;
+  margin-bottom: 12px;
+  color: var(--green);
+  font-size: 12px;
+  font-weight: 950;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.stadium-preview-section {
+  background:
+    radial-gradient(circle at 15% 10%, rgba(0, 255, 157, 0.12), transparent 30%),
+    linear-gradient(180deg, rgba(2, 6, 5, 0.2), rgba(0, 255, 157, 0.03));
+}
+
+.stadium-preview {
+  display: grid;
+  grid-template-columns: 0.85fr 1.15fr;
+  align-items: center;
+  gap: 36px;
+}
+
+.stadium-preview-content h2 {
+  font-family: "Oswald", sans-serif;
+  font-size: clamp(42px, 6vw, 76px);
+  line-height: 0.92;
+  margin: 0 0 18px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.stadium-preview-content p {
+  max-width: 640px;
+  color: var(--muted);
+  font-size: 17px;
+  line-height: 1.7;
+}
+
+.stadium-preview-stats {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 22px;
+  gap: 14px;
+  margin: 26px 0;
 }
 
-.promo-card {
-  border-radius: 2px;
-  overflow: hidden;
-  background: var(--card);
-  border: 1px solid var(--border);
-  box-shadow: 0 18px 55px rgba(0, 0, 0, 0.34);
-  transition: 0.22s;
+.stadium-preview-stats div {
+  padding: 16px;
+  border: 1px solid rgba(0, 255, 157, 0.18);
+  background: rgba(0, 255, 157, 0.045);
 }
 
-.promo-card:hover {
-  transform: translateY(-4px);
-  border-color: rgba(0, 255, 157, 0.44);
-  box-shadow: var(--glow-strong), 0 24px 70px rgba(0, 0, 0, 0.44);
-}
-
-.promo-image {
-  height: 210px;
-  border-bottom: 1px solid var(--border);
-}
-
-.fake-player {
-  background:
-    radial-gradient(circle at 50% 22%, rgba(0, 255, 157, 0.2), transparent 34%),
-    linear-gradient(135deg, #020605, #0a2b22);
-}
-
-.fake-academy {
-  background:
-    radial-gradient(circle at 32% 28%, rgba(57, 255, 225, 0.18), transparent 30%),
-    linear-gradient(135deg, #06110f, #063923);
-}
-
-.fake-store {
-  background:
-    radial-gradient(circle at 60% 30%, rgba(0, 255, 157, 0.18), transparent 34%),
-    linear-gradient(135deg, #020605, #12221d);
-}
-
-.promo-content {
-  padding: 22px;
-}
-
-.promo-content h3 {
+.stadium-preview-stats strong {
+  display: block;
+  color: var(--green);
   font-family: "Oswald", sans-serif;
-  font-size: 28px;
-  margin: 0 0 10px;
+  font-size: 24px;
+}
+
+.stadium-preview-stats span {
+  display: block;
+  color: var(--muted);
+  font-size: 12px;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  color: rgba(237, 255, 249, 0.94);
 }
 
-.promo-content p {
-  color: var(--muted);
-  line-height: 1.6;
+.stadium-gallery {
+  grid-template-columns: repeat(3, 1fr);
 }
 
-.promo-content a {
+.stadium-card-large {
+  grid-column: span 2;
+}
+
+.stadium-card img {
+  width: 100%;
+  height: 290px;
+  object-fit: cover;
+  filter: saturate(1.08) contrast(1.06);
+}
+
+.stadium-card-body {
+  position: relative;
+  z-index: 2;
+  padding: 24px;
+}
+
+.stadium-card-body span {
+  display: inline-flex;
+  margin-bottom: 10px;
   color: var(--green);
   font-weight: 950;
+  font-size: 12px;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
+}
+
+.stadium-card-body h3 {
+  font-family: "Oswald", sans-serif;
+  text-transform: uppercase;
+  font-size: 28px;
+  margin: 0 0 10px;
   letter-spacing: 0.08em;
+}
+
+.stadium-card-body p {
+  color: var(--muted);
+  line-height: 1.7;
+  margin: 0;
+}
+
+.feature-icon {
+  position: relative;
+  z-index: 2;
+  width: 58px;
+  height: 58px;
+  border-radius: 4px;
+  background: rgba(0, 255, 157, 0.08);
+  border: 1px solid var(--border);
+  color: var(--green);
+  display: grid;
+  place-items: center;
+  font-size: 26px;
+  margin-bottom: 18px;
+  box-shadow: var(--glow);
+}
+
+.cta-panel {
+  padding: 30px;
+  background:
+    radial-gradient(circle at 20% 14%, rgba(0, 255, 157, 0.16), transparent 34%),
+    linear-gradient(180deg, rgba(6, 24, 20, 0.94), rgba(2, 6, 5, 0.98));
+  box-shadow: var(--shadow), var(--glow);
+}
+
+.players-section {
+  padding: 52px 0;
+}
+
+.players-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(220px, 1fr));
+  gap: 26px;
+}
+
+.player-card {
+  position: relative;
+  overflow: hidden;
+  background: #ffffff;
+  color: #050505;
+  border-radius: 0 38px 18px 18px;
+  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.24);
+}
+
+.player-number {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 4;
+  width: 82px;
+  height: 70px;
+  display: grid;
+  place-items: center;
+  background: #ffffff;
+  color: #008c35;
+  font-size: 28px;
+  font-weight: 950;
+  border-bottom-right-radius: 26px;
+}
+
+.player-photo {
+  height: 290px;
+  background: radial-gradient(circle at center, #00551f 0%, #003b16 60%, #00250d 100%);
+  overflow: hidden;
+}
+
+.player-real-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.player-placeholder {
+  width: 100%;
+  height: 100%;
+  background:
+    radial-gradient(circle at 50% 34%, #c4a07b 0 42px, transparent 43px),
+    linear-gradient(180deg, transparent 0 42%, #111 42% 100%);
+}
+
+.player-info {
+  padding: 28px;
+}
+
+.player-position {
+  margin-bottom: 14px;
+  color: #008c35;
+  font-size: 13px;
+  font-weight: 950;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.player-name {
+  min-height: 62px;
+  margin-bottom: 18px;
+  color: #050505;
+  font-size: 24px;
+  line-height: 1.08;
+  font-weight: 950;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+.player-country {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 30px;
+  margin-bottom: 22px;
+  color: #67726a;
+  font-size: 15px;
+  font-weight: 800;
+}
+
+.player-details-btn {
+  width: 100%;
+  border: 0;
+  border-radius: 0;
+  background: #008c35;
+  color: #ffffff;
+  padding: 14px 16px;
+  font-size: 12px;
+  font-weight: 950;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
 }
 
 .site-footer {
@@ -865,52 +974,57 @@ tr.deportivo-row td {
     linear-gradient(180deg, rgba(4, 16, 14, 0.96), #020605);
   color: var(--white);
   padding: 54px 0;
-  margin-top: 42px;
   border-top: 1px solid var(--border);
+  margin-top: 42px;
 }
 
 .footer-grid {
   display: grid;
-  grid-template-columns: 1.3fr repeat(3, 1fr);
-  gap: 34px;
+  grid-template-columns: 1.4fr 0.8fr 0.8fr 1fr;
+  gap: 30px;
 }
 
 .footer-brand img {
-  width: 90px;
-  margin-bottom: 14px;
-  filter: drop-shadow(0 0 18px rgba(0, 255, 157, 0.24));
+  width: 72px;
+  filter: drop-shadow(0 0 18px rgba(0, 255, 157, 0.34));
 }
 
-.footer-brand h3 {
+.footer-brand h3,
+.footer-col h4 {
   font-family: "Oswald", sans-serif;
-  font-size: 30px;
-  margin: 0;
   text-transform: uppercase;
   letter-spacing: 0.1em;
+  margin: 16px 0 12px;
 }
 
 .footer-brand p,
 .footer-col p,
 .footer-col a {
+  display: block;
   color: var(--muted);
+  line-height: 1.8;
+  margin: 0 0 6px;
 }
 
-.footer-col {
-  display: grid;
-  align-content: start;
-  gap: 10px;
-}
-
-.footer-col h4 {
-  margin: 0 0 8px;
+.footer-col a:hover {
   color: var(--green);
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  font-size: 13px;
+}
+
+@media (max-width: 1180px) {
+  .main-nav {
+    gap: 14px;
+    font-size: 11px;
+  }
+
+  .ticket-btn {
+    padding: 12px 14px;
+  }
 }
 
 @media (max-width: 980px) {
-  .main-nav {
+  .main-nav,
+  .language-switcher,
+  .ticket-btn {
     display: none;
   }
 
@@ -918,65 +1032,82 @@ tr.deportivo-row td {
     display: block;
   }
 
-  .ticket-btn {
-    display: none;
-  }
-
   .hero-grid,
-  .main-layout,
-  .table-grid,
-  .footer-grid {
+  .stadium-hero-grid,
+  .stadium-preview,
+  .dashboard-grid,
+  .concept-grid {
     grid-template-columns: 1fr;
   }
 
-  .hero-card {
-    min-height: 380px;
-  }
-
+  .stats-grid,
   .news-grid,
-  .promo-grid {
-    grid-template-columns: 1fr;
+  .matches-row,
+  .promo-grid,
+  .features-grid,
+  .stadium-gallery,
+  .players-grid,
+  .footer-grid {
+    grid-template-columns: repeat(2, 1fr);
   }
 
-  .matches-row {
-    display: flex;
-    overflow-x: auto;
-    padding-bottom: 10px;
-  }
-
-  .match-mini-card {
-    min-width: 210px;
+  .stadium-card-large {
+    grid-column: span 1;
   }
 }
 
-@media (max-width: 560px) {
+@media (max-width: 640px) {
   .container {
-    width: min(100% - 22px, 1180px);
+    width: min(100% - 24px, 1180px);
   }
 
   .header-inner {
-    min-height: 76px;
+    min-height: 74px;
   }
 
-  .logo-text {
-    display: none;
+  .logo-box {
+    min-width: 0;
   }
 
-  .language-switcher {
-    display: none;
+  .logo-img {
+    width: 48px;
+    height: 48px;
   }
 
-  .hero-section {
-    padding: 44px 0 32px;
+  .logo-text strong {
+    font-size: 20px;
   }
 
-  .hero-content h1 {
-    font-size: 44px;
-    letter-spacing: 0.05em;
+  .logo-text span {
+    font-size: 10px;
   }
 
-  .hero-content p {
-    font-size: 16px;
+  .hero-section,
+  .stadium-hero-page {
+    padding: 50px 0 36px;
+  }
+
+  .hero-photo-card,
+  .stadium-hero-main-image,
+  .stadium-preview-image {
+    min-height: 320px;
+  }
+
+  .stadium-hero-main-image img,
+  .stadium-preview-image img {
+    min-height: 320px;
+  }
+
+  .stats-grid,
+  .news-grid,
+  .matches-row,
+  .promo-grid,
+  .features-grid,
+  .stadium-gallery,
+  .players-grid,
+  .footer-grid,
+  .stadium-preview-stats {
+    grid-template-columns: 1fr;
   }
 
   .section-top {
@@ -984,30 +1115,11 @@ tr.deportivo-row td {
     flex-direction: column;
   }
 
-  .hero-club-name {
-    font-size: 30px;
-  }
-
-  .hero-buttons {
-    width: 100%;
-  }
-
-  .primary-btn,
-  .secondary-btn {
-    width: 100%;
-  }
-
   .match-teams {
-    gap: 8px;
+    grid-template-columns: 1fr;
   }
 
-  .team img,
-  .opponent-logo {
-    width: 58px;
-    height: 58px;
-  }
-
-  .opponent-logo {
-    font-size: 28px;
+  .stadium-card img {
+    height: 220px;
   }
 }
