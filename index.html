@@ -11,6 +11,115 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="style.css">
+
+  <style>
+    /* FIX: компактные логотипы AFA / Liga Escobarense на главной */
+    .federation-logos {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-top: 28px;
+      flex-wrap: wrap;
+    }
+
+    .federation-logo-card {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      min-height: 54px;
+      padding: 10px 14px;
+      border: 1px solid rgba(0, 255, 136, 0.22);
+      border-radius: 16px;
+      background: rgba(0, 18, 12, 0.58);
+      box-shadow: 0 0 26px rgba(0, 255, 136, 0.08);
+      backdrop-filter: blur(12px);
+      text-decoration: none;
+    }
+
+    .federation-logo-card img {
+      width: auto;
+      height: 34px;
+      max-width: 96px;
+      object-fit: contain;
+      display: block;
+    }
+
+    .federation-logo-card span {
+      color: rgba(224, 255, 240, 0.78);
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    /* FIX: нормальный размер лого в карточках матчей на главной */
+    .matches-row img,
+    .match-card img,
+    .match-card .team img,
+    .match-card .club-logo,
+    .match-card .team-logo,
+    .match-card .match-logo,
+    .match-card-logo,
+    .matches-row .team-logo,
+    .matches-row .club-logo,
+    .matches-row .match-logo {
+      width: 82px !important;
+      height: 82px !important;
+      max-width: 82px !important;
+      max-height: 82px !important;
+      object-fit: contain !important;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .matches-row .opponent-logo,
+    .match-card .opponent-logo {
+      width: 82px !important;
+      height: 82px !important;
+      min-width: 82px !important;
+      min-height: 82px !important;
+      max-width: 82px !important;
+      max-height: 82px !important;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      font-size: 28px;
+      font-weight: 900;
+    }
+
+    .home-matches-partners {
+      justify-content: flex-start;
+      margin-top: 18px;
+      margin-bottom: 24px;
+    }
+
+    @media (max-width: 768px) {
+      .federation-logo-card {
+        width: 100%;
+        justify-content: center;
+      }
+
+      .matches-row img,
+      .match-card img,
+      .match-card .team img,
+      .match-card .club-logo,
+      .match-card .team-logo,
+      .match-card .match-logo,
+      .match-card-logo,
+      .matches-row .team-logo,
+      .matches-row .club-logo,
+      .matches-row .match-logo,
+      .matches-row .opponent-logo,
+      .match-card .opponent-logo {
+        width: 64px !important;
+        height: 64px !important;
+        max-width: 64px !important;
+        max-height: 64px !important;
+      }
+    }
+  </style>
 </head>
 
 <body>
@@ -77,15 +186,31 @@
           <h1>Deportivo<br>Moscu</h1>
 
           <p>
-            Бьёмся за эмблему. Играем за город. Побеждаем как команда.
-            Deportivo Moscu — зелёно-чёрная футбольная энергия Буэнос-Айреса,
-            где каждый матч начинается с характера, страсти и веры в победу.
+            Deportivo Moscu — футбольный клуб из Буэнос-Айреса, основанный в 2024 году,
+            выступающий в системе AFA.
+            <br><br>
+            Первая команда, U-21, академия и собственная медиа-экосистема.
+            <br><br>
+            Мы развиваем игроков и строим один из самых узнаваемых независимых
+            футбольных проектов Аргентины.
           </p>
 
           <div class="hero-buttons">
             <a href="league.html" class="primary-btn">Следующий матч</a>
             <a href="team.html" class="secondary-btn">Смотреть команду</a>
             <a href="stadium.html" class="secondary-btn">Проект стадиона</a>
+          </div>
+
+          <div class="federation-logos" aria-label="Федерации и лига">
+            <div class="federation-logo-card">
+              <img src="images/afa-logo.png" alt="AFA">
+              <span>AFA</span>
+            </div>
+
+            <div class="federation-logo-card">
+              <img src="images/liga-escobarense-logo.png" alt="Liga Escobarense">
+              <span>Liga Escobarense</span>
+            </div>
           </div>
         </div>
 
@@ -210,6 +335,18 @@
         <div class="section-top">
           <h2>Матчи</h2>
           <a href="league.html" class="view-all">Календарь и таблица →</a>
+        </div>
+
+        <div class="federation-logos home-matches-partners" aria-label="AFA и Liga Escobarense">
+          <div class="federation-logo-card">
+            <img src="images/afa-logo.png" alt="AFA">
+            <span>AFA</span>
+          </div>
+
+          <div class="federation-logo-card">
+            <img src="images/liga-escobarense-logo.png" alt="Liga Escobarense">
+            <span>Liga Escobarense</span>
+          </div>
         </div>
 
         <div class="matches-row" id="matchesRow"></div>
