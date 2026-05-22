@@ -406,6 +406,71 @@
       text-transform: uppercase;
     }
 
+
+    .federation-badges {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 24px;
+    }
+
+    .federation-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      min-height: 64px;
+      padding: 10px 16px;
+      border: 1px solid rgba(0, 255, 157, 0.24);
+      background: rgba(0, 255, 157, 0.055);
+      box-shadow: 0 0 24px rgba(0, 255, 157, 0.12);
+      border-radius: 8px;
+    }
+
+    .federation-badge img {
+      width: 44px;
+      height: 44px;
+      object-fit: contain;
+      filter: drop-shadow(0 0 14px rgba(0, 255, 157, 0.22));
+    }
+
+    .federation-badge span {
+      display: grid;
+      gap: 3px;
+      color: rgba(237, 255, 249, 0.84);
+      font-size: 11px;
+      font-weight: 950;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      line-height: 1.25;
+    }
+
+    .federation-badge strong {
+      color: var(--green);
+      font-size: 12px;
+      letter-spacing: 0.12em;
+    }
+
+    .table-heading-row {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 24px;
+      margin-bottom: 18px;
+    }
+
+    .table-heading-row .section-title,
+    .table-heading-row .section-text {
+      margin-left: 0;
+      margin-right: 0;
+    }
+
+    .table-heading-row .federation-badges {
+      margin-top: 0;
+      justify-content: flex-end;
+      flex-shrink: 0;
+    }
+
     .league-section {
       padding: 54px 0;
     }
@@ -667,6 +732,14 @@
         grid-template-columns: 1fr;
       }
 
+      .table-heading-row {
+        display: grid;
+      }
+
+      .table-heading-row .federation-badges {
+        justify-content: flex-start;
+      }
+
       .hero-card {
         min-height: 340px;
       }
@@ -713,6 +786,10 @@
 
       .match-teams {
         grid-template-columns: 1fr;
+      }
+
+      .federation-badge {
+        width: 100%;
       }
 
       .score {
@@ -787,6 +864,24 @@
             Календарь матчей, результаты, будущие игры и турнирная таблица.
             Здесь будут все матчи Deportivo Moscu и Liga Escobarense.
           </p>
+
+          <div class="federation-badges" aria-label="Федерации и лига">
+            <div class="federation-badge">
+              <img src="images/afa-logo.png" alt="AFA">
+              <span>
+                <strong>AFA</strong>
+                Sistema oficial
+              </span>
+            </div>
+
+            <div class="federation-badge">
+              <img src="images/liga-escobarense-logo.png" alt="Liga Escobarense">
+              <span>
+                <strong>Liga Escobarense</strong>
+                Buenos Aires
+              </span>
+            </div>
+          </div>
         </div>
 
         <div class="hero-card">
@@ -812,10 +907,32 @@
 
     <section class="league-section">
       <div class="container">
-        <h2 class="section-title">Турнирная таблица</h2>
-        <p class="section-text">
-          Таблица подгружается из файла league-data.js. Строка Deportivo Moscu подсвечивается автоматически.
-        </p>
+        <div class="table-heading-row">
+          <div>
+            <h2 class="section-title">Турнирная таблица</h2>
+            <p class="section-text">
+              Таблица подгружается из файла league-data.js. Строка Deportivo Moscu подсвечивается автоматически.
+            </p>
+          </div>
+
+          <div class="federation-badges" aria-label="AFA и Liga Escobarense">
+            <div class="federation-badge">
+              <img src="images/afa-logo.png" alt="AFA">
+              <span>
+                <strong>AFA</strong>
+                Sistema oficial
+              </span>
+            </div>
+
+            <div class="federation-badge">
+              <img src="images/liga-escobarense-logo.png" alt="Liga Escobarense">
+              <span>
+                <strong>Liga Escobarense</strong>
+                Primera B
+              </span>
+            </div>
+          </div>
+        </div>
 
         <div class="table-wrap">
           <table class="league-table">
