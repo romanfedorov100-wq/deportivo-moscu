@@ -341,15 +341,15 @@
       min-height: 430px;
       border-radius: 2px;
       background:
-        linear-gradient(90deg, rgba(2, 6, 5, 0.4), rgba(2, 6, 5, 0.9)),
-        radial-gradient(circle at 48% 34%, rgba(0, 255, 157, 0.2), transparent 34%),
-        radial-gradient(circle at 68% 56%, rgba(57, 255, 225, 0.09), transparent 30%),
-        linear-gradient(135deg, rgba(0, 255, 157, 0.08), rgba(2, 6, 5, 0.9));
+        linear-gradient(90deg, rgba(2, 6, 5, 0.28), rgba(2, 6, 5, 0.86)),
+        url("images/store/store-hero.png"),
+        linear-gradient(145deg, #020605, #0a3025);
+      background-size: cover;
+      background-position: center;
       color: var(--text);
       box-shadow: var(--shadow), var(--glow);
       display: grid;
-      place-items: center;
-      text-align: center;
+      align-items: end;
       padding: 38px;
       position: relative;
       overflow: hidden;
@@ -363,6 +363,7 @@
       border: 1px solid rgba(0, 255, 157, 0.18);
       box-shadow: inset 0 0 44px rgba(0, 255, 157, 0.08);
       pointer-events: none;
+      z-index: 2;
     }
 
     .hero-card::after {
@@ -370,40 +371,38 @@
       position: absolute;
       right: 28px;
       bottom: 24px;
-      color: rgba(0, 255, 157, 0.38);
+      color: rgba(0, 255, 157, 0.48);
       font-size: 11px;
       font-weight: 950;
       letter-spacing: 0.22em;
       text-transform: uppercase;
+      z-index: 3;
     }
 
-    .hero-card-inner {
+    .hero-card-overlay {
       position: relative;
-      z-index: 2;
-      display: grid;
-      place-items: center;
+      z-index: 3;
+      max-width: 460px;
+      padding: 26px;
+      background: rgba(2, 6, 5, 0.78);
+      border: 1px solid rgba(0, 255, 157, 0.24);
+      box-shadow: 0 0 34px rgba(0, 255, 157, 0.16);
+      backdrop-filter: blur(10px);
     }
 
-    .hero-card img {
-      width: 170px;
-      margin-bottom: 20px;
-      filter: drop-shadow(0 0 32px rgba(0, 255, 157, 0.32));
-    }
-
-    .hero-card h2 {
+    .hero-card-overlay h2 {
       font-family: "Oswald", sans-serif;
-      font-size: 40px;
-      letter-spacing: 0.14em;
-      margin: 0;
+      font-size: 42px;
+      letter-spacing: 0.12em;
+      margin: 0 0 10px;
       text-transform: uppercase;
       text-shadow: 0 0 28px rgba(0, 255, 157, 0.34);
     }
 
-    .hero-card span {
+    .hero-card-overlay span {
       color: var(--green);
       font-weight: 950;
-      margin-top: 10px;
-      letter-spacing: 0.16em;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
     }
 
@@ -558,56 +557,6 @@
       white-space: nowrap;
     }
 
-    .store-info-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 22px;
-      margin-top: 34px;
-    }
-
-    .info-card {
-      position: relative;
-      border: 1px solid var(--line);
-      border-radius: 2px;
-      background: var(--panel);
-      box-shadow: 0 18px 54px rgba(0, 0, 0, 0.36);
-      padding: 28px;
-      overflow: hidden;
-    }
-
-    .info-card::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      background:
-        linear-gradient(135deg, rgba(0, 255, 157, 0.08), transparent 42%),
-        linear-gradient(180deg, transparent, rgba(0, 255, 157, 0.035));
-      opacity: 0.85;
-    }
-
-    .info-card h3,
-    .info-card p {
-      position: relative;
-      z-index: 2;
-    }
-
-    .info-card h3 {
-      font-family: "Oswald", sans-serif;
-      text-transform: uppercase;
-      font-size: 28px;
-      line-height: 1.05;
-      margin: 0 0 14px;
-      letter-spacing: 0.08em;
-      color: var(--text);
-    }
-
-    .info-card p {
-      color: var(--muted);
-      line-height: 1.65;
-      margin: 0;
-    }
-
     .site-footer {
       background:
         radial-gradient(circle at 20% 0%, rgba(0, 255, 157, 0.1), transparent 30%),
@@ -664,8 +613,7 @@
         font-size: 10px;
       }
 
-      .products-grid,
-      .store-info-grid {
+      .products-grid {
         grid-template-columns: repeat(2, 1fr);
       }
     }
@@ -687,7 +635,7 @@
       }
 
       .hero-card {
-        min-height: 340px;
+        min-height: 360px;
       }
     }
 
@@ -718,8 +666,7 @@
         font-size: 16px;
       }
 
-      .products-grid,
-      .store-info-grid {
+      .products-grid {
         grid-template-columns: 1fr;
       }
 
@@ -731,7 +678,7 @@
         font-size: 34px;
       }
 
-      .hero-card h2 {
+      .hero-card-overlay h2 {
         font-size: 30px;
       }
 
@@ -815,8 +762,7 @@
         </div>
 
         <div class="hero-card">
-          <div class="hero-card-inner">
-            <img src="images/logo.png" alt="Deportivo Moscu">
+          <div class="hero-card-overlay">
             <h2>DM STORE</h2>
             <span>Форма. Билеты. Атрибутика.</span>
           </div>
@@ -833,122 +779,133 @@
 
         <div class="products-grid">
           <article class="product-card">
-            <div class="product-image">
-              <img src="images/store/home-kit.png" alt="Домашняя форма Deportivo Moscu">
-            </div>
-
+            <div class="product-image"><img src="images/store/home-kit.png" alt="Домашняя форма Deportivo Moscu"></div>
             <div class="product-body">
               <div class="product-kicker">Форма</div>
               <h3>Домашняя форма</h3>
               <p>Чёрно-зелёная игровая форма Deportivo Moscu в фирменном стиле клуба.</p>
-
-              <div class="price-row">
-                <div class="price">$40</div>
-                <button class="product-btn" type="button">Скоро</button>
-              </div>
+              <div class="price-row"><div class="price">$40</div><button class="product-btn" type="button">Скоро</button></div>
             </div>
           </article>
 
           <article class="product-card">
-            <div class="product-image">
-              <img src="images/store/away-kit.png" alt="Гостевая форма Deportivo Moscu">
-            </div>
-
+            <div class="product-image"><img src="images/store/away-kit.png" alt="Гостевая форма Deportivo Moscu"></div>
             <div class="product-body">
               <div class="product-kicker">Форма</div>
               <h3>Гостевая форма</h3>
               <p>Зелёная альтернативная форма клуба для матчей, тренировок и болельщиков.</p>
-
-              <div class="price-row">
-                <div class="price">$40</div>
-                <button class="product-btn" type="button">Скоро</button>
-              </div>
+              <div class="price-row"><div class="price">$40</div><button class="product-btn" type="button">Скоро</button></div>
             </div>
           </article>
 
           <article class="product-card">
-            <div class="product-image">
-              <img src="images/store/scarf.png" alt="Клубный шарф Deportivo Moscu">
-            </div>
-
+            <div class="product-image"><img src="images/store/scarf.png" alt="Шарф Classic Deportivo Moscu"></div>
             <div class="product-body">
-              <div class="product-kicker">Атрибутика</div>
-              <h3>Клубный шарф</h3>
-              <p>Шарф Deportivo Moscu для матчей, фото, трибун и клубной атмосферы.</p>
-
-              <div class="price-row">
-                <div class="price">$20</div>
-                <button class="product-btn" type="button">Скоро</button>
-              </div>
+              <div class="product-kicker">Шарф</div>
+              <h3>Шарф Classic</h3>
+              <p>Классический шарф Deportivo Moscu для матчей, фото и клубной атмосферы.</p>
+              <div class="price-row"><div class="price">$20</div><button class="product-btn" type="button">Скоро</button></div>
             </div>
           </article>
 
           <article class="product-card">
-            <div class="product-image">
-              <img src="images/store/cap.png" alt="Кепка Deportivo Moscu">
-            </div>
-
+            <div class="product-image"><img src="images/store/scarf-2.png" alt="Шарф Neon Moscow Deportivo Moscu"></div>
             <div class="product-body">
-              <div class="product-kicker">Мерч</div>
-              <h3>Кепка клуба</h3>
+              <div class="product-kicker">Шарф</div>
+              <h3>Шарф Neon Moscow</h3>
+              <p>Футуристичный зелёно-чёрный шарф с крупной надписью Deportivo Moscu.</p>
+              <div class="price-row"><div class="price">$22</div><button class="product-btn" type="button">Скоро</button></div>
+            </div>
+          </article>
+
+          <article class="product-card">
+            <div class="product-image"><img src="images/store/cap.png" alt="Кепка Classic Black Deportivo Moscu"></div>
+            <div class="product-body">
+              <div class="product-kicker">Кепка</div>
+              <h3>Кепка Classic Black</h3>
               <p>Чёрная кепка Deportivo Moscu с зелёной вышивкой и эмблемой клуба.</p>
-
-              <div class="price-row">
-                <div class="price">$18</div>
-                <button class="product-btn" type="button">Скоро</button>
-              </div>
+              <div class="price-row"><div class="price">$18</div><button class="product-btn" type="button">Скоро</button></div>
             </div>
           </article>
 
           <article class="product-card">
-            <div class="product-image">
-              <img src="images/store/hoodie.png" alt="Худи Deportivo Moscu">
-            </div>
-
+            <div class="product-image"><img src="images/store/cap-2.png" alt="Кепка Green Line Deportivo Moscu"></div>
             <div class="product-body">
-              <div class="product-kicker">Мерч</div>
-              <h3>Худи клуба</h3>
-              <p>Чёрно-зелёное худи Deportivo Moscu с эмблемой и клубным графическим стилем.</p>
-
-              <div class="price-row">
-                <div class="price">$55</div>
-                <button class="product-btn" type="button">Скоро</button>
-              </div>
+              <div class="product-kicker">Кепка</div>
+              <h3>Кепка Green Line</h3>
+              <p>Кепка с зелёным козырьком, клубной эмблемой и акцентами Deportivo Moscu.</p>
+              <div class="price-row"><div class="price">$20</div><button class="product-btn" type="button">Скоро</button></div>
             </div>
           </article>
 
           <article class="product-card">
-            <div class="product-image">
-              <img src="images/store/ticket.png" alt="Билет на матч Deportivo Moscu">
+            <div class="product-image"><img src="images/store/cap-3.png" alt="Кепка Neon Shield Deportivo Moscu"></div>
+            <div class="product-body">
+              <div class="product-kicker">Кепка</div>
+              <h3>Кепка Neon Shield</h3>
+              <p>Футуристичная кепка с неоновым щитом Deportivo Moscu и зелёно-чёрным стилем.</p>
+              <div class="price-row"><div class="price">$22</div><button class="product-btn" type="button">Скоро</button></div>
             </div>
+          </article>
 
+          <article class="product-card">
+            <div class="product-image"><img src="images/store/cap-4.png" alt="Кепка Street DM Deportivo Moscu"></div>
+            <div class="product-body">
+              <div class="product-kicker">Кепка</div>
+              <h3>Кепка Street DM</h3>
+              <p>Уличная версия кепки Deportivo Moscu с минималистичным логотипом и чёрной базой.</p>
+              <div class="price-row"><div class="price">$21</div><button class="product-btn" type="button">Скоро</button></div>
+            </div>
+          </article>
+
+          <article class="product-card">
+            <div class="product-image"><img src="images/store/cap-5.png" alt="Кепка Future Club Deportivo Moscu"></div>
+            <div class="product-body">
+              <div class="product-kicker">Кепка</div>
+              <h3>Кепка Future Club</h3>
+              <p>Премиальная кепка в стиле будущего с зелёной линией и клубной айдентикой.</p>
+              <div class="price-row"><div class="price">$24</div><button class="product-btn" type="button">Скоро</button></div>
+            </div>
+          </article>
+
+          <article class="product-card">
+            <div class="product-image"><img src="images/store/hoodie.png" alt="Худи Classic Deportivo Moscu"></div>
+            <div class="product-body">
+              <div class="product-kicker">Худи</div>
+              <h3>Худи Classic</h3>
+              <p>Чёрно-зелёное худи Deportivo Moscu с эмблемой и клубным графическим стилем.</p>
+              <div class="price-row"><div class="price">$55</div><button class="product-btn" type="button">Скоро</button></div>
+            </div>
+          </article>
+
+          <article class="product-card">
+            <div class="product-image"><img src="images/store/hoodie-2.png" alt="Худи Match Night Deportivo Moscu"></div>
+            <div class="product-body">
+              <div class="product-kicker">Худи</div>
+              <h3>Худи Match Night</h3>
+              <p>Тёмное худи для матчей и города с крупной надписью Deportivo Moscu.</p>
+              <div class="price-row"><div class="price">$58</div><button class="product-btn" type="button">Скоро</button></div>
+            </div>
+          </article>
+
+          <article class="product-card">
+            <div class="product-image"><img src="images/store/hoodie-3.png" alt="Худи Green Energy Deportivo Moscu"></div>
+            <div class="product-body">
+              <div class="product-kicker">Худи</div>
+              <h3>Худи Green Energy</h3>
+              <p>Зелёно-чёрное худи с агрессивным спортивным дизайном и клубной эмблемой.</p>
+              <div class="price-row"><div class="price">$60</div><button class="product-btn" type="button">Скоро</button></div>
+            </div>
+          </article>
+
+          <article class="product-card">
+            <div class="product-image"><img src="images/store/ticket.png" alt="Билет на матч Deportivo Moscu"></div>
             <div class="product-body">
               <div class="product-kicker">Билеты</div>
               <h3>Билет на матч</h3>
               <p>Будущий раздел продажи билетов на домашние матчи Deportivo Moscu.</p>
-
-              <div class="price-row">
-                <div class="price">$5</div>
-                <button class="product-btn" type="button">Скоро</button>
-              </div>
+              <div class="price-row"><div class="price">$5</div><button class="product-btn" type="button">Скоро</button></div>
             </div>
-          </article>
-        </div>
-
-        <div class="store-info-grid">
-          <article class="info-card">
-            <h3>Оплата</h3>
-            <p>Позже можно подключить оплату картой, переводом, Mercado Pago или другим сервисом.</p>
-          </article>
-
-          <article class="info-card">
-            <h3>Доставка</h3>
-            <p>Раздел можно адаптировать под доставку по Буэнос-Айресу, самовывоз или выдачу на матчах.</p>
-          </article>
-
-          <article class="info-card">
-            <h3>Партнёры</h3>
-            <p>Магазин может стать частью коммерческой модели клуба вместе с билетами, формой и рекламой.</p>
           </article>
         </div>
       </div>
