@@ -253,26 +253,26 @@
           </div>
 
           <aside class="next-match-card">
-            <div class="small-title">Следующий матч</div>
-            <div class="league-name" id="nextMatchLeague">Liga Escobarense</div>
+            <div class="small-title">Следующий матч · выезд</div>
+            <div class="league-name" id="nextMatchLeague">Liga Escobarense · Primera División B / Zona Escobar</div>
 
             <div class="match-teams">
-              <div class="team">
-                <img src="images/logo.png" alt="Deportivo Moscu">
-                <span>Deportivo Moscu</span>
+              <div class="team" id="nextHomeTeam">
+                <img src="images/domingo-matheu.png" alt="Domingo Matheu" id="nextHomeLogo">
+                <span id="nextHomeName">Domingo Matheu</span>
               </div>
 
               <div class="vs">VS</div>
 
-              <div class="team">
-                <div class="opponent-logo" id="nextOpponentLogo">M</div>
-                <span id="nextOpponentName">Matheu</span>
+              <div class="team" id="nextAwayTeam">
+                <img src="images/logo.png" alt="Deportivo Moscu" id="nextAwayLogo">
+                <span id="nextAwayName">Deportivo Moscu</span>
               </div>
             </div>
 
             <div class="match-info">
-              <strong id="nextMatchDate">Дата скоро будет добавлена</strong>
-              <span id="nextMatchPlace">Buenos Aires, Argentina</span>
+              <strong id="nextMatchDate">Дата и время уточняются</strong>
+              <span id="nextMatchPlace">Выездной матч · Matheu, Buenos Aires</span>
             </div>
 
             <a href="league.html" class="card-btn">Открыть матчи</a>
@@ -471,5 +471,39 @@
   <script src="matches-data.js"></script>
   <script src="league-data.js"></script>
   <script src="app.js"></script>
+  <script>
+    window.addEventListener("DOMContentLoaded", function () {
+      const nextMatch = {
+        league: "Liga Escobarense · Primera División B / Zona Escobar",
+        homeName: "Domingo Matheu",
+        homeLogo: "images/domingo-matheu.png",
+        awayName: "Deportivo Moscu",
+        awayLogo: "images/logo.png",
+        date: "Дата и время уточняются",
+        place: "Выездной матч · Matheu, Buenos Aires"
+      };
+
+      const setText = (id, value) => {
+        const el = document.getElementById(id);
+        if (el) el.textContent = value;
+      };
+
+      const setLogo = (id, src, alt) => {
+        const el = document.getElementById(id);
+        if (el) {
+          el.src = src;
+          el.alt = alt;
+        }
+      };
+
+      setText("nextMatchLeague", nextMatch.league);
+      setText("nextHomeName", nextMatch.homeName);
+      setText("nextAwayName", nextMatch.awayName);
+      setText("nextMatchDate", nextMatch.date);
+      setText("nextMatchPlace", nextMatch.place);
+      setLogo("nextHomeLogo", nextMatch.homeLogo, nextMatch.homeName);
+      setLogo("nextAwayLogo", nextMatch.awayLogo, nextMatch.awayName);
+    });
+  </script>
 </body>
 </html>
