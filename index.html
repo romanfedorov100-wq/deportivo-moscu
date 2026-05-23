@@ -3,507 +3,310 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <title>Deportivo Moscu — Football Club</title>
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
-
-  <link rel="stylesheet" href="style.css">
-
-  <style>
-    /* FIX: компактные логотипы AFA / Liga Escobarense на главной */
-    .federation-logos {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      margin-top: 28px;
-      flex-wrap: wrap;
-    }
-
-    .federation-logo-card {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      min-height: 54px;
-      padding: 10px 14px;
-      border: 1px solid rgba(0, 255, 136, 0.22);
-      border-radius: 16px;
-      background: rgba(0, 18, 12, 0.58);
-      box-shadow: 0 0 26px rgba(0, 255, 136, 0.08);
-      backdrop-filter: blur(12px);
-      text-decoration: none;
-    }
-
-    .federation-logo-card img {
-      width: auto;
-      height: 34px;
-      max-width: 96px;
-      object-fit: contain;
-      display: block;
-    }
-
-    .federation-logo-card span {
-      color: rgba(224, 255, 240, 0.78);
-      font-size: 11px;
-      font-weight: 900;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      white-space: nowrap;
-    }
-
-    /* FIX: нормальный размер лого в карточках матчей на главной */
-    .matches-row img,
-    .match-card img,
-    .match-card .team img,
-    .match-card .club-logo,
-    .match-card .team-logo,
-    .match-card .match-logo,
-    .match-card-logo,
-    .matches-row .team-logo,
-    .matches-row .club-logo,
-    .matches-row .match-logo {
-      width: 82px !important;
-      height: 82px !important;
-      max-width: 82px !important;
-      max-height: 82px !important;
-      object-fit: contain !important;
-      display: block;
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    .matches-row .opponent-logo,
-    .match-card .opponent-logo {
-      width: 82px !important;
-      height: 82px !important;
-      min-width: 82px !important;
-      min-height: 82px !important;
-      max-width: 82px !important;
-      max-height: 82px !important;
-      border-radius: 50%;
-      display: grid;
-      place-items: center;
-      font-size: 28px;
-      font-weight: 900;
-    }
-
-    .home-matches-partners {
-      justify-content: flex-start;
-      margin-top: 18px;
-      margin-bottom: 24px;
-    }
-
-    @media (max-width: 768px) {
-      .federation-logo-card {
-        width: 100%;
-        justify-content: center;
-      }
-
-      .matches-row img,
-      .match-card img,
-      .match-card .team img,
-      .match-card .club-logo,
-      .match-card .team-logo,
-      .match-card .match-logo,
-      .match-card-logo,
-      .matches-row .team-logo,
-      .matches-row .club-logo,
-      .matches-row .match-logo,
-      .matches-row .opponent-logo,
-      .match-card .opponent-logo {
-        width: 64px !important;
-        height: 64px !important;
-        max-width: 64px !important;
-        max-height: 64px !important;
-      }
-    }
-  </style>
+  <title>Deportivo Moscu</title>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 
 <body>
   <header class="site-header">
-    <div class="container header-inner">
-      <a href="index.html" class="logo-box">
-        <img src="images/logo.png" alt="Deportivo Moscu" class="logo-img">
-        <div class="logo-text">
-          <span>Deportivo</span>
-          <strong>Moscu</strong>
+    <div class="header-bg"></div>
+
+    <div class="topbar">
+      <a href="#home" class="brand">
+        <img src="images/deportivo-logo.png" alt="Deportivo Moscu" class="brand-logo" />
+        <div>
+          <span class="brand-name">Deportivo Moscu</span>
+          <span class="brand-subtitle">Football Club</span>
         </div>
       </a>
 
-      <nav class="main-nav">
-        <a href="index.html" class="active">Главная</a>
-        <a href="news.html">Новости</a>
-        <a href="team.html">Команда</a>
-        <a href="league.html">Матчи</a>
-        <a href="club.html">Клуб</a>
-        <a href="stadium.html">Стадион</a>
-        <a href="academy.html">Академия</a>
-        <a href="management.html">Руководство</a>
-        <a href="media.html">Медиа</a>
-        <a href="store.html">Магазин</a>
-      </nav>
+      <button class="burger" id="burgerBtn" aria-label="Открыть меню">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
 
-      <div class="header-actions">
-        <div class="language-switcher">
-          <button class="lang-btn active">RU</button>
-          <button class="lang-btn">EN</button>
-          <button class="lang-btn">ES</button>
+      <nav class="main-nav" id="mainNav">
+        <a href="#home">Главная</a>
+        <a href="#matches">Матчи</a>
+        <a href="#news">Новости</a>
+        <a href="#club">Клуб</a>
+        <a href="#academy">Академия</a>
+        <a href="#shop">Магазин</a>
+        <a href="#stadium">Стадион</a>
+        <a href="#media">Медиа</a>
+      </nav>
+    </div>
+
+    <section class="hero" id="home">
+      <div class="hero-content">
+        <div class="league-logos">
+          <img src="images/afa.png" alt="AFA" />
+          <img src="images/escobar.png" alt="Liga Escobarense" />
         </div>
 
-        <a href="store.html" class="ticket-btn">Купить билеты</a>
+        <p class="eyebrow">Buenos Aires · Liga Escobarense</p>
+        <h1>Deportivo Moscu</h1>
+        <p class="hero-text">
+          Современный футбольный клуб с характером, историей и амбициями.
+          Новый стиль. Новая энергия. Новый путь.
+        </p>
 
-        <button class="burger-btn" id="burgerBtn" aria-label="Открыть меню">
-          <span></span>
-          <span></span>
-          <span></span>
-        </button>
+        <div class="hero-actions">
+          <a href="#matches" class="btn btn-primary">Смотреть матчи</a>
+          <a href="#shop" class="btn btn-secondary">Магазин клуба</a>
+        </div>
       </div>
-    </div>
 
-    <div class="mobile-menu" id="mobileMenu">
-      <a href="index.html">Главная</a>
-      <a href="news.html">Новости</a>
-      <a href="team.html">Команда</a>
-      <a href="league.html">Матчи</a>
-      <a href="club.html">Клуб</a>
-      <a href="stadium.html">Стадион</a>
-      <a href="academy.html">Академия</a>
-      <a href="management.html">Руководство</a>
-      <a href="media.html">Медиа</a>
-      <a href="store.html">Магазин</a>
-    </div>
+      <div class="hero-card">
+        <div class="hero-card-glow"></div>
+        <img src="images/deportivo-logo.png" alt="Deportivo Moscu Logo" />
+        <h2>Vamos Moscu</h2>
+        <p>Футбол будущего начинается здесь.</p>
+      </div>
+    </section>
   </header>
 
   <main>
-    <section class="hero-section" id="home">
-      <div class="container hero-grid">
-        <div class="hero-content">
-          <span class="section-label">Football Club / Buenos Aires</span>
+    <section class="section" id="matches">
+      <div class="section-head">
+        <p class="eyebrow">Liga Escobarense</p>
+        <h2>Матчи</h2>
+        <p>
+          Турнирная таблица, прошедшие и будущие матчи Deportivo Moscu и лиги.
+        </p>
+      </div>
 
-          <h1>Deportivo<br>Moscu</h1>
+      <div class="tabs">
+        <button class="tab-btn active" data-tab="table">Таблица</button>
+        <button class="tab-btn" data-tab="past">Прошедшие матчи</button>
+        <button class="tab-btn" data-tab="future">Будущие матчи</button>
+      </div>
 
+      <div class="tab-panel active" id="tab-table">
+        <div class="table-wrap">
+          <table class="league-table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Клуб</th>
+                <th>И</th>
+                <th>В</th>
+                <th>Н</th>
+                <th>П</th>
+                <th>ГЗ</th>
+                <th>ГП</th>
+                <th>О</th>
+              </tr>
+            </thead>
+            <tbody id="leagueTableBody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="tab-panel" id="tab-past">
+        <div class="cards-grid" id="pastMatches"></div>
+      </div>
+
+      <div class="tab-panel" id="tab-future">
+        <div class="cards-grid" id="futureMatches"></div>
+      </div>
+    </section>
+
+    <section class="section dark-section" id="news">
+      <div class="section-head">
+        <p class="eyebrow">Club News</p>
+        <h2>Новости</h2>
+        <p>Главные события клуба, команды и проекта Deportivo Moscu.</p>
+      </div>
+
+      <div class="news-grid">
+        <article class="news-card">
+          <span>Клуб</span>
+          <h3>Deportivo Moscu обновляет визуальный стиль</h3>
           <p>
-            Deportivo Moscu — футбольный клуб из Буэнос-Айреса, основанный в 2024 году,
-            выступающий в системе AFA.
-            <br><br>
-            Первая команда, U-21, академия и собственная медиа-экосистема.
-            <br><br>
-            Мы развиваем игроков и строим один из самых узнаваемых независимых
-            футбольных проектов Аргентины.
+            Новый дизайн сайта, фирменный футуристичный стиль и развитие цифровой платформы клуба.
           </p>
+        </article>
 
-          <div class="hero-buttons">
-            <a href="league.html" class="primary-btn">Следующий матч</a>
-            <a href="team.html" class="secondary-btn">Смотреть команду</a>
-            <a href="stadium.html" class="secondary-btn">Проект стадиона</a>
-          </div>
-
-          <div class="federation-logos" aria-label="Федерации и лига">
-            <div class="federation-logo-card">
-              <img src="images/afa-logo.png" alt="AFA">
-              <span>AFA</span>
-            </div>
-
-            <div class="federation-logo-card">
-              <img src="images/liga-escobarense-logo.png" alt="Liga Escobarense">
-              <span>Liga Escobarense</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="hero-team-card">
-          <img src="images/team-main.jpg" alt="Команда Deportivo Moscu">
-        </div>
-      </div>
-    </section>
-
-    <section class="content-section">
-      <div class="container">
-        <div class="dashboard-grid">
-          <div>
-            <div class="section-top">
-              <h2>Клуб сегодня</h2>
-              <a href="club.html" class="view-all">О клубе →</a>
-            </div>
-
-            <div class="stats-grid">
-              <div class="stat-card">
-                <strong id="statPlayers">—</strong>
-                <span>Игроков</span>
-              </div>
-
-              <div class="stat-card">
-                <strong id="statMatches">—</strong>
-                <span>Матчей</span>
-              </div>
-
-              <div class="stat-card">
-                <strong id="statNews">—</strong>
-                <span>Новостей</span>
-              </div>
-
-              <div class="stat-card">
-                <strong>2026</strong>
-                <span>Сезон</span>
-              </div>
-            </div>
-          </div>
-
-          <aside class="next-match-card">
-            <div class="small-title">Следующий матч · выезд</div>
-            <div class="league-name" id="nextMatchLeague">Liga Escobarense · Primera División B / Zona Escobar</div>
-
-            <div class="match-teams">
-              <div class="team" id="nextHomeTeam">
-                <img src="images/domingo-matheu.png" alt="Domingo Matheu" id="nextHomeLogo">
-                <span id="nextHomeName">Domingo Matheu</span>
-              </div>
-
-              <div class="vs">VS</div>
-
-              <div class="team" id="nextAwayTeam">
-                <img src="images/logo.png" alt="Deportivo Moscu" id="nextAwayLogo">
-                <span id="nextAwayName">Deportivo Moscu</span>
-              </div>
-            </div>
-
-            <div class="match-info">
-              <strong id="nextMatchDate">Дата и время уточняются</strong>
-              <span id="nextMatchPlace">Выездной матч · Matheu, Buenos Aires</span>
-            </div>
-
-            <a href="league.html" class="card-btn">Открыть матчи</a>
-          </aside>
-        </div>
-      </div>
-    </section>
-
-    <section class="content-section stadium-preview-section">
-      <div class="container stadium-preview">
-        <div class="stadium-preview-content">
-          <span class="section-label">Проект нового стадиона</span>
-
-          <h2>Estadio Deportivo Moscu</h2>
-
+        <article class="news-card">
+          <span>Матчи</span>
+          <h3>Команда готовится к следующим играм</h3>
           <p>
-            Новый дом клуба в Буэнос-Айресе: закрытая футбольная арена на 7 500–10 000 зрителей,
-            без беговой дорожки, с трибунами максимально близко к полю.
+            Расписание матчей теперь доступно в отдельной вкладке с логотипами команд.
           </p>
+        </article>
 
-          <div class="stadium-preview-stats">
-            <div>
-              <strong>7 500–10 000</strong>
-              <span>зрителей</span>
-            </div>
+        <article class="news-card">
+          <span>Проект</span>
+          <h3>Старт раздела нового стадиона</h3>
+          <p>
+            На сайте добавлен раздел проекта будущего стадиона Deportivo Moscu.
+          </p>
+        </article>
+      </div>
+    </section>
 
-            <div>
-              <strong>100%</strong>
-              <span>закрытый стадион</span>
-            </div>
+    <section class="section" id="club">
+      <div class="section-head">
+        <p class="eyebrow">Identity</p>
+        <h2>Клуб</h2>
+        <p>
+          Deportivo Moscu — футбольный проект, объединяющий спорт, культуру,
+          технологии и сильную клубную идентичность.
+        </p>
+      </div>
 
-            <div>
-              <strong>0</strong>
-              <span>беговых дорожек</span>
-            </div>
-          </div>
-
-          <a href="stadium.html" class="primary-btn">Открыть проект</a>
+      <div class="club-layout">
+        <div class="club-card">
+          <h3>Философия</h3>
+          <p>
+            Играть смело, уважать болельщиков, строить клуб с будущим и сохранять собственный характер.
+          </p>
         </div>
 
-        <div class="stadium-preview-image">
-          <img src="stadium/stadium-hero.png" alt="Проект стадиона Deportivo Moscu">
+        <div class="club-card">
+          <h3>Цвета</h3>
+          <p>
+            Чёрный, зелёный и белый — современная палитра клуба Deportivo Moscu.
+          </p>
+        </div>
+
+        <div class="club-card">
+          <h3>Цель</h3>
+          <p>
+            Развитие команды, академии, медиа и собственной футбольной экосистемы.
+          </p>
         </div>
       </div>
     </section>
 
-    <section class="content-section">
-      <div class="container">
-        <div class="section-top">
-          <h2>Последние новости</h2>
-          <a href="news.html" class="view-all">Все новости →</a>
-        </div>
+    <section class="section dark-section" id="academy">
+      <div class="section-head">
+        <p class="eyebrow">Future Players</p>
+        <h2>Академия</h2>
+        <p>
+          Раздел академии для будущих игроков Deportivo Moscu.
+          Позже сюда можно добавить расписание, тренеров, набор и фотографии.
+        </p>
+      </div>
 
-        <div class="news-grid" id="newsGrid"></div>
+      <div class="academy-box">
+        <h3>Набор игроков</h3>
+        <p>
+          Здесь будет информация о тренировках, возрастных группах и заявке в академию.
+        </p>
+        <a href="#club" class="btn btn-secondary">Подробнее о клубе</a>
       </div>
     </section>
 
-    <section class="content-section">
-      <div class="container">
-        <div class="section-top">
-          <h2>Матчи</h2>
-          <a href="league.html" class="view-all">Календарь и таблица →</a>
+    <section class="section" id="shop">
+      <div class="section-head">
+        <p class="eyebrow">Official Store</p>
+        <h2>Магазин</h2>
+        <p>
+          Мерч Deportivo Moscu: кепки, худи, шарфы и будущая клубная коллекция.
+        </p>
+      </div>
+
+      <div class="store-hero">
+        <img src="images/store-main.jpg" alt="Магазин Deportivo Moscu" />
+        <div>
+          <h3>Коллекция Vamos Moscu</h3>
+          <p>
+            Чистый футбольный стиль, зелёно-белая айдентика и современная подача.
+          </p>
         </div>
+      </div>
 
-        <div class="federation-logos home-matches-partners" aria-label="AFA и Liga Escobarense">
-          <div class="federation-logo-card">
-            <img src="images/afa-logo.png" alt="AFA">
-            <span>AFA</span>
-          </div>
+      <div class="product-grid">
+        <article class="product-card">
+          <img src="images/cap-white.jpg" alt="Белая кепка Deportivo Moscu" />
+          <h3>Белая кепка</h3>
+          <p>Фирменный дизайн Deportivo Moscu.</p>
+        </article>
 
-          <div class="federation-logo-card">
-            <img src="images/liga-escobarense-logo.png" alt="Liga Escobarense">
-            <span>Liga Escobarense</span>
-          </div>
-        </div>
+        <article class="product-card">
+          <img src="images/cap-green.jpg" alt="Зелёная кепка Deportivo Moscu" />
+          <h3>Зелёная кепка</h3>
+          <p>Тёмно-зелёная версия клубной кепки.</p>
+        </article>
 
-        <div class="matches-row" id="matchesRow"></div>
+        <article class="product-card">
+          <img src="images/hoodie-green.jpg" alt="Худи Deportivo Moscu" />
+          <h3>Тёмно-зелёное худи</h3>
+          <p>Передняя и задняя сторона с клубным принтом.</p>
+        </article>
+
+        <article class="product-card">
+          <img src="images/scarf-green.jpg" alt="Шарф Vamos Moscu" />
+          <h3>Шарф Vamos Moscu</h3>
+          <p>Бело-зелёный шарф для болельщиков.</p>
+        </article>
+
+        <article class="product-card">
+          <img src="images/scarf-black.jpg" alt="Чёрный шарф Deportivo Moscu" />
+          <h3>Чёрный шарф</h3>
+          <p>Альтернативный тёмный вариант шарфа.</p>
+        </article>
       </div>
     </section>
 
-    <section class="content-section">
-      <div class="container">
-        <div class="section-top">
-          <h2>Разделы клуба</h2>
-          <a href="media.html" class="view-all">Медиа →</a>
-        </div>
+    <section class="section dark-section" id="stadium">
+      <div class="section-head">
+        <p class="eyebrow">Stadium Project</p>
+        <h2>Проект нового стадиона</h2>
+        <p>
+          Будущий стадион Deportivo Moscu в Буэнос-Айресе: компактный,
+          закрытый, без беговой дорожки, с трибунами близко к полю.
+        </p>
+      </div>
 
-        <div class="promo-grid">
-          <article class="promo-card">
-            <h3>Команда</h3>
-            <p>Состав Deportivo Moscu, карточки игроков, позиции, гражданство и статистика.</p>
-            <a href="team.html" class="card-btn">Открыть</a>
-          </article>
+      <div class="stadium-grid">
+        <article class="stadium-card">
+          <img src="images/stadium-1.jpg" alt="Проект стадиона Deportivo Moscu" />
+          <h3>Внешний вид</h3>
+          <p>Современная арена на 7–10 тысяч болельщиков.</p>
+        </article>
 
-          <article class="promo-card">
-            <h3>Стадион</h3>
-            <p>Проект нового закрытого стадиона клуба в Буэнос-Айресе.</p>
-            <a href="stadium.html" class="card-btn">Открыть</a>
-          </article>
+        <article class="stadium-card">
+          <img src="images/stadium-2.jpg" alt="Трибуны стадиона Deportivo Moscu" />
+          <h3>Трибуны рядом с полем</h3>
+          <p>Атмосфера английского стадиона, но в новом футуристичном стиле.</p>
+        </article>
 
-          <article class="promo-card">
-            <h3>Руководство</h3>
-            <p>Президент, казначей, главный тренер, СММ и тренерский штаб Deportivo Moscu.</p>
-            <a href="management.html" class="card-btn">Открыть</a>
-          </article>
+        <article class="stadium-card">
+          <img src="images/stadium-3.jpg" alt="Ночная арена Deportivo Moscu" />
+          <h3>Ночная арена</h3>
+          <p>Неоновая подсветка, закрытые углы и сильная домашняя атмосфера.</p>
+        </article>
+      </div>
+    </section>
 
-          <article class="promo-card">
-            <h3>Академия</h3>
-            <p>Будущий раздел для набора, тренировок и развития молодых игроков клуба.</p>
-            <a href="academy.html" class="card-btn">Открыть</a>
-          </article>
+    <section class="section" id="media">
+      <div class="section-head">
+        <p class="eyebrow">Media</p>
+        <h2>Медиа</h2>
+        <p>
+          Фото, видео, афиши матчей, промо-материалы и клубный контент.
+        </p>
+      </div>
 
-          <article class="promo-card">
-            <h3>Магазин</h3>
-            <p>Форма, билеты, атрибутика и будущая коммерческая часть клуба.</p>
-            <a href="store.html" class="card-btn">Открыть</a>
-          </article>
-
-          <article class="promo-card">
-            <h3>Медиа</h3>
-            <p>Фото, видео, афиши, клубный контент и будущий медиацентр Deportivo Moscu.</p>
-            <a href="media.html" class="card-btn">Открыть</a>
-          </article>
-        </div>
+      <div class="media-grid">
+        <div class="media-tile">Фото команды</div>
+        <div class="media-tile">Афиши матчей</div>
+        <div class="media-tile">Видео</div>
+        <div class="media-tile">Болельщики</div>
       </div>
     </section>
   </main>
 
   <footer class="site-footer">
-    <div class="container footer-grid">
-      <div class="footer-brand">
-        <img src="images/logo.png" alt="Deportivo Moscu">
-        <h3>Deportivo Moscu</h3>
-        <p>Бьёмся за эмблему. Играем за город. Побеждаем как команда.</p>
-      </div>
-
-      <div class="footer-col">
-        <h4>Клуб</h4>
-        <a href="club.html">О клубе</a>
-        <a href="team.html">Команда</a>
-        <a href="league.html">Матчи</a>
-        <a href="stadium.html">Стадион</a>
-        <a href="management.html">Руководство</a>
-      </div>
-
-      <div class="footer-col">
-        <h4>Помощь</h4>
-        <a href="store.html">Билеты</a>
-        <a href="academy.html">Запись в академию</a>
-        <a href="media.html">Медиацентр</a>
-      </div>
-
-      <div class="footer-col">
-        <h4>Контакты</h4>
-        <p>Buenos Aires, Argentina</p>
-        <p>info@deportivomoscu.com</p>
-        <p>+54 11 0000-0000</p>
-
-        <div class="social-links" aria-label="Социальные сети Deportivo Moscu">
-          <a href="https://vk.ru/deportivomoscu" target="_blank" rel="noopener noreferrer" aria-label="VK Deportivo Moscu">
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-              <path fill="currentColor" d="M13.2 17.1c-5.2 0-8.2-3.5-8.3-9.4h2.6c.1 4.3 2 6.1 3.5 6.5V7.7h2.5v3.7c1.5-.2 3-1.8 3.5-3.7h2.5c-.4 2.3-2.1 3.9-3.3 4.6 1.2.6 3.1 2 3.8 4.8h-2.8c-.5-1.8-1.9-3.2-3.4-3.4v3.4h-.3Z"/>
-            </svg>
-          </a>
-
-          <a href="https://www.instagram.com/deportivomoscu?igsh=MWpvOXAyOTNuMTVvcA%3D%3D&utm_source=qr" target="_blank" rel="noopener noreferrer" aria-label="Instagram Deportivo Moscu">
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-              <path fill="currentColor" d="M7.8 2h8.4A5.8 5.8 0 0 1 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8A5.8 5.8 0 0 1 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2Zm0 2A3.8 3.8 0 0 0 4 7.8v8.4A3.8 3.8 0 0 0 7.8 20h8.4a3.8 3.8 0 0 0 3.8-3.8V7.8A3.8 3.8 0 0 0 16.2 4H7.8Zm4.2 3.4A4.6 4.6 0 1 1 7.4 12 4.6 4.6 0 0 1 12 7.4Zm0 2A2.6 2.6 0 1 0 14.6 12 2.6 2.6 0 0 0 12 9.4Zm5-2.2a1.1 1.1 0 1 1-1.1 1.1A1.1 1.1 0 0 1 17 7.2Z"/>
-            </svg>
-          </a>
-
-          <a href="https://www.tiktok.com/@deportivomoscu?_r=1&_t=ZS-96YBXEERpwq" target="_blank" rel="noopener noreferrer" aria-label="TikTok Deportivo Moscu">
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-              <path fill="currentColor" d="M16.6 2c.3 2.4 1.7 3.9 4 4.1v2.7a7 7 0 0 1-4-1.2v6.9c0 3.5-2.4 6-5.9 6-3.1 0-5.6-2.2-5.6-5.4 0-3.5 2.7-5.8 6.4-5.3v2.9c-1.7-.5-3.4.3-3.4 2.2 0 1.5 1.2 2.4 2.5 2.4 1.6 0 2.8-1 2.8-3V2h3.2Z"/>
-            </svg>
-          </a>
-
-          <a href="https://t.me/depmoscu" target="_blank" rel="noopener noreferrer" aria-label="Telegram Deportivo Moscu">
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-              <path fill="currentColor" d="M21.7 4.4 18.5 20c-.2 1.1-.8 1.4-1.7.9l-4.6-3.4-2.2 2.1c-.2.2-.4.4-.9.4l.3-4.7 8.6-7.8c.4-.3-.1-.5-.6-.2L6.8 14 2.2 12.6c-1-.3-1-1 .2-1.5L20.2 4.2c.8-.3 1.6.2 1.5 1.2Z"/>
-            </svg>
-          </a>
-
-          <a href="https://www.threads.com/@deportivomoscu?igshid=NTc4MTIwNjQ2YQ==" target="_blank" rel="noopener noreferrer" aria-label="Threads Deportivo Moscu">
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-              <path fill="currentColor" d="M16.7 11.2c-.2-3.1-2-4.7-5-4.7-2.1 0-3.8.9-4.8 2.5l2.1 1.4c.7-1 1.5-1.5 2.7-1.5 1.4 0 2.3.7 2.5 2.1-.8-.1-1.6-.2-2.4-.1-3 .2-4.8 1.7-4.7 4 .1 2.1 1.9 3.5 4.4 3.4 2.2-.1 3.9-1.2 4.7-3 .7.5 1.1 1.1 1.1 1.9 0 1.8-1.9 3-4.8 3-3.8 0-6.5-2.8-6.5-7.8 0-5.2 2.7-8.1 6.3-8.1 2.7 0 4.7 1.3 5.9 3.8l2.3-1.2C18.9 3.6 16.1 2 12.3 2 7.2 2 3.4 5.8 3.4 12.4c0 6.4 3.7 9.6 9.1 9.6 4.5 0 7.6-2 7.6-5.1 0-2.6-1.8-4.7-3.4-5.7Zm-5.3 4.8c-1.1.1-1.8-.5-1.9-1.3 0-.9.8-1.5 2.5-1.6.8-.1 1.6 0 2.3.2-.3 1.7-1.4 2.6-2.9 2.7Z"/>
-            </svg>
-          </a>
-        </div>
-      </div>
-    </div>
+    <img src="images/deportivo-logo.png" alt="Deportivo Moscu" />
+    <p>© Deportivo Moscu Football Club</p>
+    <p>Buenos Aires · Argentina</p>
   </footer>
 
-  <script src="players-data.js"></script>
-  <script src="news-data.js"></script>
-  <script src="matches-data.js"></script>
-  <script src="league-data.js"></script>
-  <script src="app.js"></script>
-  <script>
-    window.addEventListener("DOMContentLoaded", function () {
-      const nextMatch = {
-        league: "Liga Escobarense · Primera División B / Zona Escobar",
-        homeName: "Domingo Matheu",
-        homeLogo: "images/domingo-matheu.png",
-        awayName: "Deportivo Moscu",
-        awayLogo: "images/logo.png",
-        date: "Дата и время уточняются",
-        place: "Выездной матч · Matheu, Buenos Aires"
-      };
-
-      const setText = (id, value) => {
-        const el = document.getElementById(id);
-        if (el) el.textContent = value;
-      };
-
-      const setLogo = (id, src, alt) => {
-        const el = document.getElementById(id);
-        if (el) {
-          el.src = src;
-          el.alt = alt;
-        }
-      };
-
-      setText("nextMatchLeague", nextMatch.league);
-      setText("nextHomeName", nextMatch.homeName);
-      setText("nextAwayName", nextMatch.awayName);
-      setText("nextMatchDate", nextMatch.date);
-      setText("nextMatchPlace", nextMatch.place);
-      setLogo("nextHomeLogo", nextMatch.homeLogo, nextMatch.homeName);
-      setLogo("nextAwayLogo", nextMatch.awayLogo, nextMatch.awayName);
-    });
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
