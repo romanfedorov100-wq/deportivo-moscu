@@ -1,0 +1,1571 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Команда — Deportivo Moscu</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #020605;
+      --panel: rgba(4, 21, 18, 0.82);
+      --line: rgba(0, 255, 157, 0.22);
+      --green: #00ff9d;
+      --cyan: #39ffe1;
+      --text: rgba(237, 255, 249, 0.96);
+      --muted: rgba(218, 255, 244, 0.62);
+      --shadow: 0 26px 80px rgba(0, 0, 0, 0.48);
+      --glow: 0 0 32px rgba(0, 255, 157, 0.24);
+    }
+
+    * { box-sizing: border-box; }
+
+    html {
+      scroll-behavior: smooth;
+      background: var(--bg);
+    }
+
+    body {
+      margin: 0;
+      font-family: "Inter", sans-serif;
+      background:
+        radial-gradient(circle at 12% 6%, rgba(0, 255, 157, 0.15), transparent 28%),
+        radial-gradient(circle at 88% 10%, rgba(57, 255, 225, 0.1), transparent 32%),
+        radial-gradient(circle at 50% 70%, rgba(0, 255, 157, 0.08), transparent 38%),
+        linear-gradient(180deg, #020605 0%, #06110f 42%, #020605 100%);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: -2;
+      background:
+        linear-gradient(rgba(0, 255, 157, 0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 255, 157, 0.035) 1px, transparent 1px);
+      background-size: 56px 56px;
+      mask-image: radial-gradient(circle at center, black 0%, transparent 80%);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button { font-family: inherit; }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    .container {
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(2, 6, 5, 0.78);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--line);
+      box-shadow: 0 14px 44px rgba(0, 0, 0, 0.42);
+    }
+
+    .header-inner {
+      min-height: 86px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 22px;
+    }
+
+    .logo-box {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 210px;
+    }
+
+    .logo-img {
+      width: 58px;
+      height: 58px;
+      object-fit: contain;
+      filter: drop-shadow(0 0 18px rgba(0, 255, 157, 0.34));
+    }
+
+    .logo-text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .logo-text span {
+      font-size: 12px;
+      font-weight: 800;
+      color: rgba(237, 255, 249, 0.82);
+    }
+
+    .logo-text strong {
+      font-family: "Oswald", sans-serif;
+      font-size: 25px;
+      color: rgba(237, 255, 249, 0.98);
+      letter-spacing: 0.18em;
+      text-shadow: 0 0 22px rgba(0, 255, 157, 0.34);
+    }
+
+    .main-nav {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      font-size: 11px;
+      font-weight: 950;
+      letter-spacing: 0.11em;
+      text-transform: uppercase;
+    }
+
+    .main-nav a {
+      position: relative;
+      color: rgba(237, 255, 249, 0.76);
+      transition: 0.2s;
+      white-space: nowrap;
+    }
+
+    .main-nav a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: -12px;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--green), transparent);
+      opacity: 0;
+      transform: scaleX(0.4);
+      transition: 0.2s;
+      box-shadow: var(--glow);
+    }
+
+    .main-nav a:hover,
+    .main-nav a.active {
+      color: var(--green);
+      text-shadow: 0 0 16px rgba(0, 255, 157, 0.5);
+    }
+
+    .main-nav a:hover::after,
+    .main-nav a.active::after {
+      opacity: 1;
+      transform: scaleX(1);
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .language-switcher {
+      display: flex;
+      background: rgba(0, 255, 157, 0.055);
+      padding: 4px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      box-shadow: inset 0 0 24px rgba(0, 255, 157, 0.06);
+    }
+
+    .lang-btn {
+      border: 0;
+      background: transparent;
+      color: rgba(237, 255, 249, 0.72);
+      padding: 8px 10px;
+      border-radius: 999px;
+      font-weight: 950;
+      cursor: pointer;
+      font-size: 12px;
+    }
+
+    .lang-btn.active {
+      background: var(--green);
+      color: #00130c;
+      box-shadow: 0 0 24px rgba(0, 255, 157, 0.42);
+    }
+
+    .ticket-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, var(--green), var(--cyan));
+      color: #00130c;
+      border-radius: 4px;
+      padding: 14px 20px;
+      font-size: 12px;
+      font-weight: 950;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      box-shadow: 0 0 24px rgba(0, 255, 157, 0.3);
+      transition: 0.2s;
+    }
+
+    .ticket-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 34px rgba(0, 255, 157, 0.5);
+    }
+
+    .burger-btn {
+      display: none;
+      width: 42px;
+      height: 42px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: rgba(0, 255, 157, 0.055);
+      cursor: pointer;
+      padding: 9px;
+    }
+
+    .burger-btn span {
+      display: block;
+      height: 2px;
+      background: var(--green);
+      margin: 5px 0;
+      box-shadow: var(--glow);
+    }
+
+    .mobile-menu {
+      display: none;
+      padding: 16px;
+      border-top: 1px solid var(--line);
+      background: rgba(2, 6, 5, 0.96);
+    }
+
+    .mobile-menu.open {
+      display: grid;
+      gap: 12px;
+    }
+
+    .mobile-menu a {
+      padding: 14px;
+      border-radius: 10px;
+      background: rgba(0, 255, 157, 0.055);
+      border: 1px solid var(--line);
+      color: rgba(237, 255, 249, 0.86);
+      font-weight: 950;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .team-hero {
+      position: relative;
+      padding: 78px 0 54px;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 74% 26%, rgba(0, 255, 157, 0.17), transparent 28%),
+        radial-gradient(circle at 34% 70%, rgba(57, 255, 225, 0.08), transparent 30%),
+        linear-gradient(180deg, rgba(2, 6, 5, 0.2) 0%, rgba(2, 6, 5, 0.92) 100%);
+    }
+
+    .team-hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background:
+        linear-gradient(90deg, rgba(0, 255, 157, 0.12), transparent 22%, transparent 78%, rgba(0, 255, 157, 0.08)),
+        linear-gradient(180deg, transparent 0%, rgba(0, 255, 157, 0.06) 100%);
+      opacity: 0.85;
+    }
+
+    .team-hero-grid {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      align-items: center;
+      gap: 44px;
+    }
+
+    .section-label {
+      display: inline-flex;
+      padding: 8px 12px;
+      border-radius: 4px;
+      background: rgba(0, 255, 157, 0.08);
+      border: 1px solid var(--line);
+      color: var(--green);
+      font-weight: 950;
+      font-size: 12px;
+      margin-bottom: 18px;
+      text-transform: uppercase;
+      letter-spacing: 0.22em;
+      box-shadow: inset 0 0 24px rgba(0, 255, 157, 0.05);
+    }
+
+    .team-hero h1 {
+      font-family: "Oswald", sans-serif;
+      font-size: clamp(52px, 8vw, 104px);
+      line-height: 0.88;
+      margin: 0;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(237, 255, 249, 0.96);
+      text-shadow:
+        0 0 18px rgba(0, 255, 157, 0.22),
+        0 0 48px rgba(57, 255, 225, 0.12);
+    }
+
+    .team-hero p {
+      max-width: 620px;
+      color: var(--muted);
+      font-size: 18px;
+      line-height: 1.65;
+      margin: 24px 0 0;
+      font-weight: 700;
+    }
+
+    .team-hero-photo-card {
+      min-height: 100%;
+      border-radius: 2px;
+      background:
+        radial-gradient(circle at 48% 34%, rgba(0, 255, 157, 0.2), transparent 34%),
+        linear-gradient(135deg, rgba(0, 255, 157, 0.08), rgba(2, 6, 5, 0.9));
+      color: var(--text);
+      box-shadow: var(--shadow), var(--glow);
+      position: relative;
+      overflow: hidden;
+      border: 1px solid var(--line);
+    }
+
+    .team-hero-photo-card::before {
+      content: "";
+      position: absolute;
+      inset: 18px;
+      z-index: 2;
+      border: 1px solid rgba(0, 255, 157, 0.18);
+      box-shadow: inset 0 0 44px rgba(0, 255, 157, 0.08);
+      pointer-events: none;
+    }
+
+    .team-hero-photo-card::after {
+      content: "TEAM PHOTO";
+      position: absolute;
+      right: 28px;
+      bottom: 24px;
+      z-index: 3;
+      color: rgba(0, 255, 157, 0.5);
+      font-size: 11px;
+      font-weight: 950;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+    }
+
+    .team-hero-photo-card img {
+      width: 100%;
+      height: 100%;
+      min-height: 100%;
+      object-fit: cover;
+      object-position: center;
+      filter: contrast(1.04) saturate(0.96);
+    }
+
+    .team-section {
+      padding: 42px 0 64px;
+    }
+
+    .team-top-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      align-items: center;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+    }
+
+    .team-count {
+      font-weight: 950;
+      color: var(--green);
+      background: rgba(0, 255, 157, 0.08);
+      border: 1px solid var(--line);
+      padding: 12px 16px;
+      border-radius: 4px;
+      font-size: 13px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      box-shadow: inset 0 0 24px rgba(0, 255, 157, 0.05);
+    }
+
+    .team-filter-row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .filter-btn {
+      border: 1px solid var(--line);
+      background: rgba(0, 255, 157, 0.045);
+      color: rgba(237, 255, 249, 0.84);
+      padding: 13px 19px;
+      border-radius: 4px;
+      font-weight: 950;
+      cursor: pointer;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      transition: 0.2s;
+    }
+
+    .filter-btn:hover {
+      color: var(--green);
+      border-color: rgba(0, 255, 157, 0.42);
+      box-shadow: var(--glow);
+    }
+
+    .filter-btn.active {
+      background: linear-gradient(135deg, var(--green), var(--cyan));
+      color: #00130c;
+      border-color: rgba(0, 255, 157, 0.7);
+      box-shadow: 0 0 28px rgba(0, 255, 157, 0.34);
+    }
+
+    .players-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 22px;
+      align-items: stretch;
+    }
+
+    .player-card {
+      position: relative;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 2px;
+      overflow: hidden;
+      box-shadow: 0 18px 54px rgba(0, 0, 0, 0.36);
+      cursor: pointer;
+      transition: 0.22s;
+      display: flex;
+      flex-direction: column;
+      min-height: 500px;
+    }
+
+    .player-card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(0, 255, 157, 0.48);
+      box-shadow: 0 0 44px rgba(0, 255, 157, 0.28), 0 28px 84px rgba(0, 0, 0, 0.48);
+    }
+
+    .player-photo {
+      height: 280px;
+      min-height: 280px;
+      position: relative;
+      background:
+        radial-gradient(circle at 50% 22%, rgba(0, 255, 157, 0.2), transparent 28%),
+        linear-gradient(145deg, #020605, #0a3025);
+      overflow: hidden;
+      flex-shrink: 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .real-player-photo {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      position: relative;
+      z-index: 1;
+      filter: contrast(1.04) saturate(0.95);
+    }
+
+    .player-photo::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      background:
+        linear-gradient(180deg, transparent 45%, rgba(2, 6, 5, 0.9) 100%),
+        radial-gradient(circle at 50% 22%, transparent 18%, rgba(0, 255, 157, 0.08) 72%);
+      pointer-events: none;
+    }
+
+    .player-photo.placeholder::before {
+      content: "";
+      position: absolute;
+      left: 50%;
+      bottom: -28px;
+      transform: translateX(-50%);
+      width: 170px;
+      height: 220px;
+      border-radius: 90px 90px 24px 24px;
+      background: linear-gradient(180deg, rgba(237,255,249,0.72) 0%, rgba(237,255,249,0.44) 24%, #06110f 24%, #020605 100%);
+      box-shadow: 0 20px 54px rgba(0,0,0,0.32);
+      z-index: 1;
+    }
+
+    .player-number {
+      position: absolute;
+      top: 0;
+      left: 18px;
+      z-index: 5;
+      min-width: 58px;
+      height: 58px;
+      padding: 0 14px;
+      border-radius: 0 0 2px 2px;
+      background: rgba(2, 6, 5, 0.9);
+      color: var(--green);
+      border: 1px solid var(--line);
+      border-top: 0;
+      display: grid;
+      place-items: center;
+      font-family: "Oswald", sans-serif;
+      font-size: 30px;
+      font-weight: 900;
+      text-shadow: 0 0 18px rgba(0, 255, 157, 0.5);
+      box-shadow: 0 0 24px rgba(0, 255, 157, 0.16);
+    }
+
+    .flag-badge {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      z-index: 5;
+      width: 58px;
+      height: 40px;
+      border-radius: 2px;
+      overflow: hidden;
+      border: 2px solid rgba(237, 255, 249, 0.88);
+      box-shadow: 0 12px 28px rgba(0,0,0,0.32);
+      background: white;
+    }
+
+    .flag-small {
+      width: 34px;
+      height: 22px;
+      border-radius: 3px;
+      overflow: hidden;
+      border: 1px solid rgba(237,255,249,0.28);
+      flex: 0 0 auto;
+      background: white;
+    }
+
+    .flag-big {
+      width: 86px;
+      height: 58px;
+      border-radius: 4px;
+      overflow: hidden;
+      border: 3px solid rgba(237,255,249,0.86);
+      box-shadow: 0 14px 34px rgba(0,0,0,0.32);
+      background: white;
+    }
+
+    .flag-modal {
+      position: absolute;
+      top: 32px;
+      left: 32px;
+      z-index: 4;
+    }
+
+    .flag-argentina {
+      background: linear-gradient(to bottom, #74acdf 0 33.33%, #ffffff 33.33% 66.66%, #74acdf 66.66% 100%);
+      position: relative;
+    }
+
+    .flag-argentina::after {
+      content: "";
+      position: absolute;
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: #f6b40e;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .flag-russia {
+      background: linear-gradient(to bottom, #ffffff 0 33.33%, #0039a6 33.33% 66.66%, #d52b1e 66.66% 100%);
+    }
+
+    .flag-ecuador {
+      background: linear-gradient(to bottom, #ffdd00 0 50%, #034ea2 50% 75%, #ed1c24 75% 100%);
+    }
+
+    .flag-brazil {
+      background: #009b3a;
+      position: relative;
+    }
+
+    .flag-brazil::before {
+      content: "";
+      position: absolute;
+      width: 56%;
+      height: 56%;
+      background: #ffdf00;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%) rotate(45deg);
+    }
+
+    .flag-brazil::after {
+      content: "";
+      position: absolute;
+      width: 25%;
+      height: 25%;
+      border-radius: 50%;
+      background: #002776;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .flag-venezuela {
+      background: linear-gradient(to bottom, #f4d900 0 33.33%, #0033a0 33.33% 66.66%, #ef3340 66.66% 100%);
+    }
+
+    .flag-unknown {
+      background: linear-gradient(135deg, #eeeeee, #cccccc);
+    }
+
+    .player-card-body {
+      position: relative;
+      z-index: 3;
+      padding: 22px 22px 26px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    .player-role {
+      color: var(--green);
+      font-size: 12px;
+      font-weight: 950;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+      min-height: 18px;
+      letter-spacing: 0.12em;
+    }
+
+    .player-card h3 {
+      font-family: "Oswald", sans-serif;
+      font-size: 25px;
+      line-height: 1.05;
+      margin: 0 0 14px;
+      text-transform: uppercase;
+      min-height: 82px;
+      display: flex;
+      align-items: flex-start;
+      letter-spacing: 0.06em;
+      color: rgba(237, 255, 249, 0.94);
+    }
+
+    .player-nationality-row {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 800;
+      margin-bottom: 20px;
+      min-height: 24px;
+    }
+
+    .player-more-btn {
+      width: 100%;
+      border: 1px solid rgba(0, 255, 157, 0.58);
+      background: linear-gradient(135deg, var(--green), var(--cyan));
+      color: #00130c;
+      padding: 13px 18px;
+      border-radius: 4px;
+      font-weight: 950;
+      cursor: pointer;
+      margin-top: auto;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      box-shadow: 0 0 24px rgba(0, 255, 157, 0.22);
+    }
+
+    .player-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      display: none;
+    }
+
+    .player-modal.open {
+      display: block;
+    }
+
+    .player-modal-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.76);
+      backdrop-filter: blur(8px);
+    }
+
+    .player-modal-card {
+      position: relative;
+      z-index: 2;
+      width: min(1040px, calc(100% - 26px));
+      max-height: calc(100vh - 38px);
+      overflow-y: auto;
+      margin: 19px auto;
+      background:
+        radial-gradient(circle at 16% 8%, rgba(0, 255, 157, 0.12), transparent 32%),
+        linear-gradient(180deg, rgba(6, 24, 20, 0.98), rgba(2, 6, 5, 0.98));
+      border: 1px solid var(--line);
+      border-radius: 2px;
+      box-shadow: 0 30px 90px rgba(0,0,0,0.54), var(--glow);
+    }
+
+    .modal-close-btn {
+      position: absolute;
+      top: 18px;
+      right: 18px;
+      z-index: 5;
+      width: 44px;
+      height: 44px;
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      background: rgba(2, 6, 5, 0.9);
+      color: var(--green);
+      font-size: 30px;
+      cursor: pointer;
+      box-shadow: var(--glow);
+    }
+
+    .modal-player-layout {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+    }
+
+    .modal-player-photo {
+      min-height: 680px;
+      position: relative;
+      background:
+        radial-gradient(circle at 50% 18%, rgba(0, 255, 157, 0.2), transparent 28%),
+        linear-gradient(145deg, #020605, #0b382d);
+      overflow: hidden;
+      border-right: 1px solid var(--line);
+    }
+
+    .modal-real-photo {
+      width: 100%;
+      height: 100%;
+      min-height: 680px;
+      object-fit: cover;
+      object-position: center top;
+      position: relative;
+      z-index: 1;
+      filter: contrast(1.05) saturate(0.95);
+    }
+
+    .modal-player-info {
+      padding: 54px;
+    }
+
+    .modal-number {
+      display: inline-flex;
+      padding: 8px 14px;
+      border-radius: 4px;
+      background: rgba(0, 255, 157, 0.08);
+      border: 1px solid var(--line);
+      color: var(--green);
+      font-weight: 950;
+      margin-bottom: 14px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      box-shadow: inset 0 0 24px rgba(0, 255, 157, 0.05);
+    }
+
+    .modal-player-info h2 {
+      font-family: "Oswald", sans-serif;
+      font-size: clamp(38px, 5vw, 64px);
+      line-height: 0.95;
+      text-transform: uppercase;
+      margin: 0;
+      letter-spacing: 0.08em;
+      color: rgba(237, 255, 249, 0.96);
+      text-shadow: 0 0 24px rgba(0, 255, 157, 0.2);
+    }
+
+    .modal-position {
+      color: var(--green);
+      font-weight: 950;
+      text-transform: uppercase;
+      margin: 14px 0 24px;
+      letter-spacing: 0.12em;
+    }
+
+    .player-facts,
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin: 22px 0 28px;
+    }
+
+    .player-facts div,
+    .stats-grid div {
+      background: rgba(0, 255, 157, 0.045);
+      border: 1px solid rgba(0, 255, 157, 0.16);
+      border-radius: 4px;
+      padding: 16px;
+      display: grid;
+      gap: 6px;
+    }
+
+    .player-facts span,
+    .stats-grid span {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 950;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    .player-facts strong,
+    .stats-grid strong {
+      font-size: 20px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: rgba(237, 255, 249, 0.92);
+    }
+
+    .modal-player-info h3 {
+      font-family: "Oswald", sans-serif;
+      font-size: 28px;
+      text-transform: uppercase;
+      margin: 26px 0 10px;
+      letter-spacing: 0.08em;
+      color: var(--green);
+    }
+
+    #modalHistory {
+      color: var(--muted);
+      line-height: 1.75;
+      font-size: 16px;
+    }
+
+    .site-footer {
+      background:
+        radial-gradient(circle at 20% 0%, rgba(0, 255, 157, 0.1), transparent 30%),
+        linear-gradient(180deg, rgba(4, 16, 14, 0.96), #020605);
+      color: var(--text);
+      padding: 54px 0;
+      border-top: 1px solid var(--line);
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.3fr repeat(3, 1fr);
+      gap: 34px;
+    }
+
+    .footer-brand img {
+      width: 90px;
+      margin-bottom: 14px;
+      filter: drop-shadow(0 0 18px rgba(0, 255, 157, 0.24));
+    }
+
+    .footer-brand h3 {
+      font-family: "Oswald", sans-serif;
+      font-size: 30px;
+      margin: 0;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    .footer-brand p,
+    .footer-col p,
+    .footer-col a {
+      color: var(--muted);
+    }
+
+    .footer-col {
+      display: grid;
+      align-content: start;
+      gap: 10px;
+    }
+
+    .footer-col h4 {
+      margin: 0 0 8px;
+      color: var(--green);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-size: 13px;
+    }
+
+    @media (max-width: 1100px) {
+      .players-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .main-nav {
+        gap: 12px;
+        font-size: 10px;
+      }
+    }
+
+    @media (max-width: 980px) {
+      .main-nav {
+        display: none;
+      }
+
+      .burger-btn {
+        display: block;
+      }
+
+      .ticket-btn,
+      .language-switcher {
+        display: none;
+      }
+
+      .team-hero-grid,
+      .modal-player-layout,
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .players-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .team-hero-photo-card {
+        min-height: 360px;
+      }
+
+      .team-hero-photo-card img {
+        min-height: 360px;
+      }
+
+      .modal-player-photo {
+        min-height: 100%;
+        border-right: 0;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .modal-real-photo {
+        min-height: 100%;
+      }
+    }
+
+    @media (max-width: 620px) {
+      .container {
+        width: min(100% - 22px, 1180px);
+      }
+
+      .players-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .logo-text {
+        display: none;
+      }
+
+      .header-inner {
+        min-height: 76px;
+      }
+
+      .team-hero {
+        padding: 44px 0 32px;
+      }
+
+      .team-hero h1 {
+        font-size: 44px;
+        letter-spacing: 0.05em;
+      }
+
+      .team-hero p {
+        font-size: 16px;
+      }
+
+      .team-hero-photo-card {
+        min-height: 300px;
+      }
+
+      .team-hero-photo-card img {
+        min-height: 300px;
+      }
+
+      .team-top-row {
+        align-items: stretch;
+      }
+
+      .team-filter-row {
+        width: 100%;
+      }
+
+      .filter-btn {
+        flex: 1 1 auto;
+      }
+
+      .team-count {
+        width: 100%;
+        text-align: center;
+      }
+
+      .player-card {
+        min-height: auto;
+      }
+
+      .player-card h3 {
+        min-height: auto;
+      }
+
+      .player-facts,
+      .stats-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .modal-player-info {
+        padding: 34px 22px;
+      }
+
+      .flag-modal {
+        top: 22px;
+        left: 22px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="logo-box">
+        <img src="images/logo.png" alt="Deportivo Moscu Logo" class="logo-img">
+        <div class="logo-text">
+          <span>Deportivo</span>
+          <strong>Moscu</strong>
+        </div>
+      </a>
+
+      <nav class="main-nav">
+        <a href="index.html" data-i18n="nav_home">Главная</a>
+        <a href="news.html" data-i18n="nav_news">Новости</a>
+        <a href="team.html" class="active" data-i18n="nav_team">Команда</a>
+        <a href="league.html" data-i18n="nav_matches">Матчи</a>
+        <a href="club.html" data-i18n="nav_club">Клуб</a>
+        <a href="stadium.html">Стадион</a>
+        <a href="academy.html" data-i18n="nav_academy">Академия</a>
+        <a href="management.html">Руководство</a>
+        <a href="media.html" data-i18n="nav_media">Медиа</a>
+        <a href="store.html" data-i18n="nav_store">Магазин</a>
+      </nav>
+
+      <div class="header-actions">
+        <div class="language-switcher">
+          <button class="lang-btn active" data-lang="ru">RU</button>
+          <button class="lang-btn" data-lang="en">EN</button>
+          <button class="lang-btn" data-lang="es">ES</button>
+        </div>
+
+        <a href="store.html" class="ticket-btn" data-i18n="buy_tickets">Купить билеты</a>
+
+        <button class="burger-btn" id="burgerBtn" aria-label="Menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="index.html" data-i18n="nav_home">Главная</a>
+      <a href="news.html" data-i18n="nav_news">Новости</a>
+      <a href="team.html" data-i18n="nav_team">Команда</a>
+      <a href="league.html" data-i18n="nav_matches">Матчи</a>
+      <a href="club.html" data-i18n="nav_club">Клуб</a>
+      <a href="stadium.html">Стадион</a>
+      <a href="academy.html" data-i18n="nav_academy">Академия</a>
+      <a href="management.html">Руководство</a>
+      <a href="media.html" data-i18n="nav_media">Медиа</a>
+      <a href="store.html" data-i18n="nav_store">Магазин</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="team-hero">
+      <div class="container team-hero-grid">
+        <div>
+          <div class="section-label" data-i18n="team_label">Основной состав</div>
+          <h1 data-i18n="team_title">Команда<br>Deportivo Moscu</h1>
+          <p data-i18n="team_subtitle">
+            Игроки Deportivo Moscu: вратари, защитники, полузащитники и нападающие.
+          </p>
+        </div>
+
+        <div class="team-hero-photo-card">
+          <img src="images/banners/dm_banner_team_squad.png" alt="Команда Deportivo Moscu">
+        </div>
+      </div>
+    </section>
+
+    <section class="team-section">
+      <div class="container">
+        <div class="team-top-row">
+          <div class="team-filter-row">
+            <button class="filter-btn active" data-filter="all" data-i18n="filter_all">Все</button>
+            <button class="filter-btn" data-filter="goalkeeper" data-i18n="filter_goalkeeper">Вратари</button>
+            <button class="filter-btn" data-filter="defender" data-i18n="filter_defender">Защитники</button>
+            <button class="filter-btn" data-filter="midfielder" data-i18n="filter_midfielder">Полузащитники</button>
+            <button class="filter-btn" data-filter="forward" data-i18n="filter_forward">Нападающие</button>
+          </div>
+
+          <div class="team-count" id="teamCount">0 игроков</div>
+        </div>
+
+        <div class="players-grid" id="playersGrid"></div>
+      </div>
+    </section>
+  </main>
+
+  <div class="player-modal" id="playerModal">
+    <div class="player-modal-overlay" id="modalOverlay"></div>
+
+    <div class="player-modal-card">
+      <button class="modal-close-btn" id="modalCloseBtn">×</button>
+
+      <div class="modal-player-layout">
+        <div class="modal-player-photo" id="modalPhotoBox">
+          <div class="flag-big flag-modal" id="modalFlag"></div>
+        </div>
+
+        <div class="modal-player-info">
+          <div class="modal-number" id="modalNumber"></div>
+          <h2 id="modalName"></h2>
+          <p class="modal-position" id="modalPosition"></p>
+
+          <div class="player-facts">
+            <div>
+              <span data-i18n="birth_date">Дата рождения</span>
+              <strong id="modalBirthDate"></strong>
+            </div>
+
+            <div>
+              <span data-i18n="nationality">Гражданство</span>
+              <strong id="modalNationality"></strong>
+            </div>
+
+            <div>
+              <span data-i18n="role">Амплуа</span>
+              <strong id="modalRole"></strong>
+            </div>
+
+            <div>
+              <span data-i18n="club">Клуб</span>
+              <strong>Deportivo Moscu</strong>
+            </div>
+          </div>
+
+          <h3 data-i18n="history">История</h3>
+          <p id="modalHistory"></p>
+
+          <h3 data-i18n="season_stats">Статистика сезона</h3>
+
+          <div class="stats-grid">
+            <div>
+              <span data-i18n="matches">Матчи</span>
+              <strong id="statMatches"></strong>
+            </div>
+
+            <div>
+              <span data-i18n="goals">Голы</span>
+              <strong id="statGoals"></strong>
+            </div>
+
+            <div>
+              <span data-i18n="assists">Передачи</span>
+              <strong id="statAssists"></strong>
+            </div>
+
+            <div>
+              <span data-i18n="minutes">Минуты</span>
+              <strong id="statMinutes"></strong>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <img src="images/logo.png" alt="Deportivo Moscu">
+        <h3>Deportivo Moscu</h3>
+        <p data-i18n="footer_slogan">Единый город. Одна страсть. Одна зелёно-чёрная семья.</p>
+      </div>
+
+      <div class="footer-col">
+        <h4 data-i18n="nav_club">Клуб</h4>
+        <a href="club.html" data-i18n="about_club">О клубе</a>
+        <a href="team.html" data-i18n="nav_team">Команда</a>
+        <a href="league.html" data-i18n="nav_matches">Матчи</a>
+        <a href="stadium.html">Стадион</a>
+        <a href="management.html">Руководство</a>
+      </div>
+
+      <div class="footer-col">
+        <h4 data-i18n="help">Помощь</h4>
+        <a href="store.html" data-i18n="tickets">Билеты</a>
+        <a href="academy.html" data-i18n="academy_request">Запись в академию</a>
+        <a href="media.html" data-i18n="media_center">Медиацентр</a>
+      </div>
+
+      <div class="footer-col">
+        <h4 data-i18n="contacts">Контакты</h4>
+        <p>Buenos Aires, Argentina</p>
+        <p>info@deportivomoscu.com</p>
+        <p>+54 11 0000-0000</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="players-data.js"></script>
+
+  <script>
+    const translations = {
+      ru: {
+        nav_home: "Главная",
+        nav_news: "Новости",
+        nav_team: "Команда",
+        nav_matches: "Матчи",
+        nav_club: "Клуб",
+        nav_academy: "Академия",
+        nav_media: "Медиа",
+        nav_store: "Магазин",
+        buy_tickets: "Купить билеты",
+        team_label: "Основной состав",
+        team_title: "Команда<br>Deportivo Moscu",
+        team_subtitle: "Игроки Deportivo Moscu: вратари, защитники, полузащитники и нападающие.",
+        filter_all: "Все",
+        filter_goalkeeper: "Вратари",
+        filter_defender: "Защитники",
+        filter_midfielder: "Полузащитники",
+        filter_forward: "Нападающие",
+        birth_date: "Дата рождения",
+        nationality: "Гражданство",
+        role: "Амплуа",
+        club: "Клуб",
+        history: "История",
+        season_stats: "Статистика сезона",
+        matches: "Матчи",
+        goals: "Голы",
+        assists: "Передачи",
+        minutes: "Минуты",
+        footer_slogan: "Единый город. Одна страсть. Одна зелёно-чёрная семья.",
+        about_club: "О клубе",
+        help: "Помощь",
+        tickets: "Билеты",
+        academy_request: "Запись в академию",
+        media_center: "Медиацентр",
+        contacts: "Контакты",
+        more: "Подробнее →",
+        players_word: "игроков",
+        default_history: "История игрока скоро будет добавлена. В карточке уже указаны имя, дата рождения, гражданство и амплуа."
+      },
+
+      en: {
+        nav_home: "Home",
+        nav_news: "News",
+        nav_team: "Team",
+        nav_matches: "Matches",
+        nav_club: "Club",
+        nav_academy: "Academy",
+        nav_media: "Media",
+        nav_store: "Store",
+        buy_tickets: "Buy tickets",
+        team_label: "First team",
+        team_title: "Deportivo Moscu<br>Team",
+        team_subtitle: "Deportivo Moscu players: goalkeepers, defenders, midfielders and forwards.",
+        filter_all: "All",
+        filter_goalkeeper: "Goalkeepers",
+        filter_defender: "Defenders",
+        filter_midfielder: "Midfielders",
+        filter_forward: "Forwards",
+        birth_date: "Date of birth",
+        nationality: "Nationality",
+        role: "Role",
+        club: "Club",
+        history: "Story",
+        season_stats: "Season stats",
+        matches: "Matches",
+        goals: "Goals",
+        assists: "Assists",
+        minutes: "Minutes",
+        footer_slogan: "One city. One passion. One green-and-black family.",
+        about_club: "About club",
+        help: "Help",
+        tickets: "Tickets",
+        academy_request: "Academy application",
+        media_center: "Media center",
+        contacts: "Contacts",
+        more: "More →",
+        players_word: "players",
+        default_history: "The player story will be added soon. The card already includes name, date of birth, nationality and role."
+      },
+
+      es: {
+        nav_home: "Inicio",
+        nav_news: "Noticias",
+        nav_team: "Equipo",
+        nav_matches: "Partidos",
+        nav_club: "Club",
+        nav_academy: "Academia",
+        nav_media: "Media",
+        nav_store: "Tienda",
+        buy_tickets: "Comprar entradas",
+        team_label: "Primer equipo",
+        team_title: "Equipo<br>Deportivo Moscu",
+        team_subtitle: "Jugadores de Deportivo Moscu: arqueros, defensores, mediocampistas y delanteros.",
+        filter_all: "Todos",
+        filter_goalkeeper: "Arqueros",
+        filter_defender: "Defensores",
+        filter_midfielder: "Mediocampistas",
+        filter_forward: "Delanteros",
+        birth_date: "Fecha de nacimiento",
+        nationality: "Nacionalidad",
+        role: "Posición",
+        club: "Club",
+        history: "Historia",
+        season_stats: "Estadísticas de temporada",
+        matches: "Partidos",
+        goals: "Goles",
+        assists: "Asistencias",
+        minutes: "Minutos",
+        footer_slogan: "Una ciudad. Una pasión. Una familia verde y negra.",
+        about_club: "Sobre el club",
+        help: "Ayuda",
+        tickets: "Entradas",
+        academy_request: "Inscripción academia",
+        media_center: "Media center",
+        contacts: "Contactos",
+        more: "Más →",
+        players_word: "jugadores",
+        default_history: "La historia del jugador se agregará pronto. La ficha ya incluye nombre, fecha de nacimiento, nacionalidad y posición."
+      }
+    };
+
+    const players = Array.isArray(window.deportivoPlayers) ? window.deportivoPlayers : [];
+
+    let currentLang = "ru";
+    let currentFilter = "all";
+
+    function getText(value) {
+      if (!value) return "—";
+      if (typeof value === "string") return value;
+      return value[currentLang] || value.ru || value.en || value.es || "—";
+    }
+
+    function getNationalityKey(value) {
+      const text = String(value || "").toLowerCase();
+
+      if (text.includes("арген") || text.includes("argentina")) return "argentina";
+      if (text.includes("рос") || text.includes("russia") || text.includes("rusia")) return "russia";
+      if (text.includes("эквад") || text.includes("ecuador")) return "ecuador";
+      if (text.includes("браз") || text.includes("brazil") || text.includes("brasil")) return "brazil";
+      if (text.includes("венесу") || text.includes("venezuela")) return "venezuela";
+
+      return "unknown";
+    }
+
+    function getFlagClass(player) {
+      const nationality = getText(player.nationality);
+      return "flag-" + getNationalityKey(nationality);
+    }
+
+    function getPlayerPhotoPath(player) {
+      return `images/players/${player.id}.jpg`;
+    }
+
+    function normalizePlayer(player, index) {
+      return {
+        id: player.id || `player-${index + 1}`,
+        number: player.number || index + 1,
+        role: player.role || "forward",
+        name: player.name || {
+          ru: "Игрок",
+          en: "Player",
+          es: "Jugador"
+        },
+        position: player.position || {
+          ru: "Игрок",
+          en: "Player",
+          es: "Jugador"
+        },
+        birthDate: player.birthDate || "—",
+        nationality: player.nationality || {
+          ru: "—",
+          en: "—",
+          es: "—"
+        },
+        history: player.history || null,
+        stats: player.stats || {
+          matches: 0,
+          goals: 0,
+          assists: 0,
+          minutes: 0
+        }
+      };
+    }
+
+    const normalizedPlayers = players.map(normalizePlayer);
+
+    function setLanguage(lang) {
+      currentLang = lang;
+      document.documentElement.lang = lang;
+
+      document.querySelectorAll("[data-i18n]").forEach((element) => {
+        const key = element.getAttribute("data-i18n");
+
+        if (translations[lang] && translations[lang][key]) {
+          element.innerHTML = translations[lang][key];
+        }
+      });
+
+      document.querySelectorAll(".lang-btn").forEach((button) => {
+        button.classList.toggle("active", button.dataset.lang === lang);
+      });
+
+      renderPlayers();
+    }
+
+    function renderPlayers() {
+      const playersGrid = document.getElementById("playersGrid");
+      const teamCount = document.getElementById("teamCount");
+
+      const filteredPlayers = currentFilter === "all"
+        ? normalizedPlayers
+        : normalizedPlayers.filter((player) => player.role === currentFilter);
+
+      teamCount.textContent = `${filteredPlayers.length} ${translations[currentLang].players_word}`;
+
+      playersGrid.innerHTML = filteredPlayers.map((player, index) => {
+        const flagClass = getFlagClass(player);
+        const nationality = getText(player.nationality);
+        const photoPath = getPlayerPhotoPath(player);
+
+        return `
+          <article class="player-card" data-index="${index}">
+            <div class="player-photo placeholder">
+              <img
+                class="real-player-photo"
+                src="${photoPath}"
+                alt="${getText(player.name)}"
+                onload="this.parentElement.classList.remove('placeholder')"
+                onerror="this.remove()"
+              >
+              <div class="player-number">${player.number}</div>
+              <div class="flag-badge ${flagClass}"></div>
+            </div>
+
+            <div class="player-card-body">
+              <div class="player-role">${getText(player.position)}</div>
+              <h3>${getText(player.name)}</h3>
+
+              <div class="player-nationality-row">
+                <span class="flag-small ${flagClass}"></span>
+                <span>${nationality}</span>
+              </div>
+
+              <button class="player-more-btn">${translations[currentLang].more}</button>
+            </div>
+          </article>
+        `;
+      }).join("");
+
+      document.querySelectorAll(".player-card").forEach((card) => {
+        card.addEventListener("click", () => {
+          const player = filteredPlayers[Number(card.dataset.index)];
+          openPlayerModal(player);
+        });
+      });
+    }
+
+    function openPlayerModal(player) {
+      const stats = player.stats || {};
+      const flagClass = getFlagClass(player);
+      const nationality = getText(player.nationality);
+      const photoPath = getPlayerPhotoPath(player);
+
+      const modalPhotoBox = document.getElementById("modalPhotoBox");
+      modalPhotoBox.className = "modal-player-photo placeholder";
+      modalPhotoBox.innerHTML = `
+        <img
+          class="modal-real-photo"
+          src="${photoPath}"
+          alt="${getText(player.name)}"
+          onload="this.parentElement.classList.remove('placeholder')"
+          onerror="this.remove()"
+        >
+        <div class="flag-big flag-modal ${flagClass}" id="modalFlag"></div>
+      `;
+
+      document.getElementById("modalNumber").textContent = "#" + player.number;
+      document.getElementById("modalName").textContent = getText(player.name);
+      document.getElementById("modalPosition").textContent = getText(player.position);
+      document.getElementById("modalBirthDate").textContent = player.birthDate;
+
+      document.getElementById("modalNationality").innerHTML = `
+        <span class="flag-small ${flagClass}"></span>
+        ${nationality}
+      `;
+
+      document.getElementById("modalRole").textContent = getText(player.position);
+
+      if (player.history) {
+        document.getElementById("modalHistory").textContent = getText(player.history);
+      } else {
+        document.getElementById("modalHistory").textContent = translations[currentLang].default_history;
+      }
+
+      document.getElementById("statMatches").textContent = stats.matches || 0;
+      document.getElementById("statGoals").textContent = stats.goals || 0;
+      document.getElementById("statAssists").textContent = stats.assists || 0;
+      document.getElementById("statMinutes").textContent = stats.minutes || 0;
+
+      document.getElementById("playerModal").classList.add("open");
+    }
+
+    function closePlayerModal() {
+      document.getElementById("playerModal").classList.remove("open");
+    }
+
+    document.querySelectorAll(".lang-btn").forEach((button) => {
+      button.addEventListener("click", () => {
+        setLanguage(button.dataset.lang);
+      });
+    });
+
+    document.querySelectorAll(".filter-btn").forEach((button) => {
+      button.addEventListener("click", () => {
+        currentFilter = button.dataset.filter;
+
+        document.querySelectorAll(".filter-btn").forEach((item) => {
+          item.classList.toggle("active", item.dataset.filter === currentFilter);
+        });
+
+        renderPlayers();
+      });
+    });
+
+    document.getElementById("burgerBtn").addEventListener("click", () => {
+      document.getElementById("mobileMenu").classList.toggle("open");
+    });
+
+    document.getElementById("modalCloseBtn").addEventListener("click", closePlayerModal);
+    document.getElementById("modalOverlay").addEventListener("click", closePlayerModal);
+
+    setLanguage("ru");
+    renderPlayers();
+  </script>
+</body>
+</html>
