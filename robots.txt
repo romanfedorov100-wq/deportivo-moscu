@@ -1,4 +1,4 @@
-User-agent 
-Allow 
+User-agent: *
+Allow: /
 
-Sitemap httpsmoscu.teamsitemap.xml
+Sitemap: https://moscu.team/sitemap.xml
