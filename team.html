@@ -1,0 +1,602 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Команда — Deportivo Moscu</title>
+  <meta name="description" content="Игроки Deportivo Moscu: состав команды, позиции, номера и карточки игроков.">
+  <link rel="icon" href="logo.png.png">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    :root {
+      --dm-bg: #030806;
+      --dm-card: rgba(8, 22, 16, 0.86);
+      --dm-card-2: rgba(13, 35, 24, 0.74);
+      --dm-line: rgba(80, 255, 160, 0.22);
+      --dm-green: #4dff9a;
+      --dm-green-2: #00d66f;
+      --dm-text: #ffffff;
+      --dm-muted: rgba(255, 255, 255, 0.72);
+      --dm-soft: rgba(255, 255, 255, 0.08);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--dm-text);
+      background:
+        radial-gradient(circle at 18% 0%, rgba(77, 255, 154, 0.18), transparent 28%),
+        radial-gradient(circle at 86% 12%, rgba(0, 214, 111, 0.12), transparent 26%),
+        linear-gradient(180deg, #06120d 0%, var(--dm-bg) 55%, #020403 100%);
+      font-family: Inter, Arial, Helvetica, sans-serif;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    .dm-header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(18px);
+      background: rgba(3, 8, 6, 0.82);
+      border-bottom: 1px solid var(--dm-line);
+    }
+
+    .dm-nav {
+      width: min(1180px, calc(100% - 28px));
+      margin: 0 auto;
+      min-height: 76px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    .dm-brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 190px;
+    }
+
+    .dm-brand-logo {
+      width: 48px;
+      height: 48px;
+      object-fit: contain;
+      border-radius: 50%;
+      background: #fff;
+      padding: 5px;
+      box-shadow: 0 0 24px rgba(77, 255, 154, 0.2);
+    }
+
+    .dm-brand-text strong {
+      display: block;
+      font-size: 16px;
+      line-height: 1;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .dm-brand-text span {
+      display: block;
+      margin-top: 4px;
+      color: var(--dm-muted);
+      font-size: 12px;
+    }
+
+    .dm-menu {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .dm-menu a {
+      padding: 10px 12px;
+      border-radius: 999px;
+      color: rgba(255, 255, 255, 0.82);
+      font-size: 13px;
+      font-weight: 800;
+      border: 1px solid transparent;
+      transition: 0.2s ease;
+    }
+
+    .dm-menu a:hover,
+    .dm-menu a.active {
+      color: #06120d;
+      background: var(--dm-green);
+      border-color: rgba(255, 255, 255, 0.18);
+    }
+
+    .dm-hero {
+      width: min(1180px, calc(100% - 28px));
+      margin: 0 auto;
+      padding: 64px 0 30px;
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 28px;
+      align-items: center;
+    }
+
+    .dm-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin: 0 0 14px;
+      color: var(--dm-green);
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    .dm-title {
+      margin: 0;
+      font-size: clamp(38px, 7vw, 84px);
+      line-height: 0.92;
+      letter-spacing: -0.06em;
+      text-transform: uppercase;
+    }
+
+    .dm-title span { color: var(--dm-green); }
+
+    .dm-lead {
+      max-width: 720px;
+      margin: 18px 0 0;
+      color: var(--dm-muted);
+      font-size: clamp(16px, 2vw, 20px);
+      line-height: 1.6;
+    }
+
+    .dm-hero-card {
+      position: relative;
+      min-height: 310px;
+      border-radius: 34px;
+      overflow: hidden;
+      background:
+        linear-gradient(145deg, rgba(77, 255, 154, 0.18), transparent 45%),
+        linear-gradient(180deg, rgba(13, 35, 24, 0.82), rgba(3, 8, 6, 0.92));
+      border: 1px solid var(--dm-line);
+      box-shadow: 0 22px 70px rgba(0, 0, 0, 0.38);
+      padding: 26px;
+    }
+
+    .dm-hero-card::before {
+      content: "";
+      position: absolute;
+      inset: -80px -80px auto auto;
+      width: 220px;
+      height: 220px;
+      border-radius: 50%;
+      background: rgba(77, 255, 154, 0.2);
+      filter: blur(18px);
+    }
+
+    .dm-hero-stat {
+      position: relative;
+      display: grid;
+      gap: 14px;
+      margin-top: 26px;
+    }
+
+    .dm-stat-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 14px 16px;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.07);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .dm-stat-row span {
+      color: var(--dm-muted);
+      font-weight: 800;
+      font-size: 13px;
+    }
+
+    .dm-stat-row strong {
+      font-size: 20px;
+      color: var(--dm-green);
+    }
+
+    .dm-main {
+      width: min(1180px, calc(100% - 28px));
+      margin: 0 auto;
+      padding: 20px 0 76px;
+    }
+
+    .dm-section-head {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 18px;
+      margin: 24px 0 22px;
+    }
+
+    .dm-section-title {
+      margin: 0;
+      font-size: clamp(28px, 4vw, 48px);
+      line-height: 1;
+      text-transform: uppercase;
+      letter-spacing: -0.04em;
+    }
+
+    .dm-count {
+      flex: 0 0 auto;
+      color: rgba(255, 255, 255, 0.86);
+      border: 1px solid var(--dm-line);
+      background: rgba(8, 22, 16, 0.72);
+      border-radius: 999px;
+      padding: 10px 14px;
+      font-size: 14px;
+      font-weight: 900;
+    }
+
+    .dm-filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 22px;
+    }
+
+    .dm-filter {
+      cursor: pointer;
+      border: 1px solid var(--dm-line);
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--dm-text);
+      border-radius: 999px;
+      padding: 10px 14px;
+      font-size: 13px;
+      font-weight: 900;
+      transition: 0.2s ease;
+    }
+
+    .dm-filter:hover,
+    .dm-filter.active {
+      background: var(--dm-green);
+      color: #031008;
+    }
+
+    .dm-players-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(164px, 1fr));
+      gap: 16px;
+    }
+
+    .dm-player-card {
+      position: relative;
+      overflow: hidden;
+      border-radius: 24px;
+      background: linear-gradient(180deg, var(--dm-card-2), rgba(5, 10, 8, 0.96));
+      border: 1px solid var(--dm-line);
+      box-shadow: 0 18px 45px rgba(0, 0, 0, 0.3);
+      isolation: isolate;
+      transform: translateZ(0);
+    }
+
+    .dm-player-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 50% 0%, rgba(77, 255, 154, 0.22), transparent 42%),
+        linear-gradient(180deg, transparent 44%, rgba(0, 0, 0, 0.86) 100%);
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .dm-player-number {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      z-index: 3;
+      min-width: 38px;
+      height: 30px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 999px;
+      color: #031008;
+      background: var(--dm-green);
+      font-size: 13px;
+      font-weight: 1000;
+      box-shadow: 0 8px 24px rgba(77, 255, 154, 0.22);
+    }
+
+    .dm-player-photo {
+      display: block;
+      width: 100%;
+      aspect-ratio: 2 / 3;
+      object-fit: cover;
+      object-position: center top;
+      background: #07100c;
+    }
+
+    .dm-player-info {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 2;
+      padding: 50px 12px 13px;
+    }
+
+    .dm-player-name {
+      margin: 0;
+      color: #fff;
+      font-size: 15px;
+      line-height: 1.05;
+      font-weight: 1000;
+      text-shadow: 0 2px 12px rgba(0, 0, 0, 0.72);
+    }
+
+    .dm-player-meta {
+      margin-top: 7px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .dm-pill {
+      display: inline-flex;
+      align-items: center;
+      max-width: 100%;
+      padding: 5px 7px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.12);
+      color: rgba(255, 255, 255, 0.86);
+      font-size: 10px;
+      line-height: 1;
+      font-weight: 900;
+    }
+
+    .dm-footer {
+      border-top: 1px solid var(--dm-line);
+      background: rgba(0, 0, 0, 0.24);
+      padding: 34px 0;
+    }
+
+    .dm-footer-inner {
+      width: min(1180px, calc(100% - 28px));
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      color: var(--dm-muted);
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .dm-empty {
+      padding: 24px;
+      border: 1px dashed var(--dm-line);
+      border-radius: 20px;
+      color: var(--dm-muted);
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    @media (max-width: 860px) {
+      .dm-nav { align-items: flex-start; flex-direction: column; padding: 14px 0; }
+      .dm-menu { justify-content: flex-start; }
+      .dm-hero { grid-template-columns: 1fr; padding-top: 38px; }
+      .dm-hero-card { min-height: 230px; }
+      .dm-section-head { display: block; }
+      .dm-count { display: inline-flex; margin-top: 12px; }
+      .dm-footer-inner { flex-direction: column; align-items: flex-start; }
+    }
+
+    @media (max-width: 620px) {
+      .dm-menu a { padding: 8px 9px; font-size: 12px; }
+      .dm-players-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+      .dm-player-card { border-radius: 18px; }
+      .dm-player-name { font-size: 13px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="dm-header">
+    <nav class="dm-nav" aria-label="Основная навигация">
+      <a class="dm-brand" href="index.html" aria-label="Deportivo Moscu">
+        <img class="dm-brand-logo" src="logo.png.png" alt="Deportivo Moscu" loading="eager" width="48" height="48">
+        <span class="dm-brand-text">
+          <strong>Deportivo Moscu</strong>
+          <span>Buenos Aires · Argentina</span>
+        </span>
+      </a>
+      <div class="dm-menu">
+        <a href="index.html">Главная</a>
+        <a href="news.html">Новости</a>
+        <a class="active" href="team.html">Команда</a>
+        <a href="matches.html">Матчи</a>
+        <a href="club.html">Клуб</a>
+        <a href="stadium.html">Стадион</a>
+        <a href="academy.html">Академия</a>
+        <a href="management.html">Руководство</a>
+        <a href="media.html">Медиа</a>
+        <a href="store.html">Магазин</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="dm-hero">
+      <div>
+        <p class="dm-kicker">Deportivo Moscu · Squad</p>
+        <h1 class="dm-title">Команда<br><span>2026</span></h1>
+        <p class="dm-lead">Состав Deportivo Moscu: вратари, защитники, полузащитники и нападающие. Карточки оптимизированы для быстрой загрузки сайта через WebP.</p>
+      </div>
+      <aside class="dm-hero-card" aria-label="Статистика команды">
+        <p class="dm-kicker">Team cards</p>
+        <h2 class="dm-section-title">34 игрока</h2>
+        <div class="dm-hero-stat">
+          <div class="dm-stat-row"><span>Вратари</span><strong>3</strong></div>
+          <div class="dm-stat-row"><span>Защитники</span><strong>15</strong></div>
+          <div class="dm-stat-row"><span>Полузащитники / атака</span><strong>16</strong></div>
+        </div>
+      </aside>
+    </section>
+
+    <section class="dm-main" id="players">
+      <div class="dm-section-head">
+        <div>
+          <p class="dm-kicker">Player cards</p>
+          <h2 class="dm-section-title">Игроки</h2>
+        </div>
+        <div class="dm-count" id="playersCount">34 игрока</div>
+      </div>
+
+      <div class="dm-filters" aria-label="Фильтр игроков">
+        <button class="dm-filter active" type="button" data-filter="all">Все</button>
+        <button class="dm-filter" type="button" data-filter="Вратарь">Вратари</button>
+        <button class="dm-filter" type="button" data-filter="Защитник">Защитники</button>
+        <button class="dm-filter" type="button" data-filter="Полузащитник">Полузащитники</button>
+        <button class="dm-filter" type="button" data-filter="Нападающий">Нападающие</button>
+      </div>
+
+      <div class="dm-players-grid" id="playersGrid"></div>
+    </section>
+  </main>
+
+  <footer class="dm-footer">
+    <div class="dm-footer-inner">
+      <div>© Deportivo Moscu</div>
+      <div>Buenos Aires · Argentina</div>
+    </div>
+  </footer>
+
+  <script>
+    const players = [
+      { number: '1', name: 'Catriel Toledo', birth: '07/09/2002', position: 'Вратарь', country: 'Argentina', file: '01-catriel-toledo.webp' },
+      { number: '12', name: 'Tomás Domínguez', birth: '23/05/2002', position: 'Вратарь', country: 'Argentina', file: '02-tomas-dominguez.webp' },
+      { number: '30', name: 'Nikita Nelyubin', birth: '21/03/2005', position: 'Вратарь', country: 'Rusia', file: '03-nikita-nelyubin.webp' },
+
+      { number: '26', name: 'Rufat Abyanov', birth: '21/04/1997', position: 'Защитник', country: 'Rusia', file: '04-rufat-abyanov.webp' },
+      { number: '69', name: 'Julián Ahumada', birth: '24/10/2001', position: 'Полузащитник', country: 'Argentina', file: '05-julian-ahumada.webp' },
+      { number: '3', name: 'Valentín Álvarez', birth: '09/09/2005', position: 'Защитник', country: 'Argentina', file: '06-valentin-alvarez.webp' },
+      { number: '6', name: 'Nahuel Aman', birth: '24/01/2005', position: 'Полузащитник', country: 'Argentina', file: '07-nahuel-aman.webp' },
+      { number: '', name: 'Alexis Areco', birth: '', position: 'Нападающий', country: 'Argentina', file: '08-alexis-areco.webp' },
+      { number: '', name: 'Nahuel Benítez', birth: '', position: 'Нападающий', country: 'Argentina', file: '09-nahuel-benitez.webp' },
+      { number: '4', name: 'Lucas Berrios', birth: '15/11/2004', position: 'Защитник', country: 'Argentina', file: '10-lucas-berrios.webp' },
+      { number: '23', name: 'Axel Bonnet', birth: '22/03/2005', position: 'Полузащитник', country: 'Argentina', file: '11-axel-bonnet.webp' },
+      { number: '15', name: 'Dionel Cañisales', birth: '18/11/2006', position: 'Полузащитник', country: 'Argentina', file: '12-dionel-canisales.webp' },
+      { number: '24', name: 'Benicio Comparato', birth: '30/06/2006', position: 'Защитник', country: 'Argentina', file: '13-benicio-comparato.webp' },
+      { number: '22', name: 'Tomás Dallochio', birth: '11/07/2003', position: 'Полузащитник', country: 'Argentina', file: '14-tomas-dallochio.webp' },
+      { number: '', name: 'Gastón Dellepiane', birth: '', position: 'Нападающий', country: 'Argentina', file: '15-gaston-dellepiane.webp' },
+      { number: '14', name: 'Aarón Denis', birth: '10/12/2006', position: 'Защитник', country: 'Argentina', file: '16-aaron-denis.webp' },
+      { number: '33', name: 'Damián Ruiz Díaz', birth: '12/05/1997', position: 'Нападающий', country: 'Argentina', file: '17-damian-ruiz-diaz.webp' },
+      { number: '17', name: 'Julián Ferreyra', birth: '28/05/2007', position: 'Защитник', country: 'Argentina', file: '18-julian-ferreyra.webp' },
+      { number: '2', name: 'Matías Figueroa', birth: '08/03/1993', position: 'Защитник', country: 'Argentina', file: '19-matias-figueroa.webp' },
+      { number: '97', name: 'Ignacio Gauna', birth: '16/01/1997', position: 'Нападающий', country: 'Argentina', file: '20-ignacio-gauna.webp' },
+      { number: '77', name: 'Enrique Góngora', birth: '', position: 'Нападающий', country: 'Argentina', file: '21-enrique-gongora.webp' },
+      { number: '18', name: 'Ivan Ivanov', birth: '21/05/2003', position: 'Защитник', country: 'Rusia', file: '22-ivan-ivanov.webp' },
+      { number: '5', name: 'Thomas Lavalle', birth: '05/04/2003', position: 'Полузащитник', country: 'Argentina', file: '23-thomas-lavalle.webp' },
+      { number: '8', name: 'Ezequiel Llanos', birth: '08/06/1993', position: 'Защитник', country: 'Argentina', file: '24-ezequiel-llanos.webp' },
+      { number: '20', name: 'Tomás Maguna', birth: '17/07/2009', position: 'Полузащитник', country: 'Argentina', file: '25-tomas-maguna.webp' },
+      { number: '16', name: 'Máximo Mansilla', birth: '27/02/2008', position: 'Защитник', country: 'Argentina', file: '26-maximo-mansilla.webp' },
+      { number: '21', name: 'Alan Maydana', birth: '28/02/1996', position: 'Полузащитник', country: 'Argentina', file: '27-alan-maydana.webp' },
+      { number: '36', name: 'Erick Rivas', birth: '27/06/2006', position: 'Защитник', country: 'Argentina', file: '28-erick-rivas.webp' },
+      { number: '25', name: 'Italo Rocha', birth: '07/01/1997', position: 'Полузащитник', country: 'Brasil', file: '29-italo-rocha.webp' },
+      { number: '', name: 'Cristian Santillán', birth: '', position: 'Нападающий', country: 'Argentina', file: '30-cristian-santillan.webp' },
+      { number: '', name: 'Tomás Soley', birth: '', position: 'Полузащитник', country: 'Argentina', file: '31-tomas-soley.webp' },
+      { number: '55', name: 'Alfredo Tovar', birth: '13/02/2006', position: 'Полузащитник', country: 'Venezuela', file: '32-alfredo-tovar.webp' },
+      { number: '29', name: 'Denis Valencia', birth: '17/04/2005', position: 'Защитник', country: 'Ecuador', file: '33-denis-valencia.webp' },
+      { number: '28', name: 'Vladimir Zhandarov', birth: '04/11/1999', position: 'Защитник', country: 'Rusia', file: '34-vladimir-zhandarov.webp' }
+    ];
+
+    const grid = document.getElementById('playersGrid');
+    const count = document.getElementById('playersCount');
+    const filters = Array.from(document.querySelectorAll('.dm-filter'));
+
+    function escapeHtml(value) {
+      return String(value || '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
+    function getImagePath(player) {
+      return 'assets/players/webp/' + player.file;
+    }
+
+    function getThumbPath(player) {
+      return 'assets/players/thumbs/' + player.file;
+    }
+
+    function renderPlayers(filter = 'all') {
+      const visible = filter === 'all'
+        ? players
+        : players.filter(player => player.position === filter);
+
+      count.textContent = visible.length + ' ' + getPlural(visible.length);
+
+      if (!visible.length) {
+        grid.innerHTML = '<div class="dm-empty">Игроки в этой категории пока не добавлены.</div>';
+        return;
+      }
+
+      grid.innerHTML = visible.map(player => {
+        const number = player.number ? '#' + escapeHtml(player.number) : 'DM';
+        const name = escapeHtml(player.name);
+        const birth = escapeHtml(player.birth);
+        const position = escapeHtml(player.position);
+        const country = escapeHtml(player.country);
+        const image = escapeHtml(getImagePath(player));
+        const thumb = escapeHtml(getThumbPath(player));
+        const flat = escapeHtml('assets/players/' + player.file);
+
+        return `
+          <article class="dm-player-card">
+            <div class="dm-player-number">${number}</div>
+            <img
+              class="dm-player-photo"
+              src="${thumb}"
+              data-main="${image}"
+              data-flat="${flat}"
+              alt="${name}"
+              loading="lazy"
+              decoding="async"
+              width="360"
+              height="540"
+              onerror="if(!this.dataset.step){this.dataset.step='1';this.src=this.dataset.main;}else if(this.dataset.step==='1'){this.dataset.step='2';this.src=this.dataset.flat;}else{this.style.opacity='0.25';}"
+            >
+            <div class="dm-player-info">
+              <h3 class="dm-player-name">${name}</h3>
+              <div class="dm-player-meta">
+                <span class="dm-pill">${position}</span>
+                ${country ? `<span class="dm-pill">${country}</span>` : ''}
+                ${birth ? `<span class="dm-pill">${birth}</span>` : ''}
+              </div>
+            </div>
+          </article>
+        `;
+      }).join('');
+    }
+
+    function getPlural(number) {
+      const last = number % 10;
+      const lastTwo = number % 100;
+      if (last === 1 && lastTwo !== 11) return 'игрок';
+      if ([2, 3, 4].includes(last) && ![12, 13, 14].includes(lastTwo)) return 'игрока';
+      return 'игроков';
+    }
+
+    filters.forEach(button => {
+      button.addEventListener('click', () => {
+        filters.forEach(item => item.classList.remove('active'));
+        button.classList.add('active');
+        renderPlayers(button.dataset.filter || 'all');
+      });
+    });
+
+    renderPlayers('all');
+  </script>
+</body>
+</html>
