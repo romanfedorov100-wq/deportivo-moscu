@@ -1,0 +1,60 @@
+<section class="moscu-players-section" id="players">
+  <div class="moscu-players-head">
+    <div>
+      <p class="moscu-players-kicker">Deportivo Moscu</p>
+      <h2 class="moscu-players-title">Players</h2>
+    </div>
+    <div class="moscu-players-count">34 players</div>
+  </div>
+
+  <div class="moscu-players-grid" id="moscuPlayersGrid"></div>
+</section>
+
+<script src="players-data.js"></script>
+<script>
+(function () {
+  var grid = document.getElementById("moscuPlayersGrid");
+  var players = window.MOSCU_PLAYERS || [];
+
+  if (!grid || !Array.isArray(players)) {
+    return;
+  }
+
+  function escapeHtml(value) {
+    return String(value || "")
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+  }
+
+  grid.innerHTML = players.map(function (player) {
+    var name = escapeHtml(player.name);
+    var image = escapeHtml(player.image);
+    var thumb = escapeHtml(player.thumb);
+    var meta = [player.number ? "#" + player.number : "", player.position || ""]
+      .filter(Boolean)
+      .join(" · ");
+
+    return '' +
+      '<article class="moscu-player-card">' +
+        '<img ' +
+          'class="moscu-player-photo" ' +
+          'src="' + thumb + '" ' +
+          'srcset="' + thumb + ' 360w, ' + image + ' 720w" ' +
+          'sizes="(max-width: 620px) 48vw, 180px" ' +
+          'alt="' + name + '" ' +
+          'loading="lazy" ' +
+          'decoding="async" ' +
+          'width="360" ' +
+          'height="540"' +
+        '>' +
+        '<div class="moscu-player-info">' +
+          '<h3 class="moscu-player-name">' + name + '</h3>' +
+          (meta ? '<div class="moscu-player-meta">' + escapeHtml(meta) + '</div>' : '') +
+        '</div>' +
+      '</article>';
+  }).join("");
+})();
+</script>
