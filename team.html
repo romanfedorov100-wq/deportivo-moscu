@@ -1,366 +1,60 @@
-echo "=== MOSCU CLEAN02: TEAM PLAYER CARDS ==="
-
-echo
-echo "=== 1. FIND MOSCU SITE ROOT ==="
-
-SITE_ROOT=""
-
-for d in /var/www/moscu.team /var/www/moscu /var/www/deportivo-moscu /var/www/html; do
-  if [ -f "$d/index.html" ] && grep -qi "Deportivo" "$d/index.html"; then
-    SITE_ROOT="$d"
-    break
-  fi
-done
-
-if [ -z "$SITE_ROOT" ]; then
-  SITE_ROOT=$(find /var/www -maxdepth 4 -type f -name "index.html" -print 2>/dev/null | while read f; do
-    if grep -qi "Deportivo" "$f"; then
-      dirname "$f"
-      break
-    fi
-  done)
-fi
-
-if [ -z "$SITE_ROOT" ]; then
-  echo "ERROR: Не нашёл папку сайта moscu.team"
-  echo "Покажи вывод:"
-  echo "find /var/www -maxdepth 4 -type f -name index.html"
-  exit 1
-fi
-
-echo "SITE_ROOT=$SITE_ROOT"
-cd "$SITE_ROOT" || exit 1
-
-echo
-echo "=== 2. BACKUP ==="
-
-BACKUP_DIR="backups_moscu_clean02_team_$(date +%Y%m%d_%H%M%S)"
-mkdir -p "$BACKUP_DIR"
-
-cp -a team.html "$BACKUP_DIR/team.html.backup" 2>/dev/null || true
-cp -a assets "$BACKUP_DIR/assets.backup" 2>/dev/null || true
-
-mkdir -p assets/players
-
-echo
-echo "=== 3. CREATE TEAM PAGE ==="
-
-python3 <<'PY'
-from pathlib import Path
-import json
-import unicodedata
-import re
-
-players = [
-    # Arqueros
-    {"number":"1", "name":"Toledo Catriel Agustín", "birth":"07/09/2002", "position":"Arquero", "country":"Argentina"},
-    {"number":"12", "name":"Dominguez Tomas Sebastián", "birth":"23/05/2002", "position":"Arquero", "country":"Argentina"},
-    {"number":"30", "name":"Nelyubin Nikita", "birth":"21/03/2005", "position":"Arquero", "country":"Rusia"},
-
-    # Defensores
-    {"number":"3", "name":"Álvarez Valentín", "birth":"09/09/2005", "position":"Defensor", "country":"Argentina"},
-    {"number":"2", "name":"Figueroa Matías Nicolás", "birth":"08/03/1993", "position":"Defensor", "country":"Argentina"},
-    {"number":"—", "name":"Walter Lucas", "birth":"18/05/1996", "position":"Defensor", "country":"Argentina"},
-    {"number":"4", "name":"Berrios Lucas Sebastián", "birth":"15/11/2004", "position":"Defensor", "country":"Argentina"},
-    {"number":"—", "name":"Parengo Neyen Ignacio", "birth":"25/06/2003", "position":"Defensor", "country":"Argentina"},
-    {"number":"8", "name":"Llanos Ezequiel David", "birth":"08/06/1993", "position":"Defensor", "country":"Argentina"},
-    {"number":"28", "name":"Zhandarov Vladimir", "birth":"04/11/1999", "position":"Defensor", "country":"Rusia"},
-    {"number":"—", "name":"Aquino Jairo Leonel", "birth":"07/12/2000", "position":"Defensor", "country":"Argentina"},
-    {"number":"14", "name":"Denis Aaron Agustin", "birth":"10/12/2006", "position":"Defensor", "country":"Argentina"},
-    {"number":"36", "name":"Rivas Erick", "birth":"27/06/2006", "position":"Defensor", "country":"Argentina"},
-    {"number":"29", "name":"Valencia Dennis", "birth":"17/04/2005", "position":"Defensor", "country":"Ecuador"},
-    {"number":"24", "name":"Comparato Deserio Tiziano", "birth":"30/06/2006", "position":"Defensor", "country":"Argentina"},
-    {"number":"16", "name":"Mansilla Alejandro Maximo", "birth":"27/02/2008", "position":"Defensor", "country":"Argentina"},
-    {"number":"17", "name":"Ferreyra Julián", "birth":"28/05/2007", "position":"Defensor", "country":"Argentina"},
-    {"number":"26", "name":"Abyanov Rufat", "birth":"21/04/1997", "position":"Defensor", "country":"Argentina"},
-    {"number":"18", "name":"Ivanov Ivan", "birth":"21/05/2003", "position":"Defensor", "country":"Rusia"},
-
-    # Mediocampistas
-    {"number":"6", "name":"Aman Nahuel", "birth":"24/01/2005", "position":"Mediocampista", "country":"Argentina"},
-    {"number":"69", "name":"Ahumada Julian", "birth":"24/10/2001", "position":"Mediocampista", "country":"Argentina"},
-    {"number":"21", "name":"Maydana Alan Franco", "birth":"28/02/1996", "position":"Mediocampista", "country":"Argentina"},
-    {"number":"10", "name":"Zapaia Agustín", "birth":"29/04/2004", "position":"Mediocampista", "country":"Argentina"},
-    {"number":"25", "name":"Pinheiro do Nascimento Rocha Italo", "birth":"07/01/1997", "position":"Mediocampista", "country":"Brasil"},
-    {"number":"22", "name":"Dallochio Tomas", "birth":"11/07/2003", "position":"Mediocampista", "country":"Argentina"},
-    {"number":"5", "name":"Lavalle Thomas Rodrigo", "birth":"05/04/2003", "position":"Mediocampista", "country":"Argentina"},
-    {"number":"15", "name":"Cañisales Dionel Agustín", "birth":"18/11/2006", "position":"Mediocampista", "country":"Argentina"},
-    {"number":"55", "name":"Tovar Morales Alfredo Alejandro", "birth":"13/02/2006", "position":"Mediocampista", "country":"Venezuela"},
-    {"number":"23", "name":"Bonnet Maidana Axel Facundo Emanuel", "birth":"22/03/2005", "position":"Mediocampista", "country":"Argentina"},
-    {"number":"20", "name":"Maguna Tomas", "birth":"17/07/2009", "position":"Mediocampista", "country":"Argentina"},
-
-    # Delanteros
-    {"number":"97", "name":"Gauna Ignacio Ezequiel", "birth":"16/01/1997", "position":"Delantero", "country":"Argentina"},
-    {"number":"33", "name":"Ruiz Diaz Damian", "birth":"12/05/1997", "position":"Delantero", "country":"Argentina"},
-    {"number":"7", "name":"Gongora Enrique", "birth":"07/02/2000", "position":"Delantero", "country":"Ecuador"},
-    {"number":"9", "name":"Santillan Cristhian", "birth":"17/01/1990", "position":"Delantero", "country":"Argentina"},
-    {"number":"11", "name":"Dellepiane Gaston Enrique", "birth":"14/11/1998", "position":"Delantero", "country":"Argentina"},
-    {"number":"19", "name":"Soley Tomas Agustin", "birth":"08/11/2005", "position":"Delantero", "country":"Argentina"},
-    {"number":"—", "name":"Rodríguez Lautaro Jesús", "birth":"05/09/2005", "position":"Delantero", "country":"Argentina"},
-    {"number":"13", "name":"Domínguez Joaquín Lautaro", "birth":"22/10/2006", "position":"Delantero", "country":"Argentina"},
-    {"number":"27", "name":"Areco Alexis Farid", "birth":"27/03/2007", "position":"Delantero", "country":"Argentina"},
-    {"number":"—", "name":"Benitez Nahuel Alejandro", "birth":"21/04/2007", "position":"Delantero", "country":"Argentina"},
-]
-
-def slugify(value):
-    value = unicodedata.normalize("NFKD", value)
-    value = value.encode("ascii", "ignore").decode("ascii")
-    value = value.lower()
-    value = re.sub(r"[^a-z0-9]+", "-", value).strip("-")
-    return value
-
-for p in players:
-    p["slug"] = slugify(p["name"])
-
-html = """<!doctype html>
-<html lang="es">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Plantel — Deportivo Moscu</title>
-  <meta name="description" content="Plantel oficial de Deportivo Moscu: arqueros, defensores, mediocampistas y delanteros.">
-  <style>
-    :root{
-      --bg:#020806;
-      --panel:#07140f;
-      --panel2:#0b1d15;
-      --green:#00ff88;
-      --green2:#00c66b;
-      --text:#f4fff8;
-      --muted:rgba(244,255,248,.66);
-      --line:rgba(0,255,136,.22);
-      --gold:#d6ff7a;
-    }
-    *{box-sizing:border-box}
-    html,body{margin:0;background:
-      radial-gradient(circle at 50% -10%,rgba(0,255,136,.16),transparent 32%),
-      radial-gradient(circle at 0% 20%,rgba(0,120,70,.22),transparent 30%),
-      linear-gradient(180deg,#020806,#05110d 42%,#020806);
-      color:var(--text);font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
-    a{color:inherit;text-decoration:none}
-    .wrap{width:min(1180px,calc(100% - 32px));margin:0 auto}
-    .topbar{position:sticky;top:0;z-index:20;background:rgba(2,8,6,.82);backdrop-filter:blur(18px);border-bottom:1px solid rgba(0,255,136,.14)}
-    .nav{height:74px;display:flex;align-items:center;justify-content:space-between;gap:18px}
-    .brand{display:flex;align-items:center;gap:12px;font-weight:1000;letter-spacing:.02em}
-    .badge-m{width:44px;height:44px;border-radius:14px;border:1px solid var(--line);display:grid;place-items:center;color:var(--green);font-weight:1000;font-size:24px;background:linear-gradient(145deg,rgba(0,255,136,.14),rgba(0,0,0,.32));box-shadow:0 0 26px rgba(0,255,136,.09)}
-    .links{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:flex-end}
-    .links a{font-size:13px;font-weight:850;color:rgba(244,255,248,.78);padding:10px 12px;border-radius:999px;border:1px solid transparent}
-    .links a.active,.links a:hover{border-color:var(--line);color:#fff;background:rgba(0,255,136,.08)}
-    .hero{padding:58px 0 28px}
-    .eyebrow{display:inline-flex;align-items:center;gap:8px;padding:9px 13px;border:1px solid var(--line);border-radius:999px;background:rgba(0,255,136,.07);color:#8dffcc;font-size:12px;font-weight:950;letter-spacing:.09em;text-transform:uppercase}
-    .dot{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 16px rgba(0,255,136,.9)}
-    h1{margin:18px 0 12px;font-size:clamp(46px,8vw,96px);line-height:.9;letter-spacing:-.07em}
-    .lead{max-width:780px;color:var(--muted);font-size:18px;line-height:1.55;font-weight:650}
-    .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:28px}
-    .stat{border:1px solid var(--line);border-radius:24px;padding:18px;background:linear-gradient(145deg,rgba(0,255,136,.08),rgba(255,255,255,.025));box-shadow:0 20px 40px rgba(0,0,0,.18)}
-    .stat b{display:block;font-size:30px;line-height:1;color:#fff}
-    .stat span{display:block;margin-top:7px;color:var(--muted);font-size:12px;font-weight:850;text-transform:uppercase;letter-spacing:.08em}
-    .filters{display:flex;gap:10px;flex-wrap:wrap;margin:30px 0 22px}
-    .filter{border:1px solid var(--line);background:rgba(0,0,0,.22);color:rgba(244,255,248,.82);border-radius:999px;padding:11px 14px;font-weight:950;font-size:13px;cursor:pointer}
-    .filter.active{background:linear-gradient(135deg,var(--green),var(--green2));color:#00190d;border-color:transparent}
-    .section{margin:32px 0 44px}
-    .section-head{display:flex;align-items:end;justify-content:space-between;gap:12px;margin-bottom:16px}
-    h2{margin:0;font-size:clamp(28px,4vw,46px);line-height:.95;letter-spacing:-.05em}
-    .count{color:var(--muted);font-size:13px;font-weight:900}
-    .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
-    .card{position:relative;border:1px solid var(--line);border-radius:28px;background:
-      radial-gradient(circle at 50% 0%,rgba(0,255,136,.12),transparent 34%),
-      linear-gradient(180deg,rgba(255,255,255,.04),rgba(0,0,0,.18));
-      overflow:hidden;min-height:420px;box-shadow:0 24px 52px rgba(0,0,0,.28)}
-    .photo{height:250px;position:relative;background:
-      radial-gradient(circle at 50% 18%,rgba(0,255,136,.22),transparent 34%),
-      linear-gradient(145deg,#071c13,#020806);display:grid;place-items:center;overflow:hidden}
-    .photo img{width:100%;height:100%;object-fit:cover;display:block}
-    .initials{position:absolute;inset:0;display:grid;place-items:center;font-size:64px;font-weight:1000;letter-spacing:-.08em;color:rgba(255,255,255,.88);text-shadow:0 0 30px rgba(0,255,136,.18)}
-    .photo.has-img .initials{display:none}
-    .soon{position:absolute;left:14px;bottom:14px;font-size:11px;font-weight:950;color:#00180d;background:linear-gradient(135deg,var(--green),var(--gold));border-radius:999px;padding:8px 10px}
-    .photo.has-img .soon{display:none}
-    .num{position:absolute;top:14px;right:14px;width:54px;height:54px;border-radius:18px;display:grid;place-items:center;background:rgba(0,0,0,.54);border:1px solid rgba(0,255,136,.24);color:var(--green);font-size:22px;font-weight:1000;z-index:5}
-    .body{padding:18px}
-    .pos{display:inline-flex;align-items:center;gap:7px;color:#83ffc8;font-size:11px;letter-spacing:.09em;text-transform:uppercase;font-weight:1000}
-    .name{margin:10px 0 12px;font-size:22px;line-height:1.03;font-weight:1000;letter-spacing:-.04em}
-    .meta{display:grid;gap:8px;color:var(--muted);font-size:13px;font-weight:700}
-    .meta-row{display:flex;justify-content:space-between;gap:12px;border-top:1px solid rgba(255,255,255,.07);padding-top:8px}
-    .meta-row strong{color:#fff;font-weight:950}
-    .footer{padding:28px 0 60px;color:var(--muted);font-size:13px;text-align:center}
-    @media(max-width:980px){.grid{grid-template-columns:repeat(3,1fr)}.stats{grid-template-columns:repeat(2,1fr)}}
-    @media(max-width:700px){.nav{height:auto;padding:14px 0;align-items:flex-start}.links{gap:6px}.links a{font-size:12px;padding:8px 9px}.grid{grid-template-columns:repeat(2,1fr)}.card{min-height:365px}.photo{height:205px}.body{padding:14px}.name{font-size:18px}}
-    @media(max-width:460px){.wrap{width:min(100% - 20px,1180px)}.grid{grid-template-columns:1fr}.stats{grid-template-columns:repeat(2,1fr)}.hero{padding-top:34px}.card{min-height:0}.photo{height:270px}}
-  </style>
-</head>
-<body>
-  <header class="topbar">
-    <div class="wrap nav">
-      <a class="brand" href="./index.html">
-        <span class="badge-m">M</span>
-        <span>Deportivo<br>Moscu</span>
-      </a>
-      <nav class="links">
-        <a href="./index.html">Inicio</a>
-        <a href="./matches.html">Partidos</a>
-        <a class="active" href="./team.html">Equipo</a>
-        <a href="./academy.html">Academia</a>
-        <a href="./store.html">Tienda</a>
-        <a href="./media.html">Media</a>
-      </nav>
+<section class="moscu-players-section" id="players">
+  <div class="moscu-players-head">
+    <div>
+      <p class="moscu-players-kicker">Deportivo Moscu</p>
+      <h2 class="moscu-players-title">Players</h2>
     </div>
-  </header>
+    <div class="moscu-players-count">34 players</div>
+  </div>
 
-  <main>
-    <section class="hero">
-      <div class="wrap">
-        <div class="eyebrow"><span class="dot"></span> Plantel oficial</div>
-        <h1>Equipo<br>Deportivo Moscu</h1>
-        <p class="lead">Arqueros, defensores, mediocampistas y delanteros del plantel. Las fotos se cargarán en la siguiente etapa; cada tarjeta ya está preparada para recibir imagen individual.</p>
+  <div class="moscu-players-grid" id="moscuPlayersGrid"></div>
+</section>
 
-        <div class="stats">
-          <div class="stat"><b id="totalPlayers">40</b><span>Jugadores</span></div>
-          <div class="stat"><b>4</b><span>Posiciones</span></div>
-          <div class="stat"><b>5</b><span>Países</span></div>
-          <div class="stat"><b>2026</b><span>Plantel</span></div>
-        </div>
+<script src="players-data.js"></script>
+<script>
+(function () {
+  var grid = document.getElementById("moscuPlayersGrid");
+  var players = window.MOSCU_PLAYERS || [];
 
-        <div class="filters" id="filters">
-          <button class="filter active" data-filter="Todos">Todos</button>
-          <button class="filter" data-filter="Arquero">Arqueros</button>
-          <button class="filter" data-filter="Defensor">Defensores</button>
-          <button class="filter" data-filter="Mediocampista">Mediocampistas</button>
-          <button class="filter" data-filter="Delantero">Delanteros</button>
-        </div>
-      </div>
-    </section>
+  if (!grid || !Array.isArray(players)) {
+    return;
+  }
 
-    <div class="wrap" id="teamRoot"></div>
-  </main>
+  function escapeHtml(value) {
+    return String(value || "")
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+  }
 
-  <footer class="footer">
-    <div class="wrap">Deportivo Moscu · Plantel oficial · Fotos individuales próximamente</div>
-  </footer>
+  grid.innerHTML = players.map(function (player) {
+    var name = escapeHtml(player.name);
+    var image = escapeHtml(player.image);
+    var thumb = escapeHtml(player.thumb);
+    var meta = [player.number ? "#" + player.number : "", player.position || ""]
+      .filter(Boolean)
+      .join(" · ");
 
-  <script>
-    const PLAYERS = __PLAYERS_JSON__;
-
-    const flags = {
-      "Argentina":"🇦🇷",
-      "Rusia":"🇷🇺",
-      "Ecuador":"🇪🇨",
-      "Brasil":"🇧🇷",
-      "Venezuela":"🇻🇪"
-    };
-
-    const groups = [
-      ["Arquero", "Arqueros"],
-      ["Defensor", "Defensores"],
-      ["Mediocampista", "Mediocampistas"],
-      ["Delantero", "Delanteros"]
-    ];
-
-    function initials(name){
-      return name.split(" ").filter(Boolean).slice(0,2).map(x => x[0]).join("").toUpperCase();
-    }
-
-    function ageFromBirth(birth){
-      const parts = birth.split("/");
-      if(parts.length !== 3) return "—";
-      const d = Number(parts[0]), m = Number(parts[1]) - 1, y = Number(parts[2]);
-      const today = new Date();
-      let age = today.getFullYear() - y;
-      const birthdayThisYear = new Date(today.getFullYear(), m, d);
-      if(today < birthdayThisYear) age--;
-      return String(age);
-    }
-
-    function card(p){
-      const img = "./assets/players/" + p.slug + ".jpg";
-      return `
-        <article class="card" data-position="${p.position}">
-          <div class="num">${p.number}</div>
-          <div class="photo">
-            <div class="initials">${initials(p.name)}</div>
-            <span class="soon">Foto pronto</span>
-            <img src="${img}" alt="${p.name}" loading="lazy" onload="this.parentElement.classList.add('has-img')" onerror="this.remove()">
-          </div>
-          <div class="body">
-            <div class="pos">${p.position}</div>
-            <div class="name">${p.name}</div>
-            <div class="meta">
-              <div class="meta-row"><span>Nacimiento</span><strong>${p.birth}</strong></div>
-              <div class="meta-row"><span>Edad</span><strong>${ageFromBirth(p.birth)}</strong></div>
-              <div class="meta-row"><span>País</span><strong>${flags[p.country] || ""} ${p.country}</strong></div>
-            </div>
-          </div>
-        </article>
-      `;
-    }
-
-    function render(filter = "Todos"){
-      const root = document.getElementById("teamRoot");
-      const visible = filter === "Todos" ? PLAYERS : PLAYERS.filter(p => p.position === filter);
-
-      let html = "";
-
-      groups.forEach(([key, title]) => {
-        const list = visible.filter(p => p.position === key);
-        if(!list.length) return;
-
-        html += `
-          <section class="section">
-            <div class="section-head">
-              <h2>${title}</h2>
-              <div class="count">${list.length} jugadores</div>
-            </div>
-            <div class="grid">${list.map(card).join("")}</div>
-          </section>
-        `;
-      });
-
-      root.innerHTML = html;
-      document.getElementById("totalPlayers").textContent = visible.length;
-    }
-
-    document.getElementById("filters").addEventListener("click", (e) => {
-      const btn = e.target.closest(".filter");
-      if(!btn) return;
-      document.querySelectorAll(".filter").forEach(x => x.classList.remove("active"));
-      btn.classList.add("active");
-      render(btn.dataset.filter);
-    });
-
-    render();
-  </script>
-</body>
-</html>
-"""
-
-html = html.replace("__PLAYERS_JSON__", json.dumps(players, ensure_ascii=False))
-
-Path("team.html").write_text(html, encoding="utf-8")
-
-readme = ["PHOTO FILE NAMES FOR PLAYER CARDS", "", "Загружай фото игроков сюда: assets/players/", "Формат: JPG, лучше вертикально 900x1200 или 800x1000.", ""]
-for p in players:
-    readme.append(f"{p['number']} | {p['name']} | {p['position']} | {p['country']} -> assets/players/{p['slug']}.jpg")
-
-Path("assets/players/_README_PHOTO_NAMES.txt").write_text("\n".join(readme) + "\n", encoding="utf-8")
-
-print("CREATED team.html")
-print("CREATED assets/players/_README_PHOTO_NAMES.txt")
-print("PLAYERS:", len(players))
-PY
-
-echo
-echo "=== 4. PERMISSIONS ==="
-
-find . -type d -exec chmod 755 {} \; 2>/dev/null || true
-find . -type f -exec chmod 644 {} \; 2>/dev/null || true
-
-echo
-echo "=== 5. CHECK ==="
-
-ls -lah team.html
-ls -lah assets/players/_README_PHOTO_NAMES.txt
-
-echo
-echo "=== 6. OPEN ==="
-echo "https://moscu.team/team.html?v=players01"
-
-echo
-echo "=== DONE MOSCU CLEAN02 ==="
+    return '' +
+      '<article class="moscu-player-card">' +
+        '<img ' +
+          'class="moscu-player-photo" ' +
+          'src="' + thumb + '" ' +
+          'srcset="' + thumb + ' 360w, ' + image + ' 720w" ' +
+          'sizes="(max-width: 620px) 48vw, 180px" ' +
+          'alt="' + name + '" ' +
+          'loading="lazy" ' +
+          'decoding="async" ' +
+          'width="360" ' +
+          'height="540"' +
+        '>' +
+        '<div class="moscu-player-info">' +
+          '<h3 class="moscu-player-name">' + name + '</h3>' +
+          (meta ? '<div class="moscu-player-meta">' + escapeHtml(meta) + '</div>' : '') +
+        '</div>' +
+      '</article>';
+  }).join("");
+})();
+</script>
