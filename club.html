@@ -1,60 +1,39 @@
-<!DOCTYPE html>
-<html lang="ru">
+<!doctype html>
+<html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <title>Клуб — Deportivo Moscu</title>
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Plantel | Deportivo Moscu</title>
+  <meta name="description" content="Plantel oficial de Deportivo Moscu: arqueros, defensores, mediocampistas y delanteros." />
 
   <style>
     :root {
-      --bg: #020605;
-      --panel: rgba(4, 21, 18, 0.84);
-      --line: rgba(0, 255, 157, 0.22);
-      --green: #00ff9d;
-      --cyan: #39ffe1;
-      --text: rgba(237, 255, 249, 0.96);
-      --muted: rgba(218, 255, 244, 0.62);
-      --shadow: 0 26px 80px rgba(0, 0, 0, 0.48);
-      --glow: 0 0 32px rgba(0, 255, 157, 0.24);
+      --bg: #020806;
+      --bg2: #06130e;
+      --card: rgba(7, 22, 15, 0.82);
+      --card2: rgba(10, 32, 22, 0.92);
+      --green: #00ff88;
+      --green2: #00c46a;
+      --text: #f4fff8;
+      --muted: rgba(244,255,248,.68);
+      --line: rgba(0,255,136,.23);
+      --line2: rgba(255,255,255,.08);
+      --shadow: 0 26px 60px rgba(0,0,0,.34);
     }
 
     * {
       box-sizing: border-box;
     }
 
-    html {
-      scroll-behavior: smooth;
-      background: var(--bg);
-    }
-
+    html,
     body {
       margin: 0;
-      font-family: "Inter", sans-serif;
       background:
-        radial-gradient(circle at 12% 6%, rgba(0, 255, 157, 0.15), transparent 28%),
-        radial-gradient(circle at 88% 10%, rgba(57, 255, 225, 0.1), transparent 32%),
-        radial-gradient(circle at 50% 70%, rgba(0, 255, 157, 0.08), transparent 38%),
-        linear-gradient(180deg, #020605 0%, #06110f 42%, #020605 100%);
+        radial-gradient(circle at 50% -12%, rgba(0,255,136,.18), transparent 34%),
+        radial-gradient(circle at 0% 14%, rgba(0,120,70,.18), transparent 32%),
+        linear-gradient(180deg, var(--bg), var(--bg2) 48%, var(--bg));
       color: var(--text);
-      overflow-x: hidden;
-    }
-
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: -2;
-      background:
-        linear-gradient(rgba(0, 255, 157, 0.035) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0, 255, 157, 0.035) 1px, transparent 1px);
-      background-size: 56px 56px;
-      mask-image: radial-gradient(circle at center, black 0%, transparent 80%);
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     }
 
     a {
@@ -62,902 +41,674 @@
       text-decoration: none;
     }
 
-    button {
-      font-family: inherit;
-    }
-
-    img {
-      max-width: 100%;
-      display: block;
-    }
-
-    .container {
+    .wrap {
       width: min(1180px, calc(100% - 32px));
       margin: 0 auto;
     }
 
-    .site-header {
+    .topbar {
       position: sticky;
       top: 0;
       z-index: 50;
-      background: rgba(2, 6, 5, 0.78);
-      backdrop-filter: blur(20px);
-      border-bottom: 1px solid var(--line);
-      box-shadow: 0 14px 44px rgba(0, 0, 0, 0.42);
+      border-bottom: 1px solid rgba(0,255,136,.15);
+      background: rgba(2,8,6,.86);
+      backdrop-filter: blur(18px);
     }
 
-    .header-inner {
-      min-height: 86px;
+    .nav {
+      min-height: 76px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 22px;
-    }
-
-    .logo-box {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      min-width: 210px;
-    }
-
-    .logo-img {
-      width: 58px;
-      height: 58px;
-      object-fit: contain;
-      filter: drop-shadow(0 0 18px rgba(0, 255, 157, 0.34));
-    }
-
-    .logo-text {
-      display: flex;
-      flex-direction: column;
-      line-height: 1;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-    }
-
-    .logo-text span {
-      font-size: 12px;
-      font-weight: 800;
-      color: rgba(237, 255, 249, 0.82);
-    }
-
-    .logo-text strong {
-      font-family: "Oswald", sans-serif;
-      font-size: 25px;
-      color: rgba(237, 255, 249, 0.98);
-      letter-spacing: 0.18em;
-      text-shadow: 0 0 22px rgba(0, 255, 157, 0.34);
-    }
-
-    .main-nav {
-      display: flex;
-      align-items: center;
       gap: 18px;
-      font-size: 11px;
-      font-weight: 950;
-      letter-spacing: 0.11em;
-      text-transform: uppercase;
+      padding: 10px 0;
     }
 
-    .main-nav a {
-      position: relative;
-      color: rgba(237, 255, 249, 0.76);
-      transition: 0.2s;
-      white-space: nowrap;
-    }
-
-    .main-nav a::after {
-      content: "";
-      position: absolute;
-      left: 0;
-      right: 0;
-      bottom: -12px;
-      height: 2px;
-      background: linear-gradient(90deg, transparent, var(--green), transparent);
-      opacity: 0;
-      transform: scaleX(0.4);
-      transition: 0.2s;
-      box-shadow: var(--glow);
-    }
-
-    .main-nav a:hover,
-    .main-nav a.active {
-      color: var(--green);
-      text-shadow: 0 0 16px rgba(0, 255, 157, 0.5);
-    }
-
-    .main-nav a:hover::after,
-    .main-nav a.active::after {
-      opacity: 1;
-      transform: scaleX(1);
-    }
-
-    .header-actions {
+    .brand {
       display: flex;
       align-items: center;
       gap: 12px;
+      font-weight: 1000;
+      line-height: 1;
+      letter-spacing: -.02em;
     }
 
-    .language-switcher {
-      display: flex;
-      background: rgba(0, 255, 157, 0.055);
-      padding: 4px;
-      border-radius: 999px;
+    .crest {
+      width: 48px;
+      height: 48px;
+      border-radius: 15px;
       border: 1px solid var(--line);
-    }
-
-    .lang-btn {
-      border: 0;
-      background: transparent;
-      color: rgba(237, 255, 249, 0.72);
-      padding: 8px 10px;
-      border-radius: 999px;
-      font-weight: 950;
-      cursor: pointer;
-      font-size: 12px;
-    }
-
-    .lang-btn.active {
-      background: var(--green);
-      color: #00130c;
-      box-shadow: 0 0 24px rgba(0, 255, 157, 0.42);
-    }
-
-    .ticket-btn,
-    .card-btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 4px;
-      padding: 14px 20px;
-      font-size: 12px;
-      font-weight: 950;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      background: linear-gradient(135deg, var(--green), var(--cyan));
-      color: #00130c;
-      border: 1px solid rgba(0, 255, 157, 0.58);
-      box-shadow: 0 0 24px rgba(0, 255, 157, 0.28);
-      transition: 0.2s;
-    }
-
-    .ticket-btn:hover,
-    .card-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 0 34px rgba(0, 255, 157, 0.42);
-    }
-
-    .burger-btn {
-      display: none;
-      width: 42px;
-      height: 42px;
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      background: rgba(0, 255, 157, 0.055);
-      cursor: pointer;
-      padding: 9px;
-    }
-
-    .burger-btn span {
-      display: block;
-      height: 2px;
-      background: var(--green);
-      margin: 5px 0;
-      box-shadow: var(--glow);
-    }
-
-    .mobile-menu {
-      display: none;
-      padding: 16px;
-      border-top: 1px solid var(--line);
-      background: rgba(2, 6, 5, 0.96);
-    }
-
-    .mobile-menu.open {
+      background: linear-gradient(145deg, rgba(0,255,136,.14), rgba(0,0,0,.35));
       display: grid;
-      gap: 12px;
-    }
-
-    .mobile-menu a {
-      padding: 14px;
-      border-radius: 10px;
-      background: rgba(0, 255, 157, 0.055);
-      border: 1px solid var(--line);
-      color: rgba(237, 255, 249, 0.86);
-      font-weight: 950;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-    }
-
-    .club-hero {
-      position: relative;
-      padding: 78px 0 54px;
+      place-items: center;
+      color: var(--green);
+      font-size: 26px;
+      font-weight: 1000;
+      box-shadow: 0 0 26px rgba(0,255,136,.12);
       overflow: hidden;
-      background:
-        radial-gradient(circle at 74% 26%, rgba(0, 255, 157, 0.17), transparent 28%),
-        radial-gradient(circle at 34% 70%, rgba(57, 255, 225, 0.08), transparent 30%),
-        linear-gradient(180deg, rgba(2, 6, 5, 0.2) 0%, rgba(2, 6, 5, 0.92) 100%);
     }
 
-    .club-hero::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      background:
-        linear-gradient(90deg, rgba(0, 255, 157, 0.12), transparent 22%, transparent 78%, rgba(0, 255, 157, 0.08)),
-        linear-gradient(180deg, transparent 0%, rgba(0, 255, 157, 0.06) 100%);
-      opacity: 0.85;
+    .crest img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      padding: 6px;
     }
 
-    .club-hero-grid {
-      position: relative;
-      z-index: 2;
-      display: grid;
-      grid-template-columns: 1.05fr 0.95fr;
+    .brand-text small {
+      display: block;
+      color: var(--muted);
+      font-size: 11px;
+      margin-top: 4px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .links {
+      display: flex;
       align-items: center;
-      gap: 46px;
+      justify-content: flex-end;
+      gap: 8px;
+      flex-wrap: wrap;
     }
 
-    .section-label {
+    .links a {
+      padding: 10px 12px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      color: rgba(244,255,248,.78);
+      font-size: 13px;
+      font-weight: 850;
+    }
+
+    .links a:hover,
+    .links a.active {
+      color: #fff;
+      border-color: var(--line);
+      background: rgba(0,255,136,.08);
+    }
+
+    .hero {
+      padding: 58px 0 28px;
+    }
+
+    .eyebrow {
       display: inline-flex;
-      padding: 8px 12px;
-      border-radius: 4px;
-      background: rgba(0, 255, 157, 0.08);
+      align-items: center;
+      gap: 9px;
+      padding: 10px 14px;
       border: 1px solid var(--line);
-      color: var(--green);
-      font-weight: 950;
+      border-radius: 999px;
+      background: rgba(0,255,136,.07);
+      color: #8dffcc;
       font-size: 12px;
-      margin-bottom: 18px;
+      font-weight: 950;
+      letter-spacing: .09em;
       text-transform: uppercase;
-      letter-spacing: 0.22em;
     }
 
-    .club-hero h1 {
-      font-family: "Oswald", sans-serif;
-      font-size: clamp(52px, 8vw, 104px);
-      line-height: 0.88;
-      margin: 0;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: rgba(237, 255, 249, 0.96);
-      text-shadow:
-        0 0 18px rgba(0, 255, 157, 0.22),
-        0 0 48px rgba(57, 255, 225, 0.12);
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 16px rgba(0,255,136,.9);
     }
 
-    .club-hero p {
-      max-width: 700px;
+    h1 {
+      margin: 20px 0 14px;
+      font-size: clamp(48px, 8vw, 100px);
+      line-height: .9;
+      letter-spacing: -.075em;
+    }
+
+    .lead {
+      max-width: 820px;
       color: var(--muted);
       font-size: 18px;
-      line-height: 1.65;
-      margin: 24px 0 0;
+      line-height: 1.55;
+      font-weight: 650;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-top: 28px;
+    }
+
+    .stat {
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      padding: 18px;
+      background: linear-gradient(145deg, rgba(0,255,136,.08), rgba(255,255,255,.025));
+      box-shadow: 0 20px 40px rgba(0,0,0,.18);
+    }
+
+    .stat b {
+      display: block;
+      font-size: 32px;
+      line-height: 1;
+      color: #fff;
+    }
+
+    .stat span {
+      display: block;
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 850;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+    }
+
+    .filters {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin: 32px 0 22px;
+    }
+
+    .filter {
+      border: 1px solid var(--line);
+      background: rgba(0,0,0,.22);
+      color: rgba(244,255,248,.82);
+      border-radius: 999px;
+      padding: 12px 15px;
+      font-weight: 950;
+      font-size: 13px;
+      cursor: pointer;
+      transition: .18s ease;
+    }
+
+    .filter:hover {
+      transform: translateY(-1px);
+      background: rgba(0,255,136,.1);
+    }
+
+    .filter.active {
+      background: linear-gradient(135deg, var(--green), var(--green2));
+      color: #00190d;
+      border-color: transparent;
+    }
+
+    .section {
+      margin: 34px 0 48px;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 17px;
+    }
+
+    h2 {
+      margin: 0;
+      font-size: clamp(30px, 4vw, 48px);
+      line-height: .95;
+      letter-spacing: -.055em;
+    }
+
+    .count {
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 900;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+
+    .card {
+      position: relative;
+      min-height: 420px;
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      background:
+        radial-gradient(circle at 50% 0%, rgba(0,255,136,.13), transparent 35%),
+        linear-gradient(180deg, rgba(255,255,255,.045), rgba(0,0,0,.2));
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+
+    .photo {
+      height: 250px;
+      position: relative;
+      background:
+        radial-gradient(circle at 50% 18%, rgba(0,255,136,.24), transparent 34%),
+        linear-gradient(145deg, #082118, #020806);
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+    }
+
+    .photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      position: relative;
+      z-index: 3;
+    }
+
+    .initials {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      font-size: 64px;
+      font-weight: 1000;
+      letter-spacing: -.08em;
+      color: rgba(255,255,255,.88);
+      text-shadow: 0 0 30px rgba(0,255,136,.18);
+      z-index: 1;
+    }
+
+    .soon {
+      position: absolute;
+      left: 14px;
+      bottom: 14px;
+      z-index: 2;
+      font-size: 11px;
+      font-weight: 950;
+      color: #00180d;
+      background: linear-gradient(135deg, var(--green), #d6ff7a);
+      border-radius: 999px;
+      padding: 8px 10px;
+    }
+
+    .photo.has-img .initials,
+    .photo.has-img .soon {
+      display: none;
+    }
+
+    .num {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      z-index: 5;
+      width: 54px;
+      height: 54px;
+      border-radius: 18px;
+      display: grid;
+      place-items: center;
+      background: rgba(0,0,0,.56);
+      border: 1px solid rgba(0,255,136,.26);
+      color: var(--green);
+      font-size: 22px;
+      font-weight: 1000;
+      backdrop-filter: blur(10px);
+    }
+
+    .body {
+      padding: 18px;
+    }
+
+    .pos {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      color: #83ffc8;
+      font-size: 11px;
+      letter-spacing: .09em;
+      text-transform: uppercase;
+      font-weight: 1000;
+    }
+
+    .name {
+      margin: 10px 0 12px;
+      font-size: 22px;
+      line-height: 1.03;
+      font-weight: 1000;
+      letter-spacing: -.04em;
+    }
+
+    .meta {
+      display: grid;
+      gap: 8px;
+      color: var(--muted);
+      font-size: 13px;
       font-weight: 700;
     }
 
-    .hero-card {
-      min-height: 100%;
-      border-radius: 2px;
-      background:
-        linear-gradient(90deg, rgba(2, 6, 5, 0.4), rgba(2, 6, 5, 0.9)),
-        radial-gradient(circle at 48% 34%, rgba(0, 255, 157, 0.2), transparent 34%),
-        radial-gradient(circle at 68% 56%, rgba(57, 255, 225, 0.09), transparent 30%),
-        linear-gradient(135deg, rgba(0, 255, 157, 0.08), rgba(2, 6, 5, 0.9));
-      color: var(--text);
-      box-shadow: var(--shadow), var(--glow);
-      display: grid;
-      place-items: center;
-      text-align: center;
-      padding: 38px;
-      position: relative;
-      overflow: hidden;
-      border: 1px solid var(--line);
+    .meta-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      border-top: 1px solid var(--line2);
+      padding-top: 8px;
     }
 
-    .hero-card::before {
-      content: "";
-      position: absolute;
-      inset: 18px;
-      border: 1px solid rgba(0, 255, 157, 0.18);
-      box-shadow: inset 0 0 44px rgba(0, 255, 157, 0.08);
-      pointer-events: none;
-    }
-
-    .hero-card::after {
-      content: "CLUB IDENTITY";
-      position: absolute;
-      right: 28px;
-      bottom: 24px;
-      color: rgba(0, 255, 157, 0.38);
-      font-size: 11px;
+    .meta-row strong {
+      color: #fff;
       font-weight: 950;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
+      text-align: right;
     }
 
-    .hero-card-inner {
-      position: relative;
-      z-index: 2;
-      display: grid;
-      place-items: center;
-    }
-
-    .hero-card-inner::before {
-      content: "";
-      position: absolute;
-      width: 440px;
-      height: 100%;
-      background:
-        linear-gradient(rgba(0, 255, 157, 0.055) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0, 255, 157, 0.055) 1px, transparent 1px);
-      background-size: 30px 30px;
-      mask-image: radial-gradient(circle at 50% 50%, black 0%, transparent 70%);
-      z-index: -1;
-    }
-
-    .hero-card img {
-      width: 170px;
-      margin-bottom: 20px;
-      filter: drop-shadow(0 0 32px rgba(0, 255, 157, 0.32));
-    }
-
-    .hero-card h2 {
-      font-family: "Oswald", sans-serif;
-      font-size: 40px;
-      letter-spacing: 0.14em;
-      margin: 0;
-      text-transform: uppercase;
-      text-shadow: 0 0 28px rgba(0, 255, 157, 0.34);
-    }
-
-    .hero-card span {
-      color: var(--green);
-      font-weight: 950;
-      margin-top: 10px;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-    }
-
-    .club-section {
-      padding: 54px 0;
-    }
-
-    .section-title {
-      font-family: "Oswald", sans-serif;
-      font-size: clamp(38px, 5vw, 62px);
-      line-height: 0.98;
-      text-transform: uppercase;
-      margin: 0 0 18px;
-      color: var(--green);
-      letter-spacing: 0.12em;
-      text-shadow: 0 0 20px rgba(0, 255, 157, 0.28);
-    }
-
-    .section-text {
+    .footer {
+      padding: 28px 0 60px;
       color: var(--muted);
-      line-height: 1.75;
-      font-size: 18px;
-      max-width: 880px;
-      margin: 0 0 34px;
-    }
-
-    .values-grid,
-    .info-grid,
-    .club-links-grid {
-      display: grid;
-      gap: 22px;
-    }
-
-
-    .value-icon, .info-icon, .club-link-icon {
-      width: 76px;
-      height: 76px;
-      object-fit: cover;
-      border-radius: 18px;
-      margin-bottom: 18px;
-      border: 1px solid rgba(0,255,157,0.2);
-      box-shadow: 0 0 26px rgba(0,255,157,0.15);
-    }
-
-    .values-grid {
-      grid-template-columns: repeat(4, 1fr);
-    }
-
-    .info-grid {
-      grid-template-columns: 1fr 1fr;
-    }
-
-    .club-links-grid {
-      grid-template-columns: repeat(3, 1fr);
-    }
-
-    .value-card,
-    .info-card,
-    .club-link-card {
-      position: relative;
-      border: 1px solid var(--line);
-      border-radius: 2px;
-      background: var(--panel);
-      box-shadow: 0 18px 54px rgba(0, 0, 0, 0.36);
-      padding: 28px;
-      overflow: hidden;
-      transition: 0.22s;
-    }
-
-    .value-card::before,
-    .info-card::before,
-    .club-link-card::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      background:
-        linear-gradient(135deg, rgba(0, 255, 157, 0.08), transparent 42%),
-        linear-gradient(180deg, transparent, rgba(0, 255, 157, 0.035));
-      opacity: 0.85;
-    }
-
-    .club-link-card:hover {
-      transform: translateY(-5px);
-      border-color: rgba(0, 255, 157, 0.48);
-      box-shadow: 0 0 44px rgba(0, 255, 157, 0.28), 0 28px 84px rgba(0, 0, 0, 0.48);
-    }
-
-    .card-kicker,
-    .value-number {
-      position: relative;
-      z-index: 2;
-      display: inline-flex;
-      padding: 8px 12px;
-      border-radius: 4px;
-      background: rgba(0, 255, 157, 0.08);
-      border: 1px solid rgba(0, 255, 157, 0.18);
-      color: var(--green);
-      font-size: 12px;
-      font-weight: 950;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      margin-bottom: 16px;
-    }
-
-    .value-card h3,
-    .info-card h3,
-    .club-link-card h3 {
-      position: relative;
-      z-index: 2;
-      font-family: "Oswald", sans-serif;
-      text-transform: uppercase;
-      font-size: 30px;
-      margin: 0 0 12px;
-      letter-spacing: 0.08em;
-      color: var(--text);
-    }
-
-    .value-card p,
-    .info-card p,
-    .club-link-card p {
-      position: relative;
-      z-index: 2;
-      color: var(--muted);
-      line-height: 1.65;
-      margin: 0 0 20px;
-    }
-
-    .site-footer {
-      background:
-        radial-gradient(circle at 20% 0%, rgba(0, 255, 157, 0.1), transparent 30%),
-        linear-gradient(180deg, rgba(4, 16, 14, 0.96), #020605);
-      color: var(--text);
-      padding: 54px 0;
-      border-top: 1px solid var(--line);
-      margin-top: 42px;
-    }
-
-    .footer-grid {
-      display: grid;
-      grid-template-columns: 1.3fr repeat(3, 1fr);
-      gap: 34px;
-    }
-
-    .footer-brand img {
-      width: 90px;
-      margin-bottom: 14px;
-      filter: drop-shadow(0 0 18px rgba(0, 255, 157, 0.24));
-    }
-
-    .footer-brand h3 {
-      font-family: "Oswald", sans-serif;
-      font-size: 30px;
-      margin: 0;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-    }
-
-    .footer-brand p,
-    .footer-col p,
-    .footer-col a {
-      color: var(--muted);
-    }
-
-    .footer-col {
-      display: grid;
-      align-content: start;
-      gap: 10px;
-    }
-
-    .footer-col h4 {
-      margin: 0 0 8px;
-      color: var(--green);
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
       font-size: 13px;
+      text-align: center;
     }
 
-    @media (max-width: 1100px) {
-      .main-nav {
-        gap: 12px;
-        font-size: 10px;
+    @media (max-width: 980px) {
+      .grid {
+        grid-template-columns: repeat(3, 1fr);
       }
 
-  
-    .value-icon, .info-icon, .club-link-icon {
-      width: 76px;
-      height: 76px;
-      object-fit: cover;
-      border-radius: 18px;
-      margin-bottom: 18px;
-      border: 1px solid rgba(0,255,157,0.2);
-      box-shadow: 0 0 26px rgba(0,255,157,0.15);
-    }
-
-    .values-grid {
+      .stats {
         grid-template-columns: repeat(2, 1fr);
       }
     }
 
-    @media (max-width: 980px) {
-      .main-nav,
-      .language-switcher,
-      .ticket-btn {
-        display: none;
+    @media (max-width: 700px) {
+      .nav {
+        align-items: flex-start;
+        flex-direction: column;
       }
 
-      .burger-btn {
-        display: block;
+      .links {
+        justify-content: flex-start;
       }
 
-      .club-hero-grid,
-      .info-grid,
-      .footer-grid {
-        grid-template-columns: 1fr;
+      .links a {
+        font-size: 12px;
+        padding: 8px 9px;
       }
 
-      .club-links-grid {
-        grid-template-columns: 1fr;
+      .grid {
+        grid-template-columns: repeat(2, 1fr);
       }
 
-      .hero-card {
-        min-height: 340px;
+      .card {
+        min-height: 365px;
+      }
+
+      .photo {
+        height: 205px;
+      }
+
+      .body {
+        padding: 14px;
+      }
+
+      .name {
+        font-size: 18px;
       }
     }
 
-    @media (max-width: 620px) {
-      .container {
-        width: min(100% - 22px, 1180px);
+    @media (max-width: 460px) {
+      .wrap {
+        width: min(100% - 20px, 1180px);
       }
 
-      .header-inner {
-        min-height: 76px;
-      }
-
-      .logo-text {
-        display: none;
-      }
-
-      .club-hero {
-        padding: 44px 0 32px;
-      }
-
-      .club-hero h1 {
-        font-size: 44px;
-        letter-spacing: 0.05em;
-      }
-
-      .club-hero p,
-      .section-text {
-        font-size: 16px;
-      }
-
-  
-    .value-icon, .info-icon, .club-link-icon {
-      width: 76px;
-      height: 76px;
-      object-fit: cover;
-      border-radius: 18px;
-      margin-bottom: 18px;
-      border: 1px solid rgba(0,255,157,0.2);
-      box-shadow: 0 0 26px rgba(0,255,157,0.15);
-    }
-
-    .values-grid {
+      .grid {
         grid-template-columns: 1fr;
       }
 
-      .section-title {
-        font-size: 34px;
+      .stats {
+        grid-template-columns: repeat(2, 1fr);
       }
 
-      .hero-card h2 {
-        font-size: 30px;
+      .hero {
+        padding-top: 34px;
+      }
+
+      .card {
+        min-height: 0;
+      }
+
+      .photo {
+        height: 270px;
       }
     }
   </style>
 </head>
 
 <body>
-  <header class="site-header">
-    <div class="container header-inner">
-      <a href="index.html" class="logo-box">
-        <img src="images/logo.png" alt="Deportivo Moscu Logo" class="logo-img">
-        <div class="logo-text">
-          <span>Deportivo</span>
-          <strong>Moscu</strong>
-        </div>
+  <header class="topbar">
+    <div class="wrap nav">
+      <a class="brand" href="./index.html">
+        <span class="crest">
+          <img src="./logo.png.png" alt="Deportivo Moscu" onerror="this.remove(); this.parentElement.textContent='M';">
+        </span>
+        <span class="brand-text">
+          Deportivo Moscu
+          <small>Buenos Aires · 2024</small>
+        </span>
       </a>
 
-      <nav class="main-nav">
-        <a href="index.html">Главная</a>
-        <a href="news.html">Новости</a>
-        <a href="team.html">Команда</a>
-        <a href="league.html">Матчи</a>
-        <a href="club.html" class="active">Клуб</a>
-        <a href="stadium.html">Стадион</a>
-        <a href="academy.html">Академия</a>
-        <a href="management.html">Руководство</a>
-        <a href="media.html">Медиа</a>
-        <a href="store.html">Магазин</a>
+      <nav class="links">
+        <a href="./index.html">Inicio</a>
+        <a href="./matches.html">Partidos</a>
+        <a class="active" href="./club.html">Plantel</a>
+        <a href="./academy.html">Academia</a>
+        <a href="./league.html">Liga</a>
+        <a href="./media.html">Media</a>
+        <a href="./management.html">Gestión</a>
       </nav>
-
-      <div class="header-actions">
-        <div class="language-switcher">
-          <button class="lang-btn active" type="button">RU</button>
-          <button class="lang-btn" type="button">EN</button>
-          <button class="lang-btn" type="button">ES</button>
-        </div>
-
-        <a href="store.html" class="ticket-btn">Купить билеты</a>
-
-        <button class="burger-btn" id="burgerBtn" aria-label="Menu" type="button">
-          <span></span>
-          <span></span>
-          <span></span>
-        </button>
-      </div>
-    </div>
-
-    <div class="mobile-menu" id="mobileMenu">
-      <a href="index.html">Главная</a>
-      <a href="news.html">Новости</a>
-      <a href="team.html">Команда</a>
-      <a href="league.html">Матчи</a>
-      <a href="club.html">Клуб</a>
-      <a href="stadium.html">Стадион</a>
-      <a href="academy.html">Академия</a>
-      <a href="management.html">Руководство</a>
-      <a href="media.html">Медиа</a>
-      <a href="store.html">Магазин</a>
     </div>
   </header>
 
   <main>
-    <section class="club-hero">
-      <div class="container club-hero-grid">
-        <div>
-          <div class="section-label">О клубе</div>
-          <h1>Deportivo<br>Moscu</h1>
-          <p>
-            Deportivo Moscu — футбольный клуб в Буэнос-Айресе с зелёно-чёрной идентичностью,
-            русским характером, аргентинской футбольной энергией и амбициями расти как спортивный проект.
-          </p>
-        </div>
+    <section class="hero">
+      <div class="wrap">
+        <div class="eyebrow"><span class="dot"></span> Plantel oficial</div>
 
-        <div class="hero-card">
-          <div class="hero-card-inner">
-            <img src="images/icons/dm_icon_01_emblem.png" alt="Deportivo Moscu">
-            <h2>DM CLUB</h2>
-            <span>Характер. Команда. Будущее.</span>
-          </div>
-        </div>
-      </div>
-    </section>
+        <h1>Equipo<br>Deportivo Moscu</h1>
 
-    <section class="club-section">
-      <div class="container">
-        <h2 class="section-title">Идентичность клуба</h2>
-        <p class="section-text">
-          Клуб строится вокруг идеи сильной команды, уважения к эмблеме, дисциплины и современной футбольной культуры.
-          Deportivo Moscu должен быть не просто командой, а полноценным спортивным брендом с болельщиками,
-          медиа, академией, стадионом и клубной инфраструктурой.
+        <p class="lead">
+          Arqueros, defensores, mediocampistas y delanteros del plantel.
+          Las tarjetas ya están preparadas para cargar fotos individuales.
+          Пока фото нет — стоят красивые заглушки, потом просто загрузим JPG-файлы игроков.
         </p>
 
-        <div class="values-grid">
-          <article class="value-card">
-            <img class="value-icon" src="images/icons/dm_icon_01_emblem.png" alt="Эмблема" />
-            <div class="value-number">01</div>
-            <h3>Эмблема</h3>
-            <p>Символ клуба — знак идентичности, за который команда выходит играть каждый матч.</p>
-          </article>
+        <div class="stats">
+          <div class="stat"><b id="totalPlayers">40</b><span>Jugadores</span></div>
+          <div class="stat"><b>4</b><span>Posiciones</span></div>
+          <div class="stat"><b>5</b><span>Países</span></div>
+          <div class="stat"><b>2026</b><span>Plantel</span></div>
+        </div>
 
-          <article class="value-card">
-            <img class="value-icon" src="images/icons/dm_icon_02_character.png" alt="Характер" />
-            <div class="value-number">02</div>
-            <h3>Характер</h3>
-            <p>Команда должна играть смело, агрессивно, дисциплинированно и до последней минуты.</p>
-          </article>
-
-          <article class="value-card">
-            <img class="value-icon" src="images/icons/dm_icon_03_city.png" alt="Город" />
-            <div class="value-number">03</div>
-            <h3>Город</h3>
-            <p>Клуб развивается в Буэнос-Айресе и соединяет разные культуры через футбол.</p>
-          </article>
-
-          <article class="value-card">
-            <img class="value-icon" src="images/icons/dm_icon_04_future.png" alt="Будущее" />
-            <div class="value-number">04</div>
-            <h3>Будущее</h3>
-            <p>Проект растёт через академию, медиа, стадион, партнёрства и профессиональную структуру.</p>
-          </article>
+        <div class="filters" id="filters">
+          <button class="filter active" data-filter="Todos">Todos</button>
+          <button class="filter" data-filter="Arquero">Arqueros</button>
+          <button class="filter" data-filter="Defensor">Defensores</button>
+          <button class="filter" data-filter="Mediocampista">Mediocampistas</button>
+          <button class="filter" data-filter="Delantero">Delanteros</button>
         </div>
       </div>
     </section>
 
-    <section class="club-section">
-      <div class="container">
-        <h2 class="section-title">Структура проекта</h2>
-
-        <div class="info-grid">
-          <article class="info-card">
-            <img class="info-icon" src="images/icons/dm_icon_05_team_matches.png" alt="Команда и матчи" />
-            <div class="card-kicker">Спорт</div>
-            <h3>Команда и матчи</h3>
-            <p>
-              Основной фокус клуба — футбольная команда, участие в матчах, развитие состава,
-              работа тренерского штаба и рост спортивных результатов.
-            </p>
-          </article>
-
-          <article class="info-card">
-            <img class="info-icon" src="images/icons/dm_icon_06_academy.png" alt="Академия" />
-            <div class="card-kicker">Развитие</div>
-            <h3>Академия</h3>
-            <p>
-              Академия нужна для будущего набора молодых игроков, тренировочного процесса,
-              воспитания футбольной культуры и создания системы развития.
-            </p>
-          </article>
-
-          <article class="info-card">
-            <img class="info-icon" src="images/icons/dm_icon_07_stadium.png" alt="Стадион" />
-            <div class="card-kicker">Инфраструктура</div>
-            <h3>Стадион</h3>
-            <p>
-              Проект стадиона — важная часть будущего клуба: закрытая арена, трибуны близко к полю,
-              клубная атмосфера и медиа-пространство.
-            </p>
-          </article>
-
-          <article class="info-card">
-            <img class="info-icon" src="images/icons/dm_icon_08_media.png" alt="Медиа" />
-            <div class="card-kicker">Медиа</div>
-            <h3>Бренд и контент</h3>
-            <p>
-              Соцсети, новости, афиши, фото, видео и магазин формируют образ клуба и помогают привлечь
-              болельщиков, партнёров и игроков.
-            </p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="club-section">
-      <div class="container">
-        <h2 class="section-title">Разделы клуба</h2>
-        <p class="section-text">
-          Основные страницы сайта, которые постепенно будут заполняться реальными фото, новостями,
-          матчами, составом, проектами и клубной информацией.
-        </p>
-
-        <div class="club-links-grid">
-          <article class="club-link-card">
-            <div class="card-kicker">Состав</div>
-            <h3>Команда</h3>
-            <p>Игроки Deportivo Moscu, позиции, карточки, гражданство и статистика.</p>
-            <a href="team.html" class="card-btn">Открыть</a>
-          </article>
-
-          <article class="club-link-card">
-            <div class="card-kicker">Управление</div>
-            <h3>Руководство</h3>
-            <p>Президент, казначей, главный тренер, СММ и тренерский штаб клуба.</p>
-            <a href="management.html" class="card-btn">Открыть</a>
-          </article>
-
-          <article class="club-link-card">
-            <div class="card-kicker">Арена</div>
-            <h3>Стадион</h3>
-            <p>Проект нового закрытого стадиона Deportivo Moscu в Буэнос-Айресе.</p>
-            <a href="stadium.html" class="card-btn">Открыть</a>
-          </article>
-
-          <article class="club-link-card">
-            <div class="card-kicker">Развитие</div>
-            <h3>Академия</h3>
-            <p>Программы подготовки молодых футболистов и заявка на пробную тренировку.</p>
-            <a href="academy.html" class="card-btn">Открыть</a>
-          </article>
-
-          <article class="club-link-card">
-            <div class="card-kicker">Контент</div>
-            <h3>Медиа</h3>
-            <p>Фото, видео, афиши, визуальный стиль и материалы клуба.</p>
-            <a href="media.html" class="card-btn">Открыть</a>
-          </article>
-
-          <article class="club-link-card">
-            <div class="card-kicker">Коммерция</div>
-            <h3>Магазин</h3>
-            <p>Форма, билеты, атрибутика и будущая коммерческая часть клуба.</p>
-            <a href="store.html" class="card-btn">Открыть</a>
-          </article>
-        </div>
-      </div>
-    </section>
+    <div class="wrap" id="teamRoot"></div>
   </main>
 
-  <footer class="site-footer">
-    <div class="container footer-grid">
-      <div class="footer-brand">
-        <img src="images/logo.png" alt="Deportivo Moscu">
-        <h3>Deportivo Moscu</h3>
-        <p>Единый город. Одна страсть. Одна зелёно-чёрная семья.</p>
-      </div>
-
-      <div class="footer-col">
-        <h4>Клуб</h4>
-        <a href="club.html">О клубе</a>
-        <a href="team.html">Команда</a>
-        <a href="league.html">Матчи</a>
-        <a href="stadium.html">Стадион</a>
-        <a href="management.html">Руководство</a>
-      </div>
-
-      <div class="footer-col">
-        <h4>Помощь</h4>
-        <a href="store.html">Билеты</a>
-        <a href="academy.html">Запись в академию</a>
-        <a href="media.html">Медиацентр</a>
-      </div>
-
-      <div class="footer-col">
-        <h4>Контакты</h4>
-        <p>Buenos Aires, Argentina</p>
-        <p>info@deportivomoscu.com</p>
-        <p>+54 11 0000-0000</p>
-      </div>
+  <footer class="footer">
+    <div class="wrap">
+      Deportivo Moscu · Plantel oficial · Fotos individuales próximamente
     </div>
   </footer>
 
   <script>
-    const burgerBtn = document.getElementById("burgerBtn");
-    const mobileMenu = document.getElementById("mobileMenu");
+    const PLAYERS = [
+      { number: "1", name: "Toledo Catriel Agustín", birth: "07/09/2002", position: "Arquero", country: "Argentina", slug: "toledo-catriel-agustin" },
+      { number: "12", name: "Dominguez Tomas Sebastián", birth: "23/05/2002", position: "Arquero", country: "Argentina", slug: "dominguez-tomas-sebastian" },
+      { number: "30", name: "Nelyubin Nikita", birth: "21/03/2005", position: "Arquero", country: "Rusia", slug: "nelyubin-nikita" },
 
-    if (burgerBtn && mobileMenu) {
-      burgerBtn.addEventListener("click", () => {
-        mobileMenu.classList.toggle("open");
-      });
+      { number: "3", name: "Álvarez Valentín", birth: "09/09/2005", position: "Defensor", country: "Argentina", slug: "alvarez-valentin" },
+      { number: "2", name: "Figueroa Matías Nicolás", birth: "08/03/1993", position: "Defensor", country: "Argentina", slug: "figueroa-matias-nicolas" },
+      { number: "—", name: "Walter Lucas", birth: "18/05/1996", position: "Defensor", country: "Argentina", slug: "walter-lucas" },
+      { number: "4", name: "Berrios Lucas Sebastián", birth: "15/11/2004", position: "Defensor", country: "Argentina", slug: "berrios-lucas-sebastian" },
+      { number: "—", name: "Parengo Neyen Ignacio", birth: "25/06/2003", position: "Defensor", country: "Argentina", slug: "parengo-neyen-ignacio" },
+      { number: "8", name: "Llanos Ezequiel David", birth: "08/06/1993", position: "Defensor", country: "Argentina", slug: "llanos-ezequiel-david" },
+      { number: "28", name: "Zhandarov Vladimir", birth: "04/11/1999", position: "Defensor", country: "Rusia", slug: "zhandarov-vladimir" },
+      { number: "—", name: "Aquino Jairo Leonel", birth: "07/12/2000", position: "Defensor", country: "Argentina", slug: "aquino-jairo-leonel" },
+      { number: "14", name: "Denis Aaron Agustin", birth: "10/12/2006", position: "Defensor", country: "Argentina", slug: "denis-aaron-agustin" },
+      { number: "36", name: "Rivas Erick", birth: "27/06/2006", position: "Defensor", country: "Argentina", slug: "rivas-erick" },
+      { number: "29", name: "Valencia Dennis", birth: "17/04/2005", position: "Defensor", country: "Ecuador", slug: "valencia-dennis" },
+      { number: "24", name: "Comparato Deserio Tiziano", birth: "30/06/2006", position: "Defensor", country: "Argentina", slug: "comparato-deserio-tiziano" },
+      { number: "16", name: "Mansilla Alejandro Maximo", birth: "27/02/2008", position: "Defensor", country: "Argentina", slug: "mansilla-alejandro-maximo" },
+      { number: "17", name: "Ferreyra Julián", birth: "28/05/2007", position: "Defensor", country: "Argentina", slug: "ferreyra-julian" },
+      { number: "26", name: "Abyanov Rufat", birth: "21/04/1997", position: "Defensor", country: "Argentina", slug: "abyanov-rufat" },
+      { number: "18", name: "Ivanov Ivan", birth: "21/05/2003", position: "Defensor", country: "Rusia", slug: "ivanov-ivan" },
+
+      { number: "6", name: "Aman Nahuel", birth: "24/01/2005", position: "Mediocampista", country: "Argentina", slug: "aman-nahuel" },
+      { number: "69", name: "Ahumada Julian", birth: "24/10/2001", position: "Mediocampista", country: "Argentina", slug: "ahumada-julian" },
+      { number: "21", name: "Maydana Alan Franco", birth: "28/02/1996", position: "Mediocampista", country: "Argentina", slug: "maydana-alan-franco" },
+      { number: "10", name: "Zapaia Agustín", birth: "29/04/2004", position: "Mediocampista", country: "Argentina", slug: "zapaia-agustin" },
+      { number: "25", name: "Pinheiro do Nascimento Rocha Italo", birth: "07/01/1997", position: "Mediocampista", country: "Brasil", slug: "pinheiro-do-nascimento-rocha-italo" },
+      { number: "22", name: "Dallochio Tomas", birth: "11/07/2003", position: "Mediocampista", country: "Argentina", slug: "dallochio-tomas" },
+      { number: "5", name: "Lavalle Thomas Rodrigo", birth: "05/04/2003", position: "Mediocampista", country: "Argentina", slug: "lavalle-thomas-rodrigo" },
+      { number: "15", name: "Cañisales Dionel Agustín", birth: "18/11/2006", position: "Mediocampista", country: "Argentina", slug: "canisales-dionel-agustin" },
+      { number: "55", name: "Tovar Morales Alfredo Alejandro", birth: "13/02/2006", position: "Mediocampista", country: "Venezuela", slug: "tovar-morales-alfredo-alejandro" },
+      { number: "23", name: "Bonnet Maidana Axel Facundo Emanuel", birth: "22/03/2005", position: "Mediocampista", country: "Argentina", slug: "bonnet-maidana-axel-facundo-emanuel" },
+      { number: "20", name: "Maguna Tomas", birth: "17/07/2009", position: "Mediocampista", country: "Argentina", slug: "maguna-tomas" },
+
+      { number: "97", name: "Gauna Ignacio Ezequiel", birth: "16/01/1997", position: "Delantero", country: "Argentina", slug: "gauna-ignacio-ezequiel" },
+      { number: "33", name: "Ruiz Diaz Damian", birth: "12/05/1997", position: "Delantero", country: "Argentina", slug: "ruiz-diaz-damian" },
+      { number: "7", name: "Gongora Enrique", birth: "07/02/2000", position: "Delantero", country: "Ecuador", slug: "gongora-enrique" },
+      { number: "9", name: "Santillan Cristhian", birth: "17/01/1990", position: "Delantero", country: "Argentina", slug: "santillan-cristhian" },
+      { number: "11", name: "Dellepiane Gaston Enrique", birth: "14/11/1998", position: "Delantero", country: "Argentina", slug: "dellepiane-gaston-enrique" },
+      { number: "19", name: "Soley Tomas Agustin", birth: "08/11/2005", position: "Delantero", country: "Argentina", slug: "soley-tomas-agustin" },
+      { number: "—", name: "Rodríguez Lautaro Jesús", birth: "05/09/2005", position: "Delantero", country: "Argentina", slug: "rodriguez-lautaro-jesus" },
+      { number: "13", name: "Domínguez Joaquín Lautaro", birth: "22/10/2006", position: "Delantero", country: "Argentina", slug: "dominguez-joaquin-lautaro" },
+      { number: "27", name: "Areco Alexis Farid", birth: "27/03/2007", position: "Delantero", country: "Argentina", slug: "areco-alexis-farid" },
+      { number: "—", name: "Benitez Nahuel Alejandro", birth: "21/04/2007", position: "Delantero", country: "Argentina", slug: "benitez-nahuel-alejandro" }
+    ];
+
+    const flags = {
+      "Argentina": "🇦🇷",
+      "Rusia": "🇷🇺",
+      "Ecuador": "🇪🇨",
+      "Brasil": "🇧🇷",
+      "Venezuela": "🇻🇪"
+    };
+
+    const groups = [
+      ["Arquero", "Arqueros"],
+      ["Defensor", "Defensores"],
+      ["Mediocampista", "Mediocampistas"],
+      ["Delantero", "Delanteros"]
+    ];
+
+    function initials(name) {
+      return name
+        .split(" ")
+        .filter(Boolean)
+        .slice(0, 2)
+        .map(part => part[0])
+        .join("")
+        .toUpperCase();
     }
+
+    function ageFromBirth(birth) {
+      const parts = birth.split("/");
+      if (parts.length !== 3) return "—";
+
+      const day = Number(parts[0]);
+      const month = Number(parts[1]) - 1;
+      const year = Number(parts[2]);
+
+      const today = new Date();
+      let age = today.getFullYear() - year;
+      const birthdayThisYear = new Date(today.getFullYear(), month, day);
+
+      if (today < birthdayThisYear) age--;
+
+      return String(age);
+    }
+
+    function playerCard(player) {
+      const img = "./assets/players/" + player.slug + ".jpg";
+
+      return `
+        <article class="card" data-position="${player.position}">
+          <div class="num">${player.number}</div>
+
+          <div class="photo">
+            <div class="initials">${initials(player.name)}</div>
+            <span class="soon">Foto pronto</span>
+            <img
+              src="${img}"
+              alt="${player.name}"
+              loading="lazy"
+              onload="this.parentElement.classList.add('has-img')"
+              onerror="this.remove()"
+            >
+          </div>
+
+          <div class="body">
+            <div class="pos">${player.position}</div>
+            <div class="name">${player.name}</div>
+
+            <div class="meta">
+              <div class="meta-row">
+                <span>Nacimiento</span>
+                <strong>${player.birth}</strong>
+              </div>
+
+              <div class="meta-row">
+                <span>Edad</span>
+                <strong>${ageFromBirth(player.birth)}</strong>
+              </div>
+
+              <div class="meta-row">
+                <span>País</span>
+                <strong>${flags[player.country] || ""} ${player.country}</strong>
+              </div>
+            </div>
+          </div>
+        </article>
+      `;
+    }
+
+    function render(filter = "Todos") {
+      const root = document.getElementById("teamRoot");
+      const visible = filter === "Todos"
+        ? PLAYERS
+        : PLAYERS.filter(player => player.position === filter);
+
+      let html = "";
+
+      groups.forEach(([key, title]) => {
+        const list = visible.filter(player => player.position === key);
+
+        if (!list.length) return;
+
+        html += `
+          <section class="section">
+            <div class="section-head">
+              <h2>${title}</h2>
+              <div class="count">${list.length} jugadores</div>
+            </div>
+
+            <div class="grid">
+              ${list.map(playerCard).join("")}
+            </div>
+          </section>
+        `;
+      });
+
+      root.innerHTML = html;
+      document.getElementById("totalPlayers").textContent = visible.length;
+    }
+
+    document.getElementById("filters").addEventListener("click", event => {
+      const button = event.target.closest(".filter");
+      if (!button) return;
+
+      document.querySelectorAll(".filter").forEach(item => item.classList.remove("active"));
+      button.classList.add("active");
+
+      render(button.dataset.filter);
+    });
+
+    render();
   </script>
 </body>
 </html>
