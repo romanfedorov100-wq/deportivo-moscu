@@ -5,22 +5,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Partidos | Deportivo Moscu</title>
   <meta name="description" content="Sitio oficial de Deportivo Moscu, club de fútbol de Buenos Aires fundado en 2024." />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" href="images/logo.png" />
+  <link rel="stylesheet" href="style.css?v=dm20260617_staff1" />
 </head>
 <body data-page="matches">
 <header class="site-header">
   <div class="container header-inner">
     <a class="brand" href="index.html" aria-label="Deportivo Moscu">
-      <img src="images/logo.png" alt="Deportivo Moscu" class="brand-logo" />
+      <img src="images/logo.png" alt="Deportivo Moscu" class="brand-logo" width="62" height="62" />
       <span class="brand-name">Deportivo Moscu <small>Buenos Aires · 2024</small></span>
     </a>
     <button class="menu-toggle" type="button" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
-    <nav class="main-nav" id="mainNav"><a class="" href="index.html" data-i18n="nav.home"></a><a class="" href="club.html" data-i18n="nav.club"></a><a class="" href="team.html" data-i18n="nav.team"></a><a class="active" href="matches.html" data-i18n="nav.matches"></a><a class="" href="academy.html" data-i18n="nav.academy"></a><a class="" href="league.html" data-i18n="nav.league"></a><a class="" href="media.html" data-i18n="nav.media"></a><a class="" href="management.html" data-i18n="nav.management"></a>
+    <nav class="main-nav" id="mainNav">
+      <a class="" href="index.html" data-i18n="nav.home">Inicio</a><a class="" href="club.html" data-i18n="nav.club">Club</a><a class="" href="team.html" data-i18n="nav.team">Plantel</a><a class="active" href="matches.html" data-i18n="nav.matches">Partidos</a><a class="" href="academy.html" data-i18n="nav.academy">Academia</a><a class="" href="league.html" data-i18n="nav.league">Liga</a><a class="" href="media.html" data-i18n="nav.media">Media</a><a class="" href="management.html" data-i18n="nav.management">Gestión</a>
       <span class="lang-switch" aria-label="Language">
-        <button type="button" data-lang="ru">RU</button><button type="button" data-lang="en">EN</button><button type="button" data-lang="es">ES</button>
+        <button type="button" data-lang="ru">RU</button><button type="button" data-lang="en">EN</button><button type="button" data-lang="es" class="active">ES</button>
       </span>
     </nav>
   </div>
@@ -28,23 +27,23 @@
 <section class="hero" style="--hero-desktop:url('images/banners/dm_matches_hero_desktop.webp');--hero-mobile:url('images/banners/dm_matches_hero_mobile.webp')">
   <div class="hero-shade"></div>
   <div class="container hero-content">
-    <p class="eyebrow" data-i18n="matches.eyebrow"></p>
-    <h1 data-i18n="matches.title"></h1>
-    <p class="hero-lead" data-i18n="matches.lead"></p>
-    <div class="hero-actions"><a href="club.html" class="btn btn-primary" data-i18n="common.about"></a><a href="matches.html" class="btn btn-ghost" data-i18n="common.matches"></a></div>
+    <p class="eyebrow" data-i18n="matches.eyebrow" >Calendario</p>
+    <h1 data-i18n="matches.title" >Partidos y <strong>resultados</strong></h1>
+    <p class="hero-lead" data-i18n="matches.lead" >Calendario oficial, rivales, fechas y marcadores.</p>
+    <div class="hero-actions"><a href="club.html" class="btn btn-primary" data-i18n="common.about">Sobre el club</a><a href="matches.html" class="btn btn-ghost" data-i18n="common.matches">Partidos</a></div>
   </div>
 </section>
-<main class="container page-stack"><section class="section-head"><p data-i18n="matches.kicker"></p><h2 data-i18n="matches.calendar"></h2><p data-i18n="matches.text"></p></section><section class="matches-list" data-render="matches-list"></section></main>
+<main class="container page-stack"><section class="section-head"><p data-i18n="matches.kicker">Competencia</p><h2 data-i18n="matches.calendar">Calendario de partidos</h2><p data-i18n="matches.text">Todos los encuentros están organizados en tarjetas limpias y fáciles de actualizar.</p></section><section class="matches-list" data-render="matches-list"></section></main>
 <footer class="site-footer">
   <div class="container footer-grid">
-    <div><img src="images/logo.png" alt="Deportivo Moscu" class="footer-logo"><strong>Deportivo Moscu</strong><p>Buenos Aires · 2024</p><div class="socials"><span>f</span><span>ig</span><span>yt</span><span>wa</span><span>@</span></div></div>
-    <div><h4 data-i18n="footer.club"></h4><a href="club.html" data-i18n="nav.club"></a><a href="team.html" data-i18n="nav.team"></a><a href="management.html" data-i18n="nav.management"></a></div>
-    <div><h4 data-i18n="footer.comp"></h4><a href="matches.html" data-i18n="nav.matches"></a><a href="league.html" data-i18n="nav.league"></a><a href="news.html" data-i18n="nav.news"></a></div>
-    <div><h4 data-i18n="footer.media"></h4><a href="media.html" data-i18n="nav.media"></a><a href="academy.html" data-i18n="nav.academy"></a><a href="stadium.html" data-i18n="nav.stadium"></a></div>
+    <div class="footer-brand"><img src="images/logo.png" alt="Deportivo Moscu" class="footer-logo"><strong>Deportivo Moscu</strong><p>Buenos Aires · 2024</p><div class="socials"><span>f</span><span>ig</span><span>yt</span><span>wa</span><span>@</span></div></div>
+    <div><h4 data-i18n="footer.club">Club</h4><a href="club.html" data-i18n="nav.club">Club</a><a href="team.html" data-i18n="nav.team">Plantel</a><a href="management.html" data-i18n="nav.management">Gestión</a></div>
+    <div><h4 data-i18n="footer.comp">Competencia</h4><a href="matches.html" data-i18n="nav.matches">Partidos</a><a href="league.html" data-i18n="nav.league">Liga</a><a href="news.html" data-i18n="nav.news">Noticias</a></div>
+    <div><h4 data-i18n="footer.media">Media</h4><a href="media.html" data-i18n="nav.media">Media</a><a href="academy.html" data-i18n="nav.academy">Academia</a><a href="stadium.html" data-i18n="nav.stadium">Estadio</a><a href="store.html" data-i18n="nav.store">Tienda</a></div>
   </div>
-  <div class="container footer-bottom">© 2024 Deportivo Moscu. <span data-i18n="footer.rights"></span></div>
+  <div class="container footer-bottom">© 2024 Deportivo Moscu. <span data-i18n="footer.rights">Todos los derechos reservados.</span></div>
 </footer>
-<script src="matches-data.js"></script>
-<script src="app.js"></script>
+<script defer src="matches-data.js?v=dm20260617_fix4"></script>
+<script defer src="app.js?v=dm20260617_staff1"></script>
 </body>
 </html>
