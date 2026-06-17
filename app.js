@@ -1,596 +1,77 @@
-(function () {
-  "use strict";
 
-  const LANG = "ru";
-
-  const opponentLogoMap = {
-    "america": "america.png",
-    "américa": "america.png",
-    "capitanes": "capitanes.png",
-    "colectividad boliviana": "colectividad-boliviana.png",
-    "colectividad-boliviana": "colectividad-boliviana.png",
-    "deportivo moscu": "deportivo-moscu.png",
-    "deportivo moscú": "deportivo-moscu.png",
-    "moscu": "deportivo-moscu.png",
-    "moscú": "deportivo-moscu.png",
-    "domingo matheu": "domingo-matheu.png",
-    "matheu": "domingo-matheu.png",
-    "fair play": "fair-play.png",
-    "fair-play": "fair-play.png",
-    "falucho": "falucho.png",
-    "la sonia b": "la-sonia-b.png",
-    "la sonia": "la-sonia-b.png",
-    "lomas futbol": "lomas-futbol.png",
-    "lomas fútbol": "lomas-futbol.png",
-    "lomas-futbol": "lomas-futbol.png",
-    "los altos": "los-altos.png",
-    "parque iii": "parque-iii.png",
-    "parque 3": "parque-iii.png",
-    "sportivo union": "sportivo-union.png",
-    "sportivo unión": "sportivo-union.png",
-    "tribuna sport club": "tribuna-sport-club.png",
-    "villa juana": "villa-juana.png"
-  };
-
-  function qs(selector, root) {
-    return (root || document).querySelector(selector);
-  }
-
-  function qsa(selector, root) {
-    return Array.from((root || document).querySelectorAll(selector));
-  }
-
-  function getText(value, fallback) {
-    if (value === undefined || value === null || value === "") return fallback || "";
-
-    if (typeof value === "object") {
-      return value[LANG] || value.ru || value.en || value.es || fallback || "";
-    }
-
-    return String(value);
-  }
-
-  function escapeHtml(value) {
-    return String(value || "")
-      .replace(/&/g, "&amp;")
-      .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;")
-      .replace(/"/g, "&quot;")
-      .replace(/'/g, "&#039;");
-  }
-
-  function normalizeKey(value) {
-    return String(value || "")
-      .trim()
-      .toLowerCase()
-      .normalize("NFD")
-      .replace(/[\u0300-\u036f]/g, "")
-      .replace(/ñ/g, "n")
-      .replace(/[._-]+/g, " ")
-      .replace(/\s+/g, " ");
-  }
-
-  function slugify(value) {
-    return String(value || "")
-      .trim()
-      .toLowerCase()
-      .normalize("NFD")
-      .replace(/[\u0300-\u036f]/g, "")
-      .replace(/ñ/g, "n")
-      .replace(/[^a-z0-9]+/g, "-")
-      .replace(/^-+|-+$/g, "");
-  }
-
-  function getOpponentLogo(opponentName, customLogo) {
-    if (customLogo) return String(customLogo);
-
-    const key = normalizeKey(opponentName);
-    const file = opponentLogoMap[key];
-
-    if (file) {
-      return "images/" + file;
-    }
-
-    const autoSlug = slugify(opponentName);
-
-    if (autoSlug) {
-      return "images/" + autoSlug + ".png";
-    }
-
-    return "";
-  }
-
-  function createOpponentLogoHtml(opponentName, customLogo) {
-    const logoPath = getOpponentLogo(opponentName, customLogo);
-    const firstLetter = String(opponentName || "M").trim().charAt(0).toUpperCase() || "M";
-
-    if (!logoPath) {
-      return '<div class="opponent-logo">' + escapeHtml(firstLetter) + '</div>';
-    }
-
-    return (
-      '<img class="opponent-logo-img" src="' +
-      escapeHtml(logoPath) +
-      '" alt="' +
-      escapeHtml(opponentName) +
-      '" onerror="this.outerHTML=\'<div class=&quot;opponent-logo&quot;>' +
-      escapeHtml(firstLetter) +
-      '</div>\';">'
-    );
-  }
-
-  function getPlayersData() {
-    if (Array.isArray(window.deportivoPlayers)) return window.deportivoPlayers;
-    if (Array.isArray(window.players)) return window.players;
-    if (Array.isArray(window.PLAYERS)) return window.PLAYERS;
-    if (Array.isArray(window.playersData)) return window.playersData;
-    if (Array.isArray(window.PLAYERS_DATA)) return window.PLAYERS_DATA;
-    return [];
-  }
-
-  function getNewsData() {
-    if (Array.isArray(window.deportivoNews)) return window.deportivoNews;
-    if (Array.isArray(window.news)) return window.news;
-    if (Array.isArray(window.NEWS)) return window.NEWS;
-    if (Array.isArray(window.newsData)) return window.newsData;
-    if (Array.isArray(window.NEWS_DATA)) return window.NEWS_DATA;
-    return [];
-  }
-
-  function getMatchesData() {
-    if (Array.isArray(window.deportivoMatches)) return window.deportivoMatches;
-    if (Array.isArray(window.matches)) return window.matches;
-    if (Array.isArray(window.MATCHES)) return window.MATCHES;
-    if (Array.isArray(window.matchesData)) return window.matchesData;
-    if (Array.isArray(window.MATCHES_DATA)) return window.MATCHES_DATA;
-    return [];
-  }
-
-  function setupBurger() {
-    const burger = qs("#burgerBtn");
-    const menu = qs("#mobileMenu");
-
-    if (!burger || !menu) return;
-
-    burger.addEventListener("click", function () {
-      menu.classList.toggle("open");
-    });
-
-    qsa("a", menu).forEach(function (link) {
-      link.addEventListener("click", function () {
-        menu.classList.remove("open");
-      });
-    });
-  }
-
-  function setupActiveNav() {
-    const current = location.pathname.split("/").pop() || "index.html";
-
-    qsa(".main-nav a, .mobile-menu a").forEach(function (link) {
-      const href = link.getAttribute("href") || "";
-
-      if (href === current) {
-        link.classList.add("active");
-      }
-    });
-  }
-
-  function setText(id, value) {
-    const el = qs("#" + id);
-    if (el) el.textContent = value;
-  }
-
-  function updateStats() {
-    const players = getPlayersData();
-    const news = getNewsData();
-    const matches = getMatchesData();
-
-    setText("statPlayers", players.length || "—");
-    setText("statNews", news.length || "—");
-    setText("statMatches", matches.length || "—");
-  }
-
-  function createNewsCard(item) {
-    const title = getText(item.title || item.name || item.heading, "Новость клуба");
-    const date = getText(item.date || item.createdAt || item.day, "Deportivo Moscu");
-    const text = getText(item.text || item.description || item.body || item.excerpt, "Скоро здесь появится подробная новость клуба.");
-    const link = getText(item.link || item.url, "news.html");
-
-    return `
-      <article class="news-card">
-        <span class="news-date">${escapeHtml(date)}</span>
-        <h3>${escapeHtml(title)}</h3>
-        <p>${escapeHtml(text)}</p>
-        <a class="card-btn" href="${escapeHtml(link)}">Подробнее</a>
-      </article>
-    `;
-  }
-
-  function renderNews() {
-    const grid = qs("#newsGrid");
-    if (!grid) return;
-
-    const data = getNewsData();
-
-    const fallback = [
-      {
-        title: "Новый проект стадиона",
-        date: "Deportivo Moscu",
-        text: "Клуб представил концепцию нового закрытого стадиона в Буэнос-Айресе.",
-        link: "stadium.html"
-      },
-      {
-        title: "Команда готовится к сезону",
-        date: "Тренировки",
-        text: "Deportivo Moscu продолжает подготовку к матчам Liga Escobarense.",
-        link: "team.html"
-      },
-      {
-        title: "Магазин клуба",
-        date: "Store",
-        text: "Раздел магазина будет развиваться: форма, билеты, шарфы и атрибутика.",
-        link: "store.html"
-      }
-    ];
-
-    const items = (data.length ? data : fallback).slice(0, 3);
-    grid.innerHTML = items.map(createNewsCard).join("");
-  }
-
-  function createMatchCard(item, index) {
-    const opponent = getText(item.opponent || item.rival || item.team2 || item.awayTeam, index === 0 ? "Domingo Matheu" : "Соперник");
-    const date = getText(item.date || item.day || item.matchDate, "Дата будет добавлена");
-    const place = getText(item.place || item.stadium || item.location, "Buenos Aires, Argentina");
-    const tournament = getText(item.tournament || item.league || item.competition, "Liga Escobarense");
-    const logo = item.opponentLogo || item.logo || item.awayLogo || "";
-
-    return `
-      <article class="match-card match-card-with-logo">
-        <span class="match-date">${escapeHtml(tournament)}</span>
-
-        <div class="match-card-logos">
-          <img src="images/logo.png" alt="Deportivo Moscu">
-          <span>VS</span>
-          ${createOpponentLogoHtml(opponent, logo)}
-        </div>
-
-        <h3>Deportivo Moscu — ${escapeHtml(opponent)}</h3>
-        <p>${escapeHtml(date)}<br>${escapeHtml(place)}</p>
-        <a class="card-btn" href="league.html">Открыть матч</a>
-      </article>
-    `;
-  }
-
-  function renderMatches() {
-    const row = qs("#matchesRow");
-    if (!row) return;
-
-    const data = getMatchesData();
-
-    const fallback = [
-      {
-        opponent: "Domingo Matheu",
-        date: "Дата и время скоро будут добавлены",
-        place: "Buenos Aires, Argentina",
-        tournament: "Liga Escobarense"
-      },
-      {
-        opponent: "Fair Play",
-        date: "Календарь обновляется",
-        place: "Liga Escobarense",
-        tournament: "Primera División B"
-      },
-      {
-        opponent: "Villa Juana",
-        date: "Следите за новостями клуба",
-        place: "Deportivo Moscu",
-        tournament: "Temporada 2026"
-      }
-    ];
-
-    const items = (data.length ? data : fallback).slice(0, 3);
-    row.innerHTML = items.map(createMatchCard).join("");
-  }
-
-  function updateNextMatch() {
-    const matches = getMatchesData();
-    const first = matches.length
-      ? matches[0]
-      : {
-          opponent: "Domingo Matheu",
-          date: "Дата скоро будет добавлена",
-          place: "Buenos Aires, Argentina",
-          tournament: "Liga Escobarense"
-        };
-
-    const opponent = getText(first.opponent || first.rival || first.team2 || first.awayTeam, "Domingo Matheu");
-    const date = getText(first.date || first.day || first.matchDate, "Дата скоро будет добавлена");
-    const place = getText(first.place || first.stadium || first.location, "Buenos Aires, Argentina");
-    const league = getText(first.tournament || first.league || first.competition, "Liga Escobarense");
-    const logo = first.opponentLogo || first.logo || first.awayLogo || "";
-
-    setText("nextOpponentName", opponent);
-    setText("nextMatchDate", date);
-    setText("nextMatchPlace", place);
-    setText("nextMatchLeague", league);
-
-    const logoContainer = qs("#nextOpponentLogo");
-
-    if (logoContainer) {
-      logoContainer.outerHTML = createOpponentLogoHtml(opponent, logo);
-    }
-  }
-
-  function getPlayerName(player) {
-    return getText(player.name || player.fullName || player.fullname || player.title, "Игрок");
-  }
-
-  function getPlayerPosition(player) {
-    return getText(player.position || player.role || player.pos || player.type, "Игрок");
-  }
-
-  function getPlayerCountry(player) {
-    return getText(player.nationality || player.country || player.nation || player.countryName, "");
-  }
-
-  function getPlayerNumber(player, index) {
-    return getText(player.number || player.num || player.shirtNumber || player.shirt || index + 1, index + 1);
-  }
-
-  function getPlayerPhoto(player) {
-    return player.photo || player.image || player.img || player.avatar || player.picture || "";
-  }
-
-  function createPlayerPhoto(player) {
-    const manualPhoto = getPlayerPhoto(player);
-    const name = getPlayerName(player);
-    const id = slugify(player.id || name);
-
-    if (manualPhoto) {
-      return `
-        <img class="player-real-photo"
-             src="${escapeHtml(manualPhoto)}"
-             alt="${escapeHtml(name)}"
-             onerror="this.parentElement.innerHTML='<div class=&quot;player-placeholder&quot;></div>';">
-      `;
-    }
-
-    return `
-      <img class="player-real-photo"
-           src="images/players/${escapeHtml(id)}.jpg"
-           data-player-id="${escapeHtml(id)}"
-           data-photo-step="jpg"
-           alt="${escapeHtml(name)}"
-           onerror="tryNextPlayerPhoto(this);">
-    `;
-  }
-
-  window.tryNextPlayerPhoto = function (img) {
-    const id = img.getAttribute("data-player-id");
-    const step = img.getAttribute("data-photo-step");
-
-    if (!id) {
-      img.parentElement.innerHTML = '<div class="player-placeholder"></div>';
-      return;
-    }
-
-    if (step === "jpg") {
-      img.setAttribute("data-photo-step", "jpeg");
-      img.src = "images/players/" + id + ".jpeg";
-      return;
-    }
-
-    if (step === "jpeg") {
-      img.setAttribute("data-photo-step", "png");
-      img.src = "images/players/" + id + ".png";
-      return;
-    }
-
-    if (step === "png") {
-      img.setAttribute("data-photo-step", "webp");
-      img.src = "images/players/" + id + ".webp";
-      return;
-    }
-
-    img.parentElement.innerHTML = '<div class="player-placeholder"></div>';
-  };
-
-  function createPlayerCard(player, index) {
-    const name = getPlayerName(player);
-    const position = getPlayerPosition(player);
-    const country = getPlayerCountry(player);
-    const number = getPlayerNumber(player, index);
-
-    return `
-      <article class="player-card">
-        <div class="player-number">${escapeHtml(number)}</div>
-        <div class="player-photo">
-          ${createPlayerPhoto(player)}
-        </div>
-        <div class="player-info">
-          <div class="player-position">${escapeHtml(position)}</div>
-          <div class="player-name">${escapeHtml(name)}</div>
-          <div class="player-country">${escapeHtml(country || "Deportivo Moscu")}</div>
-          <button class="player-details-btn" type="button" data-player-index="${index}">
-            Подробнее
-          </button>
-        </div>
-      </article>
-    `;
-  }
-
-  function renderPlayers() {
-    const grid =
-      qs("#playersGrid") ||
-      qs("#playersContainer") ||
-      qs(".players-grid");
-
-    if (!grid) return;
-
-    const players = getPlayersData();
-
-    if (!players.length) {
-      grid.innerHTML = `
-        <article class="glass-card">
-          <h3>Состав скоро будет добавлен</h3>
-          <p>Здесь появятся карточки игроков Deportivo Moscu.</p>
-        </article>
-      `;
-      return;
-    }
-
-    grid.innerHTML = players.map(createPlayerCard).join("");
-  }
-
-  function setupPlayerModal() {
-    document.addEventListener("click", function (event) {
-      const btn = event.target.closest(".player-details-btn");
-      if (!btn) return;
-
-      const index = Number(btn.getAttribute("data-player-index"));
-      const player = getPlayersData()[index];
-
-      if (!player) return;
-
-      const name = getPlayerName(player);
-      const position = getPlayerPosition(player);
-      const country = getPlayerCountry(player);
-      const number = getPlayerNumber(player, index);
-      const birth = getText(player.birthDate || player.birth || player.dateOfBirth || player.dob, "—");
-      const height = getText(player.height, "—");
-      const foot = getText(player.foot, "—");
-
-      openModal(`
-        <div class="modal-card">
-          <button class="modal-close" type="button" aria-label="Закрыть">×</button>
-          <h2>${escapeHtml(name)}</h2>
-          <p><strong>Номер:</strong> ${escapeHtml(number)}</p>
-          <p><strong>Позиция:</strong> ${escapeHtml(position)}</p>
-          <p><strong>Страна:</strong> ${escapeHtml(country || "—")}</p>
-          <p><strong>Дата рождения:</strong> ${escapeHtml(birth)}</p>
-          <p><strong>Рост:</strong> ${escapeHtml(height)}</p>
-          <p><strong>Рабочая нога:</strong> ${escapeHtml(foot)}</p>
-        </div>
-      `);
-    });
-  }
-
-  function injectModalStyles() {
-    if (qs("#modalStyles")) return;
-
-    const style = document.createElement("style");
-    style.id = "modalStyles";
-    style.textContent = `
-      .modal-overlay {
-        position: fixed;
-        inset: 0;
-        z-index: 999;
-        display: grid;
-        place-items: center;
-        padding: 20px;
-        background: rgba(0, 0, 0, 0.76);
-        backdrop-filter: blur(14px);
-      }
-
-      .modal-card {
-        width: min(560px, 100%);
-        position: relative;
-        padding: 30px;
-        background:
-          radial-gradient(circle at 20% 10%, rgba(0, 255, 157, 0.14), transparent 34%),
-          linear-gradient(180deg, rgba(4, 21, 18, 0.98), rgba(2, 6, 5, 0.98));
-        border: 1px solid rgba(0, 255, 157, 0.28);
-        color: rgba(237, 255, 249, 0.95);
-        box-shadow: 0 24px 90px rgba(0, 0, 0, 0.6);
-      }
-
-      .modal-card h2 {
-        margin: 0 0 18px;
-        color: #00ff9d;
-        font-family: "Oswald", sans-serif;
-        font-size: 42px;
-        text-transform: uppercase;
-        letter-spacing: 0.08em;
-      }
-
-      .modal-card p {
-        color: rgba(218, 255, 244, 0.78);
-        line-height: 1.7;
-        margin: 0 0 8px;
-      }
-
-      .modal-card strong {
-        color: #ffffff;
-      }
-
-      .modal-close {
-        position: absolute;
-        right: 14px;
-        top: 12px;
-        border: 1px solid rgba(0, 255, 157, 0.28);
-        background: rgba(0, 255, 157, 0.08);
-        color: #00ff9d;
-        width: 38px;
-        height: 38px;
-        font-size: 26px;
-        line-height: 1;
-        cursor: pointer;
-      }
-    `;
-    document.head.appendChild(style);
-  }
-
-  function openModal(html) {
-    injectModalStyles();
-
-    const old = qs(".modal-overlay");
-    if (old) old.remove();
-
-    const overlay = document.createElement("div");
-    overlay.className = "modal-overlay";
-    overlay.innerHTML = html;
-
-    document.body.appendChild(overlay);
-    document.body.classList.add("modal-open");
-
-    overlay.addEventListener("click", function (event) {
-      if (event.target === overlay || event.target.closest(".modal-close")) {
-        overlay.remove();
-        document.body.classList.remove("modal-open");
-      }
-    });
-  }
-
-  function fixBrokenImages() {
-    qsa("img").forEach(function (img) {
-      img.addEventListener("error", function () {
-        if (img.dataset.fallbackApplied === "true") return;
-
-        img.dataset.fallbackApplied = "true";
-
-        if (img.classList.contains("logo-img")) return;
-        if (img.classList.contains("opponent-logo-img")) return;
-
-        img.style.display = "none";
-      });
-    });
-  }
-
-  function init() {
-    setupBurger();
-    setupActiveNav();
-    updateStats();
-    updateNextMatch();
-    renderNews();
-    renderMatches();
-    renderPlayers();
-    setupPlayerModal();
-    fixBrokenImages();
-  }
-
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", init);
-  } else {
-    init();
-  }
+(function(){
+const dict={
+ es:{
+  'nav.home':'Inicio','nav.club':'Club','nav.team':'Plantel','nav.matches':'Partidos','nav.academy':'Academia','nav.league':'Liga','nav.media':'Media','nav.management':'Gestión','nav.stadium':'Estadio','nav.store':'Tienda','nav.news':'Noticias',
+  'common.about':'Sobre el club','common.matches':'Próximo partido','footer.club':'Club','footer.comp':'Competencia','footer.media':'Media','footer.rights':'Todos los derechos reservados.',
+  'home.eyebrow':'Buenos Aires · 2024','home.title':'Deportivo <strong>Moscu</strong>','home.lead':'Nuevo club. Nueva historia. Una idea que une fútbol, identidad y crecimiento.','home.nextMatch':'Próximo partido','home.latestNews':'Últimas noticias','home.allNews':'Ver todas las noticias →','home.fullTeam':'Ver plantel completo →',
+  'club.eyebrow':'El club','club.title':'Nuestra historia <strong>es identidad</strong>','club.lead':'Deportivo Moscu nace en Buenos Aires en 2024 con la convicción de construir un club moderno, inclusivo y ambicioso.','club.kicker':'Historia','club.storyTitle':'De Moscú a Buenos Aires','club.storyText':'El club une disciplina, carácter y pasión sudamericana. Deportivo Moscu se desarrolla como una institución deportiva, social y mediática con base en Buenos Aires.','club.t1':'La idea','club.t1t':'Comienza una visión compartida: crear un club con identidad propia.','club.t2':'Fundación','club.t2t':'Se constituye Deportivo Moscu y empieza la primera estructura.','club.t3':'Primeros pasos','club.t3t':'Se arma el plantel y el proyecto técnico.','club.t4':'Mirando al futuro','club.t4t':'Creamos bases sólidas para crecer.','club.mission':'Misión','club.missionText':'Formar futbolistas y personas íntegras, competitivas y comprometidas con la comunidad.','club.values':'Valores','club.v1':'Respeto','club.v2':'Compromiso','club.v3':'Trabajo en equipo','club.v4':'Pasión','club.identity':'Identidad','club.identityText':'Verde y negro. Fuerza, unidad y pertenencia. Representamos a Buenos Aires y a nuestra gente.','club.structureTitle':'Estructura del club','club.s1':'Dirección','club.s1t':'Liderazgo, visión y desarrollo institucional.','club.s2':'Fútbol','club.s2t':'Cuerpo técnico, plantel y metodología.','club.s3':'Academia','club.s3t':'Formación de base y seguimiento de talentos.','club.s4':'Administración','club.s4t':'Gestión, transparencia y crecimiento.',
+  'team.eyebrow':'Plantel 2026','team.title':'Equipo Deportivo <strong>Moscu</strong>','team.lead':'Arqueros, defensores, mediocampistas y delanteros del plantel oficial.','team.kicker':'Plantel','team.roster':'Lista de jugadores','team.text':'Tarjetas limpias con fotos ya cargadas. Filtros por posición y diseño ligero para que la página abra rápido.','team.all':'Todos','team.Arquero':'Arqueros','team.Defensor':'Defensores','team.Mediocampista':'Mediocampistas','team.Delantero':'Delanteros',
+  'matches.eyebrow':'Calendario','matches.title':'Partidos y <strong>resultados</strong>','matches.lead':'Calendario oficial, rivales, fechas y marcadores.','matches.kicker':'Competencia','matches.calendar':'Calendario de partidos','matches.text':'Todos los encuentros están organizados en tarjetas limpias y fáciles de actualizar.',
+  'league.eyebrow':'Tabla','league.title':'Liga <strong>Escobarense</strong>','league.lead':'Posición, puntos, goles y rendimiento del club en la competencia.','league.kicker':'Competencia','league.table':'Tabla de posiciones','league.text':'Datos cargados desde league-data.js para mantener el sitio fácil de actualizar.',
+  'academy.eyebrow':'Formación','academy.title':'Academia <strong>Deportivo</strong>','academy.lead':'Formamos personas dentro y fuera de la cancha.','academy.short':'Formando personas dentro y fuera de la cancha.','academy.kicker':'Academia','academy.title2':'Metodología, valores y futuro','academy.text':'La academia será la base deportiva y humana del club. Trabajo técnico, disciplina, educación y seguimiento.','academy.c1':'Metodología','academy.c1t':'Entrenamientos con objetivos claros por etapa.','academy.c2':'Categorías','academy.c2t':'Estructura progresiva para desarrollar talentos.','academy.c3':'Inscripciones','academy.c3t':'Canal abierto para futuros jugadores y familias.',
+  'media.eyebrow':'Media','media.title':'Noticias, fotos y <strong>prensa</strong>','media.lead':'Todo el contenido institucional y deportivo del club.','media.kicker':'Media','media.title2':'Presencia en medios','media.text':'Publicaciones y notas sobre Deportivo Moscu en Argentina, Rusia y medios internacionales.',
+  'news.eyebrow':'Noticias','news.title':'Actualidad del <strong>club</strong>','news.lead':'Noticias, entrevistas y publicaciones oficiales.','news.kicker':'Actualidad','news.title2':'Últimas noticias','news.text':'Una página limpia para artículos, prensa y novedades del proyecto.',
+  'management.eyebrow':'Gestión','management.title':'Dirección y <strong>staff del club</strong>','management.lead':'Un equipo de profesionales comprometidos con el crecimiento deportivo e institucional.','management.kicker':'Gestión','management.title2':'Dirección y staff del club','management.text':'Se agregaron los cargos solicitados: Olga Kushnerova, Daniil Kalashnikov y Héctor Bracamonte.',
+  'stadium.eyebrow':'Proyecto','stadium.title':'Estadio del <strong>futuro</strong>','stadium.lead':'Una visión moderna para la casa de Deportivo Moscu.','stadium.cardTitle':'Proyecto estadio','stadium.cardText':'Un estadio para nuestra gente. Un proyecto para el futuro.','stadium.kicker':'Proyecto estadio','stadium.title2':'La futura casa del club','stadium.text':'Concepto visual, identidad y planificación del futuro espacio deportivo.','stadium.c1':'Diseño','stadium.c1t':'Imagen moderna con identidad verde y negra.','stadium.c2':'Comunidad','stadium.c2t':'Un lugar para hinchas, jugadores y familias.','stadium.c3':'Crecimiento','stadium.c3t':'Proyecto a largo plazo para acompañar la evolución del club.',
+  'store.eyebrow':'Tienda','store.title':'Indumentaria <strong>oficial</strong>','store.lead':'Uniformes, accesorios y productos de Deportivo Moscu.','store.kicker':'Tienda','store.title2':'Colección del club','store.text':'Página preparada para cargar camisetas, polos, accesorios y souvenirs.','store.c1':'Camisetas','store.c1t':'Equipaciones oficiales del club.','store.c2':'Entrenamiento','store.c2t':'Ropa para entrenamiento y viaje.','store.c3':'Accesorios','store.c3t':'Productos para hinchas y comunidad.'
+ },
+ ru:{
+  'nav.home':'Главная','nav.club':'Клуб','nav.team':'Состав','nav.matches':'Матчи','nav.academy':'Академия','nav.league':'Лига','nav.media':'Медиа','nav.management':'Руководство','nav.stadium':'Стадион','nav.store':'Магазин','nav.news':'Новости',
+  'common.about':'О клубе','common.matches':'Ближайший матч','footer.club':'Клуб','footer.comp':'Турнир','footer.media':'Медиа','footer.rights':'Все права защищены.',
+  'home.eyebrow':'Буэнос-Айрес · 2024','home.title':'Deportivo <strong>Moscu</strong>','home.lead':'Новый клуб. Новая история. Идея, которая объединяет футбол, идентичность и рост.','home.nextMatch':'Ближайший матч','home.latestNews':'Последние новости','home.allNews':'Все новости →','home.fullTeam':'Весь состав →',
+  'club.eyebrow':'Клуб','club.title':'Наша история — <strong>это идентичность</strong>','club.lead':'Deportivo Moscu создан в Буэнос-Айресе в 2024 году как современный, амбициозный и открытый футбольный проект.','club.kicker':'История','club.storyTitle':'Из Москвы в Буэнос-Айрес','club.storyText':'Клуб объединяет дисциплину, характер и южноамериканскую футбольную страсть. Deportivo Moscu развивается как спортивный, социальный и медийный проект в Буэнос-Айресе.','club.t1':'Идея','club.t1t':'Появилась общая цель: создать клуб с собственной идентичностью.','club.t2':'Основание','club.t2t':'Deportivo Moscu оформляется как клуб и начинает строить структуру.','club.t3':'Первые шаги','club.t3t':'Формируется состав и технический проект.','club.t4':'Будущее','club.t4t':'Создаём крепкую основу для роста.','club.mission':'Миссия','club.missionText':'Развивать футболистов и сильных личностей, готовых работать на команду и сообщество.','club.values':'Ценности','club.v1':'Уважение','club.v2':'Ответственность','club.v3':'Командная работа','club.v4':'Страсть','club.identity':'Идентичность','club.identityText':'Чёрный и зелёный. Сила, единство и принадлежность. Мы представляем Буэнос-Айрес и нашу команду.','club.structureTitle':'Структура клуба','club.s1':'Управление','club.s1t':'Лидерство, видение и институциональное развитие.','club.s2':'Футбол','club.s2t':'Тренерский штаб, состав и методология.','club.s3':'Академия','club.s3t':'Базовая подготовка и развитие талантов.','club.s4':'Администрация','club.s4t':'Управление, прозрачность и рост.',
+  'team.eyebrow':'Состав 2026','team.title':'Команда Deportivo <strong>Moscu</strong>','team.lead':'Вратари, защитники, полузащитники и нападающие официального состава.','team.kicker':'Состав','team.roster':'Список игроков','team.text':'Аккуратные карточки с загруженными фото. Фильтры по позициям и лёгкий дизайн без зависаний.','team.all':'Все','team.Arquero':'Вратари','team.Defensor':'Защитники','team.Mediocampista':'Полузащитники','team.Delantero':'Нападающие',
+  'matches.eyebrow':'Календарь','matches.title':'Матчи и <strong>результаты</strong>','matches.lead':'Официальный календарь, соперники, даты и счёт.','matches.kicker':'Турнир','matches.calendar':'Календарь матчей','matches.text':'Все игры оформлены в чистые карточки, которые легко обновлять.',
+  'league.eyebrow':'Таблица','league.title':'Liga <strong>Escobarense</strong>','league.lead':'Позиция, очки, голы и результаты клуба.','league.kicker':'Турнир','league.table':'Турнирная таблица','league.text':'Данные берутся из league-data.js, чтобы сайт было легко обновлять.',
+  'academy.eyebrow':'Развитие','academy.title':'Академия <strong>Deportivo</strong>','academy.lead':'Формируем людей на поле и за его пределами.','academy.short':'Формируем людей на поле и за его пределами.','academy.kicker':'Академия','academy.title2':'Методология, ценности и будущее','academy.text':'Академия станет спортивной и человеческой базой клуба. Техника, дисциплина, образование и сопровождение.','academy.c1':'Методология','academy.c1t':'Тренировки с понятными целями для каждого этапа.','academy.c2':'Категории','academy.c2t':'Постепенная структура для развития талантов.','academy.c3':'Запись','academy.c3t':'Открытый канал для будущих игроков и семей.',
+  'media.eyebrow':'Медиа','media.title':'Новости, фото и <strong>пресса</strong>','media.lead':'Весь спортивный и клубный контент.','media.kicker':'Медиа','media.title2':'Присутствие в СМИ','media.text':'Публикации и материалы о Deportivo Moscu в Аргентине, России и международных медиа.',
+  'news.eyebrow':'Новости','news.title':'Жизнь <strong>клуба</strong>','news.lead':'Новости, интервью и официальные публикации.','news.kicker':'Новости','news.title2':'Последние новости','news.text':'Чистая страница для статей, прессы и новостей проекта.',
+  'management.eyebrow':'Руководство','management.title':'Дирекция и <strong>штаб клуба</strong>','management.lead':'Команда профессионалов, отвечающая за спортивный и институциональный рост.','management.kicker':'Руководство','management.title2':'Дирекция и штаб клуба','management.text':'Добавлены новые роли: Ольга Кушнерова, Даниил Калашников и Эктор Бракамонте.',
+  'stadium.eyebrow':'Проект','stadium.title':'Стадион <strong>будущего</strong>','stadium.lead':'Современная идея будущего дома Deportivo Moscu.','stadium.cardTitle':'Проект стадиона','stadium.cardText':'Стадион для наших людей. Проект для будущего.','stadium.kicker':'Проект стадиона','stadium.title2':'Будущий дом клуба','stadium.text':'Визуальная концепция, идентичность и планирование будущего спортивного пространства.','stadium.c1':'Дизайн','stadium.c1t':'Современный образ в чёрно-зелёной айдентике.','stadium.c2':'Сообщество','stadium.c2t':'Место для болельщиков, игроков и семей.','stadium.c3':'Рост','stadium.c3t':'Долгосрочный проект под развитие клуба.',
+  'store.eyebrow':'Магазин','store.title':'Официальная <strong>форма</strong>','store.lead':'Форма, аксессуары и товары Deportivo Moscu.','store.kicker':'Магазин','store.title2':'Коллекция клуба','store.text':'Страница готова для загрузки футболок, поло, аксессуаров и сувениров.','store.c1':'Футболки','store.c1t':'Официальные комплекты клуба.','store.c2':'Тренировки','store.c2t':'Одежда для тренировок и выездов.','store.c3':'Аксессуары','store.c3t':'Товары для болельщиков и сообщества.'
+ },
+ en:{}
+};
+dict.en={...dict.es,
+ 'nav.home':'Home','nav.club':'Club','nav.team':'Squad','nav.matches':'Matches','nav.academy':'Academy','nav.league':'League','nav.media':'Media','nav.management':'Management','nav.stadium':'Stadium','nav.store':'Store','nav.news':'News',
+ 'common.about':'About the club','common.matches':'Next match','footer.club':'Club','footer.comp':'Competition','footer.media':'Media','footer.rights':'All rights reserved.',
+ 'home.eyebrow':'Buenos Aires · 2024','home.title':'Deportivo <strong>Moscu</strong>','home.lead':'A new club. A new story. One idea uniting football, identity and growth.','home.nextMatch':'Next match','home.latestNews':'Latest news','home.allNews':'All news →','home.fullTeam':'Full squad →',
+ 'club.eyebrow':'The club','club.title':'Our story <strong>is identity</strong>','club.lead':'Deportivo Moscu was created in Buenos Aires in 2024 as a modern, ambitious and open football project.','club.kicker':'History','club.storyTitle':'From Moscow to Buenos Aires','club.storyText':'The club brings together discipline, character and South American football passion. Deportivo Moscu is growing as a sporting, social and media project in Buenos Aires.',
+ 'club.t1':'The idea','club.t1t':'A shared vision begins: to create a club with its own identity.','club.t2':'Foundation','club.t2t':'Deportivo Moscu is established and starts building its first structure.','club.t3':'First steps','club.t3t':'The squad and technical project are formed.','club.t4':'Future focus','club.t4t':'We are building solid foundations for growth.','club.mission':'Mission','club.missionText':'To develop footballers and strong people committed to the team and community.','club.values':'Values','club.v1':'Respect','club.v2':'Commitment','club.v3':'Teamwork','club.v4':'Passion','club.identity':'Identity','club.identityText':'Black and green. Strength, unity and belonging. We represent Buenos Aires and our people.','club.structureTitle':'Club structure','club.s1':'Direction','club.s1t':'Leadership, vision and institutional development.','club.s2':'Football','club.s2t':'Technical staff, squad and methodology.','club.s3':'Academy','club.s3t':'Youth development and talent tracking.','club.s4':'Administration','club.s4t':'Management, transparency and growth.',
+ 'team.eyebrow':'Squad 2026','team.title':'Deportivo Moscu <strong>Team</strong>','team.lead':'Goalkeepers, defenders, midfielders and forwards of the official squad.','team.kicker':'Squad','team.roster':'Player roster','team.text':'Clean cards with uploaded photos. Position filters and a light design for fast loading.','team.all':'All','team.Arquero':'Goalkeepers','team.Defensor':'Defenders','team.Mediocampista':'Midfielders','team.Delantero':'Forwards',
+ 'matches.eyebrow':'Calendar','matches.title':'Matches and <strong>results</strong>','matches.lead':'Official calendar, opponents, dates and scores.','matches.kicker':'Competition','matches.calendar':'Match calendar','matches.text':'All matches are arranged in clean cards that are easy to update.',
+ 'league.eyebrow':'Table','league.title':'Liga <strong>Escobarense</strong>','league.lead':'Position, points, goals and club performance.','league.kicker':'Competition','league.table':'League table','league.text':'Data is loaded from league-data.js to keep the site easy to update.',
+ 'academy.eyebrow':'Development','academy.title':'Deportivo <strong>Academy</strong>','academy.lead':'Developing people on and off the pitch.','academy.short':'Developing people on and off the pitch.','academy.kicker':'Academy','academy.title2':'Methodology, values and future','academy.text':'The academy will be the sporting and human foundation of the club. Technique, discipline, education and support.','academy.c1':'Methodology','academy.c1t':'Training with clear goals for every stage.','academy.c2':'Age groups','academy.c2t':'A progressive structure to develop talent.','academy.c3':'Registration','academy.c3t':'An open channel for future players and families.',
+ 'media.eyebrow':'Media','media.title':'News, photos and <strong>press</strong>','media.lead':'All institutional and sporting club content.','media.kicker':'Media','media.title2':'Media presence','media.text':'Publications and stories about Deportivo Moscu in Argentina, Russia and international media.',
+ 'news.eyebrow':'News','news.title':'Club <strong>updates</strong>','news.lead':'News, interviews and official publications.','news.kicker':'Updates','news.title2':'Latest news','news.text':'A clean page for articles, press and project updates.',
+ 'management.eyebrow':'Management','management.title':'Club direction and <strong>staff</strong>','management.lead':'A professional team committed to sporting and institutional growth.','management.kicker':'Management','management.title2':'Club direction and staff','management.text':'Added requested roles: Olga Kushnerova, Daniil Kalashnikov and Héctor Bracamonte.',
+ 'stadium.eyebrow':'Project','stadium.title':'Stadium of the <strong>future</strong>','stadium.lead':'A modern vision for Deportivo Moscu’s future home.','stadium.cardTitle':'Stadium project','stadium.cardText':'A stadium for our people. A project for the future.','stadium.kicker':'Stadium project','stadium.title2':'The future home of the club','stadium.text':'Visual concept, identity and planning for the future sporting space.','stadium.c1':'Design','stadium.c1t':'A modern image with black and green identity.','stadium.c2':'Community','stadium.c2t':'A place for fans, players and families.','stadium.c3':'Growth','stadium.c3t':'A long-term project to support the club’s evolution.',
+ 'store.eyebrow':'Store','store.title':'Official <strong>gear</strong>','store.lead':'Kits, accessories and Deportivo Moscu products.','store.kicker':'Store','store.title2':'Club collection','store.text':'Page prepared for shirts, polos, accessories and souvenirs.','store.c1':'Shirts','store.c1t':'Official club kits.','store.c2':'Training','store.c2t':'Clothing for training and travel.','store.c3':'Accessories','store.c3t':'Products for fans and the community.'
+};
+const staff=[
+ {name:'Alejandro Moscu',role:{ru:'Президент',en:'President',es:'Presidente'},text:{ru:'Институциональное лидерство и представитель клуба.',en:'Institutional leadership and club representative.',es:'Liderazgo institucional y representante del club.'}},
+ {name:'Olga Kushnerova',role:{ru:'Секретарь',en:'Secretary',es:'Secretaria'},text:{ru:'Организация, коммуникация и административная координация клуба.',en:'Organisation, communication and administrative coordination.',es:'Organización, comunicación y coordinación administrativa del club.'}},
+ {name:'Daniil Kalashnikov',role:{ru:'Тренер-аналитик',en:'Coach-Analyst',es:'Entrenador-analista'},text:{ru:'Анализ матчей, подготовка данных и поддержка тренерского штаба.',en:'Match analysis, data preparation and support for the coaching staff.',es:'Análisis de rendimiento, preparación de datos y apoyo al cuerpo técnico.'}},
+ {name:'Héctor Bracamonte',role:{ru:'Советник президента',en:'Presidential Advisor',es:'Asesor del presidente'},text:{ru:'Экспертная стратегия и поддержка развития клуба.',en:'Expert strategy and support for club development.',es:'Asesoría estratégica y apoyo al crecimiento institucional.'}}
+];
+const getLang=()=>localStorage.getItem('dm_lang')||document.documentElement.lang||'es';
+const t=(key,lang=getLang())=>(dict[lang]&&dict[lang][key])||dict.es[key]||key;
+function applyLang(lang){localStorage.setItem('dm_lang',lang);document.documentElement.lang=lang;document.querySelectorAll('[data-i18n]').forEach(el=>{el.innerHTML=t(el.dataset.i18n,lang)});document.querySelectorAll('[data-lang]').forEach(b=>b.classList.toggle('active',b.dataset.lang===lang));renderAll(lang)}
+function img(path){return `<img src="${path}" alt="" loading="lazy" onerror="this.onerror=null;this.src='images/logo.png'">`}
+function renderAll(lang){
+ document.querySelector('[data-render="home-stats"]')&&(document.querySelector('[data-render="home-stats"]').innerHTML=[['40',lang==='ru'?'игроков':lang==='en'?'players':'jugadores'],['5',lang==='ru'?'стран':lang==='en'?'countries':'países'],['2024',lang==='ru'?'основание':lang==='en'?'founded':'fundación'],['1',lang==='ru'?'академия':lang==='en'?'academy':'academia']].map(s=>`<div class="stat-card"><b>${s[0]}</b><span>${s[1]}</span></div>`).join(''));
+ const matches=window.deportivoMatches||[]; const next=matches[matches.length-1]||{date:'25 May 2026',time:'18:00',opponent:'Club Lugano',tournament:'Primera C',place:'Buenos Aires',score:'VS'};
+ document.querySelector('[data-render="next-match"]')&&(document.querySelector('[data-render="next-match"]').innerHTML=`<div class="next-match"><div class="team-badge">${img('images/logo.png')}<span>Deportivo Moscu</span></div><div><div class="vs">${next.score&&next.score!=='-'?next.score:'VS'}</div><div class="match-meta">${next.date||''} · ${next.time||''}<br>${next.tournament||''} · ${next.place||''}</div></div><div class="team-badge">${img('images/escobar_logo.PNG')}<span>${next.opponent||'Rival'}</span></div></div><a class="btn btn-primary" href="matches.html">${t('nav.matches',lang)}</a>`);
+ const news=window.deportivoNews||[]; const nhtml=news.slice(0,3).map(n=>`<a href="${n.url||'#'}" target="_blank" rel="noopener">${img('images/team-main.jpg')}<span><b>${(n.title&&n.title[lang])||n.source}</b><small>${n.date||''}</small></span></a>`).join('');
+ document.querySelector('[data-render="home-news"]')&&(document.querySelector('[data-render="home-news"]').innerHTML=`<div class="news-mini">${nhtml}</div>`);
+ const players=window.MOSCU_PLAYERS||[];document.querySelector('[data-render="mini-players"]')&&(document.querySelector('[data-render="mini-players"]').innerHTML=players.slice(0,4).map(p=>`<div class="mini-player">${img(p.thumb||p.image)}<div><b>${p.name.split(' ').slice(0,2).join(' ')}</b><small>${t('team.'+p.position,lang)}</small></div></div>`).join(''));
+ const filterBox=document.querySelector('[data-render="team-filters"]'); if(filterBox&&!filterBox.dataset.ready){['all','Arquero','Defensor','Mediocampista','Delantero'].forEach(pos=>{const b=document.createElement('button');b.type='button';b.dataset.filter=pos;b.onclick=()=>{document.querySelectorAll('.filters button').forEach(x=>x.classList.remove('active'));b.classList.add('active');renderPlayers(pos,lang)};filterBox.appendChild(b)});filterBox.dataset.ready='1';filterBox.querySelector('button').classList.add('active')} if(filterBox){filterBox.querySelectorAll('button').forEach(b=>b.textContent=t(b.dataset.filter==='all'?'team.all':'team.'+b.dataset.filter,lang));renderPlayers(filterBox.querySelector('.active')?.dataset.filter||'all',lang)}
+ const ml=document.querySelector('[data-render="matches-list"]'); if(ml) ml.innerHTML=matches.slice().reverse().map(m=>`<article class="match-row"><small>${m.round||''}<br>${m.date||''}</small><div><b>Deportivo Moscu — ${m.opponent||''}</b><br><small>${m.tournament||''} · ${m.place||''}</small></div><span class="score">${m.score||'VS'}</span></article>`).join('');
+ const lt=document.querySelector('[data-render="league-table"]'); const table=window.deportivoLeagueTable||window.leagueTable||[]; if(lt) lt.innerHTML=`<thead><tr><th>#</th><th>${lang==='ru'?'Команда':lang==='en'?'Team':'Equipo'}</th><th>И</th><th>В</th><th>Н</th><th>П</th><th>Г</th><th>О</th></tr></thead><tbody>${table.map((r,i)=>`<tr class="${/moscu/i.test(r.team)?'moscu':''}"><td>${i+1}</td><td><b>${r.team}</b></td><td>${r.played}</td><td>${r.wins}</td><td>${r.draws}</td><td>${r.losses}</td><td>${r.goals}</td><td><b>${r.points}</b></td></tr>`).join('')}</tbody>`;
+ const newsList=document.querySelector('[data-render="news-list"], [data-render="media-news"]'); if(newsList) newsList.innerHTML=news.map(n=>`<a class="news-card" href="${n.url||'#'}" target="_blank" rel="noopener">${img('images/team-main.jpg')}<div><small>${n.source||''} · ${n.date||''}</small><h3>${(n.title&&n.title[lang])||n.source}</h3><p>${(n.text&&n.text[lang])||''}</p></div></a>`).join('');
+ const sg=document.querySelector('[data-render="staff-grid"]'); if(sg) sg.innerHTML=staff.map(s=>`<article class="staff-card"><div class="staff-photo">${img('images/logo.png')}</div><h3>${s.name}</h3><b>${s.role[lang]}</b><p>${s.text[lang]}</p></article>`).join('');
+}
+function renderPlayers(filter,lang){const box=document.querySelector('[data-render="players-grid"]');if(!box)return;const players=(window.MOSCU_PLAYERS||[]).filter(p=>filter==='all'||p.position===filter);box.innerHTML=players.map(p=>`<article class="player-card">${img(p.image||p.thumb)}<div class="player-info"><div class="player-top"><b>${p.name}</b><span class="num">${p.number||''}</span></div><p>${t('team.'+p.position,lang)} · ${p.country||''}</p><p>${p.birth||''}</p></div></article>`).join('')}
+document.addEventListener('DOMContentLoaded',()=>{document.querySelector('.menu-toggle')?.addEventListener('click',e=>{const nav=document.getElementById('mainNav');nav.classList.toggle('open');e.currentTarget.setAttribute('aria-expanded',nav.classList.contains('open'))});document.querySelectorAll('[data-lang]').forEach(b=>b.addEventListener('click',()=>applyLang(b.dataset.lang)));applyLang(getLang());});
 })();
