@@ -44,6 +44,58 @@
   <div class="container footer-bottom">© 2024 Deportivo Moscu. <span data-i18n="footer.rights">Todos los derechos reservados.</span></div>
 </footer>
 <script defer src="app.js?v=dm20260617_staff1"></script>
+
+<script>
+  /*
+    Adds Alexey Kalanchev to the management staff grid without changing app.js.
+    The script waits for app.js to render existing staff cards, then appends one more card.
+  */
+  (function () {
+    const ALEXEY_ID = "staff-alexey-kalanchev";
+
+    function addAlexeyKalanchev() {
+      const grid = document.querySelector('[data-render="staff-grid"], .staff-grid');
+      if (!grid || document.getElementById(ALEXEY_ID)) return;
+
+      const card = document.createElement("article");
+      card.className = "staff-card";
+      card.id = ALEXEY_ID;
+
+      card.innerHTML = `
+        <div class="staff-photo">
+          <img src="images/logo.png" alt="Алексей Каланчев" loading="lazy">
+        </div>
+        <h3>Алексей Каланчев</h3>
+        <p class="staff-role">Руководитель АХО</p>
+        <p>Административно-хозяйственное обеспечение клуба, организация инфраструктуры, инвентаря и операционная поддержка команды.</p>
+      `;
+
+      grid.appendChild(card);
+    }
+
+    function start() {
+      addAlexeyKalanchev();
+      setTimeout(addAlexeyKalanchev, 300);
+      setTimeout(addAlexeyKalanchev, 900);
+      setTimeout(addAlexeyKalanchev, 1600);
+
+      const grid = document.querySelector('[data-render="staff-grid"], .staff-grid');
+      if (grid) {
+        const observer = new MutationObserver(function () {
+          addAlexeyKalanchev();
+        });
+        observer.observe(grid, { childList: true });
+      }
+    }
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", start);
+    } else {
+      start();
+    }
+  })();
+</script>
+
 <script defer src="social-links.js?v=dm_social_20260624_final"></script>
 </body>
 </html>
