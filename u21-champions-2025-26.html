@@ -3,23 +3,43 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- VERSION: U21_ARTICLE_HORIZONTAL_BANNER_20260624_FINAL -->
   <title>Deportivo Moscu U-21 campeón de Liga Escobarense U-21 B</title>
   <meta name="description" content="Deportivo Moscu U-21 se consagró campeón de la Liga Escobarense U-21 B en la temporada 2025/26." />
   <link rel="icon" href="images/logo.png" />
   <link rel="stylesheet" href="style.css?v=dm20260617_staff1" />
+
   <style>
-    .article-hero {
-      position: relative;
-      min-height: 560px;
-      display: flex;
-      align-items: flex-end;
-      background: linear-gradient(180deg, rgba(0,0,0,.28), rgba(0,0,0,.86)), url('images/news/u21-champions-2025-26.webp') center/cover no-repeat;
-      border-bottom: 1px solid rgba(255,255,255,.08);
+    .article-top {
+      padding: 34px 0 0;
+      background:
+        radial-gradient(circle at 80% 0%, rgba(0, 255, 138, 0.16), transparent 34%),
+        linear-gradient(180deg, #020b06 0%, #06150d 100%);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
     }
-    .article-hero .container {
-      padding-top: 110px;
-      padding-bottom: 54px;
+
+    .article-banner-wrap {
+      overflow: hidden;
+      border-radius: 28px;
+      border: 1px solid rgba(0, 255, 138, 0.22);
+      box-shadow: 0 22px 60px rgba(0, 0, 0, 0.34);
+      background: #03120b;
     }
+
+    .article-banner-wrap img {
+      display: block;
+      width: 100%;
+      height: auto;
+      aspect-ratio: 21 / 9;
+      object-fit: contain;
+      background: #03120b;
+    }
+
+    .article-title-block {
+      padding: clamp(24px, 4vw, 44px) 0 46px;
+    }
+
     .article-kicker {
       display: inline-flex;
       padding: 9px 14px;
@@ -28,24 +48,27 @@
       color: #03130b;
       font-weight: 900;
       text-transform: uppercase;
-      letter-spacing: .08em;
+      letter-spacing: 0.08em;
       font-size: 13px;
       margin-bottom: 18px;
     }
-    .article-hero h1 {
+
+    .article-title-block h1 {
       margin: 0;
-      max-width: 980px;
+      max-width: 1080px;
       color: #fff;
-      font-size: clamp(36px, 6vw, 74px);
-      line-height: .96;
-      letter-spacing: -.04em;
+      font-size: clamp(34px, 5vw, 68px);
+      line-height: 0.98;
+      letter-spacing: -0.04em;
     }
+
     .article-meta {
       margin-top: 18px;
-      color: rgba(255,255,255,.78);
+      color: rgba(255, 255, 255, 0.78);
       font-weight: 800;
       font-size: 16px;
     }
+
     .article-wrap {
       display: grid;
       grid-template-columns: minmax(0, 1fr) 360px;
@@ -53,30 +76,35 @@
       padding-top: 42px;
       padding-bottom: 60px;
     }
+
     .article-body {
-      background: rgba(255,255,255,.04);
-      border: 1px solid rgba(255,255,255,.08);
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
       border-radius: 26px;
       padding: clamp(22px, 4vw, 42px);
     }
+
     .article-body p {
-      color: rgba(255,255,255,.86);
+      color: rgba(255, 255, 255, 0.86);
       font-size: 19px;
       line-height: 1.75;
       margin: 0 0 20px;
     }
+
     .article-stats {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 14px;
       margin: 28px 0 32px;
     }
+
     .article-stat {
       border-radius: 20px;
       padding: 20px 16px;
-      background: linear-gradient(145deg, rgba(0,255,138,.12), rgba(255,210,96,.08));
-      border: 1px solid rgba(0,255,138,.22);
+      background: linear-gradient(145deg, rgba(0, 255, 138, 0.12), rgba(255, 210, 96, 0.08));
+      border: 1px solid rgba(0, 255, 138, 0.22);
     }
+
     .article-stat b {
       display: block;
       color: #f2c75c;
@@ -84,31 +112,36 @@
       line-height: 1;
       margin-bottom: 8px;
     }
+
     .article-stat span {
-      color: rgba(255,255,255,.82);
+      color: rgba(255, 255, 255, 0.82);
       font-weight: 800;
       text-transform: uppercase;
-      letter-spacing: .04em;
+      letter-spacing: 0.04em;
       font-size: 12px;
     }
+
     .article-side {
       display: grid;
       gap: 18px;
       align-content: start;
     }
+
     .article-side img {
       width: 100%;
       border-radius: 22px;
       display: block;
-      border: 1px solid rgba(255,255,255,.1);
-      box-shadow: 0 18px 44px rgba(0,0,0,.25);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 18px 44px rgba(0, 0, 0, 0.25);
     }
+
     .article-caption {
       margin-top: -8px;
-      color: rgba(255,255,255,.62);
+      color: rgba(255, 255, 255, 0.62);
       font-size: 13px;
       line-height: 1.45;
     }
+
     .article-back {
       display: inline-flex;
       margin-top: 20px;
@@ -116,13 +149,32 @@
       font-weight: 900;
       text-decoration: none;
     }
+
     @media (max-width: 900px) {
-      .article-wrap { grid-template-columns: 1fr; }
-      .article-stats { grid-template-columns: 1fr; }
-      .article-hero { min-height: 520px; }
+      .article-top {
+        padding-top: 18px;
+      }
+
+      .article-banner-wrap {
+        border-radius: 18px;
+      }
+
+      .article-banner-wrap img {
+        aspect-ratio: 16 / 10;
+        object-fit: cover;
+      }
+
+      .article-wrap {
+        grid-template-columns: 1fr;
+      }
+
+      .article-stats {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 </head>
+
 <body data-page="news">
 <header class="site-header">
   <div class="container header-inner">
@@ -140,11 +192,17 @@
   </div>
 </header>
 
-<section class="article-hero">
+<section class="article-top">
   <div class="container">
-    <span class="article-kicker">Campeones 2025/26</span>
-    <h1>Deportivo Moscu U-21 ganó la Liga Escobarense U-21 B</h1>
-    <div class="article-meta">Deportivo Moscu · 24.06.2026</div>
+    <div class="article-banner-wrap">
+      <img src="images/news/u21-champions-home-banner.webp?v=dm20260624_horizontal_final" alt="Deportivo Moscu U-21 ganó la Liga Escobarense U-21 B" />
+    </div>
+
+    <div class="article-title-block">
+      <span class="article-kicker">Campeones 2025/26</span>
+      <h1>Deportivo Moscu U-21 ganó la Liga Escobarense U-21 B</h1>
+      <div class="article-meta">Deportivo Moscu · 24.06.2026</div>
+    </div>
   </div>
 </section>
 
@@ -171,9 +229,10 @@
     </article>
 
     <aside class="article-side">
-      <img src="images/news/tomas-soley-19-goals.webp" alt="Tomas Soley 19 goals" loading="lazy" />
+      <img src="images/news/tomas-soley-19-goals.webp" alt="Tomas Soley, máximo goleador del torneo" loading="lazy" />
       <div class="article-caption">Tomas Soley, máximo goleador del torneo.</div>
-      <img src="images/news/top-scorer-trophy.webp" alt="Tomas Soley with the trophy" loading="lazy" />
+
+      <img src="images/news/top-scorer-trophy.webp" alt="Tomas Soley con el trofeo" loading="lazy" />
       <div class="article-caption">El capitán de Deportivo Moscu U-21 con el trofeo del campeonato.</div>
     </aside>
   </section>
@@ -192,7 +251,7 @@
 <script defer src="players-data.js?v=dm20260617_fix4"></script>
 <script defer src="matches-data.js?v=dm20260617_fix4"></script>
 <script defer src="league-data.js?v=dm20260617_fix4"></script>
-<script defer src="news-data.js?v=dm20260624_webp_final"></script>
+<script defer src="news-data.js?v=dm20260624_horizontal_final"></script>
 <script defer src="app.js?v=dm20260617_staff1"></script>
 </body>
 </html>
