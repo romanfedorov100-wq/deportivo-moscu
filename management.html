@@ -47,13 +47,13 @@
 
 <script>
   /*
-    Adds Alexey Kalanchev to the management staff grid without changing app.js.
+    Adds Alexey Kalachev to the management staff grid without changing app.js.
     The script waits for app.js to render existing staff cards, then appends one more card.
   */
   (function () {
-    const ALEXEY_ID = "staff-alexey-kalanchev";
+    const ALEXEY_ID = "staff-alexey-kalachev";
 
-    function addAlexeyKalanchev() {
+    function addAlexeyKalachev() {
       const grid = document.querySelector('[data-render="staff-grid"], .staff-grid');
       if (!grid || document.getElementById(ALEXEY_ID)) return;
 
@@ -74,15 +74,15 @@
     }
 
     function start() {
-      addAlexeyKalanchev();
-      setTimeout(addAlexeyKalanchev, 300);
-      setTimeout(addAlexeyKalanchev, 900);
-      setTimeout(addAlexeyKalanchev, 1600);
+      addAlexeyKalachev();
+      setTimeout(addAlexeyKalachev, 300);
+      setTimeout(addAlexeyKalachev, 900);
+      setTimeout(addAlexeyKalachev, 1600);
 
       const grid = document.querySelector('[data-render="staff-grid"], .staff-grid');
       if (grid) {
         const observer = new MutationObserver(function () {
-          addAlexeyKalanchev();
+          addAlexeyKalachev();
         });
         observer.observe(grid, { childList: true });
       }
