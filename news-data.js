@@ -1,5 +1,27 @@
 window.deportivoNews = [
   {
+    id: "u21-champions-2025-26",
+    source: "Deportivo Moscu",
+    date: "2025/26",
+    url: "news.html",
+    category: {
+      ru: "Чемпионство",
+      en: "Champions",
+      es: "Campeones"
+    },
+    title: {
+      ru: "Deportivo Moscu U-21 — победитель Liga Escobarense U-21 B",
+      en: "Deportivo Moscu U-21 wins Liga Escobarense U-21 B",
+      es: "Deportivo Moscu U-21 ganó la Liga Escobarense U-21 B"
+    },
+    text: {
+      ru: "Молодёжная команда Deportivo Moscu U-21 стала победителем Liga Escobarense U-21 B в сезоне 2025/26. Команда набрала 60 очков и опередила Club America на 4 очка. Капитан Томас Солей стал лучшим бомбардиром турнира с 19 голами в 22 матчах.",
+      en: "Deportivo Moscu U-21 became champion of Liga Escobarense U-21 B in the 2025/26 season. The team finished with 60 points, 4 points ahead of Club America. Captain Tomas Soley became the tournament’s top scorer with 19 goals in 22 matches.",
+      es: "Deportivo Moscu U-21 se consagró campeón de la Liga Escobarense U-21 B en la temporada 2025/26. El equipo terminó con 60 puntos, 4 más que Club America. El capitán Tomas Soley fue el máximo goleador del torneo con 19 goles en 22 partidos."
+    },
+    image: "images/news/u21-champions-2025-26.jpg"
+  },
+  {
     id: "sport24-interview",
     source: "Sport24",
     date: "2025",
