@@ -1,14 +1,133 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="ru">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Media | Deportivo Moscu</title>
-  <meta name="description" content="Sitio oficial de Deportivo Moscu, club de fútbol de Buenos Aires fundado en 2024." />
+  <title>Присутствие в СМИ | Deportivo Moscu</title>
+  <meta name="description" content="Публикации и материалы о Deportivo Moscu в Аргентине, России и международных медиа." />
   <link rel="icon" href="images/logo.png" />
   <link rel="stylesheet" href="style.css?v=dm20260617_staff1" />
+
+  <style>
+    .media-page {
+      padding-top: 34px;
+      padding-bottom: 70px;
+    }
+
+    .media-page-head {
+      margin-bottom: 34px;
+    }
+
+    .media-page-head h1 {
+      margin: 0 0 14px;
+      color: #fff;
+      font-size: clamp(42px, 5.5vw, 76px);
+      line-height: .95;
+      letter-spacing: -.05em;
+    }
+
+    .media-page-head p {
+      margin: 0;
+      color: rgba(255, 255, 255, .72);
+      font-size: clamp(18px, 1.8vw, 25px);
+      font-weight: 800;
+      line-height: 1.35;
+    }
+
+    .media-grid-static {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 28px;
+    }
+
+    .media-news-card {
+      display: flex;
+      flex-direction: column;
+      min-height: 100%;
+      overflow: hidden;
+      border-radius: 22px;
+      background: rgba(2, 18, 10, .96);
+      border: 1px solid rgba(0, 255, 138, .12);
+      color: #fff;
+      text-decoration: none;
+      box-shadow: 0 20px 48px rgba(0, 0, 0, .18);
+      transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease;
+    }
+
+    .media-news-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(0, 255, 138, .38);
+      box-shadow: 0 26px 62px rgba(0, 0, 0, .28);
+    }
+
+    .media-news-card img {
+      display: block;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+      background: #03120b;
+    }
+
+    .media-news-body {
+      padding: 24px 24px 28px;
+    }
+
+    .media-news-meta {
+      margin-bottom: 16px;
+      color: #00ff8a;
+      font-size: 15px;
+      font-weight: 900;
+      line-height: 1.3;
+    }
+
+    .media-news-card h2 {
+      margin: 0 0 16px;
+      color: #fff;
+      font-size: clamp(22px, 2.1vw, 31px);
+      line-height: 1.22;
+      letter-spacing: -.025em;
+    }
+
+    .media-news-card p {
+      margin: 0;
+      color: rgba(255, 255, 255, .72);
+      font-size: 18px;
+      line-height: 1.55;
+      font-weight: 700;
+    }
+
+    .media-news-link {
+      display: inline-flex;
+      margin-top: 18px;
+      color: #00ff8a;
+      font-size: 15px;
+      font-weight: 900;
+    }
+
+    @media (max-width: 1100px) {
+      .media-grid-static {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 700px) {
+      .media-page {
+        padding-top: 22px;
+      }
+
+      .media-grid-static {
+        grid-template-columns: 1fr;
+        gap: 18px;
+      }
+
+      .media-news-body {
+        padding: 20px;
+      }
+    }
+  </style>
 </head>
-<body data-page="media">
+
+<body data-page="media-static">
 <header class="site-header">
   <div class="container header-inner">
     <a class="brand" href="index.html" aria-label="Deportivo Moscu">
@@ -17,37 +136,172 @@
     </a>
     <button class="menu-toggle" type="button" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
     <nav class="main-nav" id="mainNav">
-      <a class="" href="index.html" data-i18n="nav.home">Inicio</a><a class="" href="club.html" data-i18n="nav.club">Club</a><a class="" href="team.html" data-i18n="nav.team">Plantel</a><a class="" href="matches.html" data-i18n="nav.matches">Partidos</a><a class="" href="academy.html" data-i18n="nav.academy">Academia</a><a class="" href="league.html" data-i18n="nav.league">Liga</a><a class="active" href="media.html" data-i18n="nav.media">Media</a><a class="" href="management.html" data-i18n="nav.management">Gestión</a>
+      <a href="index.html">Главная</a>
+      <a href="club.html">Клуб</a>
+      <a href="team.html">Состав</a>
+      <a href="matches.html">Матчи</a>
+      <a href="academy.html">Академия</a>
+      <a href="league.html">Лига</a>
+      <a class="active" href="media.html">Медиа</a>
+      <a href="management.html">Руководство</a>
       <span class="lang-switch" aria-label="Language">
-        <button type="button" data-lang="ru">RU</button><button type="button" data-lang="en">EN</button><button type="button" data-lang="es" class="active">ES</button>
+        <button type="button" data-lang="ru" class="active">RU</button><button type="button" data-lang="en">EN</button><button type="button" data-lang="es">ES</button>
       </span>
     </nav>
   </div>
 </header>
-<section class="hero" style="--hero-desktop:url('images/banners/dm_media_hero_desktop.webp');--hero-mobile:url('images/banners/dm_media_hero_mobile.webp')">
-  <div class="hero-shade"></div>
-  <div class="container hero-content">
-    <p class="eyebrow" data-i18n="media.eyebrow" >Media</p>
-    <h1 data-i18n="media.title" >Noticias, fotos y <strong>prensa</strong></h1>
-    <p class="hero-lead" data-i18n="media.lead" >Todo el contenido institucional y deportivo del club.</p>
-    <div class="hero-actions"><a href="club.html" class="btn btn-primary" data-i18n="common.about">Sobre el club</a><a href="matches.html" class="btn btn-ghost" data-i18n="common.matches">Partidos</a></div>
-  </div>
-</section>
-<main class="container page-stack"><section class="section-head"><p data-i18n="media.kicker">Media</p><h2 data-i18n="media.title2">Presencia en medios</h2><p data-i18n="media.text">Publicaciones y notas sobre Deportivo Moscu en Argentina, Rusia y medios internacionales.</p></section><section class="news-grid" data-render="media-news"></section></main>
+
+<main class="container media-page">
+  <section class="media-page-head">
+    <h1>Присутствие в СМИ</h1>
+    <p>Публикации и материалы о Deportivo Moscu в Аргентине, России и международных медиа.</p>
+  </section>
+
+  <section class="media-grid-static">
+    <a class="media-news-card" href="u21-champions-2025-26.html">
+      <img src="images/news/u21-champions-2025-26.webp?v=unique_media_20260624" alt="Deportivo Moscu U-21 — победитель Liga Escobarense U-21 B" loading="lazy" />
+      <div class="media-news-body">
+        <div class="media-news-meta">Deportivo Moscu · 24.06.2026</div>
+        <h2>Deportivo Moscu U-21 — победитель Liga Escobarense U-21 B</h2>
+        <p>Команда Deportivo Moscu U-21 стала победителем Liga Escobarense U-21 B в сезоне 2025/26.</p>
+        <span class="media-news-link">Открыть материал →</span>
+      </div>
+    </a>
+
+    <a class="media-news-card" href="https://sport24.ru/football/article-808059-nam-skazali-ubrat-simvoliku-rossii-radi-sponsorom-otkazalis-intervyu-s-osnovatelem-russkogo-kluba-deportivo-moskva-v-argentine-antonom-nefedchevym-brakamonte-prezident-khavyer-miley" target="_blank" rel="noopener noreferrer">
+      <img src="images/news/sport24-interview.webp?v=unique_media_20260624" alt="Sport24 interview" loading="lazy" />
+      <div class="media-news-body">
+        <div class="media-news-meta">Sport24 · 2025</div>
+        <h2>Интервью с основателем Deportivo Moscu в Аргентине</h2>
+        <p>Большое интервью о создании русского футбольного клуба Deportivo Moscu в Аргентине, развитии проекта и символике.</p>
+        <span class="media-news-link">Открыть источник →</span>
+      </div>
+    </a>
+
+    <a class="media-news-card" href="https://www.lanacion.com.ar/deportes/futbol/deportivo-moscu-un-club-ruso-en-buenos-aires-como-funciona-a-que-aspira-y-el-rol-de-la-embajada-nid01082025/" target="_blank" rel="noopener noreferrer">
+      <img src="images/news/la-nacion.webp?v=unique_media_20260624" alt="La Nación Deportivo Moscu" loading="lazy" />
+      <div class="media-news-body">
+        <div class="media-news-meta">La Nación · 01.08.2025</div>
+        <h2>La Nación о Deportivo Moscu: русский клуб в Буэнос-Айресе</h2>
+        <p>Аргентинское издание рассказывает, как работает Deportivo Moscu, к чему стремится клуб и какую роль играет русское сообщество.</p>
+        <span class="media-news-link">Открыть источник →</span>
+      </div>
+    </a>
+
+    <a class="media-news-card" href="https://www.ole.com.ar/informacion-general/deportivo-moscu-equipo-rusos-juega-argentina-quiere-jugador-torneos-afa-vodka_0_Mz7khgWkyc.html" target="_blank" rel="noopener noreferrer">
+      <img src="images/news/ole.webp?v=unique_media_20260624" alt="Olé Deportivo Moscu" loading="lazy" />
+      <div class="media-news-body">
+        <div class="media-news-meta">Olé · 2025</div>
+        <h2>Olé: команда русских в Аргентине хочет выйти на новый уровень</h2>
+        <p>Olé представляет Deportivo Moscu как необычный футбольный проект в Аргентине, который хочет развиваться и играть официально.</p>
+        <span class="media-news-link">Открыть источник →</span>
+      </div>
+    </a>
+
+    <a class="media-news-card" href="https://cnnespanol.cnn.com/2025/08/07/argentina/video/club-rusos-argentina-moscu-cafe-tv" target="_blank" rel="noopener noreferrer">
+      <img src="images/news/cnn-espanol.webp?v=unique_media_20260624" alt="CNN Español Deportivo Moscu" loading="lazy" />
+      <div class="media-news-body">
+        <div class="media-news-meta">CNN Español · 07.08.2025</div>
+        <h2>CNN Español: сюжет о клубе русских в Аргентине</h2>
+        <p>Видео CNN Español о Deportivo Moscu, русском футбольном клубе в Аргентине и его культурной истории.</p>
+        <span class="media-news-link">Открыть источник →</span>
+      </div>
+    </a>
+
+    <a class="media-news-card" href="https://www.msn.com/es-us/noticias/other/conoce-a-deportivo-mosc%C3%BA-un-club-fundado-por-rusos-en-argentina/vi-AA1K6z7U" target="_blank" rel="noopener noreferrer">
+      <img src="images/news/msn-video.webp?v=unique_media_20260624" alt="MSN Deportivo Moscu" loading="lazy" />
+      <div class="media-news-body">
+        <div class="media-news-meta">MSN · 2025</div>
+        <h2>MSN: познакомьтесь с Deportivo Moscú</h2>
+        <p>Видео-материал о клубе Deportivo Moscú, основанном русскими в Аргентине.</p>
+        <span class="media-news-link">Открыть источник →</span>
+      </div>
+    </a>
+
+    <a class="media-news-card" href="https://ria.ru/20251008/futbol-2047161116.html?ysclid=mpe9nqezvx488038156" target="_blank" rel="noopener noreferrer">
+      <img src="images/news/ria.webp?v=unique_media_20260624" alt="РИА Новости Deportivo Moscu" loading="lazy" />
+      <div class="media-news-body">
+        <div class="media-news-meta">РИА Новости · 08.10.2025</div>
+        <h2>РИА Новости о футбольном проекте Deportivo Moscu</h2>
+        <p>Российское информационное агентство публикует материал о футбольном клубе Deportivo Moscu и интересе к проекту.</p>
+        <span class="media-news-link">Открыть источник →</span>
+      </div>
+    </a>
+
+    <a class="media-news-card" href="https://www.gazeta.ru/sport/news/2025/12/09/27365671.shtml?ysclid=mpe9o1tyqp945512765" target="_blank" rel="noopener noreferrer">
+      <img src="images/news/gazeta.webp?v=unique_media_20260624" alt="Газета.Ru Deportivo Moscu" loading="lazy" />
+      <div class="media-news-body">
+        <div class="media-news-meta">Газета.Ru · 09.12.2025</div>
+        <h2>Газета.Ru: новости о Deportivo Moscu</h2>
+        <p>Публикация российского спортивного раздела о клубе Deportivo Moscu и его развитии.</p>
+        <span class="media-news-link">Открыть источник →</span>
+      </div>
+    </a>
+
+    <a class="media-news-card" href="https://www.championat.com/football/news-5775098-v-chempionate-argentiny-mozhet-poyavitsya-futbolnyj-klub-moskva.html?ysclid=mpe9ohk5ec542333657" target="_blank" rel="noopener noreferrer">
+      <img src="images/news/championat.webp?v=unique_media_20260624" alt="Чемпионат Deportivo Moscu" loading="lazy" />
+      <div class="media-news-body">
+        <div class="media-news-meta">Чемпионат · 2025</div>
+        <h2>В чемпионате Аргентины может появиться футбольный клуб «Москва»</h2>
+        <p>Материал о появлении футбольного проекта, связанного с Москвой, в аргентинском футболе.</p>
+        <span class="media-news-link">Открыть источник →</span>
+      </div>
+    </a>
+
+    <a class="media-news-card" href="https://youtu.be/Fl0Q9ikyY9o?si=Fs0-25dueluzUk0G" target="_blank" rel="noopener noreferrer">
+      <img src="images/news/youtube.webp?v=unique_media_20260624" alt="YouTube Deportivo Moscu" loading="lazy" />
+      <div class="media-news-body">
+        <div class="media-news-meta">YouTube · 2025</div>
+        <h2>Видео о Deportivo Moscu на YouTube</h2>
+        <p>Видео о клубе, его истории, идее и развитии проекта в Аргентине.</p>
+        <span class="media-news-link">Открыть источник →</span>
+      </div>
+    </a>
+
+    <a class="media-news-card" href="https://tass.ru/sport/25485173?ysclid=mpe9qs1saf961844106" target="_blank" rel="noopener noreferrer">
+      <img src="images/news/tass.webp?v=unique_media_20260624" alt="ТАСС Deportivo Moscu" loading="lazy" />
+      <div class="media-news-body">
+        <div class="media-news-meta">ТАСС · 2025</div>
+        <h2>ТАСС: материал о Deportivo Moscu</h2>
+        <p>Публикация российского агентства ТАСС о футбольном клубе Deportivo Moscu.</p>
+        <span class="media-news-link">Открыть источник →</span>
+      </div>
+    </a>
+
+    <a class="media-news-card" href="https://matchtv.ru/football/matchtvnews_NI2132710_Trener_Deportivo_de_Moscu_rasskazal_chto_posle_sozdanija_futbolnogo_kluba_v_Argentine_vyros_interes_k_Rossii?ysclid=mpe9r3sjt6933923294" target="_blank" rel="noopener noreferrer">
+      <img src="images/news/match-tv.webp?v=unique_media_20260624" alt="Матч ТВ Deportivo Moscu" loading="lazy" />
+      <div class="media-news-body">
+        <div class="media-news-meta">Матч ТВ · 2025</div>
+        <h2>Тренер Deportivo de Moscu рассказал о росте интереса к России</h2>
+        <p>Матч ТВ приводит слова тренера Deportivo de Moscu о росте интереса к России после создания клуба в Аргентине.</p>
+        <span class="media-news-link">Открыть источник →</span>
+      </div>
+    </a>
+  </section>
+</main>
+
 <footer class="site-footer">
   <div class="container footer-grid">
     <div class="footer-brand"><img src="images/logo.png" alt="Deportivo Moscu" class="footer-logo"><strong>Deportivo Moscu</strong><p>Buenos Aires · 2024</p><div class="socials"><span>f</span><span>ig</span><span>yt</span><span>wa</span><span>@</span></div></div>
-    <div><h4 data-i18n="footer.club">Club</h4><a href="club.html" data-i18n="nav.club">Club</a><a href="team.html" data-i18n="nav.team">Plantel</a><a href="management.html" data-i18n="nav.management">Gestión</a></div>
-    <div><h4 data-i18n="footer.comp">Competencia</h4><a href="matches.html" data-i18n="nav.matches">Partidos</a><a href="league.html" data-i18n="nav.league">Liga</a><a href="news.html" data-i18n="nav.news">Noticias</a></div>
-    <div><h4 data-i18n="footer.media">Media</h4><a href="media.html" data-i18n="nav.media">Media</a><a href="academy.html" data-i18n="nav.academy">Academia</a><a href="stadium.html" data-i18n="nav.stadium">Estadio</a><a href="store.html" data-i18n="nav.store">Tienda</a></div>
+    <div><h4>Клуб</h4><a href="club.html">Клуб</a><a href="team.html">Состав</a><a href="management.html">Руководство</a></div>
+    <div><h4>Турнир</h4><a href="matches.html">Матчи</a><a href="league.html">Лига</a><a href="news.html">Новости</a></div>
+    <div><h4>Медиа</h4><a href="media.html">Медиа</a><a href="academy.html">Академия</a><a href="stadium.html">Стадион</a><a href="store.html">Магазин</a></div>
   </div>
-  <div class="container footer-bottom">© 2024 Deportivo Moscu. <span data-i18n="footer.rights">Todos los derechos reservados.</span></div>
+  <div class="container footer-bottom">© 2024 Deportivo Moscu. Все права защищены.</div>
 </footer>
-<script defer src="news-data.js?v=dm_news_unique_20260624"></script>
-<script defer src="app.js?v=dm20260617_staff1"></script>
-<script defer src="news-images-fix.js?v=dm_news_images_force_20260624"></script>
+
+<script>
+  const menuToggle = document.querySelector(".menu-toggle");
+  const mainNav = document.querySelector("#mainNav");
+
+  if (menuToggle && mainNav) {
+    menuToggle.addEventListener("click", function () {
+      const expanded = menuToggle.getAttribute("aria-expanded") === "true";
+      menuToggle.setAttribute("aria-expanded", String(!expanded));
+      mainNav.classList.toggle("open");
+    });
+  }
+</script>
 <script defer src="social-links.js?v=dm_social_20260624_final"></script>
-</body>
-</html>
 </body>
 </html>
