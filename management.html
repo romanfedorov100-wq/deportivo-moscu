@@ -24,6 +24,7 @@
     </nav>
   </div>
 </header>
+
 <section class="hero" style="--hero-desktop:url('images/banners/dm_management_hero_desktop.webp');--hero-mobile:url('images/banners/dm_management_hero_mobile.webp')">
   <div class="hero-shade"></div>
   <div class="container hero-content">
@@ -33,7 +34,16 @@
     <div class="hero-actions"><a href="club.html" class="btn btn-primary" data-i18n="common.about">Sobre el club</a><a href="matches.html" class="btn btn-ghost" data-i18n="common.matches">Partidos</a></div>
   </div>
 </section>
-<main class="container page-stack"><section class="section-head"><p data-i18n="management.kicker">Gestión</p><h2 data-i18n="management.title2">Dirección y staff del club</h2><p data-i18n="management.text">Estructura administrativa, deportiva y de asesoramiento de Deportivo Moscu.</p></section><section class="staff-grid" data-render="staff-grid"></section></main>
+
+<main class="container page-stack">
+  <section class="section-head">
+    <p data-i18n="management.kicker">Gestión</p>
+    <h2 data-i18n="management.title2">Dirección y staff del club</h2>
+    <p data-i18n="management.text">Estructura administrativa, deportiva y de asesoramiento de Deportivo Moscu.</p>
+  </section>
+  <section class="staff-grid" data-render="staff-grid"></section>
+</main>
+
 <footer class="site-footer">
   <div class="container footer-grid">
     <div class="footer-brand"><img src="images/logo.png" alt="Deportivo Moscu" class="footer-logo"><strong>Deportivo Moscu</strong><p>Buenos Aires · 2024</p><div class="socials"><span>f</span><span>ig</span><span>yt</span><span>wa</span><span>@</span></div></div>
@@ -43,20 +53,20 @@
   </div>
   <div class="container footer-bottom">© 2024 Deportivo Moscu. <span data-i18n="footer.rights">Todos los derechos reservados.</span></div>
 </footer>
+
 <script defer src="app.js?v=dm20260617_staff1"></script>
 
 <script>
   /*
     Adds Alexey Kalachev to the management staff grid without changing app.js.
-    The script waits for app.js to render existing staff cards, then appends one more card.
+    The script waits for app.js to render existing staff cards, then places Alexey as the second card.
   */
   (function () {
     const ALEXEY_ID = "staff-alexey-kalachev";
+    const ALEXEY_ROLE = "Заместитель президента по геополитическим вопросам";
+    const ALEXEY_TEXT = "Координация международных и геополитических направлений клуба, развитие внешних связей, стратегическое взаимодействие и представительство Deportivo Moscu.";
 
-    function addAlexeyKalachev() {
-      const grid = document.querySelector('[data-render="staff-grid"], .staff-grid');
-      if (!grid || document.getElementById(ALEXEY_ID)) return;
-
+    function createAlexeyKalachevCard() {
       const card = document.createElement("article");
       card.className = "staff-card";
       card.id = ALEXEY_ID;
@@ -66,25 +76,79 @@
           <img src="images/logo.png" alt="Алексей Калачев" loading="lazy">
         </div>
         <h3>Алексей Калачев</h3>
-        <p class="staff-role">Начальник команды</p>
-        <p>Организация работы команды, координация бытовых и административных вопросов, поддержка тренировочного и матчевого процесса.</p>
+        <p class="staff-role">${ALEXEY_ROLE}</p>
+        <p>${ALEXEY_TEXT}</p>
       `;
 
-      grid.appendChild(card);
+      return card;
+    }
+
+    function updateAlexeyKalachevCard(card) {
+      const title = card.querySelector("h3");
+      if (title) title.textContent = "Алексей Калачев";
+
+      const role = card.querySelector(".staff-role");
+      if (role) role.textContent = ALEXEY_ROLE;
+
+      const description = card.querySelector(".staff-role + p");
+      if (description) description.textContent = ALEXEY_TEXT;
+
+      const photo = card.querySelector("img");
+      if (photo) {
+        photo.src = "images/logo.png";
+        photo.alt = "Алексей Калачев";
+        photo.loading = "lazy";
+      }
+    }
+
+    function removeDuplicateAlexeyCards(grid, mainCard) {
+      const duplicates = Array.from(grid.querySelectorAll(".staff-card")).filter(function (card) {
+        if (card === mainCard) return false;
+        const name = (card.querySelector("h3") || {}).textContent || "";
+        return name.trim().toLowerCase() === "алексей калачев";
+      });
+
+      duplicates.forEach(function (card) {
+        card.remove();
+      });
+    }
+
+    function ensureAlexeyKalachevSecond() {
+      const grid = document.querySelector('[data-render="staff-grid"], .staff-grid');
+      if (!grid) return;
+
+      let card = document.getElementById(ALEXEY_ID);
+
+      if (!card) {
+        card = createAlexeyKalachevCard();
+      } else {
+        updateAlexeyKalachevCard(card);
+      }
+
+      removeDuplicateAlexeyCards(grid, card);
+
+      const secondPosition = grid.children[1] || null;
+
+      if (grid.children[1] !== card) {
+        grid.insertBefore(card, secondPosition);
+      }
     }
 
     function start() {
-      addAlexeyKalachev();
-      setTimeout(addAlexeyKalachev, 300);
-      setTimeout(addAlexeyKalachev, 900);
-      setTimeout(addAlexeyKalachev, 1600);
+      ensureAlexeyKalachevSecond();
+
+      setTimeout(ensureAlexeyKalachevSecond, 300);
+      setTimeout(ensureAlexeyKalachevSecond, 900);
+      setTimeout(ensureAlexeyKalachevSecond, 1600);
+      setTimeout(ensureAlexeyKalachevSecond, 2600);
 
       const grid = document.querySelector('[data-render="staff-grid"], .staff-grid');
       if (grid) {
         const observer = new MutationObserver(function () {
-          addAlexeyKalachev();
+          ensureAlexeyKalachevSecond();
         });
-        observer.observe(grid, { childList: true });
+
+        observer.observe(grid, { childList: true, subtree: false });
       }
     }
 
