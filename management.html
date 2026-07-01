@@ -7,7 +7,23 @@
   <meta name="description" content="Sitio oficial de Deportivo Moscu, club de fútbol de Buenos Aires fundado en 2024." />
   <link rel="icon" href="images/logo.png" />
   <link rel="stylesheet" href="style.css?v=dm20260629_footerlogos1" />
+
+  <style>
+    /* Management page cleanup */
+    body[data-page="management"] .staff-card .staff-role {
+      color: #00ff7a !important;
+      font-weight: 800 !important;
+      line-height: 1.35 !important;
+      margin-top: 12px !important;
+      margin-bottom: 0 !important;
+    }
+
+    body[data-page="management"] .staff-card > p:not(.staff-role) {
+      display: none !important;
+    }
+  </style>
 </head>
+
 <body data-page="management">
 <header class="site-header">
   <div class="container header-inner">
@@ -15,11 +31,25 @@
       <img src="images/logo.png" alt="Deportivo Moscu" class="brand-logo" width="62" height="62" />
       <span class="brand-name">Deportivo Moscu <small>Buenos Aires · 2024</small></span>
     </a>
-    <button class="menu-toggle" type="button" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
+
+    <button class="menu-toggle" type="button" aria-label="Menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+
     <nav class="main-nav" id="mainNav">
-      <a class="" href="index.html" data-i18n="nav.home">Inicio</a><a class="" href="club.html" data-i18n="nav.club">Club</a><a class="" href="team.html" data-i18n="nav.team">Plantel</a><a class="" href="matches.html" data-i18n="nav.matches">Partidos</a><a class="" href="academy.html" data-i18n="nav.academy">Academia</a><a class="" href="league.html" data-i18n="nav.league">Liga</a><a class="" href="media.html" data-i18n="nav.media">Media</a><a class="active" href="management.html" data-i18n="nav.management">Gestión</a>
+      <a class="" href="index.html" data-i18n="nav.home">Inicio</a>
+      <a class="" href="club.html" data-i18n="nav.club">Club</a>
+      <a class="" href="team.html" data-i18n="nav.team">Plantel</a>
+      <a class="" href="matches.html" data-i18n="nav.matches">Partidos</a>
+      <a class="" href="academy.html" data-i18n="nav.academy">Academia</a>
+      <a class="" href="league.html" data-i18n="nav.league">Liga</a>
+      <a class="" href="media.html" data-i18n="nav.media">Media</a>
+      <a class="active" href="management.html" data-i18n="nav.management">Gestión</a>
+
       <span class="lang-switch" aria-label="Language">
-        <button type="button" data-lang="ru">RU</button><button type="button" data-lang="en">EN</button><button type="button" data-lang="es" class="active">ES</button>
+        <button type="button" data-lang="ru">RU</button>
+        <button type="button" data-lang="en">EN</button>
+        <button type="button" data-lang="es" class="active">ES</button>
       </span>
     </nav>
   </div>
@@ -27,11 +57,16 @@
 
 <section class="hero" style="--hero-desktop:url('images/banners/dm_management_hero_desktop.webp');--hero-mobile:url('images/banners/dm_management_hero_mobile.webp')">
   <div class="hero-shade"></div>
+
   <div class="container hero-content">
-    <p class="eyebrow" data-i18n="management.eyebrow" >Gestión</p>
-    <h1 data-i18n="management.title" >Dirección y <strong>staff del club</strong></h1>
-    <p class="hero-lead" data-i18n="management.lead" >Un equipo de profesionales comprometidos con el crecimiento deportivo e institucional.</p>
-    <div class="hero-actions"><a href="club.html" class="btn btn-primary" data-i18n="common.about">Sobre el club</a><a href="matches.html" class="btn btn-ghost" data-i18n="common.matches">Partidos</a></div>
+    <p class="eyebrow" data-i18n="management.eyebrow">Gestión</p>
+    <h1 data-i18n="management.title">Dirección y <strong>staff del club</strong></h1>
+    <p class="hero-lead" data-i18n="management.lead">Un equipo de profesionales comprometidos con el crecimiento deportivo e institucional.</p>
+
+    <div class="hero-actions">
+      <a href="club.html" class="btn btn-primary" data-i18n="common.about">Sobre el club</a>
+      <a href="matches.html" class="btn btn-ghost" data-i18n="common.matches">Partidos</a>
+    </div>
   </div>
 </section>
 
@@ -41,41 +76,75 @@
     <h2 data-i18n="management.title2">Dirección y staff del club</h2>
     <p data-i18n="management.text">Estructura administrativa, deportiva y de asesoramiento de Deportivo Moscu.</p>
   </section>
+
   <section class="staff-grid" data-render="staff-grid"></section>
 </main>
 
 <footer class="site-footer">
   <div class="container footer-grid">
-    <div class="footer-brand"><img src="images/logo.png" alt="Deportivo Moscu" class="footer-logo"><strong>Deportivo Moscu</strong><p>Buenos Aires · 2024</p><div class="socials"><span>f</span><span>ig</span><span>yt</span><span>wa</span><span>@</span></div></div>
-    <div><h4 data-i18n="footer.club">Club</h4><a href="club.html" data-i18n="nav.club">Club</a><a href="team.html" data-i18n="nav.team">Plantel</a><a href="management.html" data-i18n="nav.management">Gestión</a></div>
-    <div><h4 data-i18n="footer.comp">Competencia</h4><a href="matches.html" data-i18n="nav.matches">Partidos</a><a href="league.html" data-i18n="nav.league">Liga</a><a href="news.html" data-i18n="nav.news">Noticias</a></div>
-    <div><h4 data-i18n="footer.media">Media</h4><a href="media.html" data-i18n="nav.media">Media</a><a href="academy.html" data-i18n="nav.academy">Academia</a><a href="stadium.html" data-i18n="nav.stadium">Estadio</a><a href="store.html" data-i18n="nav.store">Tienda</a></div>
+    <div class="footer-brand">
+      <img src="images/logo.png" alt="Deportivo Moscu" class="footer-logo">
+      <strong>Deportivo Moscu</strong>
+      <p>Buenos Aires · 2024</p>
+      <div class="socials">
+        <span>f</span><span>ig</span><span>yt</span><span>wa</span><span>@</span>
+      </div>
+    </div>
+
+    <div>
+      <h4 data-i18n="footer.club">Club</h4>
+      <a href="club.html" data-i18n="nav.club">Club</a>
+      <a href="team.html" data-i18n="nav.team">Plantel</a>
+      <a href="management.html" data-i18n="nav.management">Gestión</a>
+    </div>
+
+    <div>
+      <h4 data-i18n="footer.comp">Competencia</h4>
+      <a href="matches.html" data-i18n="nav.matches">Partidos</a>
+      <a href="league.html" data-i18n="nav.league">Liga</a>
+      <a href="news.html" data-i18n="nav.news">Noticias</a>
+    </div>
+
+    <div>
+      <h4 data-i18n="footer.media">Media</h4>
+      <a href="media.html" data-i18n="nav.media">Media</a>
+      <a href="academy.html" data-i18n="nav.academy">Academia</a>
+      <a href="stadium.html" data-i18n="nav.stadium">Estadio</a>
+      <a href="store.html" data-i18n="nav.store">Tienda</a>
+    </div>
   </div>
+
   <div class="container footer-associations" aria-label="Asociaciones oficiales">
     <p class="footer-associations-title">Asociaciones oficiales</p>
+
     <div class="footer-associations-list">
       <a class="footer-association-link footer-association-link--afa" href="https://www.afa.com.ar" target="_blank" rel="noopener noreferrer" aria-label="AFA - sitio oficial">
         <img src="images/afa_logo.webp" alt="AFA" width="76" height="76" loading="lazy" decoding="async" />
       </a>
+
       <a class="footer-association-link footer-association-link--liga" href="https://ligaescobarense.ar" target="_blank" rel="noopener noreferrer" aria-label="Liga Escobarense - sitio oficial">
         <img src="images/liga_escobarense_logo.webp" alt="Liga Escobarense" width="76" height="76" loading="lazy" decoding="async" />
       </a>
     </div>
   </div>
-  <div class="container footer-bottom">© 2024 Deportivo Moscu. <span data-i18n="footer.rights">Todos los derechos reservados.</span></div>
+
+  <div class="container footer-bottom">
+    © 2024 Deportivo Moscu. <span data-i18n="footer.rights">Todos los derechos reservados.</span>
+  </div>
 </footer>
 
 <script defer src="app.js?v=dm20260617_staff1"></script>
 
 <script>
   /*
-    Adds Alexey Kalachev to the management staff grid without changing app.js.
-    The script waits for app.js to render existing staff cards, then places Alexey as the second card.
+    Management page final cleanup:
+    - Alexey Kalachev is always second.
+    - All staff descriptions are removed.
+    - All roles use the same green color.
   */
   (function () {
     const ALEXEY_ID = "staff-alexey-kalachev";
     const ALEXEY_ROLE = "Заместитель президента по геополитическим вопросам";
-    const ALEXEY_TEXT = "Координация международных и геополитических направлений клуба, развитие внешних связей, стратегическое взаимодействие и представительство Deportivo Moscu.";
 
     function createAlexeyKalachevCard() {
       const card = document.createElement("article");
@@ -88,7 +157,6 @@
         </div>
         <h3>Алексей Калачев</h3>
         <p class="staff-role">${ALEXEY_ROLE}</p>
-        <p>${ALEXEY_TEXT}</p>
       `;
 
       return card;
@@ -98,11 +166,14 @@
       const title = card.querySelector("h3");
       if (title) title.textContent = "Алексей Калачев";
 
-      const role = card.querySelector(".staff-role");
-      if (role) role.textContent = ALEXEY_ROLE;
+      let role = card.querySelector(".staff-role");
+      if (!role) {
+        role = document.createElement("p");
+        role.className = "staff-role";
+        card.appendChild(role);
+      }
 
-      const description = card.querySelector(".staff-role + p");
-      if (description) description.textContent = ALEXEY_TEXT;
+      role.textContent = ALEXEY_ROLE;
 
       const photo = card.querySelector("img");
       if (photo) {
@@ -121,6 +192,29 @@
 
       duplicates.forEach(function (card) {
         card.remove();
+      });
+    }
+
+    function cleanupStaffDescriptions(grid) {
+      const cards = Array.from(grid.querySelectorAll(".staff-card"));
+
+      cards.forEach(function (card) {
+        const role = card.querySelector(".staff-role");
+
+        if (role) {
+          role.style.color = "#00ff7a";
+          role.style.fontWeight = "800";
+          role.style.lineHeight = "1.35";
+          role.style.marginTop = "12px";
+          role.style.marginBottom = "0";
+        }
+
+        const paragraphs = Array.from(card.querySelectorAll("p"));
+        paragraphs.forEach(function (p) {
+          if (!p.classList.contains("staff-role")) {
+            p.remove();
+          }
+        });
       });
     }
 
@@ -143,6 +237,8 @@
       if (grid.children[1] !== card) {
         grid.insertBefore(card, secondPosition);
       }
+
+      cleanupStaffDescriptions(grid);
     }
 
     function start() {
